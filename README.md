@@ -1,18 +1,12 @@
 <div align="center">
 
-# GET SHIT DONE
+# GSD-R
 
-**A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code, OpenCode, Gemini CLI, and Codex.**
-
-**Solves context rot — the quality degradation that happens as Claude fills its context window.**
+**Research-grade context engineering for AI-assisted academic workflows.**
 
 [![npm version](https://img.shields.io/npm/v/get-shit-done-r?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/get-shit-done-r)
 [![npm downloads](https://img.shields.io/npm/dm/get-shit-done-r?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/get-shit-done-r)
 [![Tests](https://img.shields.io/github/actions/workflow/status/glittercowboy/get-shit-done-r/test.yml?branch=main&style=for-the-badge&logo=github&label=Tests)](https://github.com/glittercowboy/get-shit-done-r/actions/workflows/test.yml)
-[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/gsd)
-[![X (Twitter)](https://img.shields.io/badge/X-@gsd__foundation-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/gsd_foundation)
-[![$GSD Token](https://img.shields.io/badge/$GSD-Dexscreener-1C1C1C?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgZmlsbD0iIzAwRkYwMCIvPjwvc3ZnPg==&logoColor=00FF00)](https://dexscreener.com/solana/dwudwjvan7bzkw9zwlbyv6kspdlvhwzrqy6ebk8xzxkv)
-[![GitHub stars](https://img.shields.io/github/stars/glittercowboy/get-shit-done-r?style=for-the-badge&logo=github&color=181717)](https://github.com/glittercowboy/get-shit-done-r)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 
 <br>
@@ -23,24 +17,6 @@ npx get-shit-done-r@latest
 
 **Works on Mac, Windows, and Linux.**
 
-<br>
-
-![GSD Install](assets/terminal.svg)
-
-<br>
-
-*"If you know clearly what you want, this WILL build it for you. No bs."*
-
-*"I've done SpecKit, OpenSpec and Taskmaster — this has produced the best results for me."*
-
-*"By far the most powerful addition to my Claude Code. Nothing over-engineered. Literally just gets shit done."*
-
-<br>
-
-**Trusted by engineers at Amazon, Google, Shopify, and Webflow.**
-
-[Why I Built This](#why-i-built-this) · [How It Works](#how-it-works) · [Commands](#commands) · [Why It Works](#why-it-works) · [User Guide](docs/USER-GUIDE.md)
-
 </div>
 
 ---
@@ -49,150 +25,20 @@ npx get-shit-done-r@latest
 
 GSD-R is a research-oriented fork of [Get Shit Done](https://github.com/glittercowboy/get-shit-done-cc) by [Lex Christopherson](https://github.com/glittercowboy) ([@gsd_foundation](https://x.com/gsd_foundation)). The original GSD system's architecture — wave parallelism, fresh subagent contexts, plan/execute/verify loop, and state management — is carried over intact. GSD-R adapts the intellectual scaffolding for academic research workflows with source attachment.
 
+GSD-R was itself built using GSD.
+
 Original project: [github.com/glittercowboy/get-shit-done-cc](https://github.com/glittercowboy/get-shit-done-cc)
 License: MIT — see [LICENSE](LICENSE) (copyright Lex Christopherson)
 
 ---
 
-## Why I Built This
+## What This Is
 
-I'm a solo developer. I don't write code — Claude Code does.
+AI-assisted research tools degrade as context accumulates. The longer a session runs, the more prior conversation competes with the task at hand — citations get muddled, sources are paraphrased from memory rather than quoted from text, and the quality of synthesis drops. GSD solved this problem for code development by giving each agent a fresh context window and a structured plan. GSD-R extends the same architecture to research: literature reviews, systematic analysis, doctoral work, and any project where rigorous source handling matters. The atomic unit shifts from git commits to research notes with physically attached source material.
 
-Other spec-driven development tools exist; BMAD, Speckit... But they all seem to make things way more complicated than they need to be (sprint ceremonies, story points, stakeholder syncs, retrospectives, Jira workflows) or lack real big picture understanding of what you're building. I'm not a 50-person software company. I don't want to play enterprise theater. I'm just a creative person trying to build great things that work.
+GSD-R orchestrates AI agents through a discuss/plan/execute/verify loop. Each agent receives a fresh context window scoped to a single task. For research, this means sources are downloaded and saved locally — not just linked — so the research corpus is self-contained and auditable even if every URL goes dead tomorrow. Notes follow a consistent template with structured frontmatter, analysis, implications, and references. Every citation has a corresponding file in a sibling `-sources/` folder. Verification checks that research questions are actually answered and that the source audit trail is complete.
 
-So I built GSD. The complexity is in the system, not in your workflow. Behind the scenes: context engineering, XML prompt formatting, subagent orchestration, state management. What you see: a few commands that just work.
-
-The system gives Claude everything it needs to do the work *and* verify it. I trust the workflow. It just does a good job.
-
-That's what this is. No enterprise roleplay bullshit. Just an incredibly effective system for building cool stuff consistently using Claude Code.
-
-— **TÂCHES**
-
----
-
-Vibecoding has a bad reputation. You describe what you want, AI generates code, and you get inconsistent garbage that falls apart at scale.
-
-GSD fixes that. It's the context engineering layer that makes Claude Code reliable. Describe your idea, let the system extract everything it needs to know, and let Claude Code get to work.
-
----
-
-## Who This Is For
-
-People who want to describe what they want and have it built correctly — without pretending they're running a 50-person engineering org.
-
----
-
-## Getting Started
-
-```bash
-npx get-shit-done-r@latest
-```
-
-The installer prompts you to choose:
-1. **Runtime** — Claude Code, OpenCode, Gemini, Codex, or all
-2. **Location** — Global (all projects) or local (current project only)
-
-Verify with:
-- Claude Code / Gemini: `/gsd-r:help`
-- OpenCode: `/gsd-help`
-- Codex: `$gsd-help`
-
-> [!NOTE]
-> Codex installation uses skills (`skills/gsd-*/SKILL.md`) rather than custom prompts.
-
-### Staying Updated
-
-GSD evolves fast. Update periodically:
-
-```bash
-npx get-shit-done-r@latest
-```
-
-<details>
-<summary><strong>Non-interactive Install (Docker, CI, Scripts)</strong></summary>
-
-```bash
-# Claude Code
-npx get-shit-done-r --claude --global   # Install to ~/.claude/
-npx get-shit-done-r --claude --local    # Install to ./.claude/
-
-# OpenCode (open source, free models)
-npx get-shit-done-r --opencode --global # Install to ~/.config/opencode/
-
-# Gemini CLI
-npx get-shit-done-r --gemini --global   # Install to ~/.gemini/
-
-# Codex (skills-first)
-npx get-shit-done-r --codex --global    # Install to ~/.codex/
-npx get-shit-done-r --codex --local     # Install to ./.codex/
-
-# All runtimes
-npx get-shit-done-r --all --global      # Install to all directories
-```
-
-Use `--global` (`-g`) or `--local` (`-l`) to skip the location prompt.
-Use `--claude`, `--opencode`, `--gemini`, `--codex`, or `--all` to skip the runtime prompt.
-
-</details>
-
-<details>
-<summary><strong>Development Installation</strong></summary>
-
-Clone the repository and run the installer locally:
-
-```bash
-git clone https://github.com/glittercowboy/get-shit-done-r.git
-cd get-shit-done-r
-node bin/install.js --claude --local
-```
-
-Installs to `./.claude/` for testing modifications before contributing.
-
-</details>
-
-### Recommended: Skip Permissions Mode
-
-GSD is designed for frictionless automation. Run Claude Code with:
-
-```bash
-claude --dangerously-skip-permissions
-```
-
-> [!TIP]
-> This is how GSD is intended to be used — stopping to approve `date` and `git commit` 50 times defeats the purpose.
-
-<details>
-<summary><strong>Alternative: Granular Permissions</strong></summary>
-
-If you prefer not to use that flag, add this to your project's `.claude/settings.json`:
-
-```json
-{
-  "permissions": {
-    "allow": [
-      "Bash(date:*)",
-      "Bash(echo:*)",
-      "Bash(cat:*)",
-      "Bash(ls:*)",
-      "Bash(mkdir:*)",
-      "Bash(wc:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
-      "Bash(sort:*)",
-      "Bash(grep:*)",
-      "Bash(tr:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git status:*)",
-      "Bash(git log:*)",
-      "Bash(git diff:*)",
-      "Bash(git tag:*)"
-    ]
-  }
-}
-```
-
-</details>
+GSD-R also works for code. It inherits the full GSD code development capabilities — atomic git commits, test verification, parallel execution. If a project involves both research and implementation (investigate a domain, then build the thing), GSD-R handles the full lifecycle without switching tools.
 
 ---
 
@@ -208,12 +54,14 @@ If you prefer not to use that flag, add this to your project's `.claude/settings
 
 One command, one flow. The system:
 
-1. **Questions** — Asks until it understands your idea completely (goals, constraints, tech preferences, edge cases)
+1. **Questions** — Asks until it understands your research goals completely (questions, constraints, existing literature, scope boundaries)
 2. **Research** — Spawns parallel agents to investigate the domain (optional but recommended)
-3. **Requirements** — Extracts what's v1, v2, and out of scope
+3. **Requirements** — Extracts research questions with acceptance criteria for "answered"
 4. **Roadmap** — Creates phases mapped to requirements
 
-You approve the roadmap. Now you're ready to build.
+You approve the roadmap. Now you're ready to research.
+
+GSD-R includes a bootstrap step that inventories existing research to prevent re-investigating known findings. See [docs/DESIGN.md](docs/DESIGN.md) for full detail.
 
 **Creates:** `PROJECT.md`, `REQUIREMENTS.md`, `ROADMAP.md`, `STATE.md`, `.planning/research/`
 
@@ -225,23 +73,23 @@ You approve the roadmap. Now you're ready to build.
 /gsd-r:discuss-phase 1
 ```
 
-**This is where you shape the implementation.**
+**This is where you lock in decisions before research runs.**
 
-Your roadmap has a sentence or two per phase. That's not enough context to build something the way *you* imagine it. This step captures your preferences before anything gets researched or planned.
+Your roadmap has a sentence or two per phase. That's not enough context to direct a research investigation the way *you* intend it. This step captures your commitments and constraints before anything gets planned or executed.
 
-The system analyzes the phase and identifies gray areas based on what's being built:
+The system analyzes the phase and identifies gray areas:
 
-- **Visual features** → Layout, density, interactions, empty states
-- **APIs/CLIs** → Response format, flags, error handling, verbosity
-- **Content systems** → Structure, tone, depth, flow
-- **Organization tasks** → Grouping criteria, naming, duplicates, exceptions
+- **Scope boundaries** — What's in, what's out, what's already settled
+- **Methodological preferences** — Quantitative vs. qualitative, primary vs. secondary sources, depth vs. breadth
+- **Known constraints** — Hardware limits, timeline, non-negotiable decisions
+- **Open questions** — What the research should resolve vs. what's already decided
 
 For each area you select, it asks until you're satisfied. The output — `CONTEXT.md` — feeds directly into the next two steps:
 
-1. **Researcher reads it** — Knows what patterns to investigate ("user wants card layout" → research card component libraries)
-2. **Planner reads it** — Knows what decisions are locked ("infinite scroll decided" → plan includes scroll handling)
+1. **Researcher reads it** — Knows what sources to prioritize and what's already settled
+2. **Planner reads it** — Knows which decisions are locked and which are open for investigation
 
-The deeper you go here, the more the system builds what you actually want. Skip it and you get reasonable defaults. Use it and you get *your* vision.
+The deeper you go here, the more targeted the research becomes. Skip it and you get reasonable defaults. Use it and you get focused, efficient investigation.
 
 **Creates:** `{phase_num}-CONTEXT.md`
 
@@ -255,11 +103,20 @@ The deeper you go here, the more the system builds what you actually want. Skip 
 
 The system:
 
-1. **Researches** — Investigates how to implement this phase, guided by your CONTEXT.md decisions
+1. **Researches** — Investigates how to approach this phase, guided by your CONTEXT.md decisions
 2. **Plans** — Creates 2-3 atomic task plans with XML structure
 3. **Verifies** — Checks plans against requirements, loops until they pass
 
-Each plan is small enough to execute in a fresh context window. No degradation, no "I'll be more concise now."
+Research-specific agents replace the standard code researchers:
+
+| GSD Code Researcher | GSD-R Researcher |
+|---|---|
+| Stack researcher | Source researcher — find papers, repos, docs; verify URLs are live; identify PDFs vs. HTML |
+| Features researcher | Methods researcher — how have others investigated this? What methodologies, what findings? |
+| Architecture researcher | Architecture researcher — theoretical structure, construct relationships, boundary conditions |
+| Pitfalls researcher | Limitations researcher — known failures, edge cases, epistemological limitations, retractions |
+
+Each task uses `<src>` blocks specifying the acquisition method, format, and URL so the executor knows exactly how to obtain each source before synthesis begins.
 
 **Creates:** `{phase_num}-RESEARCH.md`, `{phase_num}-{N}-PLAN.md`
 
@@ -274,11 +131,11 @@ Each plan is small enough to execute in a fresh context window. No degradation, 
 The system:
 
 1. **Runs plans in waves** — Parallel where possible, sequential when dependent
-2. **Fresh context per plan** — 200k tokens purely for implementation, zero accumulated garbage
-3. **Commits per task** — Every task gets its own atomic commit
-4. **Verifies against goals** — Checks the codebase delivers what the phase promised
+2. **Fresh context per plan** — 200k tokens purely for source acquisition and synthesis, zero accumulated context
+3. **Source acquisition + vault write as atomic deliverable** — Every task produces a research note, its `-sources/` folder with acquired files, and a `SOURCE-LOG.md` audit trail
+4. **Verifies against goals** — Checks that the research question is answered and sources are attached
 
-Walk away, come back to completed work with clean git history.
+Walk away, come back to completed research with a full source audit trail.
 
 **How Wave Execution Works:**
 
@@ -310,7 +167,7 @@ Plans are grouped into "waves" based on dependencies. Within each wave, plans ru
 - Dependent plans → Later wave → Wait for dependencies
 - File conflicts → Sequential plans or same plan
 
-This is why "vertical slices" (Plan 01: User feature end-to-end) parallelize better than "horizontal layers" (Plan 01: All models, Plan 02: All APIs).
+For research, independent topics (e.g., "survey orchestration frameworks" and "survey graph databases") run in the same wave. Synthesis tasks that depend on multiple notes wait for their inputs.
 
 **Creates:** `{phase_num}-{N}-SUMMARY.md`, `{phase_num}-VERIFICATION.md`
 
@@ -322,18 +179,13 @@ This is why "vertical slices" (Plan 01: User feature end-to-end) parallelize bet
 /gsd-r:verify-work 1
 ```
 
-**This is where you confirm it actually works.**
+**Two-tier verification for research:**
 
-Automated verification checks that code exists and tests pass. But does the feature *work* the way you expected? This is your chance to use it.
+**Tier 1 — Goal-backward:** Does the research actually answer the question? The system extracts testable deliverables from the phase goals and walks you through each one. If a question remains unanswered, it identifies which note is missing or incomplete and creates fix tasks.
 
-The system:
+**Tier 2 — Source audit:** For each note in the phase, the system checks that frontmatter is complete, every reference has a corresponding file in `-sources/`, SOURCE-LOG.md accounts for all sources, and no finding contradicts the bootstrap inventory without explicit justification.
 
-1. **Extracts testable deliverables** — What you should be able to do now
-2. **Walks you through one at a time** — "Can you log in with email?" Yes/no, or describe what's wrong
-3. **Diagnoses failures automatically** — Spawns debug agents to find root causes
-4. **Creates verified fix plans** — Ready for immediate re-execution
-
-If everything passes, you move on. If something's broken, you don't manually debug — you just run `/gsd-r:execute-phase` again with the fix plans it created.
+If everything passes, you move on. If something's broken, you don't manually fix it — you run `/gsd-r:execute-phase` again with the fix plans it created.
 
 **Creates:** `{phase_num}-UAT.md`, fix plans if issues found
 
@@ -353,15 +205,120 @@ If everything passes, you move on. If something's broken, you don't manually deb
 
 Loop **discuss → plan → execute → verify** until milestone complete.
 
-Each phase gets your input (discuss), proper research (plan), clean execution (execute), and human verification (verify). Context stays fresh. Quality stays high.
+Each phase gets your input (discuss), proper source investigation (plan), clean execution with fresh context (execute), and two-tier verification (verify). Context stays fresh. Quality stays high.
 
 When all phases are done, `/gsd-r:complete-milestone` archives the milestone and tags the release.
 
-Then `/gsd-r:new-milestone` starts the next version — same flow as `new-project` but for your existing codebase. You describe what you want to build next, the system researches the domain, you scope requirements, and it creates a fresh roadmap. Each milestone is a clean cycle: define → build → ship.
+Then `/gsd-r:new-milestone` starts the next version — same flow as `new-project` but for your existing research corpus. You describe what you want to investigate next, the system researches the domain, you scope requirements, and it creates a fresh roadmap. Each milestone is a clean cycle: define → research → verify.
+
+### Translation Table
+
+| GSD (Code) | GSD-R (Research) |
+|---|---|
+| Git commit | Research note + sources written to vault |
+| Source code files | Source material (PDF, scraped .md, screenshot) |
+| Test passes | Note passes format + citation + source-attachment check |
+| `git bisect` | Note-level rollback |
+| Build succeeds | Research question answered |
+
+For the full design rationale, see [docs/DESIGN.md](docs/DESIGN.md).
 
 ---
 
-### Quick Mode
+## The Research Workflow
+
+### Source Attachment Protocol
+
+Every source cited in a note's References section must have a corresponding file in the note's `-sources/` folder. A note without its sources is like a commit without its files — incomplete.
+
+Every note `Foo.md` has a sibling folder `Foo-sources/`:
+
+```
+01-Agent-Architecture/
+├── Orchestration-Frameworks.md
+├── Orchestration-Frameworks-sources/
+│   ├── SOURCE-LOG.md
+│   ├── langgraph-readme_2026-03-10.md
+│   ├── crewai-docs_2026-03-10.md
+│   └── autogen-readme_2026-03-10.md
+├── Concordance-Patterns.md
+├── Concordance-Patterns-sources/
+│   ├── SOURCE-LOG.md
+│   ├── karma-arXiv-2502.06472_2026-03-10.pdf
+│   └── logos-arXiv-2509.24294_2026-03-10.pdf
+```
+
+Files follow the naming convention `{descriptive-slug}_{date-acquired}.{ext}`. The date stamp prevents confusion when a source is re-acquired after an update.
+
+**Acquisition methods by source type:**
+
+| Source Type | Acquire With | Save As | Example |
+|---|---|---|---|
+| arXiv paper | `wget` direct PDF URL | `.pdf` | `karma-arXiv-2502.06472_2026-03-10.pdf` |
+| arXiv HTML | `firecrawl scrape` or `web_fetch` on `/html/` URL | `.md` | `karma-arXiv-2502.06472-html_2026-03-10.md` |
+| GitHub README | `firecrawl scrape` or `web_fetch` raw URL | `.md` | `lightrag-readme_2026-03-10.md` |
+| GitHub issue | `gh issue view` or `web_fetch` | `.md` | `lightrag-issue-2696_2026-03-10.md` |
+| Documentation site | `firecrawl scrape` or `web_fetch` | `.md` | `age-postgresql-docs_2026-03-10.md` |
+| Conference paper | `wget` PDF from proceedings URL | `.pdf` | `logos-aaai-2026_2026-03-10.pdf` |
+| Web page (general) | `web_fetch` → save response | `.md` | `ollama-model-library_2026-03-10.md` |
+| Diagram / screenshot | `playwright screenshot` or download | `.png` | `graphrag-architecture_2026-03-10.png` |
+
+**Fallback chain:** If the primary acquisition method fails, the subagent tries the next method before marking the source as unavailable: `firecrawl scrape → web_fetch → wget/curl → mark unavailable in SOURCE-LOG.md`. A source marked unavailable does not block the task — the subagent documents the failure, continues synthesis from available sources, and flags the gap.
+
+### Research Note Template
+
+The system will produce notes following this template:
+
+```markdown
+---
+project: [Project]
+domain: [domain]
+status: draft | reviewed | final
+date: 2026-03-10
+sources: 5          # count of files in -sources/ folder
+---
+
+# [Title]
+
+## Key Findings
+
+[2-3 sentence summary of what this note concludes]
+
+## Analysis
+
+[Main body. Inline citations as (Author, Year) or [Source Title](relative-path-to-source-file).
+Link to the local source file in -sources/, not the URL.]
+
+## Implications for [Project]
+
+[How this finding affects the research — always tie back to project constraints, goals, and timeline.
+End with an explicit **Recommendation:** if the evidence supports one.]
+
+## Open Questions
+
+[What remains unresolved. If a source was unavailable, note it here.
+If a finding is low-confidence, say so and say why.]
+
+## References
+
+[Full list. Every entry has a corresponding file in -sources/ folder.
+Format: Author/Org (Year). Title. `filename_in_sources_folder.ext`]
+
+1. Author/Org (Year). Title. `source-file_2026-03-10.ext`
+2. ...
+```
+
+### Two-Tier Verification
+
+GSD-R will verify research output at two levels. **Tier 1 (goal-backward)** asks: "What must be TRUE for this research question to be answered?" — then checks each condition against the notes produced. **Tier 2 (source audit)** checks structural integrity: frontmatter completeness, reference-to-file correspondence in `-sources/`, SOURCE-LOG.md accounting, and consistency with the bootstrap inventory. Tier 1 catches incomplete research; Tier 2 catches incomplete documentation.
+
+### BOOTSTRAP.md
+
+During project initialization, GSD-R will inventory existing research — findings already established, findings partially established that should be extended rather than restarted, and topics not yet researched. This inventory is saved as BOOTSTRAP.md and loaded by every subsequent phase to prevent re-investigating known findings. See [docs/DESIGN.md](docs/DESIGN.md) for the full bootstrap format and workflow.
+
+---
+
+## Quick Mode
 
 ```
 /gsd-r:quick
@@ -369,103 +326,22 @@ Then `/gsd-r:new-milestone` starts the next version — same flow as `new-projec
 
 **For ad-hoc tasks that don't need full planning.**
 
-Quick mode gives you GSD guarantees (atomic commits, state tracking) with a faster path:
+Quick mode gives you GSD-R guarantees (source attachment, state tracking) with a faster path:
 
 - **Same agents** — Planner + executor, same quality
 - **Skips optional steps** — No research, no plan checker, no verifier
 - **Separate tracking** — Lives in `.planning/quick/`, not phases
 
-Use for: bug fixes, small features, config changes, one-off tasks.
+Use for: targeted fixes to individual notes, small additions, one-off source acquisition.
 
 ```
 /gsd-r:quick
-> What do you want to do? "Add dark mode toggle to settings"
+> What do you want to do? "Add the missing LOGOS paper source to Concordance-Patterns"
 ```
 
-**Creates:** `.planning/quick/001-add-dark-mode-toggle/PLAN.md`, `SUMMARY.md`
+Use `--full` to add plan-checking and verification. Use `--discuss` to gather context first.
 
----
-
-## Why It Works
-
-### Context Engineering
-
-Claude Code is incredibly powerful *if* you give it the context it needs. Most people don't.
-
-GSD handles it for you:
-
-| File | What it does |
-|------|--------------|
-| `PROJECT.md` | Project vision, always loaded |
-| `research/` | Ecosystem knowledge (stack, features, architecture, pitfalls) |
-| `REQUIREMENTS.md` | Scoped v1/v2 requirements with phase traceability |
-| `ROADMAP.md` | Where you're going, what's done |
-| `STATE.md` | Decisions, blockers, position — memory across sessions |
-| `PLAN.md` | Atomic task with XML structure, verification steps |
-| `SUMMARY.md` | What happened, what changed, committed to history |
-| `todos/` | Captured ideas and tasks for later work |
-
-Size limits based on where Claude's quality degrades. Stay under, get consistent excellence.
-
-### XML Prompt Formatting
-
-Every plan is structured XML optimized for Claude:
-
-```xml
-<task type="auto">
-  <name>Create login endpoint</name>
-  <files>src/app/api/auth/login/route.ts</files>
-  <action>
-    Use jose for JWT (not jsonwebtoken - CommonJS issues).
-    Validate credentials against users table.
-    Return httpOnly cookie on success.
-  </action>
-  <verify>curl -X POST localhost:3000/api/auth/login returns 200 + Set-Cookie</verify>
-  <done>Valid credentials return cookie, invalid return 401</done>
-</task>
-```
-
-Precise instructions. No guessing. Verification built in.
-
-### Multi-Agent Orchestration
-
-Every stage uses the same pattern: a thin orchestrator spawns specialized agents, collects results, and routes to the next step.
-
-| Stage | Orchestrator does | Agents do |
-|-------|------------------|-----------|
-| Research | Coordinates, presents findings | 4 parallel researchers investigate stack, features, architecture, pitfalls |
-| Planning | Validates, manages iteration | Planner creates plans, checker verifies, loop until pass |
-| Execution | Groups into waves, tracks progress | Executors implement in parallel, each with fresh 200k context |
-| Verification | Presents results, routes next | Verifier checks codebase against goals, debuggers diagnose failures |
-
-The orchestrator never does heavy lifting. It spawns agents, waits, integrates results.
-
-**The result:** You can run an entire phase — deep research, multiple plans created and verified, thousands of lines of code written across parallel executors, automated verification against goals — and your main context window stays at 30-40%. The work happens in fresh subagent contexts. Your session stays fast and responsive.
-
-### Atomic Git Commits
-
-Each task gets its own commit immediately after completion:
-
-```bash
-abc123f docs(08-02): complete user registration plan
-def456g feat(08-02): add email confirmation flow
-hij789k feat(08-02): implement password hashing
-lmn012o feat(08-02): create registration endpoint
-```
-
-> [!NOTE]
-> **Benefits:** Git bisect finds exact failing task. Each task independently revertable. Clear history for Claude in future sessions. Better observability in AI-automated workflow.
-
-Every commit is surgical, traceable, and meaningful.
-
-### Modular by Design
-
-- Add phases to current milestone
-- Insert urgent work between phases
-- Complete milestones and start fresh
-- Adjust plans without rebuilding everything
-
-You're never locked in. The system adapts.
+**Creates:** `.planning/quick/001-add-logos-paper/PLAN.md`, `SUMMARY.md`
 
 ---
 
@@ -490,8 +366,7 @@ You're never locked in. The system adapts.
 |---------|--------------|
 | `/gsd-r:progress` | Where am I? What's next? |
 | `/gsd-r:help` | Show all commands and usage guide |
-| `/gsd-r:update` | Update GSD with changelog preview |
-| `/gsd-r:join-discord` | Join the GSD Discord community |
+| `/gsd-r:update` | Update GSD-R with changelog preview |
 
 ### Brownfield
 
@@ -525,7 +400,7 @@ You're never locked in. The system adapts.
 | `/gsd-r:add-todo [desc]` | Capture idea for later |
 | `/gsd-r:check-todos` | List pending todos |
 | `/gsd-r:debug [desc]` | Systematic debugging with persistent state |
-| `/gsd-r:quick [--full] [--discuss]` | Execute ad-hoc task with GSD guarantees (`--full` adds plan-checking and verification, `--discuss` gathers context first) |
+| `/gsd-r:quick [--full] [--discuss]` | Execute ad-hoc task with GSD-R guarantees (`--full` adds plan-checking and verification, `--discuss` gathers context first) |
 | `/gsd-r:health [--repair]` | Validate `.planning/` directory integrity, auto-repair with `--repair` |
 
 <sup>¹ Contributed by reddit user OracleGreyBeard</sup>
@@ -534,7 +409,7 @@ You're never locked in. The system adapts.
 
 ## Configuration
 
-GSD stores project settings in `.planning/config.json`. Configure during `/gsd-r:new-project` or update later with `/gsd-r:settings`. For the full config schema, workflow toggles, git branching options, and per-agent model breakdown, see the [User Guide](docs/USER-GUIDE.md#configuration-reference).
+GSD-R stores project settings in `.planning/config.json`. Configure during `/gsd-r:new-project` or update later with `/gsd-r:settings`.
 
 ### Core Settings
 
@@ -584,7 +459,7 @@ Use `/gsd-r:settings` to toggle these, or override per-invocation:
 
 ### Git Branching
 
-Control how GSD handles branches during execution.
+Control how GSD-R handles branches during execution.
 
 | Setting | Options | Default | What it does |
 |---------|---------|---------|--------------|
@@ -593,11 +468,125 @@ Control how GSD handles branches during execution.
 | `git.milestone_branch_template` | string | `gsd/{milestone}-{slug}` | Template for milestone branches |
 
 **Strategies:**
-- **`none`** — Commits to current branch (default GSD behavior)
+- **`none`** — Commits to current branch (default behavior)
 - **`phase`** — Creates a branch per phase, merges at phase completion
 - **`milestone`** — Creates one branch for entire milestone, merges at completion
 
-At milestone completion, GSD offers squash merge (recommended) or merge with history.
+At milestone completion, GSD-R offers squash merge (recommended) or merge with history.
+
+---
+
+## Getting Started
+
+```bash
+npx get-shit-done-r@latest
+```
+
+The installer prompts you to choose:
+1. **Runtime** — Claude Code, OpenCode, Gemini, Codex, or all
+2. **Location** — Global (all projects) or local (current project only)
+
+Verify with:
+- Claude Code / Gemini: `/gsd-r:help`
+- OpenCode: `/gsd-help`
+- Codex: `$gsd-help`
+
+> [!NOTE]
+> Codex installation uses skills (`skills/gsd-*/SKILL.md`) rather than custom prompts.
+
+### Staying Updated
+
+GSD-R evolves fast. Update periodically:
+
+```bash
+npx get-shit-done-r@latest
+```
+
+<details>
+<summary><strong>Non-interactive Install (Docker, CI, Scripts)</strong></summary>
+
+```bash
+# Claude Code
+npx get-shit-done-r --claude --global   # Install to ~/.claude/
+npx get-shit-done-r --claude --local    # Install to ./.claude/
+
+# OpenCode (open source, free models)
+npx get-shit-done-r --opencode --global # Install to ~/.config/opencode/
+
+# Gemini CLI
+npx get-shit-done-r --gemini --global   # Install to ~/.gemini/
+
+# Codex (skills-first)
+npx get-shit-done-r --codex --global    # Install to ~/.codex/
+npx get-shit-done-r --codex --local     # Install to ./.codex/
+
+# All runtimes
+npx get-shit-done-r --all --global      # Install to all directories
+```
+
+Use `--global` (`-g`) or `--local` (`-l`) to skip the location prompt.
+Use `--claude`, `--opencode`, `--gemini`, `--codex`, or `--all` to skip the runtime prompt.
+
+</details>
+
+<details>
+<summary><strong>Development Installation</strong></summary>
+
+Clone the repository and run the installer locally:
+
+```bash
+git clone https://github.com/glittercowboy/get-shit-done-r.git
+cd get-shit-done-r
+node bin/install.js --claude --local
+```
+
+Installs to `./.claude/` for testing modifications before contributing.
+
+</details>
+
+### Recommended: Skip Permissions Mode
+
+GSD-R is designed for frictionless automation. Run Claude Code with:
+
+```bash
+claude --dangerously-skip-permissions
+```
+
+> [!TIP]
+> This is how GSD-R is intended to be used — stopping to approve `date` and `git commit` 50 times defeats the purpose.
+
+<details>
+<summary><strong>Alternative: Granular Permissions</strong></summary>
+
+If you prefer not to use that flag, add this to your project's `.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(date:*)",
+      "Bash(echo:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(wc:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(sort:*)",
+      "Bash(grep:*)",
+      "Bash(tr:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git tag:*)"
+    ]
+  }
+}
+```
+
+</details>
 
 ---
 
@@ -605,7 +594,7 @@ At milestone completion, GSD offers squash merge (recommended) or merge with his
 
 ### Protecting Sensitive Files
 
-GSD's codebase mapping and analysis commands read files to understand your project. **Protect files containing secrets** by adding them to Claude Code's deny list:
+GSD-R's codebase mapping and analysis commands read files to understand your project. **Protect files containing secrets** by adding them to Claude Code's deny list:
 
 1. Open Claude Code settings (`.claude/settings.json` or global)
 2. Add sensitive file patterns to the deny list:
@@ -628,7 +617,7 @@ GSD's codebase mapping and analysis commands read files to understand your proje
 This prevents Claude from reading these files entirely, regardless of what commands you run.
 
 > [!IMPORTANT]
-> GSD includes built-in protections against committing secrets, but defense-in-depth is best practice. Deny read access to sensitive files as a first line of defense.
+> GSD-R includes built-in protections against committing secrets, but defense-in-depth is best practice. Deny read access to sensitive files as a first line of defense.
 
 ---
 
@@ -658,7 +647,7 @@ This ensures absolute paths are used instead of `~` which may not expand correct
 
 ### Uninstalling
 
-To remove GSD completely:
+To remove GSD-R completely:
 
 ```bash
 # Global installs
@@ -672,7 +661,7 @@ npx get-shit-done-r --opencode --local --uninstall
 npx get-shit-done-r --codex --local --uninstall
 ```
 
-This removes all GSD commands, agents, hooks, and settings while preserving your other configurations.
+This removes all GSD-R commands, agents, hooks, and settings while preserving your other configurations.
 
 ---
 
@@ -689,18 +678,6 @@ These community ports pioneered multi-runtime support:
 
 ---
 
-## Star History
-
-<a href="https://star-history.com/#glittercowboy/get-shit-done-r&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=glittercowboy/get-shit-done-r&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=glittercowboy/get-shit-done-r&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=glittercowboy/get-shit-done-r&type=Date" />
- </picture>
-</a>
-
----
-
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
@@ -709,6 +686,6 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 <div align="center">
 
-**Claude Code is powerful. GSD makes it reliable.**
+**AI makes research faster. GSD-R makes it rigorous.**
 
 </div>
