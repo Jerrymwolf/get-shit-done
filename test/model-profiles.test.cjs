@@ -169,9 +169,9 @@ describe('VERSION file', () => {
     assert.ok(fs.existsSync(versionPath), 'VERSION file does not exist');
   });
 
-  it('contains exactly 1.24.0', () => {
+  it('contains exactly 1.25.1', () => {
     const versionPath = path.join(__dirname, '..', 'get-shit-done-r', 'VERSION');
     const content = fs.readFileSync(versionPath, 'utf-8').trim();
-    assert.equal(content, '1.24.0');
+    assert.equal(content, '1.25.1');
   });
 });
