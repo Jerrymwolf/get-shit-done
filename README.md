@@ -34,17 +34,17 @@ License: MIT — see [LICENSE](LICENSE) (copyright Lex Christopherson)
 
 ## What This Is
 
-AI-assisted research tools degrade as context accumulates. The longer a session runs, the more prior conversation competes with the task at hand — citations get muddled, sources are paraphrased from memory rather than quoted from text, and the quality of synthesis drops. GSD solved this problem for code development by giving each agent a fresh context window and a structured plan. GSD-R extends the same architecture to research: literature reviews, systematic analysis, doctoral work, and any project where rigorous source handling matters. The atomic unit shifts from git commits to research notes with physically attached source material.
+AI assistants degrade as context accumulates. The longer a session runs, the more prior conversation competes with the task at hand — citations get muddled, sources are paraphrased from memory rather than quoted from text, and the quality of synthesis drops. GSD solved this for code by giving each agent a fresh context window and a structured plan. GSD-R extends the same architecture to research: literature reviews, systematic analysis, and any project where rigorous source handling matters.
 
-GSD-R orchestrates AI agents through a discuss/plan/execute/verify loop. Each agent receives a fresh context window scoped to a single task. For research, this means sources are downloaded and saved locally — not just linked — so the research corpus is self-contained and auditable even if every URL goes dead tomorrow. Notes follow a consistent template with structured frontmatter, analysis, implications, and references. Every citation has a corresponding file in a sibling `-sources/` folder. Verification checks that research questions are actually answered and that the source audit trail is complete.
+GSD-R orchestrates AI agents through a discuss/plan/execute/verify loop, with each agent receiving a fresh context window scoped to a single task. Sources are downloaded and saved locally — not linked — so the research corpus is self-contained and auditable even if every URL goes dead. Verification checks that research questions are actually answered and that every cited source has a corresponding local file.
 
-GSD-R also works for code. It inherits the full GSD code development capabilities — atomic git commits, test verification, parallel execution. If a project involves both research and implementation (investigate a domain, then build the thing), GSD-R handles the full lifecycle without switching tools.
+GSD-R also handles code. It inherits GSD's full development capabilities — atomic git commits, test verification, parallel execution. If a project involves both research and implementation, GSD-R covers the full lifecycle without switching tools.
 
 ---
 
 ## How It Works
 
-> **Already have code?** Run `/gsd-r:map-codebase` first. It spawns parallel agents to analyze your stack, architecture, conventions, and concerns. Then `/gsd-r:new-project` knows your codebase — questions focus on what you're adding, and planning automatically loads your patterns.
+> **Building on an existing codebase?** Run `/gsd-r:map-codebase` first. It spawns parallel agents to analyze your project's structure, patterns, and conventions. Then `/gsd-r:new-project` skips what's already understood and focuses on what you're adding.
 
 ### 1. Initialize Project
 
@@ -54,7 +54,7 @@ GSD-R also works for code. It inherits the full GSD code development capabilitie
 
 One command, one flow. The system:
 
-1. **Questions** — Asks until it understands your research goals completely (questions, constraints, existing literature, scope boundaries)
+1. **Questions** — Asks until it understands your research goals (scope, constraints, existing literature, what's settled vs. open)
 2. **Research** — Spawns parallel agents to investigate the domain (optional but recommended)
 3. **Requirements** — Extracts research questions with acceptance criteria for "answered"
 4. **Roadmap** — Creates phases mapped to requirements
@@ -89,7 +89,7 @@ For each area you select, it asks until you're satisfied. The output — `CONTEX
 1. **Researcher reads it** — Knows what sources to prioritize and what's already settled
 2. **Planner reads it** — Knows which decisions are locked and which are open for investigation
 
-The deeper you go here, the more targeted the research becomes. Skip it and you get reasonable defaults. Use it and you get focused, efficient investigation.
+The deeper you go here, the more targeted the research becomes. Skip it and the system uses reasonable defaults. Use it and the investigation stays focused on what matters to you.
 
 **Creates:** `{phase_num}-CONTEXT.md`
 
@@ -116,7 +116,7 @@ Research-specific agents replace the standard code researchers:
 | Architecture researcher | Architecture researcher — theoretical structure, construct relationships, boundary conditions |
 | Pitfalls researcher | Limitations researcher — known failures, edge cases, epistemological limitations, retractions |
 
-Each task uses `<src>` blocks specifying the acquisition method, format, and URL so the executor knows exactly how to obtain each source before synthesis begins.
+Each task includes `<src>` blocks specifying the acquisition method, format, and URL for every source.
 
 **Creates:** `{phase_num}-RESEARCH.md`, `{phase_num}-{N}-PLAN.md`
 
@@ -132,10 +132,10 @@ The system:
 
 1. **Runs plans in waves** — Parallel where possible, sequential when dependent
 2. **Fresh context per plan** — 200k tokens purely for source acquisition and synthesis, zero accumulated context
-3. **Source acquisition + vault write as atomic deliverable** — Every task produces a research note, its `-sources/` folder with acquired files, and a `SOURCE-LOG.md` audit trail
+3. **Atomic deliverables** — Every task produces a research note, its `-sources/` folder with acquired files, and a `SOURCE-LOG.md` audit trail
 4. **Verifies against goals** — Checks that the research question is answered and sources are attached
 
-Walk away, come back to completed research with a full source audit trail.
+The result is completed research with a full source audit trail.
 
 **How Wave Execution Works:**
 
@@ -150,8 +150,8 @@ Plans are grouped into "waves" based on dependencies. Within each wave, plans ru
 │  ┌─────────┐ ┌─────────┐    ┌─────────┐ ┌─────────┐    ┌─────────┐ │
 │  │ Plan 01 │ │ Plan 02 │ →  │ Plan 03 │ │ Plan 04 │ →  │ Plan 05 │ │
 │  │         │ │         │    │         │ │         │    │         │ │
-│  │ User    │ │ Product │    │ Orders  │ │ Cart    │    │ Checkout│ │
-│  │ Model   │ │ Model   │    │ API     │ │ API     │    │ UI      │ │
+│  │ Survey  │ │ Survey  │    │ Compare │ │ Assess  │    │ Synthe- │ │
+│  │ Topic A │ │ Topic B │    │ Methods │ │ Limits  │    │ sis     │ │
 │  └─────────┘ └─────────┘    └─────────┘ └─────────┘    └─────────┘ │
 │       │           │              ↑           ↑              ↑       │
 │       └───────────┴──────────────┴───────────┘              │       │
@@ -167,7 +167,7 @@ Plans are grouped into "waves" based on dependencies. Within each wave, plans ru
 - Dependent plans → Later wave → Wait for dependencies
 - File conflicts → Sequential plans or same plan
 
-For research, independent topics (e.g., "survey orchestration frameworks" and "survey graph databases") run in the same wave. Synthesis tasks that depend on multiple notes wait for their inputs.
+For research, independent survey tasks run in the same wave. Synthesis and comparison tasks that depend on multiple notes wait for their inputs.
 
 **Creates:** `{phase_num}-{N}-SUMMARY.md`, `{phase_num}-VERIFICATION.md`
 
@@ -181,11 +181,11 @@ For research, independent topics (e.g., "survey orchestration frameworks" and "s
 
 **Two-tier verification for research:**
 
-**Tier 1 — Goal-backward:** Does the research actually answer the question? The system extracts testable deliverables from the phase goals and walks you through each one. If a question remains unanswered, it identifies which note is missing or incomplete and creates fix tasks.
+**Tier 1 — Goal-backward:** Does the research answer the question? The system extracts testable conditions from the phase goals and checks each against the notes produced. If a question remains unanswered, it identifies which note is missing or incomplete and creates fix tasks.
 
-**Tier 2 — Source audit:** For each note in the phase, the system checks that frontmatter is complete, every reference has a corresponding file in `-sources/`, SOURCE-LOG.md accounts for all sources, and no finding contradicts the bootstrap inventory without explicit justification.
+**Tier 2 — Source audit:** For each note in the phase, the system checks frontmatter completeness, reference-to-file correspondence in `-sources/`, SOURCE-LOG.md accounting, and consistency with the bootstrap inventory.
 
-If everything passes, you move on. If something's broken, you don't manually fix it — you run `/gsd-r:execute-phase` again with the fix plans it created.
+If everything passes, you move on. If gaps remain, run `/gsd-r:execute-phase` again with the fix plans it created.
 
 **Creates:** `{phase_num}-UAT.md`, fix plans if issues found
 
@@ -205,7 +205,7 @@ If everything passes, you move on. If something's broken, you don't manually fix
 
 Loop **discuss → plan → execute → verify** until milestone complete.
 
-Each phase gets your input (discuss), proper source investigation (plan), clean execution with fresh context (execute), and two-tier verification (verify). Context stays fresh. Quality stays high.
+Each phase receives your direction, proper source investigation, clean execution with fresh context, and two-tier verification.
 
 When all phases are done, `/gsd-r:complete-milestone` archives the milestone and tags the release.
 
@@ -263,7 +263,11 @@ Files follow the naming convention `{descriptive-slug}_{date-acquired}.{ext}`. T
 | Web page (general) | `web_fetch` → save response | `.md` | `ollama-model-library_2026-03-10.md` |
 | Diagram / screenshot | `playwright screenshot` or download | `.png` | `graphrag-architecture_2026-03-10.png` |
 
-**Fallback chain:** If the primary acquisition method fails, the subagent tries the next method before marking the source as unavailable: `firecrawl scrape → web_fetch → wget/curl → mark unavailable in SOURCE-LOG.md`. A source marked unavailable does not block the task — the subagent documents the failure, continues synthesis from available sources, and flags the gap.
+**Fallback chain:** If the primary method fails, the agent tries alternatives before giving up:
+
+`firecrawl scrape → web_fetch → wget/curl → mark unavailable in SOURCE-LOG.md`
+
+An unavailable source does not block the task. The agent documents the failure, continues synthesis from available sources, and flags the gap.
 
 ### Research Note Template
 
@@ -310,11 +314,17 @@ Format: Author/Org (Year). Title. `filename_in_sources_folder.ext`]
 
 ### Two-Tier Verification
 
-GSD-R will verify research output at two levels. **Tier 1 (goal-backward)** asks: "What must be TRUE for this research question to be answered?" — then checks each condition against the notes produced. **Tier 2 (source audit)** checks structural integrity: frontmatter completeness, reference-to-file correspondence in `-sources/`, SOURCE-LOG.md accounting, and consistency with the bootstrap inventory. Tier 1 catches incomplete research; Tier 2 catches incomplete documentation.
+GSD-R will verify research output at two levels.
+
+**Tier 1 (goal-backward)** asks: "What must be true for this research question to be answered?" — then checks each condition against the notes produced.
+
+**Tier 2 (source audit)** checks structural integrity: frontmatter completeness, reference-to-file correspondence in `-sources/`, SOURCE-LOG.md accounting, and consistency with the bootstrap inventory.
+
+Tier 1 catches incomplete research. Tier 2 catches incomplete documentation.
 
 ### BOOTSTRAP.md
 
-During project initialization, GSD-R will inventory existing research — findings already established, findings partially established that should be extended rather than restarted, and topics not yet researched. This inventory is saved as BOOTSTRAP.md and loaded by every subsequent phase to prevent re-investigating known findings. See [docs/DESIGN.md](docs/DESIGN.md) for the full bootstrap format and workflow.
+During project initialization, GSD-R will inventory existing research: what's established, what's partially established and should be extended, and what hasn't been investigated yet. This inventory (BOOTSTRAP.md) is loaded by every subsequent phase to prevent redundant work. See [docs/DESIGN.md](docs/DESIGN.md) for the full format.
 
 ---
 
@@ -326,7 +336,7 @@ During project initialization, GSD-R will inventory existing research — findin
 
 **For ad-hoc tasks that don't need full planning.**
 
-Quick mode gives you GSD-R guarantees (source attachment, state tracking) with a faster path:
+Quick mode applies the same source attachment and state tracking with a shorter path:
 
 - **Same agents** — Planner + executor, same quality
 - **Skips optional steps** — No research, no plan checker, no verifier
@@ -352,7 +362,7 @@ Use `--full` to add plan-checking and verification. Use `--discuss` to gather co
 | Command | What it does |
 |---------|--------------|
 | `/gsd-r:new-project [--auto]` | Full initialization: questions → research → requirements → roadmap |
-| `/gsd-r:discuss-phase [N] [--auto]` | Capture implementation decisions before planning |
+| `/gsd-r:discuss-phase [N] [--auto]` | Capture research decisions before planning |
 | `/gsd-r:plan-phase [N] [--auto]` | Research + plan + verify for a phase |
 | `/gsd-r:execute-phase <N>` | Execute all plans in parallel waves, verify when complete |
 | `/gsd-r:verify-work [N]` | Manual user acceptance testing ¹ |
@@ -437,7 +447,7 @@ Or configure via `/gsd-r:settings`.
 
 ### Workflow Agents
 
-These spawn additional agents during planning/execution. They improve quality but add tokens and time.
+These spawn additional agents during planning and execution. They improve quality but increase cost and runtime.
 
 | Setting | Default | What it does |
 |---------|---------|--------------|
@@ -496,7 +506,7 @@ Verify with:
 
 ### Staying Updated
 
-GSD-R evolves fast. Update periodically:
+GSD-R is under active development. Update periodically:
 
 ```bash
 npx get-shit-done-r@latest
@@ -553,7 +563,7 @@ claude --dangerously-skip-permissions
 ```
 
 > [!TIP]
-> This is how GSD-R is intended to be used — stopping to approve `date` and `git commit` 50 times defeats the purpose.
+> GSD-R runs many small commands automatically. Approving each one individually interrupts the workflow significantly.
 
 <details>
 <summary><strong>Alternative: Granular Permissions</strong></summary>
@@ -667,7 +677,7 @@ This removes all GSD-R commands, agents, hooks, and settings while preserving yo
 
 ## Community Ports
 
-OpenCode, Gemini CLI, and Codex are now natively supported via `npx get-shit-done-r`.
+OpenCode, Gemini CLI, and Codex are supported via `npx get-shit-done-r`.
 
 These community ports pioneered multi-runtime support:
 
