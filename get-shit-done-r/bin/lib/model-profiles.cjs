@@ -41,11 +41,11 @@ function formatAgentToModelMapAsTable(agentToModelMap) {
     'Model'.length,
     ...Object.values(agentToModelMap).map((m) => m.length)
   );
-  const sep = '\u2500'.repeat(agentWidth + 2) + '\u253C' + '\u2500'.repeat(modelWidth + 2);
-  const header = ' ' + 'Agent'.padEnd(agentWidth) + ' \u2502 ' + 'Model'.padEnd(modelWidth);
+  const sep = '─'.repeat(agentWidth + 2) + '┼' + '─'.repeat(modelWidth + 2);
+  const header = ' ' + 'Agent'.padEnd(agentWidth) + ' │ ' + 'Model'.padEnd(modelWidth);
   let agentToModelTable = header + '\n' + sep + '\n';
   for (const [agent, model] of Object.entries(agentToModelMap)) {
-    agentToModelTable += ' ' + agent.padEnd(agentWidth) + ' \u2502 ' + model.padEnd(modelWidth) + '\n';
+    agentToModelTable += ' ' + agent.padEnd(agentWidth) + ' │ ' + model.padEnd(modelWidth) + '\n';
   }
   return agentToModelTable;
 }
