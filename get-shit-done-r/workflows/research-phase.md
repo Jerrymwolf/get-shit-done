@@ -1,5 +1,5 @@
 <purpose>
-Research how to implement a phase. Spawns gsd-r-phase-researcher with phase context.
+Research how to implement a phase. Spawns gsd-phase-researcher with phase context.
 
 Standalone research command. For most workflows, use `/gsd-r:plan-phase` which integrates research automatically.
 </purpose>
@@ -11,7 +11,7 @@ Standalone research command. For most workflows, use `/gsd-r:plan-phase` which i
 @/Users/jeremiahwolf/.claude/get-shit-done-r/references/model-profile-resolution.md
 
 Resolve model for:
-- `gsd-r-phase-researcher`
+- `gsd-phase-researcher`
 
 ## Step 1: Normalize and Validate Phase
 

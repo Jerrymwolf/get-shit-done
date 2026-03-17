@@ -44,33 +44,6 @@ ls "$phase_dir"/*-SUMMARY.md "$phase_dir"/*-PLAN.md 2>/dev/null
 Extract **phase goal** from ROADMAP.md (the outcome to verify, not tasks) and **requirements** from REQUIREMENTS.md if it exists.
 </step>
 
-<step name="detect_research_phase">
-**Detect if this is a research phase** before establishing must-haves.
-
-```bash
-# Check for -sources/ directories (research note source folders)
-find "$PHASE_DIR" -name "*-sources" -type d 2>/dev/null
-
-# Check for note files with research frontmatter (domain: field)
-grep -rl "^domain:" "$PHASE_DIR"/*.md 2>/dev/null | grep -v PLAN | grep -v SUMMARY | grep -v CONTEXT | grep -v VERIFICATION | grep -v RESEARCH | grep -v VALIDATION | grep -v UAT
-```
-
-Set `is_research_phase = true` if either check finds results.
-
-**If `is_research_phase` is true:**
-
-1. Collect research note paths and their associated `-sources/` directories
-2. For each note, extract the research question from:
-   - The note's frontmatter (`question:` field)
-   - The corresponding PLAN.md task descriptions
-   - The note's title and domain (fallback)
-3. Store as `research_notes[]` array: `{ notePath, sourcesDir, sourceLogPath, researchQuestion }`
-
-This context will be passed to the gsd-r-verifier agent in the verify step so it can run research-specific two-tier verification using `verify-research.cjs`.
-
-**If `is_research_phase` is false:** Continue normally -- standard code verification only.
-</step>
-
 <step name="establish_must_haves">
 **Option A: Must-haves in PLAN frontmatter**
 
@@ -121,19 +94,6 @@ For each observable truth, determine if the codebase enables it.
 For each truth: identify supporting artifacts → check artifact status → check wiring → determine truth status.
 
 **Example:** Truth "User can see existing messages" depends on Chat.tsx (renders), /api/chat GET (provides), Message model (schema). If Chat.tsx is a stub or API returns hardcoded [] → FAILED. If all exist, are substantive, and connected → VERIFIED.
-
-**Research phase additional context:** When `is_research_phase` is true, the verifier agent also receives:
-
-1. **Research verification module reference:** `get-shit-done-r/bin/lib/verify-research.cjs`
-2. **Research verification criteria:** `get-shit-done-r/references/research-verification.md`
-3. **Research note inventory:** The `research_notes[]` array from `detect_research_phase` step, containing:
-   - Note file paths and their `-sources/` directories
-   - SOURCE-LOG.md locations
-   - Research questions (from plan context or note frontmatter)
-
-The verifier uses `verifyNote()` for two-tier checks and `generateFixTasks()` on failure. Fix task descriptions are included in the gaps section and can be passed to `/gsd-r:quick` for execution.
-
-This is ADDITIVE -- standard goal-backward verification (Steps 3-6) still runs for all phases. Research verification (Step 6.5 in the agent) adds research-specific checks on top.
 </step>
 
 <step name="verify_artifacts">
