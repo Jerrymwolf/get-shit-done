@@ -41,7 +41,7 @@ GSD-R was itself built using GSD — the system it forked from.
 - Badges: npm version, npm downloads, tests, license
 - Drop: Discord, Twitter/X, $GSD token, GitHub stars badges (upstream community assets)
 - Install command: `npx get-shit-done-r@latest`
-- Drop: terminal SVG animation, testimonials
+- Drop: terminal SVG animation reference (broken — `assets/` directory does not exist), testimonials
 
 #### 1.2 Attribution
 - Keep current attribution section crediting Lex Christopherson and the original GSD project
@@ -63,10 +63,10 @@ Three paragraphs:
 - Link to docs/DESIGN.md for full design rationale
 
 #### 1.5 The Research Workflow
-New content, drawn from fork plan:
+New content, drawn from fork plan. **Vision-forward framing:** Present capabilities as the designed system. Where a feature is not yet fully wired into commands at v0.1.0, use language like "designed to" or "the system will" rather than implying it works today. The core loop (discuss/plan/execute/verify) and agent orchestration work now; research-specific extensions (source acquisition, vault writes, BOOTSTRAP.md) are the forward-looking pieces.
 
 - **Source Attachment Protocol:** The rule (every cited source has a corresponding local file), folder convention (`{Note}-sources/`), file naming (`{slug}_{date}.{ext}`), acquisition methods table (arXiv, GitHub, docs, conferences), fallback chain
-- **Research Note Template:** Frontmatter, Key Findings, Analysis, Implications, Open Questions, References — show the template
+- **Research Note Template:** Frontmatter, Key Findings, Analysis, Implications, Open Questions, References — show the template with generic placeholders (not project-specific)
 - **Two-Tier Verification:** Goal-backward ("can I now answer the research question?") + source audit (every reference has a file, SOURCE-LOG.md accounts for everything)
 - **BOOTSTRAP.md:** Brief mention — existing research inventory to prevent re-researching known findings
 
@@ -74,9 +74,11 @@ New content, drawn from fork plan:
 - Keep current command tables — they are accurate with `/gsd-r:` prefixes
 - Tables: Core Workflow, Navigation, Brownfield, Phase Management, Session, Utilities
 - Keep footnote crediting OracleGreyBeard for verify-work
+- Remove `/gsd-r:join-discord` from Navigation table (upstream community asset; the command file exists but the Discord server is upstream's)
 
 #### 1.7 Configuration
 - Keep current content: core settings, model profiles, workflow agents, execution, git branching
+- Remove `docs/USER-GUIDE.md` hyperlink in Configuration section (file does not exist — broken link). Replace with inline note: "See `/gsd-r:settings` for full configuration options."
 - Already accurate for GSD-R
 
 #### 1.8 Getting Started
@@ -116,6 +118,8 @@ New content, drawn from fork plan:
 
 **Source:** `GSD-R-Fork-Plan.md` cleaned up.
 
+**Note:** The `docs/` directory must be created (it does not exist beyond `docs/superpowers/specs/`).
+
 **Keep (the design reference material):**
 - Translation table (GSD → GSD-R concepts)
 - Source Attachment Protocol (full detail: rule, folder convention, naming, acquisition table, fallback chain, SOURCE-LOG.md format)
@@ -124,7 +128,7 @@ New content, drawn from fork plan:
 - STATE.md Research Extensions (note status tracker, source gaps)
 - File structure diagram
 - Decision Log format
-- Research Note Template
+- Research Note Template — **generalize project-specific references** (replace "Implications for ValuesPrism", "22-value codebook", "6-agent pipeline", "M4 16GB constraint", "May 2026 timeline" with generic placeholders like `## Implications for [Project]` and `[tie back to project constraints and goals]`)
 - "What Does NOT Change" list
 
 **Remove (historical/implementation work that's done):**
@@ -176,3 +180,6 @@ Historical checklist. Work is complete. No ongoing value.
 6. docs/DESIGN.md contains the full technical design without implementation-complete checklists
 7. No orphaned files (fork plan and completion doc removed)
 8. Tone is academic but accessible — no hype, no marketing language
+9. BOOTSTRAP.md concept is explained clearly enough for a researcher to understand its purpose (prevents re-researching known findings)
+10. Research-specific features that are forward-looking use appropriate qualifying language ("designed to", "the system will") rather than implying they work today
+11. No broken links — terminal.svg reference removed, USER-GUIDE.md link removed or replaced
