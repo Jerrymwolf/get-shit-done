@@ -66,6 +66,7 @@ Help articulate your vision for a phase before planning.
 - Captures how you imagine this phase working
 - Creates CONTEXT.md with your vision, essentials, and boundaries
 - Use when you have ideas about how something should look/feel
+- Optional `--batch` asks 2-5 related questions at a time instead of one-by-one
 
 Usage: `/gsd-r:discuss-phase 2`
 Usage: `/gsd-r:discuss-phase 2 --batch`
@@ -114,6 +115,20 @@ Execute all plans in a phase.
 - Updates REQUIREMENTS.md, ROADMAP.md, STATE.md
 
 Usage: `/gsd-r:execute-phase 5`
+
+### Smart Router
+
+**`/gsd-r:do <description>`**
+Route freeform text to the right GSD command automatically.
+
+- Analyzes natural language input to find the best matching GSD command
+- Acts as a dispatcher — never does the work itself
+- Resolves ambiguity by asking you to pick between top matches
+- Use when you know what you want but don't know which `/gsd-r:*` command to run
+
+Usage: `/gsd-r:do fix the login button`
+Usage: `/gsd-r:do refactor the auth system`
+Usage: `/gsd-r:do I want to start a new milestone`
 
 ### Quick Mode
 
@@ -240,6 +255,21 @@ Systematic debugging with persistent state across context resets.
 Usage: `/gsd-r:debug "login button doesn't work"`
 Usage: `/gsd-r:debug` (resume active session)
 
+### Quick Notes
+
+**`/gsd-r:note <text>`**
+Zero-friction idea capture — one command, instant save, no questions.
+
+- Saves timestamped note to `.planning/notes/` (or `~/.gsd-r/notes/` globally)
+- Three subcommands: append (default), list, promote
+- Promote converts a note into a structured todo
+- Works without a project (falls back to global scope)
+
+Usage: `/gsd-r:note refactor the hook system`
+Usage: `/gsd-r:note list`
+Usage: `/gsd-r:note promote 3`
+Usage: `/gsd-r:note --global cross-project idea`
+
 ### Todo Management
 
 **`/gsd-r:add-todo [description]`**
@@ -306,7 +336,7 @@ Usage: `/gsd-r:plan-milestone-gaps`
 Configure workflow toggles and model profile interactively.
 
 - Toggle researcher, plan checker, verifier agents
-- Select model profile (quality/balanced/budget)
+- Select model profile (quality/balanced/budget/inherit)
 - Updates `.planning/config.json`
 
 Usage: `/gsd-r:settings`
