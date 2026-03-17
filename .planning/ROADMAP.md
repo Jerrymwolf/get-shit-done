@@ -66,11 +66,14 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
   2. All agent prompts and workflow files incorporate v1.25.1 changes without losing research adaptations
   3. VERSION file reads 1.25.1
   4. All 164+ existing tests pass on the new baseline
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 15-01: TBD
-- [ ] 15-02: TBD
+- [ ] 15-01-PLAN.md -- Sync core.cjs and config.cjs with v1.25.1 (foundation modules + CLI entry point)
+- [ ] 15-02-PLAN.md -- Sync remaining 7 CJS modules with v1.25.1 (milestone scoping, regex improvements)
+- [ ] 15-03-PLAN.md -- Sync 34 workflows: new files, namespace-only, and minor-functional
+- [ ] 15-04-PLAN.md -- Merge 5 large-divergence workflows (discuss-phase, plan-phase, new-project, quick, help)
+- [ ] 15-05-PLAN.md -- Sync templates and references, update VERSION to 1.25.1
 
 ### Phase 16: Config Schema and Defaults
 **Goal**: All v1.2 config fields exist, propagate through init.cjs, and existing projects get correct defaults without manual config edits
@@ -210,7 +213,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 12. Templates and Execution Rigor | v1.1 | 2/2 | Complete | 2026-03-16 |
 | 13. Workflow Sync | v1.1 | 3/3 | Complete | 2026-03-16 |
 | 14. Path Standardization and Final Verification | v1.1 | 2/2 | Complete | 2026-03-16 |
-| 15. Upstream Sync to v1.25.1 | v1.2 | 0/? | Not started | - |
+| 15. Upstream Sync to v1.25.1 | v1.2 | 0/5 | Not started | - |
 | 16. Config Schema and Defaults | v1.2 | 0/? | Not started | - |
 | 17. Namespace Migration | v1.2 | 0/? | Not started | - |
 | 18. Research Formulation and Notes | v1.2 | 0/? | Not started | - |
@@ -221,4 +224,4 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-17 after v1.2 roadmap creation*
+*Last updated: 2026-03-17 after Phase 15 planning*
