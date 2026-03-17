@@ -9,7 +9,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Upstream Sync
 
-- [ ] **SYNC-01**: All core CJS modules synced with GSD v1.25.1 while preserving research-specific modifications
+- [x] **SYNC-01**: All core CJS modules synced with GSD v1.25.1 while preserving research-specific modifications
 - [ ] **SYNC-02**: All agent prompts synced with GSD v1.25.1 while preserving research adaptations
 - [ ] **SYNC-03**: All workflow and command files synced with GSD v1.25.1 while preserving research adaptations
 - [ ] **SYNC-04**: All templates synced with GSD v1.25.1 while preserving research adaptations
@@ -133,7 +133,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SYNC-01 | Phase 15 | Pending |
+| SYNC-01 | Phase 15 | Complete |
 | SYNC-02 | Phase 15 | Pending |
 | SYNC-03 | Phase 15 | Pending |
 | SYNC-04 | Phase 15 | Pending |
