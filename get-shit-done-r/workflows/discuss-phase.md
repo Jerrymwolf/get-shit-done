@@ -1,0 +1,736 @@
+<purpose>
+Extract research approach decisions that downstream agents need. Analyze the phase to identify gray areas, let the user choose what to discuss, then deep-dive each selected area until satisfied.
+
+You are a thinking partner, not an interviewer. The user is the principal investigator — you are the research assistant. Your job is to capture decisions that will guide research and planning, not to figure out methodology yourself.
+</purpose>
+
+<downstream_awareness>
+**CONTEXT.md feeds into:**
+
+1. **gsd-r-phase-researcher** — Reads CONTEXT.md to know WHAT to research
+   - "User wants focus on cultural universality critique" → researcher investigates cross-cultural SDT studies
+   - "Systematic review approach decided" → researcher looks into inclusion/exclusion criteria standards
+
+2. **gsd-r-planner** — Reads CONTEXT.md to know WHAT decisions are locked
+   - "Focus on intrinsic motivation only" → planner scopes tasks to exclude extrinsic motivation
+   - "Claude's Discretion: theoretical framework emphasis" → planner can decide emphasis
+
+**Your job:** Capture decisions clearly enough that downstream agents can act on them without asking the user again.
+
+**Not your job:** Figure out HOW to implement. That's what research and planning do with the decisions you capture.
+</downstream_awareness>
+
+<philosophy>
+**User = principal investigator. Claude = research assistant.**
+
+The user knows:
+- What questions matter most to them
+- What depth and rigor they need
+- What's already established vs. what needs fresh investigation
+- Specific theories, authors, or traditions they care about
+
+The user doesn't know (and shouldn't be asked):
+- Source availability (researcher discovers this)
+- Methodological details of individual studies (researcher reads these)
+- Optimal note organization (planner figures this out)
+- Citation networks (researcher traces these)
+
+Ask about research priorities and approach. Capture decisions for downstream agents.
+</philosophy>
+
+<scope_guardrail>
+**CRITICAL: No scope creep.**
+
+The phase boundary comes from ROADMAP.md and is FIXED. Discussion clarifies HOW to implement what's scoped, never WHETHER to add new capabilities.
+
+**Allowed (clarifying ambiguity):**
+- "How should posts be displayed?" (layout, density, info shown)
+- "What happens on empty state?" (within the feature)
+- "Pull to refresh or manual?" (behavior choice)
+
+**Not allowed (scope creep):**
+- "Should we also add comments?" (new capability)
+- "What about search/filtering?" (new capability)
+- "Maybe include bookmarking?" (new capability)
+
+**The heuristic:** Does this clarify how we implement what's already in the phase, or does it add a new capability that could be its own phase?
+
+**When user suggests scope creep:**
+```
+"[Feature X] would be a new capability — that's its own phase.
+Want me to note it for the roadmap backlog?
+
+For now, let's focus on [phase domain]."
+```
+
+Capture the idea in a "Deferred Ideas" section. Don't lose it, don't act on it.
+</scope_guardrail>
+
+<gray_area_identification>
+Gray areas are **research approach decisions the user cares about** — things that could go multiple ways and would change the output.
+
+**How to identify gray areas:**
+
+1. **Read the phase goal** from ROADMAP.md
+2. **Understand the research domain** — What kind of investigation is this?
+   - Something being EXPLAINED → depth of theory, level of technical detail, which aspects to emphasize, assumed reader background
+   - Something being COMPARED → criteria for comparison, what counts as "better," which alternatives to include, fairness of comparison
+   - Something being EVALUATED → standards of evidence, what counts as "sufficient," critical vs. sympathetic lens, handling of contradictory evidence
+   - Something being SYNTHESIZED → thematic vs. chronological organization, original framework vs. summary, level of original argument
+   - Something being SCOPED → time period, disciplines, languages, geographic focus, theoretical traditions, inclusion/exclusion criteria
+3. **Generate phase-specific gray areas** — Not generic categories, but concrete decisions for THIS phase
+
+**Don't use generic category labels** (Scope, Depth, Methods). Generate specific gray areas:
+
+```
+Phase: "SDT and intrinsic motivation"
+→ Theoretical tradition emphasis, Cultural universality position, Measurement approaches, Education vs. workplace focus
+
+Phase: "Meta-analysis of mindfulness interventions"
+→ Inclusion criteria, Outcome measures, Quality assessment tool, Effect size metric
+
+Phase: "History of cognitive behavioral therapy"
+→ Time period boundaries, Geographic scope, Theoretical lineage vs. clinical practice emphasis, Key figures to center
+
+Phase: "Comparison of motivation theories"
+→ Which theories to include, Comparison dimensions, Fairness of comparison, Framework for evaluation
+```
+
+**The key question:** What research approach decisions would change the output that the user should weigh in on?
+
+**Claude handles these (don't ask):**
+- Source acquisition methods
+- Citation formatting
+- Note organization within themes
+- Search strategy details
+</gray_area_identification>
+
+<answer_validation>
+**IMPORTANT: Answer validation** — After every AskUserQuestion call, check if the response is empty or whitespace-only. If so:
+1. Retry the question once with the same parameters
+2. If still empty, present the options as a plain-text numbered list and ask the user to type their choice number
+Never proceed with an empty answer.
+</answer_validation>
+
+<process>
+
+**Express path available:** If you already have a PRD or acceptance criteria document, use `/gsd-r:plan-phase {phase} --prd path/to/prd.md` to skip this discussion and go straight to planning.
+
+<step name="initialize" priority="first">
+Phase number from argument (required).
+
+```bash
+INIT=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" init phase-op "${PHASE}")
+if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
+```
+
+Parse JSON for: `commit_docs`, `phase_found`, `phase_dir`, `phase_number`, `phase_name`, `phase_slug`, `padded_phase`, `has_research`, `has_context`, `has_plans`, `has_verification`, `plan_count`, `roadmap_exists`, `planning_exists`.
+
+**If `phase_found` is false:**
+```
+Phase [X] not found in roadmap.
+
+Use /gsd-r:progress to see available phases.
+```
+Exit workflow.
+
+**If `phase_found` is true:** Continue to check_existing.
+
+**Auto mode** — If `--auto` is present in ARGUMENTS:
+- In `check_existing`: auto-select "Skip" (if context exists) or continue without prompting (if no context/plans)
+- In `present_gray_areas`: auto-select ALL gray areas without asking the user
+- In `discuss_areas`: for each discussion question, choose the recommended option (first option, or the one marked "recommended") without using AskUserQuestion
+- Log each auto-selected choice inline so the user can review decisions in the context file
+- After discussion completes, auto-advance to plan-phase (existing behavior)
+</step>
+
+<step name="check_existing">
+Check if CONTEXT.md already exists using `has_context` from init.
+
+```bash
+ls ${phase_dir}/*-CONTEXT.md 2>/dev/null
+```
+
+**If exists:**
+
+**If `--auto`:** Auto-select "Update it" — load existing context and continue to analyze_phase. Log: `[auto] Context exists — updating with auto-selected decisions.`
+
+**Otherwise:** Use AskUserQuestion:
+- header: "Context"
+- question: "Phase [X] already has context. What do you want to do?"
+- options:
+  - "Update it" — Review and revise existing context
+  - "View it" — Show me what's there
+  - "Skip" — Use existing context as-is
+
+If "Update": Load existing, continue to analyze_phase
+If "View": Display CONTEXT.md, then offer update/skip
+If "Skip": Exit workflow
+
+**If doesn't exist:**
+
+Check `has_plans` and `plan_count` from init. **If `has_plans` is true:**
+
+**If `--auto`:** Auto-select "Continue and replan after". Log: `[auto] Plans exist — continuing with context capture, will replan after.`
+
+**Otherwise:** Use AskUserQuestion:
+- header: "Plans exist"
+- question: "Phase [X] already has {plan_count} plan(s) created without user context. Your decisions here won't affect existing plans unless you replan."
+- options:
+  - "Continue and replan after" — Capture context, then run /gsd-r:plan-phase {X} to replan
+  - "View existing plans" — Show plans before deciding
+  - "Cancel" — Skip discuss-phase
+
+If "Continue and replan after": Continue to analyze_phase.
+If "View existing plans": Display plan files, then offer "Continue" / "Cancel".
+If "Cancel": Exit workflow.
+
+**If `has_plans` is false:** Continue to load_prior_context.
+</step>
+
+<step name="load_prior_context">
+Read project-level and prior phase context to avoid re-asking decided questions and maintain consistency.
+
+**Step 1: Read project-level files**
+```bash
+# Core project files
+cat .planning/PROJECT.md 2>/dev/null
+cat .planning/REQUIREMENTS.md 2>/dev/null
+cat .planning/STATE.md 2>/dev/null
+```
+
+Extract from these:
+- **PROJECT.md** — Vision, principles, non-negotiables, user preferences
+- **REQUIREMENTS.md** — Acceptance criteria, constraints, must-haves vs nice-to-haves
+- **STATE.md** — Current progress, any flags or session notes
+
+**Step 2: Read all prior CONTEXT.md files**
+```bash
+# Find all CONTEXT.md files from phases before current
+find .planning/phases -name "*-CONTEXT.md" 2>/dev/null | sort
+```
+
+For each CONTEXT.md where phase number < current phase:
+- Read the `<decisions>` section — these are locked preferences
+- Read `<specifics>` — particular references or "I want it like X" moments
+- Note any patterns (e.g., "user consistently prefers minimal UI", "user rejected single-key shortcuts")
+
+**Step 3: Build internal `<prior_decisions>` context**
+
+Structure the extracted information:
+```
+<prior_decisions>
+## Project-Level
+- [Key principle or constraint from PROJECT.md]
+- [Requirement that affects this phase from REQUIREMENTS.md]
+
+## From Prior Phases
+### Phase N: [Name]
+- [Decision that may be relevant to current phase]
+- [Preference that establishes a pattern]
+
+### Phase M: [Name]
+- [Another relevant decision]
+</prior_decisions>
+```
+
+**Usage in subsequent steps:**
+- `analyze_phase`: Skip gray areas already decided in prior phases
+- `present_gray_areas`: Annotate options with prior decisions ("You chose X in Phase 5")
+- `discuss_areas`: Pre-fill answers or flag conflicts ("This contradicts Phase 3 — same here or different?")
+
+**If no prior context exists:** Continue without — this is expected for early phases.
+</step>
+
+<step name="scout_existing_research">
+Lightweight scan of existing research artifacts to inform gray area identification and discussion.
+
+**Step 1: Check for existing research artifacts**
+```bash
+ls .planning/research/*.md 2>/dev/null
+cat .planning/BOOTSTRAP.md 2>/dev/null
+```
+
+**If research artifacts exist:** Read the most relevant ones (LANDSCAPE.md, QUESTIONS.md based on phase). Extract:
+- Established findings (from BOOTSTRAP.md)
+- Prior phase context and decisions
+- Known gaps and open questions
+
+**Step 2: If no research artifacts, check for prior notes**
+```bash
+# Find any existing research notes
+find . -name "*.md" -path "*/research/*" 2>/dev/null | head -10
+```
+
+**Step 3: Build internal research_context**
+
+From the scan, identify:
+- **Established findings** — what's already known (don't re-ask about these)
+- **Prior decisions** — research approach choices already made
+- **Known gaps** — areas where more investigation is needed
+- **Available sources** — what's already been acquired
+
+Store as internal `<research_context>` for use in analyze_phase and present_gray_areas.
+</step>
+
+<step name="analyze_phase">
+Analyze the phase to identify gray areas worth discussing. **Use both `prior_decisions` and `research_context` to ground the analysis.**
+
+**Read the phase description from ROADMAP.md and determine:**
+
+1. **Domain boundary** — What research question or topic is this phase investigating? State it clearly.
+
+1b. **Initialize canonical refs accumulator** — Start building the `<canonical_refs>` list for CONTEXT.md. This accumulates throughout the entire discussion, not just this step.
+
+   **Source 1 (now):** Copy `Canonical refs:` from ROADMAP.md for this phase. Expand each to a full relative path.
+   **Source 2 (now):** Check REQUIREMENTS.md and PROJECT.md for any specs/ADRs referenced for this phase.
+   **Source 3 (scout_existing_research):** If existing research references docs (e.g., comments citing sources), add those.
+   **Source 4 (discuss_areas):** When the user says "read X", "check Y", or references any doc/spec/source during discussion — add it immediately. These are often the MOST important refs because they represent docs the user specifically wants followed.
+
+   This list is MANDATORY in CONTEXT.md. Every ref must have a full relative path so downstream agents can read it directly. If no external docs exist, note that explicitly.
+
+2. **Check prior decisions** — Before generating gray areas, check if any were already decided:
+   - Scan `<prior_decisions>` for relevant choices (e.g., "Focus on empirical evidence, not just theoretical exposition")
+   - These are **pre-answered** — don't re-ask unless this phase has conflicting needs
+   - Note applicable prior decisions for use in presentation
+
+3. **Gray areas by category** — For each relevant category (Scope, Evidence, Lens, Depth, Organization), identify 1-2 specific ambiguities that would change the research output. **Annotate with research context where relevant** (e.g., "BOOTSTRAP.md establishes Deci & Ryan as foundational" or "No prior work on this sub-topic").
+
+4. **Skip assessment** — If no meaningful gray areas exist (straightforward literature summary, clear-cut scope, or all already decided in prior phases), the phase may not need discussion.
+
+**Output your analysis internally, then present to user.**
+
+Example analysis for "SDT and Intrinsic Motivation" phase (with research context):
+```
+Domain: Investigating self-determination theory's account of intrinsic motivation
+Existing: BOOTSTRAP.md establishes Deci & Ryan (1985, 2000) as foundational
+Prior decisions: "Focus on empirical evidence, not just theoretical exposition" (Phase 1)
+Gray areas:
+- Scope: Core SDT or include mini-theories (CET, OIT, BPNT)?
+- Evidence: Experimental studies only, or include correlational? — no prior decision
+- Cultural lens: Universalist position or center critique? — user hasn't weighed in
+- Application: Education focus? Workplace? Cross-domain? — ALREADY DECIDED: education (Phase 1)
+- Depth: Summary of established findings, or engage with methodology?
+```
+</step>
+
+<step name="present_gray_areas">
+Present the domain boundary, prior decisions, and gray areas to user.
+
+**First, state the boundary and any prior decisions that apply:**
+```
+Phase [X]: [Name]
+Domain: [What this phase delivers — from your analysis]
+
+We'll clarify HOW to implement this.
+(New capabilities belong in other phases.)
+
+[If prior decisions apply:]
+**Carrying forward from earlier phases:**
+- [Decision from Phase N that applies here]
+- [Decision from Phase M that applies here]
+```
+
+**Then use AskUserQuestion (multiSelect: true):**
+- header: "Discuss"
+- question: "Which areas do you want to discuss for [phase name]?"
+- options: Generate 3-4 phase-specific gray areas, each with:
+  - "[Specific area]" (label) — concrete, not generic
+  - [1-2 questions this covers + code context annotation] (description)
+  - **Highlight the recommended choice with brief explanation why**
+
+**Prior decision annotations:** When a gray area was already decided in a prior phase, annotate it:
+```
+☐ Exit shortcuts — How should users quit?
+  (You decided "Ctrl+C only, no single-key shortcuts" in Phase 5 — revisit or keep?)
+```
+
+**Code context annotations:** When the scout found relevant existing code, annotate the gray area description:
+```
+☐ Layout style — Cards vs list vs timeline?
+  (You already have a Card component with shadow/rounded variants. Reusing it keeps the app consistent.)
+```
+
+**Combining both:** When both prior decisions and code context apply:
+```
+☐ Loading behavior — Infinite scroll or pagination?
+  (You chose infinite scroll in Phase 4. useInfiniteQuery hook already set up.)
+```
+
+**Do NOT include a "skip" or "you decide" option.** User ran this command to discuss — give them real choices.
+
+**If `--auto`:** Auto-select ALL gray areas. Log: `[auto] Selected all gray areas: [list area names].` Skip the AskUserQuestion below and continue directly to discuss_areas with all areas selected.
+
+**Examples by domain:**
+
+For "SDT and intrinsic motivation" (theoretical investigation):
+```
+☐ Theoretical scope — Core SDT only, or include mini-theories (CET, OIT, BPNT)?
+☐ Evidence standards — Experimental studies only, or include correlational?
+☐ Cultural lens — Universalist position, or center the cultural critique?
+☐ Application domain — Education, workplace, health, or cross-domain?
+```
+
+For "Meta-analysis of mindfulness interventions" (systematic review):
+```
+☐ Inclusion criteria — RCTs only, or include quasi-experimental?
+☐ Outcome measures — Primary: well-being, anxiety, or composite?
+☐ Quality assessment — Cochrane risk-of-bias, or PEDro scale?
+☐ Timeframe — Last 10 years, or comprehensive historical?
+```
+
+For "History of cognitive behavioral therapy" (historical analysis):
+```
+☐ Scope boundaries — Start with Beck, or trace to Stoic philosophy?
+☐ Geographic focus — US/UK tradition, or include international developments?
+☐ Narrative emphasis — Intellectual history or clinical practice evolution?
+☐ Critical perspective — Celebratory, balanced, or critical assessment?
+```
+
+Continue to discuss_areas with selected areas.
+</step>
+
+<step name="discuss_areas">
+For each selected area, conduct a focused discussion loop.
+
+**Batch mode support:** Parse optional `--batch` from `$ARGUMENTS`.
+- Accept `--batch`, `--batch=N`, or `--batch N`
+- Default to 4 questions per batch when no number is provided
+- Clamp explicit sizes to 2-5 so a batch stays answerable
+- If `--batch` is absent, keep the existing one-question-at-a-time flow
+
+**Philosophy:** stay adaptive, but let the user choose the pacing.
+- Default mode: 4 single-question turns, then check whether to continue
+- `--batch` mode: 1 grouped turn with 2-5 numbered questions, then check whether to continue
+
+Each answer (or answer set, in batch mode) should reveal the next question or next batch.
+
+**Auto mode (`--auto`):** For each area, Claude selects the recommended option (first option, or the one explicitly marked "recommended") for every question without using AskUserQuestion. Log each auto-selected choice:
+```
+[auto] [Area] — Q: "[question text]" → Selected: "[chosen option]" (recommended default)
+```
+After all areas are auto-resolved, skip the "Explore more gray areas" prompt and proceed directly to write_context.
+
+**Interactive mode (no `--auto`):**
+
+**Philosophy: 4 questions, then check.**
+
+Ask 4 questions per area before offering to continue or move on. Each answer often reveals the next question.
+
+**For each area:**
+
+1. **Announce the area:**
+   ```
+   Let's talk about [Area].
+   ```
+
+2. **Ask 4 questions using AskUserQuestion:**
+   - header: "[Area]" (max 12 chars — abbreviate if needed)
+   - question: Specific decision for this area
+   - options: 2-3 concrete choices (AskUserQuestion adds "Other" automatically), with the recommended choice highlighted and brief explanation why
+   - **Annotate options with code context** when relevant:
+     ```
+     "How should posts be displayed?"
+     - Cards (reuses existing Card component — consistent with Messages)
+     - List (simpler, would be a new pattern)
+     - Timeline (needs new Timeline component — none exists yet)
+     ```
+   - Include "You decide" as an option when reasonable — captures Claude discretion
+   - **Context7 for library choices:** When a gray area involves library selection (e.g., "magic links" → query next-auth docs) or API approach decisions, use `mcp__context7__*` tools to fetch current documentation and inform the options. Don't use Context7 for every question — only when library-specific knowledge improves the options.
+
+3. **After 4 questions, check:**
+   - header: "[Area]" (max 12 chars)
+   - question: "More questions about [area], or move to next?"
+   - options: "More questions" / "Next area"
+
+   If "More questions" → ask 4 more, then check again
+   If "Next area" → proceed to next selected area
+   If "Other" (free text) → interpret intent: continuation phrases ("chat more", "keep going", "yes", "more") map to "More questions"; advancement phrases ("done", "move on", "next", "skip") map to "Next area". If ambiguous, ask: "Continue with more questions about [area], or move to the next area?"
+
+4. **After all initially-selected areas complete:**
+   - Summarize what was captured from the discussion so far
+   - AskUserQuestion:
+     - header: "Done"
+     - question: "We've discussed [list areas]. Which gray areas remain unclear?"
+     - options: "Explore more gray areas" / "I'm ready for context"
+   - If "Explore more gray areas":
+     - Identify 2-4 additional gray areas based on what was learned
+     - Return to present_gray_areas logic with these new areas
+     - Loop: discuss new areas, then prompt again
+   - If "I'm ready for context": Proceed to write_context
+
+**Question design:**
+- Options should be concrete, not abstract ("Cards" not "Option A")
+- Each answer should inform the next question
+- If user picks "Other" to provide freeform input (e.g., "let me describe it", "something else", or an open-ended reply), ask your follow-up as plain text — NOT another AskUserQuestion. Wait for them to type at the normal prompt, then reflect their input back and confirm before resuming AskUserQuestion for the next question.
+
+**Scope creep handling:**
+If user mentions something outside the phase domain:
+```
+"[Feature] sounds like a new capability — that belongs in its own phase.
+I'll note it as a deferred idea.
+
+Back to [current area]: [return to current question]"
+```
+
+Track deferred ideas internally.
+</step>
+
+<step name="write_context">
+Create CONTEXT.md capturing decisions made.
+
+**Find or create phase directory:**
+
+Use values from init: `phase_dir`, `phase_slug`, `padded_phase`.
+
+If `phase_dir` is null (phase exists in roadmap but no directory):
+```bash
+mkdir -p ".planning/phases/${padded_phase}-${phase_slug}"
+```
+
+**File location:** `${phase_dir}/${padded_phase}-CONTEXT.md`
+
+**Structure the content by what was discussed:**
+
+```markdown
+# Phase [X]: [Name] - Context
+
+**Gathered:** [date]
+**Status:** Ready for planning
+
+<domain>
+## Phase Boundary
+
+[Clear statement of what this phase delivers — the scope anchor]
+
+</domain>
+
+<decisions>
+## Implementation Decisions
+
+### [Category 1 that was discussed]
+- [Decision or preference captured]
+- [Another decision if applicable]
+
+### [Category 2 that was discussed]
+- [Decision or preference captured]
+
+### Claude's Discretion
+[Areas where user said "you decide" — note that Claude has flexibility here]
+
+</decisions>
+
+<canonical_refs>
+## Canonical References
+
+**Downstream agents MUST read these before planning or implementing.**
+
+[MANDATORY section. Write the FULL accumulated canonical refs list here.
+Sources: ROADMAP.md refs + REQUIREMENTS.md refs + user-referenced docs during
+discussion + any docs discovered during research scout. Group by topic area.
+Every entry needs a full relative path — not just a name.]
+
+### [Topic area 1]
+- `path/to/source-or-spec.md` — [What it decides/defines that's relevant]
+
+### [Topic area 2]
+- `path/to/doc.md` — [What this doc defines]
+
+[If no external specs: "No external specs — requirements fully captured in decisions above"]
+
+</canonical_refs>
+
+<research_context>
+## Existing Research Insights
+
+### Established Findings
+- [Finding from BOOTSTRAP.md or prior phases]: [Relevance to this phase]
+
+### Prior Decisions
+- [Decision from earlier phases]: [How it constrains this phase]
+
+### Known Gaps
+- [Gap identified in prior research]: [How this phase might address it]
+
+</research_context>
+
+<specifics>
+## Specific Ideas
+
+[Any particular references, examples, or "I want it like X" moments from discussion]
+
+[If none: "No specific requirements — open to standard approaches"]
+
+</specifics>
+
+<deferred>
+## Deferred Ideas
+
+[Ideas that came up but belong in other phases. Don't lose them.]
+
+[If none: "None — discussion stayed within phase scope"]
+
+</deferred>
+
+---
+
+*Phase: XX-name*
+*Context gathered: [date]*
+```
+
+Write file.
+</step>
+
+<step name="confirm_creation">
+Present summary and next steps:
+
+```
+Created: .planning/phases/${PADDED_PHASE}-${SLUG}/${PADDED_PHASE}-CONTEXT.md
+
+## Decisions Captured
+
+### [Category]
+- [Key decision]
+
+### [Category]
+- [Key decision]
+
+[If deferred ideas exist:]
+## Noted for Later
+- [Deferred idea] — future phase
+
+---
+
+## ▶ Next Up
+
+**Phase ${PHASE}: [Name]** — [Goal from ROADMAP.md]
+
+`/gsd-r:plan-phase ${PHASE}`
+
+<sub>`/clear` first → fresh context window</sub>
+
+---
+
+**Also available:**
+- `/gsd-r:plan-phase ${PHASE} --skip-research` — plan without research
+- Review/edit CONTEXT.md before continuing
+
+---
+```
+</step>
+
+<step name="git_commit">
+Commit phase context (uses `commit_docs` from init internally):
+
+```bash
+node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" commit "docs(${padded_phase}): capture phase context" --files "${phase_dir}/${padded_phase}-CONTEXT.md"
+```
+
+Confirm: "Committed: docs(${padded_phase}): capture phase context"
+</step>
+
+<step name="update_state">
+Update STATE.md with session info:
+
+```bash
+node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" state record-session \
+  --stopped-at "Phase ${PHASE} context gathered" \
+  --resume-file "${phase_dir}/${padded_phase}-CONTEXT.md"
+```
+
+Commit STATE.md:
+
+```bash
+node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" commit "docs(state): record phase ${PHASE} context session" --files .planning/STATE.md
+```
+</step>
+
+<step name="auto_advance">
+Check for auto-advance trigger:
+
+1. Parse `--auto` flag from $ARGUMENTS
+2. **Sync chain flag with intent** — if user invoked manually (no `--auto`), clear the ephemeral chain flag from any previous interrupted `--auto` chain. This does NOT touch `workflow.auto_advance` (the user's persistent settings preference):
+   ```bash
+   if [[ ! "$ARGUMENTS" =~ --auto ]]; then
+     node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" config-set workflow._auto_chain_active false 2>/dev/null
+   fi
+   ```
+3. Read both the chain flag and user preference:
+   ```bash
+   AUTO_CHAIN=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" config-get workflow._auto_chain_active 2>/dev/null || echo "false")
+   AUTO_CFG=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" config-get workflow.auto_advance 2>/dev/null || echo "false")
+   ```
+
+**If `--auto` flag present AND `AUTO_CHAIN` is not true:** Persist chain flag to config (handles direct `--auto` usage without new-project):
+```bash
+node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" config-set workflow._auto_chain_active true
+```
+
+**If `--auto` flag present OR `AUTO_CHAIN` is true OR `AUTO_CFG` is true:**
+
+Display banner:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ GSD ► AUTO-ADVANCING TO PLAN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Context captured. Launching plan-phase...
+```
+
+Launch plan-phase using the Skill tool to avoid nested Task sessions (which cause runtime freezes due to deep agent nesting — see #686):
+```
+Skill(skill="gsd:plan-phase", args="${PHASE} --auto")
+```
+
+This keeps the auto-advance chain flat — discuss, plan, and execute all run at the same nesting level rather than spawning increasingly deep Task agents.
+
+**Handle plan-phase return:**
+- **PHASE COMPLETE** → Full chain succeeded. Display:
+  ```
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   GSD ► PHASE ${PHASE} COMPLETE
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Auto-advance pipeline finished: discuss → plan → execute
+
+  Next: /gsd-r:discuss-phase ${NEXT_PHASE} --auto
+  <sub>/clear first → fresh context window</sub>
+  ```
+- **PLANNING COMPLETE** → Planning done, execution didn't complete:
+  ```
+  Auto-advance partial: Planning complete, execution did not finish.
+  Continue: /gsd-r:execute-phase ${PHASE}
+  ```
+- **PLANNING INCONCLUSIVE / CHECKPOINT** → Stop chain:
+  ```
+  Auto-advance stopped: Planning needs input.
+  Continue: /gsd-r:plan-phase ${PHASE}
+  ```
+- **GAPS FOUND** → Stop chain:
+  ```
+  Auto-advance stopped: Gaps found during execution.
+  Continue: /gsd-r:plan-phase ${PHASE} --gaps
+  ```
+
+**If neither `--auto` nor config enabled:**
+Route to `confirm_creation` step (existing behavior — show manual next steps).
+</step>
+
+</process>
+
+<success_criteria>
+- Phase validated against roadmap
+- Prior context loaded (PROJECT.md, REQUIREMENTS.md, STATE.md, prior CONTEXT.md files)
+- Already-decided questions not re-asked (carried forward from prior phases)
+- Existing research scouted for established findings, prior decisions, and known gaps
+- Gray areas identified through intelligent analysis with research and prior decision annotations
+- User selected which areas to discuss
+- Each selected area explored until user satisfied (with research-informed and prior-decision-informed options)
+- Scope creep redirected to deferred ideas
+- CONTEXT.md captures actual decisions, not vague vision
+- CONTEXT.md includes canonical_refs section with full file paths to every spec/doc downstream agents need (MANDATORY — never omit)
+- CONTEXT.md includes research_context section with established findings and known gaps
+- Deferred ideas preserved for future phases
+- STATE.md updated with session info
+- User knows next steps
+</success_criteria>
