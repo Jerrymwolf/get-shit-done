@@ -127,7 +127,7 @@ If multiple runtime installs are detected and the invoking runtime cannot be det
 
 **If VERSION file missing:**
 ```
-## GSD Update
+## GSD-R Update
 
 **Installed version:** Unknown
 
@@ -143,14 +143,14 @@ Proceed to install step (treat as version 0.0.0 for comparison).
 Check npm for latest version:
 
 ```bash
-npm view get-shit-done-r version 2>/dev/null
+npm view get-shit-done-cc version 2>/dev/null
 ```
 
 **If npm check fails:**
 ```
 Couldn't check for updates (offline or npm unavailable).
 
-To update manually: `npx get-shit-done-r --global`
+To update manually: `npx get-shit-done-cc --global`
 ```
 
 Exit.
@@ -161,7 +161,7 @@ Compare installed vs latest:
 
 **If installed == latest:**
 ```
-## GSD Update
+## GSD-R Update
 
 **Installed:** X.Y.Z
 **Latest:** X.Y.Z
@@ -173,7 +173,7 @@ Exit.
 
 **If installed > latest:**
 ```
-## GSD Update
+## GSD-R Update
 
 **Installed:** X.Y.Z
 **Latest:** A.B.C
@@ -192,7 +192,7 @@ Exit.
 3. Display preview and ask for confirmation:
 
 ```
-## GSD Update Available
+## GSD-R Update Available
 
 **Installed:** 1.5.10
 **Latest:** 1.5.15
@@ -213,17 +213,17 @@ Exit.
 ────────────────────────────────────────────────────────────
 
 ⚠️  **Note:** The installer performs a clean install of GSD folders:
-- `commands/gsd-r/` will be wiped and replaced
+- `commands/gsd/` will be wiped and replaced
 - `get-shit-done-r/` will be wiped and replaced
-- `agents/gsd-r-*` files will be replaced
+- `agents/gsd-*` files will be replaced
 
 (Paths are relative to detected runtime install location:
 global: `/Users/jeremiahwolf/.claude/`, `~/.config/opencode/`, `~/.opencode/`, `~/.gemini/`, or `~/.codex/`
 local: `./.claude/`, `./.config/opencode/`, `./.opencode/`, `./.gemini/`, or `./.codex/`)
 
 Your custom files in other locations are preserved:
-- Custom commands not in `commands/gsd-r/` ✓
-- Custom agents not prefixed with `gsd-r-` ✓
+- Custom commands not in `commands/gsd/` ✓
+- Custom agents not prefixed with `gsd-` ✓
 - Custom hooks ✓
 - Your CLAUDE.md files ✓
 
@@ -249,17 +249,17 @@ RUNTIME_FLAG="--$TARGET_RUNTIME"
 
 **If LOCAL install:**
 ```bash
-npx -y get-shit-done-r@latest "$RUNTIME_FLAG" --local
+npx -y get-shit-done-cc@latest "$RUNTIME_FLAG" --local
 ```
 
 **If GLOBAL install:**
 ```bash
-npx -y get-shit-done-r@latest "$RUNTIME_FLAG" --global
+npx -y get-shit-done-cc@latest "$RUNTIME_FLAG" --global
 ```
 
 **If UNKNOWN install:**
 ```bash
-npx -y get-shit-done-r@latest --claude --global
+npx -y get-shit-done-cc@latest --claude --global
 ```
 
 Capture output. If install fails, show error and exit.
@@ -282,7 +282,7 @@ Format completion message (changelog was already shown in confirmation step):
 
 ```
 ╔═══════════════════════════════════════════════════════════╗
-║  GSD Updated: v1.5.10 → v1.5.15                           ║
+║  GSD-R Updated: v1.5.10 → v1.5.15                           ║
 ╚═══════════════════════════════════════════════════════════╝
 
 ⚠️  Restart your runtime to pick up the new commands.
@@ -318,4 +318,3 @@ Run /gsd-r:reapply-patches to merge your modifications into the new version.
 - [ ] Update executed successfully
 - [ ] Restart reminder shown
 </success_criteria>
-</output>

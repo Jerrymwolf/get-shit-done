@@ -364,13 +364,13 @@ Diagnosis runs automatically - no user prompt. Parallel agents investigate simul
 Display:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PLANNING FIXES
+ GSD-R ► PLANNING FIXES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ◆ Spawning planner for gap closure...
 ```
 
-Spawn gsd-r-planner in --gaps mode:
+Spawn gsd-planner in --gaps mode:
 
 ```
 Task(
@@ -410,7 +410,7 @@ On return:
 Display:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► VERIFYING FIX PLANS
+ GSD-R ► VERIFYING FIX PLANS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ◆ Spawning plan checker...
@@ -418,7 +418,7 @@ Display:
 
 Initialize: `iteration_count = 1`
 
-Spawn gsd-r-plan-checker:
+Spawn gsd-plan-checker:
 
 ```
 Task(
@@ -458,7 +458,7 @@ On return:
 
 Display: `Sending back to planner for revision... (iteration {N}/3)`
 
-Spawn gsd-r-planner with revision context:
+Spawn gsd-planner with revision context:
 
 ```
 Task(
@@ -508,7 +508,7 @@ Wait for user response.
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► FIXES READY ✓
+ GSD-R ► FIXES READY ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 **Phase {X}: {Name}** — {N} gap(s) diagnosed, {M} fix plan(s) created
@@ -577,8 +577,8 @@ Default to **major** if unclear. User can correct if needed.
 - [ ] Batched writes: on issue, every 5 passes, or completion
 - [ ] Committed on completion
 - [ ] If issues: parallel debug agents diagnose root causes
-- [ ] If issues: gsd-r-planner creates fix plans (gap_closure mode)
-- [ ] If issues: gsd-r-plan-checker verifies fix plans
+- [ ] If issues: gsd-planner creates fix plans (gap_closure mode)
+- [ ] If issues: gsd-plan-checker verifies fix plans
 - [ ] If issues: revision loop until plans pass (max 3 iterations)
 - [ ] Ready for `/gsd-r:execute-phase --gaps-only` when complete
 </success_criteria>

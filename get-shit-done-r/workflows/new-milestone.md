@@ -106,18 +106,18 @@ AskUserQuestion: "Research the domain ecosystem for new features before defining
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► RESEARCHING
+ GSD-R ► RESEARCHING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ◆ Spawning 4 researchers in parallel...
-  → Landscape, Questions, Frameworks, Debates
+  → Stack, Features, Architecture, Pitfalls
 ```
 
 ```bash
 mkdir -p .planning/research
 ```
 
-Spawn 4 parallel gsd-r-project-researcher agents. Each uses this template with dimension-specific fields:
+Spawn 4 parallel gsd-project-researcher agents. Each uses this template with dimension-specific fields:
 
 **Common structure for all 4 researchers:**
 ```
@@ -149,13 +149,13 @@ Use template: /Users/jeremiahwolf/.claude/get-shit-done-r/templates/research-pro
 
 **Dimension-specific fields:**
 
-| Field | Landscape | Questions | Frameworks | Debates |
-|-------|-----------|-----------|------------|---------|
-| EXISTING_CONTEXT | Existing literature already reviewed (DO NOT re-research): [from PROJECT.md] | Existing research questions already addressed: [from PROJECT.md] | Existing theoretical frameworks already adopted: [from PROJECT.md] | Focus on emerging debates relevant to NEW research directions |
-| QUESTION | What key authors, institutions, and recent works are relevant to [new research areas]? | What research questions (open vs. settled) does [new research direction] raise? | What theoretical frameworks and competing models apply to [new research areas]? | What active debates and methodological disputes surround [new research areas]? |
-| CONSUMER | Key authors with institutions, seminal works with citations, recent developments, gaps in literature | Central questions (open) vs sub-questions (tractable) vs settled, complexity noted, dependencies on existing findings | Key frameworks, relationship to existing frameworks, evidence base, suggested investigation order | Active positions, evidence strength, methodological implications, which phase should address |
-| GATES | Sources cited with dates, institutional affiliations verified, literature gaps identified | Questions specific and answerable, complexity noted, dependencies identified | Frameworks evidence-based, relationships to existing work explicit, investigation order justified | Debates specific to new research areas, methodological implications covered, positions evidence-based |
-| FILE | LANDSCAPE.md | QUESTIONS.md | FRAMEWORKS.md | DEBATES.md |
+| Field | Stack | Features | Architecture | Pitfalls |
+|-------|-------|----------|-------------|----------|
+| EXISTING_CONTEXT | Existing validated capabilities (DO NOT re-research): [from PROJECT.md] | Existing features (already built): [from PROJECT.md] | Existing architecture: [from PROJECT.md or codebase map] | Focus on common mistakes when ADDING these features to existing system |
+| QUESTION | What stack additions/changes are needed for [new features]? | How do [target features] typically work? Expected behavior? | How do [target features] integrate with existing architecture? | Common mistakes when adding [target features] to [domain]? |
+| CONSUMER | Specific libraries with versions for NEW capabilities, integration points, what NOT to add | Table stakes vs differentiators vs anti-features, complexity noted, dependencies on existing | Integration points, new components, data flow changes, suggested build order | Warning signs, prevention strategy, which phase should address it |
+| GATES | Versions current (verify with Context7), rationale explains WHY, integration considered | Categories clear, complexity noted, dependencies identified | Integration points identified, new vs modified explicit, build order considers deps | Pitfalls specific to adding these features, integration pitfalls covered, prevention actionable |
+| FILE | STACK.md | FEATURES.md | ARCHITECTURE.md | PITFALLS.md |
 
 After all 4 complete, spawn synthesizer:
 
@@ -164,10 +164,10 @@ Task(prompt="
 Synthesize research outputs into SUMMARY.md.
 
 <files_to_read>
-- .planning/research/LANDSCAPE.md
-- .planning/research/QUESTIONS.md
-- .planning/research/FRAMEWORKS.md
-- .planning/research/DEBATES.md
+- .planning/research/STACK.md
+- .planning/research/FEATURES.md
+- .planning/research/ARCHITECTURE.md
+- .planning/research/PITFALLS.md
 </files_to_read>
 
 Write to: .planning/research/SUMMARY.md
@@ -179,12 +179,12 @@ Commit after writing.
 Display key findings from SUMMARY.md:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► RESEARCH COMPLETE ✓
+ GSD-R ► RESEARCH COMPLETE ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-**Landscape findings:** [from SUMMARY.md]
-**Key questions:** [from SUMMARY.md]
-**Active debates:** [from SUMMARY.md]
+**Stack additions:** [from SUMMARY.md]
+**Feature table stakes:** [from SUMMARY.md]
+**Watch Out For:** [from SUMMARY.md]
 ```
 
 **If "Skip research":** Continue to Step 9.
@@ -193,13 +193,13 @@ Display key findings from SUMMARY.md:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► DEFINING REQUIREMENTS
+ GSD-R ► DEFINING REQUIREMENTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 Read PROJECT.md: core value, current milestone goals, validated requirements (what exists).
 
-**If research exists:** Read QUESTIONS.md, extract research question categories.
+**If research exists:** Read FEATURES.md, extract feature categories.
 
 Present features by category:
 ```
@@ -264,7 +264,7 @@ node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" commit "d
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► CREATING ROADMAP
+ GSD-R ► CREATING ROADMAP
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ◆ Spawning roadmapper...
@@ -341,7 +341,7 @@ node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" commit "d
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► MILESTONE INITIALIZED ✓
+ GSD-R ► MILESTONE INITIALIZED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 **Milestone v[X.Y]: [Name]**
@@ -375,7 +375,7 @@ Also: `/gsd-r:plan-phase [N]` — skip discussion, plan directly
 - [ ] Research completed (if selected) — 4 parallel agents, milestone-aware
 - [ ] Requirements gathered and scoped per category
 - [ ] REQUIREMENTS.md created with REQ-IDs
-- [ ] gsd-r-roadmapper spawned with phase numbering context
+- [ ] gsd-roadmapper spawned with phase numbering context
 - [ ] Roadmap files written immediately (not draft)
 - [ ] User feedback incorporated (if any)
 - [ ] ROADMAP.md phases continue from previous milestone

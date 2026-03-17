@@ -18,7 +18,7 @@ if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 Parse: `phase_dir`, `phase_number`, `phase_name`, `phase_slug`, `padded_phase`.
 
 ```bash
-AUDITOR_MODEL=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" resolve-model gsd-r-nyquist-auditor --raw)
+AUDITOR_MODEL=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" resolve-model gsd-nyquist-auditor --raw)
 NYQUIST_CFG=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" config get workflow.nyquist_validation --raw)
 ```
 
@@ -82,11 +82,11 @@ Call AskUserQuestion with gap table and options:
 2. "Skip — mark manual-only" → add to Manual-Only, Step 6
 3. "Cancel" → exit
 
-## 5. Spawn gsd-r-nyquist-auditor
+## 5. Spawn gsd-nyquist-auditor
 
 ```
 Task(
-  prompt="Read /Users/jeremiahwolf/.claude/agents/gsd-r-nyquist-auditor.md for instructions.\n\n" +
+  prompt="Read /Users/jeremiahwolf/.claude/agents/gsd-nyquist-auditor.md for instructions.\n\n" +
     "<files_to_read>{PLAN, SUMMARY, impl files, VALIDATION.md}</files_to_read>" +
     "<gaps>{gap list}</gaps>" +
     "<test_infrastructure>{framework, config, commands}</test_infrastructure>" +

@@ -1,5 +1,5 @@
 <purpose>
-Generate a UI design contract (UI-SPEC.md) for frontend phases. Orchestrates gsd-r-ui-researcher and gsd-r-ui-checker with a revision loop. Inserts between discuss-phase and plan-phase in the lifecycle.
+Generate a UI design contract (UI-SPEC.md) for frontend phases. Orchestrates gsd-ui-researcher and gsd-ui-checker with a revision loop. Inserts between discuss-phase and plan-phase in the lifecycle.
 
 UI-SPEC.md locks spacing, typography, color, copywriting, and design system decisions before the planner creates tasks. This prevents design debt caused by ad-hoc styling decisions during execution.
 </purpose>
@@ -24,8 +24,8 @@ Parse JSON for: `phase_dir`, `phase_number`, `phase_name`, `phase_slug`, `padded
 Resolve UI agent models:
 
 ```bash
-UI_RESEARCHER_MODEL=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" resolve-model gsd-r-ui-researcher --raw)
-UI_CHECKER_MODEL=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" resolve-model gsd-r-ui-checker --raw)
+UI_RESEARCHER_MODEL=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" resolve-model gsd-ui-researcher --raw)
+UI_CHECKER_MODEL=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" resolve-model gsd-ui-checker --raw)
 ```
 
 Check config:
@@ -87,12 +87,12 @@ If "View": display file contents, exit.
 If "Skip": proceed to step 7 (checker).
 If "Update": continue to step 5.
 
-## 5. Spawn gsd-r-ui-researcher
+## 5. Spawn gsd-ui-researcher
 
 Display:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► UI DESIGN CONTRACT — PHASE {N}
+ GSD-R ► UI DESIGN CONTRACT — PHASE {N}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ◆ Spawning UI researcher...
@@ -101,7 +101,7 @@ Display:
 Build prompt:
 
 ```markdown
-Read /Users/jeremiahwolf/.claude/agents/gsd-r-ui-researcher.md for instructions.
+Read /Users/jeremiahwolf/.claude/agents/gsd-ui-researcher.md for instructions.
 
 <objective>
 Create UI design contract for Phase {phase_number}: {phase_name}
@@ -147,12 +147,12 @@ Display confirmation. Continue to step 7.
 **If `## UI-SPEC BLOCKED`:**
 Display blocker details and options. Exit workflow.
 
-## 7. Spawn gsd-r-ui-checker
+## 7. Spawn gsd-ui-checker
 
 Display:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► VERIFYING UI-SPEC
+ GSD-R ► VERIFYING UI-SPEC
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ◆ Spawning UI checker...
@@ -161,7 +161,7 @@ Display:
 Build prompt:
 
 ```markdown
-Read /Users/jeremiahwolf/.claude/agents/gsd-r-ui-checker.md for instructions.
+Read /Users/jeremiahwolf/.claude/agents/gsd-ui-checker.md for instructions.
 
 <objective>
 Validate UI design contract for Phase {phase_number}: {phase_name}
@@ -202,7 +202,7 @@ Track `revision_count` (starts at 0).
 
 **If `revision_count` < 2:**
 - Increment `revision_count`
-- Re-spawn gsd-r-ui-researcher with revision context:
+- Re-spawn gsd-ui-researcher with revision context:
 
 ```markdown
 <revision>
@@ -237,7 +237,7 @@ Use AskUserQuestion for the choice.
 Display:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► UI-SPEC READY ✓
+ GSD-R ► UI-SPEC READY ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 **Phase {N}: {Name}** — UI design contract approved
@@ -279,9 +279,9 @@ node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" state rec
 - [ ] Phase validated against roadmap
 - [ ] Prerequisites checked (CONTEXT.md, RESEARCH.md — non-blocking warnings)
 - [ ] Existing UI-SPEC handled (update/view/skip)
-- [ ] gsd-r-ui-researcher spawned with correct context and file paths
+- [ ] gsd-ui-researcher spawned with correct context and file paths
 - [ ] UI-SPEC.md created in correct location
-- [ ] gsd-r-ui-checker spawned with UI-SPEC.md
+- [ ] gsd-ui-checker spawned with UI-SPEC.md
 - [ ] All 6 dimensions evaluated
 - [ ] Revision loop if BLOCKED (max 2 iterations)
 - [ ] Final status displayed with next steps

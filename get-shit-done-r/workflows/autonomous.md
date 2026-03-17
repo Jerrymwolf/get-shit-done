@@ -1,6 +1,6 @@
 <purpose>
 
-Drive all remaining milestone phases autonomously. For each incomplete phase: discuss -> plan -> execute using Skill() flat invocations. Pauses only for explicit user decisions (grey area acceptance, blockers, validation requests). Re-reads ROADMAP.md after each phase to catch dynamically inserted phases.
+Drive all remaining milestone phases autonomously. For each incomplete phase: discuss → plan → execute using Skill() flat invocations. Pauses only for explicit user decisions (grey area acceptance, blockers, validation requests). Re-reads ROADMAP.md after each phase to catch dynamically inserted phases.
 
 </purpose>
 
@@ -40,7 +40,7 @@ Display startup banner:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► AUTONOMOUS
+ GSD-R ► AUTONOMOUS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
  Milestone: {milestone_version} — {milestone_name}
@@ -73,7 +73,7 @@ Parse the JSON `phases` array.
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► AUTONOMOUS ▸ COMPLETE 🎉
+ GSD-R ► AUTONOMOUS ▸ COMPLETE 🎉
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
  All phases complete! Nothing left to do.
@@ -112,7 +112,7 @@ For the current phase, display the progress banner:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► AUTONOMOUS ▸ Phase {N}/{T}: {Name} [████░░░░] {P}%
+ GSD-R ► AUTONOMOUS ▸ Phase {N}/{T}: {Name} [████░░░░] {P}%
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -260,7 +260,7 @@ On **"Stop autonomous mode"**: Go to handle_blocker with "User stopped — gaps 
 
 Run smart discuss for the current phase. Proposes grey area answers in batch tables — the user accepts or overrides per area. Produces identical CONTEXT.md output to regular discuss-phase.
 
-> **Note:** Smart discuss is an autonomous-optimized variant of the `gsd-r:discuss-phase` skill. It produces identical CONTEXT.md output but uses batch table proposals instead of sequential questioning. The original `discuss-phase` skill remains unchanged (per CTRL-03). Future milestones may extract this to a separate skill file.
+> **Note:** Smart discuss is an autonomous-optimized variant of the `gsd:discuss-phase` skill. It produces identical CONTEXT.md output but uses batch table proposals instead of sequential questioning. The original `discuss-phase` skill remains unchanged (per CTRL-03). Future milestones may extract this to a separate skill file.
 
 **Inputs:** `PHASE_NUM` from execute_phase. Run init to get phase paths:
 
@@ -577,7 +577,7 @@ Display lifecycle transition banner:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► AUTONOMOUS ▸ LIFECYCLE
+ GSD-R ► AUTONOMOUS ▸ LIFECYCLE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
  All phases complete → Starting lifecycle: audit → complete → cleanup
@@ -668,7 +668,7 @@ Display final completion banner:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► AUTONOMOUS ▸ COMPLETE 🎉
+ GSD-R ► AUTONOMOUS ▸ COMPLETE 🎉
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
  Milestone: {milestone_version} — {milestone_name}
@@ -701,7 +701,7 @@ When any phase operation fails or a blocker is detected, present 3 options via A
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► AUTONOMOUS ▸ STOPPED
+ GSD-R ► AUTONOMOUS ▸ STOPPED
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
  Completed: {list of completed phases}

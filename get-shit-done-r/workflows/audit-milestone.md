@@ -19,7 +19,7 @@ Extract from init JSON: `milestone_version`, `milestone_name`, `phase_count`, `c
 
 Resolve integration checker model:
 ```bash
-integration_checker_model=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" resolve-model gsd-r-integration-checker --raw)
+integration_checker_model=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" resolve-model gsd-integration-checker --raw)
 ```
 
 ## 1. Determine Milestone Scope

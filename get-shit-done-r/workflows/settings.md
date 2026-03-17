@@ -47,7 +47,7 @@ AskUserQuestion([
     multiSelect: false,
     options: [
       { label: "Quality", description: "Opus everywhere except verification (highest cost)" },
-      { label: "Balanced (Recommended)", description: "Opus for planning, Sonnet for execution/verification" },
+      { label: "Balanced (Recommended)", description: "Opus for planning, Sonnet for research/execution/verification" },
       { label: "Budget", description: "Sonnet for writing, Haiku for research/verification (lowest cost)" },
       { label: "Inherit", description: "Use current session model for all agents (best for OpenCode /model)" }
     ]
@@ -97,6 +97,8 @@ AskUserQuestion([
       { label: "No", description: "Skip validation research. Good for rapid prototyping or no-test phases." }
     ]
   },
+  // Note: Nyquist validation depends on research output. If research is disabled,
+  // plan-phase automatically skips Nyquist steps (no RESEARCH.md to extract from).
   {
     question: "Enable UI Phase? (generates UI-SPEC.md design contracts for frontend phases)",
     header: "UI Phase",
@@ -124,6 +126,15 @@ AskUserQuestion([
       { label: "Per Phase", description: "Create branch for each phase (gsd/phase-{N}-{name})" },
       { label: "Per Milestone", description: "Create branch for entire milestone (gsd/{version}-{name})" }
     ]
+  },
+  {
+    question: "Enable context window warnings? (injects advisory messages when context is getting full)",
+    header: "Ctx Warnings",
+    multiSelect: false,
+    options: [
+      { label: "Yes (Recommended)", description: "Warn when context usage exceeds 65%. Helps avoid losing work." },
+      { label: "No", description: "Disable warnings. Allows Claude to reach auto-compact naturally. Good for long unattended runs." }
+    ]
   }
 ])
 ```
@@ -147,6 +158,9 @@ Merge new settings into existing config.json:
   },
   "git": {
     "branching_strategy": "none" | "phase" | "milestone"
+  },
+  "hooks": {
+    "context_warnings": true/false
   }
 }
 ```
@@ -204,7 +218,7 @@ Display:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► SETTINGS UPDATED
+ GSD-R ► SETTINGS UPDATED
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 | Setting              | Value |
@@ -218,6 +232,7 @@ Display:
 | UI Phase             | {On/Off} |
 | UI Safety Gate       | {On/Off} |
 | Git Branching        | {None/Per Phase/Per Milestone} |
+| Context Warnings     | {On/Off} |
 | Saved as Defaults    | {Yes/No} |
 
 These settings apply to future /gsd-r:plan-phase and /gsd-r:execute-phase runs.
