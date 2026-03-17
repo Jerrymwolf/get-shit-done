@@ -1,7 +1,7 @@
 # Requirements: GRD v1.2 Research Reorientation
 
 **Defined:** 2026-03-17
-**Core Value:** Every research finding is self-contained and auditable — the note plus its actual source files, never just links
+**Core Value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
 
 ## v1.2 Requirements
 
@@ -29,29 +29,34 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 - [ ] **CFG-01**: `researcher_tier` field in config.json (guided/standard/expert) with selection during `/grd:new-research`
 - [ ] **CFG-02**: `review_type` field in config.json (systematic/scoping/integrative/critical/narrative) with selection during `/grd:new-research`
 - [ ] **CFG-03**: `epistemological_stance` field in config.json (positivist/constructivist/pragmatist/critical) with pragmatist default if skipped
-- [ ] **CFG-04**: Smart defaults cascade — selecting a review type auto-configures critical_appraisal, temporal_positioning, synthesis, and plan_check rigor per the Smart Defaults table
+- [ ] **CFG-04**: Smart defaults cascade -- selecting a review type auto-configures critical_appraisal, temporal_positioning, synthesis, and plan_check rigor per the Smart Defaults table
 - [ ] **CFG-05**: `configWithDefaults()` function ensuring existing projects get correct defaults for all new fields
+- [ ] **CFG-06**: `config.workflow.critical_appraisal` toggle (skips Evidence Quality section globally; defaults to false for narrative+Guided tier)
+- [ ] **CFG-07**: `config.workflow.temporal_positioning` toggle (skips era field; defaults per Smart Defaults table)
 
 ### Research Formulation
 
 - [ ] **FORM-01**: `/grd:new-research` scoping includes researcher tier, review type, epistemological positioning, and standard topic/significance/audience questions
 - [ ] **FORM-02**: 4 parallel researchers renamed and rechartered (Methodological Landscape, Prior Findings & Key Themes, Theoretical Framework Survey, Limitations Critiques & Debates)
 - [ ] **FORM-03**: PROJECT.md serves as research prospectus with problem statement, significance, epistemological stance, review type, researcher tier, research questions, and constraints
+- [ ] **FORM-04**: BOOTSTRAP.md reframed as "state-of-the-field assessment" with scholarly vocabulary (Established → Contested → Unexplored maps to known → debated → gap)
+- [ ] **FORM-05**: REQUIREMENTS.md vocabulary shifted to "research objectives / specific aims" — each REQ-ID is a research objective with acceptance criteria defining what "answered" means
+- [ ] **FORM-06**: ROADMAP.md reframed as "research design / study plan" — phases described as lines of inquiry, not administrative phases
 
 ### Research Notes
 
-- [ ] **NOTE-01**: Research note template includes Evidence Quality section with depth scaled by review type (systematic=full CASP/GRADE, scoping=charting, integrative/critical=proportional, narrative=optional)
+- [ ] **NOTE-01**: Research note template includes Evidence Quality section with depth scaled by review type (systematic=full CASP/GRADE, scoping=charting, integrative/critical=proportional, narrative=optional) and influenced by epistemological stance (positivist prioritizes RCTs/meta-analyses, constructivist values rich description)
 - [ ] **NOTE-02**: Research note frontmatter includes `era` field (foundational/developmental/contemporary/emerging) for temporal positioning, skippable via config
 - [ ] **NOTE-03**: Research note frontmatter updated with `review_type`, `inquiry`, `era`, and `status` fields
 
 ### Plan-Checker
 
 - [ ] **PLAN-01**: Plan-checker validates against review type requirements (7 checks: source budget, no duplication, primary sources, systematic search strategy, multi-disciplinary perspectives, inclusion/exclusion criteria, diverse methodologies)
-- [ ] **PLAN-02**: Plan-checker uses graduated enforcement — advisory warnings in early investigation phases, blocking errors in later phases
+- [ ] **PLAN-02**: Plan-checker uses graduated enforcement -- advisory warnings in early investigation phases, blocking errors in later phases
 
 ### Verification
 
-- [ ] **VER-01**: Tier 0 sufficiency verification checks whether enough evidence has been gathered for the selected review type
+- [ ] **VER-01**: Tier 0 sufficiency verification checks whether enough evidence has been gathered for the selected review type, including saturation assessment and epistemological consistency check
 - [ ] **VER-02**: Sufficiency criteria scale by review type (systematic=exhaustive, scoping=representative, narrative=adequate coverage)
 - [ ] **VER-03**: Three-tier verification pipeline: Tier 0 (sufficiency) → Tier 1 (goal-backward) → Tier 2 (source audit), with `--skip-tier0` flag
 
@@ -64,6 +69,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 - [ ] **SYN-05**: Argument construction agent produces Executive Summary assembling synthesis into coherent scholarly argument
 - [ ] **SYN-06**: Synthesis respects dependency ordering: 6a (themes) before 6b/6c (framework/gaps run in parallel), all before 6d (argument)
 - [ ] **SYN-07**: Synthesis skippable via `config.workflow.synthesis: false` and individual activities via `--skip-themes`, `--skip-framework`, `--skip-gaps` flags
+- [ ] **SYN-08**: Synthesis output follows `{Study}-Research/` directory structure with `00-` prefixed synthesis files and numbered line-of-inquiry subdirectories
 
 ### Adaptive Communication
 
@@ -71,6 +77,18 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 - [ ] **TIER-02**: All templates adapt by tier (Guided=inline guidance comments, Standard=brief descriptions, Expert=headers only)
 - [ ] **TIER-03**: Verification feedback adapts by tier (Guided=explains what failed and why, Standard=states failure with standard, Expert=terse)
 - [ ] **TIER-04**: Error messages and next-action routing adapt by tier (Guided=suggests next steps and explains, Standard=states requirement and rationale, Expert=states requirement only)
+
+### Trap Doors & Interactive Gates
+
+- [ ] **TRAP-01**: `--prd <file>` flag for scope-inquiry (skip scoping, use file as locked context) and `--batch N` flag (group N questions per turn)
+- [ ] **TRAP-02**: Review type mismatch interactive gate — when plan-checker detects rigor below review type, offer "Downgrade review type" / "Add rigor" / "Override"
+- [ ] **TRAP-03**: Saturation interactive gate in Tier 0 verification — offer "Evidence is sufficient" / "Continue investigating" / "Add inquiry"
+- [ ] **TRAP-04**: Synthesis scope interactive gate before `/grd:synthesize` — offer "Full synthesis (all 4 activities)" / "Themes + argument only" / "Skip synthesis"
+- [ ] **TRAP-05**: Review type downgrade via `/grd:settings` mid-study — rigor requirements relax, no work lost
+
+### Completion
+
+- [ ] **COMP-01**: `/grd:complete-study` includes deliverable assembly — compile synthesis into the target format specified in PROJECT.md
 
 ### Testing
 
@@ -115,56 +133,68 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SYNC-01 | — | Pending |
-| SYNC-02 | — | Pending |
-| SYNC-03 | — | Pending |
-| SYNC-04 | — | Pending |
-| SYNC-05 | — | Pending |
-| NS-01 | — | Pending |
-| NS-02 | — | Pending |
-| NS-03 | — | Pending |
-| NS-04 | — | Pending |
-| NS-05 | — | Pending |
-| NS-06 | — | Pending |
-| CFG-01 | — | Pending |
-| CFG-02 | — | Pending |
-| CFG-03 | — | Pending |
-| CFG-04 | — | Pending |
-| CFG-05 | — | Pending |
-| FORM-01 | — | Pending |
-| FORM-02 | — | Pending |
-| FORM-03 | — | Pending |
-| NOTE-01 | — | Pending |
-| NOTE-02 | — | Pending |
-| NOTE-03 | — | Pending |
-| PLAN-01 | — | Pending |
-| PLAN-02 | — | Pending |
-| VER-01 | — | Pending |
-| VER-02 | — | Pending |
-| VER-03 | — | Pending |
-| SYN-01 | — | Pending |
-| SYN-02 | — | Pending |
-| SYN-03 | — | Pending |
-| SYN-04 | — | Pending |
-| SYN-05 | — | Pending |
-| SYN-06 | — | Pending |
-| SYN-07 | — | Pending |
-| TIER-01 | — | Pending |
-| TIER-02 | — | Pending |
-| TIER-03 | — | Pending |
-| TIER-04 | — | Pending |
-| TEST-01 | — | Pending |
-| TEST-02 | — | Pending |
-| TEST-03 | — | Pending |
-| TEST-04 | — | Pending |
-| TEST-05 | — | Pending |
-| TEST-06 | — | Pending |
+| SYNC-01 | Phase 15 | Pending |
+| SYNC-02 | Phase 15 | Pending |
+| SYNC-03 | Phase 15 | Pending |
+| SYNC-04 | Phase 15 | Pending |
+| SYNC-05 | Phase 15 | Pending |
+| NS-01 | Phase 17 | Pending |
+| NS-02 | Phase 17 | Pending |
+| NS-03 | Phase 17 | Pending |
+| NS-04 | Phase 17 | Pending |
+| NS-05 | Phase 17 | Pending |
+| NS-06 | Phase 17 | Pending |
+| CFG-01 | Phase 16 | Pending |
+| CFG-02 | Phase 16 | Pending |
+| CFG-03 | Phase 16 | Pending |
+| CFG-04 | Phase 16 | Pending |
+| CFG-05 | Phase 16 | Pending |
+| CFG-06 | Phase 16 | Pending |
+| CFG-07 | Phase 16 | Pending |
+| FORM-01 | Phase 18 | Pending |
+| FORM-02 | Phase 18 | Pending |
+| FORM-03 | Phase 18 | Pending |
+| FORM-04 | Phase 18 | Pending |
+| FORM-05 | Phase 18 | Pending |
+| FORM-06 | Phase 18 | Pending |
+| NOTE-01 | Phase 18 | Pending |
+| NOTE-02 | Phase 18 | Pending |
+| NOTE-03 | Phase 18 | Pending |
+| PLAN-01 | Phase 19 | Pending |
+| PLAN-02 | Phase 19 | Pending |
+| VER-01 | Phase 20 | Pending |
+| VER-02 | Phase 20 | Pending |
+| VER-03 | Phase 20 | Pending |
+| SYN-01 | Phase 22 | Pending |
+| SYN-02 | Phase 22 | Pending |
+| SYN-03 | Phase 22 | Pending |
+| SYN-04 | Phase 22 | Pending |
+| SYN-05 | Phase 22 | Pending |
+| SYN-06 | Phase 22 | Pending |
+| SYN-07 | Phase 22 | Pending |
+| SYN-08 | Phase 22 | Pending |
+| TRAP-01 | Phase 18 | Pending |
+| TRAP-02 | Phase 19 | Pending |
+| TRAP-03 | Phase 20 | Pending |
+| TRAP-04 | Phase 22 | Pending |
+| TRAP-05 | Phase 16 | Pending |
+| COMP-01 | Phase 22 | Pending |
+| TIER-01 | Phase 21 | Pending |
+| TIER-02 | Phase 21 | Pending |
+| TIER-03 | Phase 21 | Pending |
+| TIER-04 | Phase 21 | Pending |
+| TEST-01 | Phase 15 | Pending |
+| TEST-02 | Phase 17 | Pending |
+| TEST-03 | Phase 19 | Pending |
+| TEST-04 | Phase 16 | Pending |
+| TEST-05 | Phase 22 | Pending |
+| TEST-06 | Phase 21 | Pending |
 
 **Coverage:**
-- v1.2 requirements: 44 total
-- Mapped to phases: 0
-- Unmapped: 44 ⚠️
+- v1.2 requirements: 55 total
+- Mapped to phases: 55
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-17*
-*Last updated: 2026-03-17 after initial definition*
+*Last updated: 2026-03-17 after spec audit gap closure (11 requirements added)*
