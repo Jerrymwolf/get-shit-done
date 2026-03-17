@@ -333,26 +333,16 @@ Output: User model, API endpoints, and UI components.
 <task type="auto">
   <name>Task 1: Create User model</name>
   <files>src/features/user/model.ts</files>
-  <read_first>src/features/user/types.ts, src/lib/database.ts</read_first>
   <action>Define User type with id, email, name, createdAt. Export TypeScript interface.</action>
   <verify>tsc --noEmit passes</verify>
-  <acceptance_criteria>
-    - model.ts contains "export interface User"
-    - model.ts contains "id: string" and "email: string"
-  </acceptance_criteria>
   <done>User type exported and usable</done>
 </task>
 
 <task type="auto">
   <name>Task 2: Create User API endpoints</name>
   <files>src/features/user/api.ts</files>
-  <read_first>src/features/user/model.ts, src/lib/router.ts</read_first>
   <action>GET /users (list), GET /users/:id (single), POST /users (create). Use User type from model.</action>
   <verify>curl tests pass for all endpoints</verify>
-  <acceptance_criteria>
-    - api.ts contains "GET" handler for "/users"
-    - api.ts imports from "./model"
-  </acceptance_criteria>
   <done>All CRUD operations work</done>
 </task>
 </tasks>
@@ -475,14 +465,36 @@ files_modified: [...]
 </task>
 ```
 
-**Bad: Missing read_first and acceptance_criteria**
+**Bad: Missing read_first (executor modifies files it hasn't read)**
 ```xml
 <task type="auto">
-  <name>Update auth module</name>
-  <files>src/auth.ts</files>
-  <action>Update the auth module to match the new spec</action>
-  <verify>Tests pass</verify>
-  <done>Auth updated</done>
+  <name>Update database config</name>
+  <files>src/config/database.ts</files>
+  <!-- No read_first! Executor doesn't know current state or conventions -->
+  <action>Update the database config to match production settings</action>
+</task>
+```
+
+**Bad: Vague acceptance criteria (not verifiable)**
+```xml
+<acceptance_criteria>
+  - Config is properly set up
+  - Database connection works correctly
+</acceptance_criteria>
+```
+
+**Good: Concrete with read_first + verifiable criteria**
+```xml
+<task type="auto">
+  <name>Update database config for connection pooling</name>
+  <files>src/config/database.ts</files>
+  <read_first>src/config/database.ts, .env.example, docker-compose.yml</read_first>
+  <action>Add pool configuration: min=2, max=20, idleTimeoutMs=30000. Add SSL config: rejectUnauthorized=true when NODE_ENV=production. Add .env.example entry: DATABASE_POOL_MAX=20.</action>
+  <acceptance_criteria>
+    - database.ts contains "max: 20" and "idleTimeoutMillis: 30000"
+    - database.ts contains SSL conditional on NODE_ENV
+    - .env.example contains DATABASE_POOL_MAX
+  </acceptance_criteria>
 </task>
 ```
 
@@ -496,7 +508,6 @@ files_modified: [...]
 - Only reference prior SUMMARYs when genuinely needed
 - Group checkpoints with related auto tasks in same plan
 - 2-3 tasks per plan, ~50% context max
-- Include `read_first` and `acceptance_criteria` in every auto task
 
 ---
 

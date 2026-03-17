@@ -11,6 +11,7 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 - `gsd-r-planner` -- Reads decisions to create specific tasks (e.g., "infinite scroll" -> task includes virtualization)
 - All downstream agents -- Read canonical_refs for specs, ADRs, and design docs that constrain implementation
 
+
 ---
 
 ## File Template
@@ -143,6 +144,18 @@ Display posts from followed users in a scrollable feed. Users can view posts and
 
 </decisions>
 
+<canonical_refs>
+## Canonical References
+
+### Feed display
+- `docs/features/social-feed.md` -- Feed requirements, post card fields, engagement display rules
+- `docs/decisions/adr-012-infinite-scroll.md` -- Scroll strategy decision, virtualization requirements
+
+### Empty states
+- `docs/design/empty-states.md` -- Empty state patterns, illustration guidelines
+
+</canonical_refs>
+
 <specifics>
 ## Specific Ideas
 
@@ -204,6 +217,15 @@ CLI command to backup database to local file or S3. Supports full and incrementa
 - Temp file handling
 
 </decisions>
+
+<canonical_refs>
+## Canonical References
+
+### Backup CLI
+- `docs/features/backup-restore.md` -- Backup requirements, supported backends, encryption spec
+- `docs/decisions/adr-007-cli-conventions.md` -- Flag naming, exit codes, output format standards
+
+</canonical_refs>
 
 <specifics>
 ## Specific Ideas
@@ -267,6 +289,15 @@ Organize existing photo library into structured folders. Handle duplicates and a
 
 </decisions>
 
+<canonical_refs>
+## Canonical References
+
+### Organization rules
+- `docs/features/photo-organization.md` -- Grouping rules, duplicate policy, naming spec
+- `docs/decisions/adr-003-exif-handling.md` -- EXIF extraction strategy, fallback for missing metadata
+
+</canonical_refs>
+
 <specifics>
 ## Specific Ideas
 
@@ -308,16 +339,16 @@ The output should answer: "What does the researcher need to investigate? What ch
 - "Fast and responsive"
 - "Easy to use"
 
-**Canonical References:**
-- List specs, ADRs, and design docs that downstream agents must read
-- Use full relative paths so agents can read them directly
-- Group by topic area when the phase has multiple concerns
-- If no external specs exist, state explicitly: "No external specs"
-- NEVER silently omit this section -- even "no specs" is useful information
-
 **After creation:**
 - File lives in phase directory: `.planning/phases/XX-name/{phase_num}-CONTEXT.md`
-- `gsd-r-phase-researcher` uses decisions to focus investigation
-- `gsd-r-planner` uses decisions + research to create executable tasks
+- `gsd-r-phase-researcher` uses decisions to focus investigation AND reads canonical_refs to know WHAT docs to study
+- `gsd-r-planner` uses decisions + research to create executable tasks AND reads canonical_refs to verify alignment
 - Downstream agents should NOT need to ask the user again about captured decisions
+
+**CRITICAL -- Canonical references:**
+- The `<canonical_refs>` section is MANDATORY. Every CONTEXT.md must have one.
+- If your project has external specs, ADRs, or design docs, list them with full relative paths grouped by topic
+- If ROADMAP.md lists `Canonical refs:` per phase, extract and expand those
+- Inline mentions like "see ADR-019" scattered in decisions are useless to downstream agents -- they need full paths and section references in a dedicated section they can find
+- If no external specs exist, say so explicitly -- don't silently omit the section
 </guidelines>
