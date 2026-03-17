@@ -68,13 +68,14 @@ New content, drawn from fork plan. **Vision-forward framing:** Present capabilit
 - **Source Attachment Protocol:** The rule (every cited source has a corresponding local file), folder convention (`{Note}-sources/`), file naming (`{slug}_{date}.{ext}`), acquisition methods table (arXiv, GitHub, docs, conferences), fallback chain
 - **Research Note Template:** Frontmatter, Key Findings, Analysis, Implications, Open Questions, References — show the template with generic placeholders (not project-specific)
 - **Two-Tier Verification:** Goal-backward ("can I now answer the research question?") + source audit (every reference has a file, SOURCE-LOG.md accounts for everything)
-- **BOOTSTRAP.md:** Brief mention — existing research inventory to prevent re-researching known findings
+- **BOOTSTRAP.md:** One-sentence definition of purpose (prevents re-researching known findings) + link to `docs/DESIGN.md` for full detail
 
 #### 1.6 Commands
-- Keep current command tables — they are accurate with `/gsd-r:` prefixes
+- Keep current command tables — they are accurate with `/gsd-r:` prefixes (verified: command files in `commands/gsd-r/` match table entries; `verify-work` command maps to `verify-phase.md` workflow internally — this is correct)
 - Tables: Core Workflow, Navigation, Brownfield, Phase Management, Session, Utilities
 - Keep footnote crediting OracleGreyBeard for verify-work
-- Remove `/gsd-r:join-discord` from Navigation table (upstream community asset; the command file exists but the Discord server is upstream's)
+- Remove header navigation bar link to `docs/USER-GUIDE.md` (broken — file does not exist)
+- Remove `/gsd-r:join-discord` from Navigation table (upstream community asset; no command file exists in this fork)
 
 #### 1.7 Configuration
 - Keep current content: core settings, model profiles, workflow agents, execution, git branching
@@ -118,7 +119,7 @@ New content, drawn from fork plan. **Vision-forward framing:** Present capabilit
 
 **Source:** `GSD-R-Fork-Plan.md` cleaned up.
 
-**Note:** The `docs/` directory must be created (it does not exist beyond `docs/superpowers/specs/`).
+**Note:** `docs/DESIGN.md` is a new file. The `docs/` directory already exists (contains `docs/superpowers/specs/`); create the file at the root of `docs/`.
 
 **Keep (the design reference material):**
 - Translation table (GSD → GSD-R concepts)
@@ -128,7 +129,7 @@ New content, drawn from fork plan. **Vision-forward framing:** Present capabilit
 - STATE.md Research Extensions (note status tracker, source gaps)
 - File structure diagram
 - Decision Log format
-- Research Note Template — **generalize project-specific references** (replace "Implications for ValuesPrism", "22-value codebook", "6-agent pipeline", "M4 16GB constraint", "May 2026 timeline" with generic placeholders like `## Implications for [Project]` and `[tie back to project constraints and goals]`)
+- Research Note Template — **generalize project-specific references** (replace "Implications for ValuesPrism", "22-value codebook", "6-agent pipeline", "M4 16GB constraint", "May 2026 timeline" with generic placeholders: heading becomes `## Implications for [Project]`, body becomes `[tie back to project constraints, goals, and timeline]`)
 - "What Does NOT Change" list
 
 **Remove (historical/implementation work that's done):**
@@ -166,7 +167,8 @@ Historical checklist. Work is complete. No ongoing value.
 - No new documentation files beyond docs/DESIGN.md
 - No CLAUDE.md or .planning/PROJECT.md creation
 - No changes to package.json, LICENSE, or other config files
-- No docs/USER-GUIDE.md (referenced in current README commands table — can be created in a future milestone)
+- No docs/USER-GUIDE.md (broken links to it are removed in this update; the guide itself can be created in a future milestone)
+- Legacy `.planning/phases/` and `.planning/milestones/` directories are retained as historical record of the fork's development
 
 ---
 
@@ -180,6 +182,6 @@ Historical checklist. Work is complete. No ongoing value.
 6. docs/DESIGN.md contains the full technical design without implementation-complete checklists
 7. No orphaned files (fork plan and completion doc removed)
 8. Tone is academic but accessible — no hype, no marketing language
-9. BOOTSTRAP.md concept is explained clearly enough for a researcher to understand its purpose (prevents re-researching known findings)
+9. BOOTSTRAP.md concept is explained in one sentence with a link to docs/DESIGN.md for full detail
 10. Research-specific features that are forward-looking use appropriate qualifying language ("designed to", "the system will") rather than implying they work today
 11. No broken links — terminal.svg reference removed, USER-GUIDE.md link removed or replaced
