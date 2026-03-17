@@ -92,7 +92,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Testing
 
-- [ ] **TEST-01**: All existing 164+ tests continue to pass after all changes
+- [x] **TEST-01**: All existing 164+ tests continue to pass after all changes
 - [ ] **TEST-02**: New tests cover namespace migration (zero residual references)
 - [ ] **TEST-03**: New tests cover review type enforcement in plan-checker
 - [ ] **TEST-04**: New tests cover config schema with defaults and smart defaults cascade
@@ -183,7 +183,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TIER-02 | Phase 21 | Pending |
 | TIER-03 | Phase 21 | Pending |
 | TIER-04 | Phase 21 | Pending |
-| TEST-01 | Phase 15 | Pending |
+| TEST-01 | Phase 15 | Complete |
 | TEST-02 | Phase 17 | Pending |
 | TEST-03 | Phase 19 | Pending |
 | TEST-04 | Phase 16 | Pending |
