@@ -12,8 +12,8 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 - [x] **SYNC-01**: All core CJS modules synced with GSD v1.25.1 while preserving research-specific modifications
 - [x] **SYNC-02**: All agent prompts synced with GSD v1.25.1 while preserving research adaptations
 - [x] **SYNC-03**: All workflow and command files synced with GSD v1.25.1 while preserving research adaptations
-- [ ] **SYNC-04**: All templates synced with GSD v1.25.1 while preserving research adaptations
-- [ ] **SYNC-05**: VERSION file updated to 1.25.1 and all 164+ tests pass on new baseline
+- [x] **SYNC-04**: All templates synced with GSD v1.25.1 while preserving research adaptations
+- [x] **SYNC-05**: VERSION file updated to 1.25.1 and all 164+ tests pass on new baseline
 
 ### Namespace & Identity
 
@@ -136,8 +136,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SYNC-01 | Phase 15 | Complete |
 | SYNC-02 | Phase 15 | Complete |
 | SYNC-03 | Phase 15 | Complete |
-| SYNC-04 | Phase 15 | Pending |
-| SYNC-05 | Phase 15 | Pending |
+| SYNC-04 | Phase 15 | Complete |
+| SYNC-05 | Phase 15 | Complete |
 | NS-01 | Phase 17 | Pending |
 | NS-02 | Phase 17 | Pending |
 | NS-03 | Phase 17 | Pending |
