@@ -21,7 +21,87 @@ const VALID_CONFIG_KEYS = new Set([
   'planning.commit_docs', 'planning.search_gitignored',
   // GSD-R research extensions
   'vault_path', 'commit_research',
+  // GSD-R v1.2 config schema extensions
+  'researcher_tier', 'review_type', 'epistemological_stance',
+  'workflow.critical_appraisal', 'workflow.temporal_positioning',
+  'workflow.synthesis',
 ]);
+
+const SMART_DEFAULTS = {
+  systematic: { critical_appraisal: 'required', temporal_positioning: 'required', synthesis: 'required', plan_check: 'strict' },
+  scoping: { critical_appraisal: 'charting', temporal_positioning: 'recommended', synthesis: 'recommended', plan_check: 'moderate' },
+  integrative: { critical_appraisal: 'proportional', temporal_positioning: 'recommended', synthesis: 'required', plan_check: 'moderate' },
+  critical: { critical_appraisal: 'proportional', temporal_positioning: 'recommended', synthesis: 'required', plan_check: 'moderate' },
+  narrative: { critical_appraisal: 'optional', temporal_positioning: 'optional', synthesis: 'optional', plan_check: 'light' },
+};
+
+const REVIEW_TYPE_ORDER = ['systematic', 'scoping', 'integrative', 'critical', 'narrative'];
+
+/**
+ * Returns a config object with all missing keys filled in from defaults and smart defaults.
+ * Does NOT write to disk -- returns merged object only.
+ *
+ * Merge order: hardcoded defaults < smart defaults for effective review_type < user's actual config values.
+ */
+function configWithDefaults(rawConfig) {
+  const defaults = {
+    researcher_tier: 'standard',
+    review_type: 'narrative',
+    epistemological_stance: 'pragmatist',
+  };
+
+  // Start with top-level defaults, user values win
+  const merged = { ...defaults, ...rawConfig };
+
+  // Determine effective review type for smart defaults
+  const reviewType = merged.review_type || 'narrative';
+  const smartDefaults = SMART_DEFAULTS[reviewType] || SMART_DEFAULTS.narrative;
+
+  // Deep-merge workflow: smart defaults as base, user's existing workflow keys win
+  const userWorkflow = { ...(rawConfig.workflow || {}) };
+
+  // Backward compat: boolean plan_check true -> 'moderate', false stays false
+  if (userWorkflow.plan_check === true) {
+    userWorkflow.plan_check = 'moderate';
+  }
+
+  merged.workflow = {
+    ...smartDefaults,
+    ...userWorkflow,
+  };
+
+  return merged;
+}
+
+/**
+ * Applies smart defaults for a new review type, resetting the 4 smart-default-controlled
+ * workflow keys while preserving all other workflow keys. Does not mutate input.
+ */
+function applySmartDefaults(config, newReviewType) {
+  const smartDefaults = SMART_DEFAULTS[newReviewType];
+  if (!smartDefaults) return { ...config };
+
+  const updated = { ...config, review_type: newReviewType };
+  updated.workflow = {
+    ...(config.workflow || {}),
+    critical_appraisal: smartDefaults.critical_appraisal,
+    temporal_positioning: smartDefaults.temporal_positioning,
+    synthesis: smartDefaults.synthesis,
+    plan_check: smartDefaults.plan_check,
+  };
+  return updated;
+}
+
+/**
+ * Returns true only if moving from currentType to requestedType is a valid downgrade
+ * (moving toward less rigor). Same type returns false. Unknown types return false.
+ */
+function canDowngrade(currentType, requestedType) {
+  const currentIdx = REVIEW_TYPE_ORDER.indexOf(currentType);
+  const requestedIdx = REVIEW_TYPE_ORDER.indexOf(requestedType);
+  if (currentIdx === -1 || requestedIdx === -1) return false;
+  return requestedIdx > currentIdx;
+}
 
 const CONFIG_KEY_SUGGESTIONS = {
   'workflow.nyquist_validation_enabled': 'workflow.nyquist_validation',
@@ -303,6 +383,11 @@ function getCmdConfigSetModelProfileResultMessage(
 
 module.exports = {
   VALID_CONFIG_KEYS,
+  SMART_DEFAULTS,
+  REVIEW_TYPE_ORDER,
+  configWithDefaults,
+  applySmartDefaults,
+  canDowngrade,
   ensureConfigFile,
   setConfigValue,
   cmdConfigEnsureSection,
