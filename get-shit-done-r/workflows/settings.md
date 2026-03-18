@@ -32,7 +32,11 @@ Parse current values (default to `true` if not present):
 - `workflow.nyquist_validation` — validation architecture research during plan-phase (default: true if absent)
 - `workflow.ui_phase` — generate UI-SPEC.md design contracts for frontend phases (default: true if absent)
 - `workflow.ui_safety_gate` — prompt to run /gsd-r:ui-phase before planning frontend phases (default: true if absent)
+- `workflow.critical_appraisal` — critical appraisal requirement level (default per review_type smart defaults)
+- `workflow.temporal_positioning` — temporal positioning requirement level (default per review_type smart defaults)
+- `workflow.synthesis` — synthesis requirement level (default per review_type smart defaults)
 - `model_profile` — which model each agent uses (default: `balanced`)
+- `review_type` — study review type: systematic/scoping/integrative/critical/narrative (default: `narrative`)
 - `git.branching_strategy` — branching approach (default: `"none"`)
 </step>
 
@@ -50,6 +54,18 @@ AskUserQuestion([
       { label: "Balanced (Recommended)", description: "Opus for planning, Sonnet for research/execution/verification" },
       { label: "Budget", description: "Sonnet for writing, Haiku for research/verification (lowest cost)" },
       { label: "Inherit", description: "Use current session model for all agents (best for OpenCode /model)" }
+    ]
+  },
+  {
+    question: "Review type for this study?",
+    header: "Review Type",
+    multiSelect: false,
+    options: [
+      { label: "Systematic", description: "Exhaustive search, formal appraisal (highest rigor)" },
+      { label: "Scoping", description: "Map breadth of evidence, charting approach" },
+      { label: "Integrative", description: "Combine diverse methods, proportional appraisal" },
+      { label: "Critical", description: "Evaluate and challenge, proportional appraisal" },
+      { label: "Narrative", description: "Adequate coverage, optional appraisal (most flexible)" }
     ]
   },
   {
@@ -154,7 +170,10 @@ Merge new settings into existing config.json:
     "auto_advance": true/false,
     "nyquist_validation": true/false,
     "ui_phase": true/false,
-    "ui_safety_gate": true/false
+    "ui_safety_gate": true/false,
+    "critical_appraisal": <string from smart defaults>,
+    "temporal_positioning": <string from smart defaults>,
+    "synthesis": <string from smart defaults>
   },
   "git": {
     "branching_strategy": "none" | "phase" | "milestone"
@@ -164,6 +183,50 @@ Merge new settings into existing config.json:
   }
 }
 ```
+
+**Review type change handling:**
+
+If the user selected a different review_type than the current value:
+
+1. Read current review_type from config (default: `narrative` if missing).
+
+2. Determine direction using REVIEW_TYPE_ORDER: `['systematic', 'scoping', 'integrative', 'critical', 'narrative']`.
+   Use `canDowngrade(currentType, selectedType)` -- returns true only if selectedIdx > currentIdx (moving toward less rigor).
+
+3. **If UPGRADE attempt** (selectedIdx < currentIdx):
+   Display error:
+   ```
+   Cannot upgrade review type mid-study. Start a new study with /grd:new-research for higher rigor.
+   ```
+   Do NOT change review_type. Keep current value.
+
+4. **If valid DOWNGRADE** (canDowngrade returns true):
+   Show confirmation with exact toggle changes using SMART_DEFAULTS lookup:
+   ```
+   Downgrading from {current} to {selected} will change:
+     - critical_appraisal: {current_value} -> {new_smart_default}
+     - temporal_positioning: {current_value} -> {new_smart_default}
+     - synthesis: {current_value} -> {new_smart_default}
+     - plan_check: {current_value} -> {new_smart_default}
+   Existing notes are unaffected. Only future enforcement changes.
+   Confirm? [Yes/No]
+   ```
+
+   On confirm: Apply smart defaults for the new type using `applySmartDefaults(config, newType)`:
+   - Set `review_type` to selected value
+   - Reset `workflow.critical_appraisal`, `workflow.temporal_positioning`, `workflow.synthesis`, `workflow.plan_check` to `SMART_DEFAULTS[selectedType]` values
+   - Write all changes to config.json using config-set commands:
+     ```bash
+     node "...gsd-r-tools.cjs" config-set review_type {selectedType}
+     node "...gsd-r-tools.cjs" config-set workflow.critical_appraisal {newValue}
+     node "...gsd-r-tools.cjs" config-set workflow.temporal_positioning {newValue}
+     node "...gsd-r-tools.cjs" config-set workflow.synthesis {newValue}
+     node "...gsd-r-tools.cjs" config-set workflow.plan_check {newValue}
+     ```
+
+   On reject: Keep current review_type, no changes.
+
+5. **If same type selected**: No change needed, skip downgrade logic.
 
 Write updated config to `.planning/config.json`.
 </step>
@@ -224,6 +287,7 @@ Display:
 | Setting              | Value |
 |----------------------|-------|
 | Model Profile        | {quality/balanced/budget/inherit} |
+| Review Type          | {systematic/scoping/integrative/critical/narrative} |
 | Plan Researcher      | {On/Off} |
 | Plan Checker         | {On/Off} |
 | Execution Verifier   | {On/Off} |
@@ -238,6 +302,7 @@ Display:
 These settings apply to future /gsd-r:plan-phase and /gsd-r:execute-phase runs.
 
 Quick commands:
+- /gsd-r:settings — includes review type downgrade
 - /gsd-r:set-profile <profile> — switch model profile
 - /gsd-r:plan-phase --research — force research
 - /gsd-r:plan-phase --skip-research — skip research
@@ -249,7 +314,7 @@ Quick commands:
 
 <success_criteria>
 - [ ] Current config read
-- [ ] User presented with 9 settings (profile + 7 workflow toggles + git branching)
+- [ ] User presented with 10 settings (profile + review type + 7 workflow toggles + git branching)
 - [ ] Config updated with model_profile, workflow, and git sections
 - [ ] User offered to save as global defaults (~/.gsd/defaults.json)
 - [ ] Changes confirmed to user

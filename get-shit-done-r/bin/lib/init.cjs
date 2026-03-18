@@ -36,6 +36,14 @@ function cmdInitExecutePhase(cwd, phase, raw) {
     milestone_branch_template: config.milestone_branch_template,
     verifier_enabled: config.verifier,
 
+    // Research config
+    researcher_tier: config.researcher_tier,
+    review_type: config.review_type,
+    epistemological_stance: config.epistemological_stance,
+    critical_appraisal: config.critical_appraisal,
+    temporal_positioning: config.temporal_positioning,
+    synthesis: config.synthesis,
+
     // Phase info
     phase_found: !!phaseInfo,
     phase_dir: phaseInfo?.directory || null,
@@ -106,6 +114,14 @@ function cmdInitPlanPhase(cwd, phase, raw) {
     plan_checker_enabled: config.plan_checker,
     nyquist_validation_enabled: config.nyquist_validation,
     commit_docs: config.commit_docs,
+
+    // Research config
+    researcher_tier: config.researcher_tier,
+    review_type: config.review_type,
+    epistemological_stance: config.epistemological_stance,
+    critical_appraisal: config.critical_appraisal,
+    temporal_positioning: config.temporal_positioning,
+    synthesis: config.synthesis,
 
     // Phase info
     phase_found: !!phaseInfo,
