@@ -34,7 +34,7 @@ Template for spawning grd-planner agent. The agent contains all planning experti
 </planning_context>
 
 <downstream_consumer>
-Output consumed by /grd:execute-phase
+Output consumed by /grd:conduct-inquiry
 Plans must be executable prompts with:
 - Frontmatter (wave, depends_on, files_modified, autonomous)
 - Tasks in XML format
@@ -68,7 +68,7 @@ Before returning PLANNING COMPLETE:
 
 ## Usage
 
-**From /grd:plan-phase (standard mode):**
+**From /grd:plan-inquiry (standard mode):**
 ```python
 Task(
   prompt=filled_template,
@@ -77,7 +77,7 @@ Task(
 )
 ```
 
-**From /grd:plan-phase --gaps (gap closure mode):**
+**From /grd:plan-inquiry --gaps (gap closure mode):**
 ```python
 Task(
   prompt=filled_template,  # with mode: gap_closure

@@ -23,7 +23,7 @@ Check if `--auto` flag is present in $ARGUMENTS.
 
 **Document requirement:**
 Auto mode requires an idea document — either:
-- File reference: `/grd:new-project --auto @prd.md`
+- File reference: `/grd:new-research --auto @prd.md`
 - Pasted/written text in the prompt
 
 If no document content provided, error:
@@ -32,8 +32,8 @@ If no document content provided, error:
 Error: --auto requires an idea document.
 
 Usage:
-  /grd:new-project --auto @your-idea.md
-  /grd:new-project --auto [paste or write your idea here]
+  /grd:new-research --auto @your-idea.md
+  /grd:new-research --auto [paste or write your idea here]
 
 The document should describe what you want to build.
 ```
@@ -74,7 +74,7 @@ Use AskUserQuestion:
 
 **If "Map codebase first":**
 ```
-Run `/grd:map-codebase` first, then return to `/grd:new-project`
+Run `/grd:map-codebase` first, then return to `/grd:new-research`
 ```
 Exit command.
 
@@ -1047,7 +1047,7 @@ Present completion summary:
 ╚══════════════════════════════════════════╝
 ```
 
-Exit skill and invoke SlashCommand("/grd:discuss-phase 1 --auto")
+Exit skill and invoke SlashCommand("/grd:scope-inquiry 1 --auto")
 
 **If interactive mode:**
 
@@ -1058,14 +1058,14 @@ Exit skill and invoke SlashCommand("/grd:discuss-phase 1 --auto")
 
 **Phase 1: [Phase Name]** — [Goal from ROADMAP.md]
 
-/grd:discuss-phase 1 — gather context and clarify approach
+/grd:scope-inquiry 1 — gather context and clarify approach
 
 <sub>/clear first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- /grd:plan-phase 1 — skip discussion, plan directly
+- /grd:plan-inquiry 1 — skip discussion, plan directly
 
 ───────────────────────────────────────────────────────────────
 ```
@@ -1106,7 +1106,7 @@ Exit skill and invoke SlashCommand("/grd:discuss-phase 1 --auto")
 - [ ] ROADMAP.md created with phases, requirement mappings, success criteria
 - [ ] STATE.md initialized
 - [ ] REQUIREMENTS.md traceability updated
-- [ ] User knows next step is `/grd:discuss-phase 1`
+- [ ] User knows next step is `/grd:scope-inquiry 1`
 
 **Atomic commits:** Each phase commits its artifacts immediately. If context is lost, artifacts persist.
 

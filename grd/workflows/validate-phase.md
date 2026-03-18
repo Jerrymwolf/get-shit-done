@@ -35,7 +35,7 @@ SUMMARY_FILES=$(ls "${PHASE_DIR}"/*-SUMMARY.md 2>/dev/null)
 
 - **State A** (`VALIDATION_FILE` non-empty): Audit existing
 - **State B** (`VALIDATION_FILE` empty, `SUMMARY_FILES` non-empty): Reconstruct from artifacts
-- **State C** (`SUMMARY_FILES` empty): Exit — "Phase {N} not executed. Run /grd:execute-phase {N} first."
+- **State C** (`SUMMARY_FILES` empty): Exit — "Phase {N} not executed. Run /grd:conduct-inquiry {N} first."
 
 ## 2. Discovery
 
@@ -137,7 +137,7 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs(phase-${PH
 ```
 GSD > PHASE {N} IS NYQUIST-COMPLIANT
 All requirements have automated verification.
-▶ Next: /grd:audit-milestone
+▶ Next: /grd:audit-study
 ```
 
 **Partial:**

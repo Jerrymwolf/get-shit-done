@@ -470,9 +470,9 @@ ls -1 .planning/phases/[current-phase-dir]/*-SUMMARY.md 2>/dev/null | wc -l
 
 | Condition | Route | Action |
 |-----------|-------|--------|
-| summaries < plans | **A: More plans** | Find next PLAN without SUMMARY. Yolo: auto-continue. Interactive: show next plan, suggest `/grd:execute-phase {phase}` + `/grd:verify-work`. STOP here. |
-| summaries = plans, current < highest phase | **B: Phase done** | Show completion, suggest `/grd:plan-phase {Z+1}` + `/grd:verify-work {Z}` + `/grd:discuss-phase {Z+1}` |
-| summaries = plans, current = highest phase | **C: Milestone done** | Show banner, suggest `/grd:complete-milestone` + `/grd:verify-work` + `/grd:add-phase` |
+| summaries < plans | **A: More plans** | Find next PLAN without SUMMARY. Yolo: auto-continue. Interactive: show next plan, suggest `/grd:conduct-inquiry {phase}` + `/grd:verify-inquiry`. STOP here. |
+| summaries = plans, current < highest phase | **B: Phase done** | Show completion, suggest `/grd:plan-inquiry {Z+1}` + `/grd:verify-inquiry {Z}` + `/grd:scope-inquiry {Z+1}` |
+| summaries = plans, current = highest phase | **C: Milestone done** | Show banner, suggest `/grd:complete-study` + `/grd:verify-inquiry` + `/grd:add-inquiry` |
 
 All routes: `/clear` first for fresh context.
 </step>

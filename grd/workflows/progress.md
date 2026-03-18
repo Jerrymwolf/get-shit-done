@@ -23,18 +23,18 @@ If `project_exists` is false (no `.planning/` directory):
 ```
 No planning structure found.
 
-Run /grd:new-project to start a new project.
+Run /grd:new-research to start a new project.
 ```
 
 Exit.
 
-If missing STATE.md: suggest `/grd:new-project`.
+If missing STATE.md: suggest `/grd:new-research`.
 
 **If ROADMAP.md missing but PROJECT.md exists:**
 
 This means a milestone was completed and archived. Go to **Route F** (between milestones).
 
-If missing both ROADMAP.md and PROJECT.md: suggest `/grd:new-project`.
+If missing both ROADMAP.md and PROJECT.md: suggest `/grd:new-research`.
 </step>
 
 <step name="load">
@@ -180,7 +180,7 @@ Read its `<objective>` section.
 
 **{phase}-{plan}: [Plan Name]** — [objective summary from PLAN.md]
 
-`/grd:execute-phase {phase}`
+`/grd:conduct-inquiry {phase}`
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -203,7 +203,7 @@ Check if `{phase_num}-CONTEXT.md` exists in phase directory.
 **Phase {N}: {Name}** — {Goal from ROADMAP.md}
 <sub>✓ Context gathered, ready to plan</sub>
 
-`/grd:plan-phase {phase-number}`
+`/grd:plan-inquiry {phase-number}`
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -219,14 +219,14 @@ Check if `{phase_num}-CONTEXT.md` exists in phase directory.
 
 **Phase {N}: {Name}** — {Goal from ROADMAP.md}
 
-`/grd:discuss-phase {phase}` — gather context and clarify approach
+`/grd:scope-inquiry {phase}` — gather context and clarify approach
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:plan-phase {phase}` — skip discussion, plan directly
+- `/grd:plan-inquiry {phase}` — skip discussion, plan directly
 - `/grd:list-phase-assumptions {phase}` — see Claude's assumptions
 
 ---
@@ -245,15 +245,15 @@ UAT.md exists with gaps (diagnosed issues). User needs to plan fixes.
 
 **{phase_num}-UAT.md** has {N} gaps requiring fixes.
 
-`/grd:plan-phase {phase} --gaps`
+`/grd:plan-inquiry {phase} --gaps`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:execute-phase {phase}` — execute phase plans
-- `/grd:verify-work {phase}` — run more UAT testing
+- `/grd:conduct-inquiry {phase}` — execute phase plans
+- `/grd:verify-inquiry {phase}` — run more UAT testing
 
 ---
 ```
@@ -292,15 +292,15 @@ Read ROADMAP.md to get the next phase's name and goal.
 
 **Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
 
-`/grd:discuss-phase {Z+1}` — gather context and clarify approach
+`/grd:scope-inquiry {Z+1}` — gather context and clarify approach
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:plan-phase {Z+1}` — skip discussion, plan directly
-- `/grd:verify-work {Z}` — user acceptance test before continuing
+- `/grd:plan-inquiry {Z+1}` — skip discussion, plan directly
+- `/grd:verify-inquiry {Z}` — user acceptance test before continuing
 
 ---
 ```
@@ -320,14 +320,14 @@ All {N} phases finished!
 
 **Complete Milestone** — archive and prepare for next
 
-`/grd:complete-milestone`
+`/grd:complete-study`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:verify-work` — user acceptance test before completing milestone
+- `/grd:verify-inquiry` — user acceptance test before completing milestone
 
 ---
 ```
@@ -363,7 +363,7 @@ Ready to plan the next milestone.
 <step name="edge_cases">
 **Handle edge cases:**
 
-- Phase complete but next phase not planned → offer `/grd:plan-phase [next]`
+- Phase complete but next phase not planned → offer `/grd:plan-inquiry [next]`
 - All work complete → offer milestone completion
 - Blockers present → highlight before offering to continue
 - Handoff file exists → mention it, offer `/grd:resume-work`
@@ -376,7 +376,7 @@ Ready to plan the next milestone.
 - [ ] Rich context provided (recent work, decisions, issues)
 - [ ] Current position clear with visual progress
 - [ ] What's next clearly explained
-- [ ] Smart routing: /grd:execute-phase if plans exist, /grd:plan-phase if not
+- [ ] Smart routing: /grd:conduct-inquiry if plans exist, /grd:plan-inquiry if not
 - [ ] User confirms before any action
 - [ ] Seamless handoff to appropriate gsd command
       </success_criteria>

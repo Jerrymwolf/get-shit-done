@@ -28,7 +28,7 @@ Parse JSON for: `state_exists`, `roadmap_exists`, `project_exists`, `planning_ex
 
 **If `state_exists` is true:** Proceed to load_state
 **If `state_exists` is false but `roadmap_exists` or `project_exists` is true:** Offer to reconstruct STATE.md
-**If `planning_exists` is false:** This is a new project - route to /grd:new-project
+**If `planning_exists` is false:** This is a new project - route to /grd:new-research
 </step>
 
 <step name="load_state">
@@ -181,11 +181,11 @@ What would you like to do?
 [Primary action based on state - e.g.:]
 1. Resume interrupted agent [if interrupted agent found]
    OR
-1. Execute phase (/grd:execute-phase {phase})
+1. Execute phase (/grd:conduct-inquiry {phase})
    OR
-1. Discuss Phase 3 context (/grd:discuss-phase 3) [if CONTEXT.md missing]
+1. Discuss Phase 3 context (/grd:scope-inquiry 3) [if CONTEXT.md missing]
    OR
-1. Plan Phase 3 (/grd:plan-phase 3) [if CONTEXT.md exists or discuss option declined]
+1. Plan Phase 3 (/grd:plan-inquiry 3) [if CONTEXT.md exists or discuss option declined]
 
 [Secondary options:]
 2. Review current phase status
@@ -216,7 +216,7 @@ Based on user selection, route to appropriate workflow:
 
   **{phase}-{plan}: [Plan Name]** — [objective from PLAN.md]
 
-  `/grd:execute-phase {phase}`
+  `/grd:conduct-inquiry {phase}`
 
   <sub>`/clear` first → fresh context window</sub>
 
@@ -230,14 +230,14 @@ Based on user selection, route to appropriate workflow:
 
   **Phase [N]: [Name]** — [Goal from ROADMAP.md]
 
-  `/grd:plan-phase [phase-number]`
+  `/grd:plan-inquiry [phase-number]`
 
   <sub>`/clear` first → fresh context window</sub>
 
   ---
 
   **Also available:**
-  - `/grd:discuss-phase [N]` — gather context first
+  - `/grd:scope-inquiry [N]` — gather context first
   - `/grd:research-phase [N]` — investigate unknowns
 
   ---

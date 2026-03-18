@@ -1,5 +1,5 @@
 <purpose>
-Validate built features through conversational testing with persistent state. Creates UAT.md that tracks test progress, survives /clear, and feeds gaps into /grd:plan-phase --gaps.
+Validate built features through conversational testing with persistent state. Creates UAT.md that tracks test progress, survives /clear, and feeds gaps into /grd:plan-inquiry --gaps.
 
 User tests, Claude records. One test at a time. Plain text responses.
 </purpose>
@@ -70,7 +70,7 @@ If no, continue to `create_uat_file`.
 ```
 No active UAT sessions.
 
-Provide a phase number to start testing (e.g., /grd:verify-work 4)
+Provide a phase number to start testing (e.g., /grd:verify-inquiry 4)
 ```
 
 **If no active sessions AND $ARGUMENTS provided:**
@@ -331,8 +331,8 @@ Present summary:
 ```
 All tests passed. Ready to continue.
 
-- `/grd:plan-phase {next}` — Plan next phase
-- `/grd:execute-phase {next}` — Execute next phase
+- `/grd:plan-inquiry {next}` — Plan next phase
+- `/grd:conduct-inquiry {next}` — Execute next phase
 - `/grd:ui-review {phase}` — visual quality audit (if frontend files were modified)
 ```
 </step>
@@ -389,7 +389,7 @@ Task(
 </planning_context>
 
 <downstream_consumer>
-Output consumed by /grd:execute-phase
+Output consumed by /grd:conduct-inquiry
 Plans must be executable prompts.
 </downstream_consumer>
 """,
@@ -498,7 +498,7 @@ Display: `Max iterations reached. {N} issues remain.`
 Offer options:
 1. Force proceed (execute despite issues)
 2. Provide guidance (user gives direction, retry)
-3. Abandon (exit, user runs /grd:plan-phase manually)
+3. Abandon (exit, user runs /grd:plan-inquiry manually)
 
 Wait for user response.
 </step>
@@ -526,7 +526,7 @@ Plans verified and ready for execution.
 
 **Execute fixes** — run fix plans
 
-`/clear` then `/grd:execute-phase {phase} --gaps-only`
+`/clear` then `/grd:conduct-inquiry {phase} --gaps-only`
 
 ───────────────────────────────────────────────────────────────
 ```
@@ -580,5 +580,5 @@ Default to **major** if unclear. User can correct if needed.
 - [ ] If issues: gsd-planner creates fix plans (gap_closure mode)
 - [ ] If issues: gsd-plan-checker verifies fix plans
 - [ ] If issues: revision loop until plans pass (max 3 iterations)
-- [ ] Ready for `/grd:execute-phase --gaps-only` when complete
+- [ ] Ready for `/grd:conduct-inquiry --gaps-only` when complete
 </success_criteria>

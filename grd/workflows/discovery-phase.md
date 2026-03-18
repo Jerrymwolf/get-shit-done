@@ -252,8 +252,8 @@ Confidence: [level]
 
 What's next?
 
-1. Discuss phase context (/grd:discuss-phase [current-phase])
-2. Create phase plan (/grd:plan-phase [current-phase])
+1. Discuss phase context (/grd:scope-inquiry [current-phase])
+2. Create phase plan (/grd:plan-inquiry [current-phase])
 3. Refine discovery (dig deeper)
 4. Review discovery
 

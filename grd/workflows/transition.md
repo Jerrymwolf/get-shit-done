@@ -378,7 +378,7 @@ Next: Phase [X+1] — [Name]
 ⚡ Auto-continuing: Plan Phase [X+1] in detail
 ```
 
-Exit skill and invoke SlashCommand("/grd:plan-phase [X+1] --auto")
+Exit skill and invoke SlashCommand("/grd:plan-inquiry [X+1] --auto")
 
 **If CONTEXT.md does NOT exist:**
 
@@ -390,7 +390,7 @@ Next: Phase [X+1] — [Name]
 ⚡ Auto-continuing: Discuss Phase [X+1] first
 ```
 
-Exit skill and invoke SlashCommand("/grd:discuss-phase [X+1] --auto")
+Exit skill and invoke SlashCommand("/grd:scope-inquiry [X+1] --auto")
 
 </if>
 
@@ -407,14 +407,14 @@ Exit skill and invoke SlashCommand("/grd:discuss-phase [X+1] --auto")
 
 **Phase [X+1]: [Name]** — [Goal from ROADMAP.md]
 
-`/grd:discuss-phase [X+1]` — gather context and clarify approach
+`/grd:scope-inquiry [X+1]` — gather context and clarify approach
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:plan-phase [X+1]` — skip discussion, plan directly
+- `/grd:plan-inquiry [X+1]` — skip discussion, plan directly
 - `/grd:research-phase [X+1]` — investigate unknowns
 
 ---
@@ -432,14 +432,14 @@ Exit skill and invoke SlashCommand("/grd:discuss-phase [X+1] --auto")
 **Phase [X+1]: [Name]** — [Goal from ROADMAP.md]
 <sub>✓ Context gathered, ready to plan</sub>
 
-`/grd:plan-phase [X+1]`
+`/grd:plan-inquiry [X+1]`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:discuss-phase [X+1]` — revisit context
+- `/grd:scope-inquiry [X+1]` — revisit context
 - `/grd:research-phase [X+1]` — investigate unknowns
 
 ---
@@ -466,7 +466,7 @@ Phase {X} marked complete.
 ⚡ Auto-continuing: Complete milestone and archive
 ```
 
-Exit skill and invoke SlashCommand("/grd:complete-milestone {version}")
+Exit skill and invoke SlashCommand("/grd:complete-study {version}")
 
 </if>
 
@@ -483,7 +483,7 @@ Exit skill and invoke SlashCommand("/grd:complete-milestone {version}")
 
 **Complete Milestone {version}** — archive and prepare for next
 
-`/grd:complete-milestone {version}`
+`/grd:complete-study {version}`
 
 <sub>`/clear` first → fresh context window</sub>
 

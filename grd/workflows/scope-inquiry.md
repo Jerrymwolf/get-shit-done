@@ -114,7 +114,7 @@ Never proceed with an empty answer.
 
 <process>
 
-**Express path available:** If you already have a PRD or acceptance criteria document, use `/grd:plan-phase {phase} --prd path/to/prd.md` to skip this discussion and go straight to planning.
+**Express path available:** If you already have a PRD or acceptance criteria document, use `/grd:plan-inquiry {phase} --prd path/to/prd.md` to skip this discussion and go straight to planning.
 
 <step name="initialize" priority="first">
 Phase number from argument (required).
@@ -177,7 +177,7 @@ Check `has_plans` and `plan_count` from init. **If `has_plans` is true:**
 - header: "Plans exist"
 - question: "Phase [X] already has {plan_count} plan(s) created without user context. Your decisions here won't affect existing plans unless you replan."
 - options:
-  - "Continue and replan after" — Capture context, then run /grd:plan-phase {X} to replan
+  - "Continue and replan after" — Capture context, then run /grd:plan-inquiry {X} to replan
   - "View existing plans" — Show plans before deciding
   - "Cancel" — Skip discuss-phase
 
@@ -620,14 +620,14 @@ Created: .planning/phases/${PADDED_PHASE}-${SLUG}/${PADDED_PHASE}-CONTEXT.md
 
 **Phase ${PHASE}: [Name]** — [Goal from ROADMAP.md]
 
-`/grd:plan-phase ${PHASE}`
+`/grd:plan-inquiry ${PHASE}`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:plan-phase ${PHASE} --skip-research` — plan without research
+- `/grd:plan-inquiry ${PHASE} --skip-research` — plan without research
 - Review/edit CONTEXT.md before continuing
 
 ---
@@ -694,7 +694,7 @@ Context captured. Launching plan-phase...
 
 Launch plan-phase using the Skill tool to avoid nested Task sessions (which cause runtime freezes due to deep agent nesting — see #686):
 ```
-Skill(skill="grd:plan-phase", args="${PHASE} --auto")
+Skill(skill="grd:plan-inquiry", args="${PHASE} --auto")
 ```
 
 This keeps the auto-advance chain flat — discuss, plan, and execute all run at the same nesting level rather than spawning increasingly deep Task agents.
@@ -708,23 +708,23 @@ This keeps the auto-advance chain flat — discuss, plan, and execute all run at
 
   Auto-advance pipeline finished: discuss → plan → execute
 
-  Next: /grd:discuss-phase ${NEXT_PHASE} --auto
+  Next: /grd:scope-inquiry ${NEXT_PHASE} --auto
   <sub>/clear first → fresh context window</sub>
   ```
 - **PLANNING COMPLETE** → Planning done, execution didn't complete:
   ```
   Auto-advance partial: Planning complete, execution did not finish.
-  Continue: /grd:execute-phase ${PHASE}
+  Continue: /grd:conduct-inquiry ${PHASE}
   ```
 - **PLANNING INCONCLUSIVE / CHECKPOINT** → Stop chain:
   ```
   Auto-advance stopped: Planning needs input.
-  Continue: /grd:plan-phase ${PHASE}
+  Continue: /grd:plan-inquiry ${PHASE}
   ```
 - **GAPS FOUND** → Stop chain:
   ```
   Auto-advance stopped: Gaps found during execution.
-  Continue: /grd:plan-phase ${PHASE} --gaps
+  Continue: /grd:plan-inquiry ${PHASE} --gaps
   ```
 
 **If neither `--auto` nor config enabled:**

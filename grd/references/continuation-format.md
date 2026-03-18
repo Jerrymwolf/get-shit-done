@@ -44,7 +44,7 @@ Standard format for presenting next steps after completing a command or workflow
 
 **02-03: Refresh Token Rotation** — Add /api/auth/refresh with sliding expiry
 
-`/grd:execute-phase 2`
+`/grd:conduct-inquiry 2`
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -69,7 +69,7 @@ Add note that this is the last plan and what comes after:
 **02-03: Refresh Token Rotation** — Add /api/auth/refresh with sliding expiry
 <sub>Final plan in Phase 2</sub>
 
-`/grd:execute-phase 2`
+`/grd:conduct-inquiry 2`
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -91,14 +91,14 @@ Add note that this is the last plan and what comes after:
 
 **Phase 2: Authentication** — JWT login flow with refresh tokens
 
-`/grd:plan-phase 2`
+`/grd:plan-inquiry 2`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:discuss-phase 2` — gather context first
+- `/grd:scope-inquiry 2` — gather context first
 - `/grd:research-phase 2` — investigate unknowns
 - Review roadmap
 
@@ -120,14 +120,14 @@ Show completion status before next action:
 
 **Phase 3: Core Features** — User dashboard, settings, and data export
 
-`/grd:plan-phase 3`
+`/grd:plan-inquiry 3`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:discuss-phase 3` — gather context first
+- `/grd:scope-inquiry 3` — gather context first
 - `/grd:research-phase 3` — investigate unknowns
 - Review what Phase 2 built
 
@@ -145,9 +145,9 @@ When there's no clear primary action:
 
 **Phase 3: Core Features** — User dashboard, settings, and data export
 
-**To plan directly:** `/grd:plan-phase 3`
+**To plan directly:** `/grd:plan-inquiry 3`
 
-**To discuss context first:** `/grd:discuss-phase 3`
+**To discuss context first:** `/grd:scope-inquiry 3`
 
 **To research unknowns:** `/grd:research-phase 3`
 
@@ -214,7 +214,7 @@ Extract: `**02-03: Refresh Token Rotation** — Add /api/auth/refresh with slidi
 ## To Continue
 
 Run `/clear`, then paste:
-/grd:execute-phase 2
+/grd:conduct-inquiry 2
 ```
 
 User has no idea what 02-03 is about.
@@ -222,7 +222,7 @@ User has no idea what 02-03 is about.
 ### Don't: Missing /clear explanation
 
 ```
-`/grd:plan-phase 3`
+`/grd:plan-inquiry 3`
 
 Run /clear first.
 ```
@@ -242,7 +242,7 @@ Sounds like an afterthought. Use "Also available:" instead.
 
 ```
 ```
-/grd:plan-phase 3
+/grd:plan-inquiry 3
 ```
 ```
 

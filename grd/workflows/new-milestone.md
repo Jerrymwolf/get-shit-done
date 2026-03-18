@@ -100,7 +100,7 @@ AskUserQuestion: "Research the domain ecosystem for new features before defining
 - "Skip research (current default)" — Go straight to requirements
 - "Research first" — Discover patterns, features, architecture for NEW capabilities
 
-**IMPORTANT:** Do NOT persist this choice to config.json. The `workflow.research` setting is a persistent user preference that controls plan-phase behavior across the project. Changing it here would silently alter future `/grd:plan-phase` behavior. To change the default, use `/grd:settings`.
+**IMPORTANT:** Do NOT persist this choice to config.json. The `workflow.research` setting is a persistent user preference that controls plan-phase behavior across the project. Changing it here would silently alter future `/grd:plan-inquiry` behavior. To change the default, use `/grd:settings`.
 
 **If user chose "Research first":**
 
@@ -359,11 +359,11 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs: create mi
 
 **Phase [N]: [Phase Name]** — [Goal]
 
-`/grd:discuss-phase [N]` — gather context and clarify approach
+`/grd:scope-inquiry [N]` — gather context and clarify approach
 
 <sub>`/clear` first → fresh context window</sub>
 
-Also: `/grd:plan-phase [N]` — skip discussion, plan directly
+Also: `/grd:plan-inquiry [N]` — skip discussion, plan directly
 ```
 
 </process>
@@ -380,7 +380,7 @@ Also: `/grd:plan-phase [N]` — skip discussion, plan directly
 - [ ] User feedback incorporated (if any)
 - [ ] ROADMAP.md phases continue from previous milestone
 - [ ] All commits made (if planning docs committed)
-- [ ] User knows next step: `/grd:discuss-phase [N]`
+- [ ] User knows next step: `/grd:scope-inquiry [N]`
 
 **Atomic commits:** Each phase commits its artifacts immediately.
 </success_criteria>

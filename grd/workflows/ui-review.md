@@ -36,7 +36,7 @@ UI_SPEC_FILE=$(ls "${PHASE_DIR}"/*-UI-SPEC.md 2>/dev/null | head -1)
 UI_REVIEW_FILE=$(ls "${PHASE_DIR}"/*-UI-REVIEW.md 2>/dev/null | head -1)
 ```
 
-**If `SUMMARY_FILES` empty:** Exit — "Phase {N} not executed. Run /grd:execute-phase {N} first."
+**If `SUMMARY_FILES` empty:** Exit — "Phase {N} not executed. Run /grd:conduct-inquiry {N} first."
 
 **If `UI_REVIEW_FILE` non-empty:** Use AskUserQuestion:
 - header: "Existing UI Review"
@@ -130,8 +130,8 @@ Full review: {path to UI-REVIEW.md}
 
 ## ▶ Next
 
-- `/grd:verify-work {N}` — UAT testing
-- `/grd:plan-phase {N+1}` — plan next phase
+- `/grd:verify-inquiry {N}` — UAT testing
+- `/grd:plan-inquiry {N+1}` — plan next phase
 
 <sub>/clear first → fresh context window</sub>
 

@@ -286,7 +286,7 @@ Created .planning/codebase/:
 
 **Initialize project** — use codebase context for planning
 
-`/grd:new-project`
+`/grd:new-research`
 
 <sub>`/clear` first → fresh context window</sub>
 

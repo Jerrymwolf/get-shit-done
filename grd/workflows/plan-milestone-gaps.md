@@ -1,5 +1,5 @@
 <purpose>
-Create all phases necessary to close gaps identified by `/grd:audit-milestone`. Reads MILESTONE-AUDIT.md, groups gaps into logical phases, creates phase entries in ROADMAP.md, and offers to plan each phase. One command creates all fix phases — no manual `/grd:add-phase` per gap.
+Create all phases necessary to close gaps identified by `/grd:audit-study`. Reads MILESTONE-AUDIT.md, groups gaps into logical phases, creates phase entries in ROADMAP.md, and offers to plan each phase. One command creates all fix phases — no manual `/grd:add-inquiry` per gap.
 </purpose>
 
 <required_reading>
@@ -22,7 +22,7 @@ Parse YAML frontmatter to extract structured gaps:
 
 If no audit file exists or has no gaps, error:
 ```
-No audit gaps found. Run `/grd:audit-milestone` first.
+No audit gaps found. Run `/grd:audit-study` first.
 ```
 
 ## 2. Prioritize Gaps
@@ -164,22 +164,22 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs(roadmap): 
 
 **Plan first gap closure phase**
 
-`/grd:plan-phase {N}`
+`/grd:plan-inquiry {N}`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:execute-phase {N}` — if plans already exist
+- `/grd:conduct-inquiry {N}` — if plans already exist
 - `cat .planning/ROADMAP.md` — see updated roadmap
 
 ---
 
 **After all gap phases complete:**
 
-`/grd:audit-milestone` — re-audit to verify gaps closed
-`/grd:complete-milestone {version}` — archive when audit passes
+`/grd:audit-study` — re-audit to verify gaps closed
+`/grd:complete-study {version}` — archive when audit passes
 ```
 
 </process>
@@ -270,5 +270,5 @@ becomes:
 - [ ] Coverage count updated in REQUIREMENTS.md
 - [ ] Phase directories created
 - [ ] Changes committed (includes REQUIREMENTS.md)
-- [ ] User knows to run `/grd:plan-phase` next
+- [ ] User knows to run `/grd:plan-inquiry` next
 </success_criteria>

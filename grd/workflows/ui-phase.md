@@ -40,7 +40,7 @@ UI phase is disabled in config. Enable via /grd:settings.
 ```
 Exit workflow.
 
-**If `planning_exists` is false:** Error — run `/grd:new-project` first.
+**If `planning_exists` is false:** Error — run `/grd:new-research` first.
 
 ## 2. Parse and Validate Phase
 
@@ -57,7 +57,7 @@ PHASE_INFO=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" roadmap ge
 **If `has_context` is false:**
 ```
 No CONTEXT.md found for Phase {N}.
-Recommended: run /grd:discuss-phase {N} first to capture design preferences.
+Recommended: run /grd:scope-inquiry {N} first to capture design preferences.
 Continuing without user decisions — UI researcher will ask all questions.
 ```
 Continue (non-blocking).
@@ -112,7 +112,7 @@ Answer: "What visual and interaction contracts does this phase need?"
 - {state_path} (Project State)
 - {roadmap_path} (Roadmap)
 - {requirements_path} (Requirements)
-- {context_path} (USER DECISIONS from /grd:discuss-phase)
+- {context_path} (USER DECISIONS from /grd:scope-inquiry)
 - {research_path} (Technical Research — stack decisions)
 </files_to_read>
 
@@ -251,7 +251,7 @@ Dimensions: 6/6 passed
 
 **Plan Phase {N}** — planner will use UI-SPEC.md as design context
 
-`/grd:plan-phase {N}`
+`/grd:plan-inquiry {N}`
 
 <sub>/clear first → fresh context window</sub>
 

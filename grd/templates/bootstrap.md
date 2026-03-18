@@ -1,6 +1,6 @@
 # Bootstrap: Existing Research Inventory
 
-<!-- Produced during /grd:new-project. Every subsequent phase loads this file
+<!-- Produced during /grd:new-research. Every subsequent phase loads this file
 to avoid re-researching known findings. Update as research progresses. -->
 
 ## Already Established (do not re-research)

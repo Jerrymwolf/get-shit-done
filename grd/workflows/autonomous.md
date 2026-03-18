@@ -149,7 +149,7 @@ Check `has_context`. If false → go to handle_blocker: "Smart discuss for phase
 **3b. Plan**
 
 ```
-Skill(skill="grd:plan-phase", args="${PHASE_NUM}")
+Skill(skill="grd:plan-inquiry", args="${PHASE_NUM}")
 ```
 
 Verify plan produced output — re-run `init phase-op` and check `has_plans`. If false → go to handle_blocker: "Plan phase ${PHASE_NUM} did not produce any plans."
@@ -157,7 +157,7 @@ Verify plan produced output — re-run `init phase-op` and check `has_plans`. If
 **3c. Execute**
 
 ```
-Skill(skill="grd:execute-phase", args="${PHASE_NUM} --no-transition")
+Skill(skill="grd:conduct-inquiry", args="${PHASE_NUM} --no-transition")
 ```
 
 **3d. Post-Execution Routing**
@@ -222,14 +222,14 @@ Ask user via AskUserQuestion:
 On **"Run gap closure"**: Execute gap closure cycle (limit: 1 attempt):
 
 ```
-Skill(skill="grd:plan-phase", args="${PHASE_NUM} --gaps")
+Skill(skill="grd:plan-inquiry", args="${PHASE_NUM} --gaps")
 ```
 
 Verify gap plans were created — re-run `init phase-op ${PHASE_NUM}` and check `has_plans`. If no new gap plans → go to handle_blocker: "Gap closure planning for phase ${PHASE_NUM} did not produce plans."
 
 Re-execute:
 ```
-Skill(skill="grd:execute-phase", args="${PHASE_NUM} --no-transition")
+Skill(skill="grd:conduct-inquiry", args="${PHASE_NUM} --no-transition")
 ```
 
 Re-read verification status:
@@ -587,7 +587,7 @@ Display lifecycle transition banner:
 **5a. Audit**
 
 ```
-Skill(skill="grd:audit-milestone")
+Skill(skill="grd:audit-study")
 ```
 
 After audit completes, detect the result:
@@ -623,7 +623,7 @@ Ask user via AskUserQuestion:
 
 On **"Continue anyway"**: Display `Audit ⏭ Gaps accepted — proceeding to complete milestone` and proceed to 5b.
 
-On **"Stop"**: Go to handle_blocker with "User stopped — audit gaps remain. Run /grd:audit-milestone to review, then /grd:complete-milestone when ready."
+On **"Stop"**: Go to handle_blocker with "User stopped — audit gaps remain. Run /grd:audit-study to review, then /grd:complete-study when ready."
 
 **If `tech_debt`:**
 
@@ -638,12 +638,12 @@ Show the summary, then ask user via AskUserQuestion:
 
 On **"Continue with tech debt"**: Display `Audit ⏭ Tech debt acknowledged — proceeding to complete milestone` and proceed to 5b.
 
-On **"Stop"**: Go to handle_blocker with "User stopped — tech debt to address. Run /grd:audit-milestone to review details."
+On **"Stop"**: Go to handle_blocker with "User stopped — tech debt to address. Run /grd:audit-study to review details."
 
 **5b. Complete Milestone**
 
 ```
-Skill(skill="grd:complete-milestone", args="${milestone_version}")
+Skill(skill="grd:complete-study", args="${milestone_version}")
 ```
 
 After complete-milestone returns, verify it produced output:
@@ -732,7 +732,7 @@ When any phase operation fails or a blocker is detected, present 3 options via A
 - [ ] Final completion or stop summary displayed
 - [ ] After all phases complete, lifecycle step is invoked (not manual suggestion)
 - [ ] Lifecycle transition banner displayed before audit
-- [ ] Audit invoked via Skill(skill="grd:audit-milestone")
+- [ ] Audit invoked via Skill(skill="grd:audit-study")
 - [ ] Audit result routing: passed → auto-continue, gaps_found → user decides, tech_debt → user decides
 - [ ] Audit technical failure (no file/no status) routes to handle_blocker
 - [ ] Complete-milestone invoked via Skill() with ${milestone_version} arg

@@ -2,7 +2,7 @@
 
 # Research Depth Levels
 
-Three tiers of research depth. Set during `/grd:new-project` questioning, recorded in PROJECT.md. Individual phases can override.
+Three tiers of research depth. Set during `/grd:new-research` questioning, recorded in PROJECT.md. Individual phases can override.
 
 ## Level 1: Orientation
 
@@ -33,7 +33,7 @@ Three tiers of research depth. Set during `/grd:new-project` questioning, record
 
 ## Depth Selection
 
-- Depth is set during `/grd:new-project` questioning and recorded in PROJECT.md
+- Depth is set during `/grd:new-research` questioning and recorded in PROJECT.md
 - Individual phases can override (a Level 2 project may have one Level 3 phase for a critical question)
 - Depth level propagates to researcher agents via the orchestrator prompt
 - Source count minimums scale with depth level

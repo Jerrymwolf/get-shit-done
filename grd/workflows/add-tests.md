@@ -54,7 +54,7 @@ Read the phase artifacts (in order of priority):
 If no SUMMARY.md exists:
 ```
 ERROR: No SUMMARY.md found for phase ${PHASE_ARG}
-This command works on completed phases. Run /grd:execute-phase first.
+This command works on completed phases. Run /grd:conduct-inquiry first.
 ```
 Exit.
 
@@ -327,7 +327,7 @@ Present next steps:
 
 **Also available:**
 - `/grd:add-tests {next_phase}` — test another phase
-- `/grd:verify-work {phase_number}` — run UAT verification
+- `/grd:verify-inquiry {phase_number}` — run UAT verification
 
 ---
 ```

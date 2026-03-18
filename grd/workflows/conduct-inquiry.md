@@ -327,7 +327,7 @@ grep "^status:" "$PHASE_DIR"/*-VERIFICATION.md | cut -d: -f2 | tr -d ' '
 |--------|--------|
 | `passed` | → update_roadmap |
 | `human_needed` | Present items for human testing, get approval or feedback |
-| `gaps_found` | Present gap summary, offer `/grd:plan-phase {phase} --gaps` |
+| `gaps_found` | Present gap summary, offer `/grd:plan-inquiry {phase} --gaps` |
 
 **If human_needed:**
 ```
@@ -353,15 +353,15 @@ All automated checks passed. {N} items need human testing:
 ---
 ## ▶ Next Up
 
-`/grd:plan-phase {X} --gaps`
+`/grd:plan-inquiry {X} --gaps`
 
 <sub>`/clear` first → fresh context window</sub>
 
 Also: `cat {phase_dir}/{phase_num}-VERIFICATION.md` — full report
-Also: `/grd:verify-work {X}` — manual testing first
+Also: `/grd:verify-inquiry {X}` — manual testing first
 ```
 
-Gap closure cycle: `/grd:plan-phase {X} --gaps` reads VERIFICATION.md → creates gap plans with `gap_closure: true` → user runs `/grd:execute-phase {X} --gaps-only` → verifier re-runs.
+Gap closure cycle: `/grd:plan-inquiry {X} --gaps` reads VERIFICATION.md → creates gap plans with `gap_closure: true` → user runs `/grd:conduct-inquiry {X} --gaps-only` → verifier re-runs.
 </step>
 
 <step name="update_roadmap">
@@ -387,7 +387,7 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs(phase-{X})
 
 <step name="offer_next">
 
-**Exception:** If `gaps_found`, the `verify_phase_goal` step already presents the gap-closure path (`/grd:plan-phase {X} --gaps`). No additional routing needed — skip auto-advance.
+**Exception:** If `gaps_found`, the `verify_phase_goal` step already presents the gap-closure path (`/grd:plan-inquiry {X} --gaps`). No additional routing needed — skip auto-advance.
 
 **No-transition check (spawned by auto-advance chain):**
 
@@ -443,7 +443,7 @@ Read and follow `/Users/jeremiahwolf/.claude/grd/workflows/transition.md`, passi
 
 /grd:progress — see updated roadmap
 /grd:transition — plan next phase transition
-/grd:execute-phase {next} — execute next phase
+/grd:conduct-inquiry {next} — execute next phase
 ```
 </step>
 
@@ -462,7 +462,7 @@ Orchestrator: ~10-15% context. Subagents: fresh 200k each. No polling (Task bloc
 </failure_handling>
 
 <resumption>
-Re-run `/grd:execute-phase {phase}` → discover_plans finds completed SUMMARYs → skips them → resumes from first incomplete plan → continues wave execution.
+Re-run `/grd:conduct-inquiry {phase}` → discover_plans finds completed SUMMARYs → skips them → resumes from first incomplete plan → continues wave execution.
 
 STATE.md tracks: last completed plan, current wave, pending checkpoints.
 </resumption>
