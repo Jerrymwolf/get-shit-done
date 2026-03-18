@@ -128,13 +128,14 @@
  *   state get-gaps                     List all gaps from Source Gaps table
  *
  * Compound Commands (workflow-specific initialization):
- *   init execute-phase <phase>         All context for execute-phase workflow
- *   init plan-phase <phase>            All context for plan-phase workflow
- *   init new-project                   All context for new-project workflow
+ *   init conduct-inquiry <phase>       All context for conduct-inquiry workflow
+ *   init plan-inquiry <phase>          All context for plan-inquiry workflow
+ *   init new-research                  All context for new-research workflow
  *   init new-milestone                 All context for new-milestone workflow
  *   init quick <description>           All context for quick workflow
  *   init resume                        All context for resume-project workflow
- *   init verify-work <phase>           All context for verify-work workflow
+ *   init verify-inquiry <phase>        All context for verify-inquiry workflow
+ *   init scope-inquiry <phase>         All context for scope-inquiry workflow
  *   init phase-op <phase>              Generic phase operation context
  *   init todos [area]                  All context for todo workflows
  *   init milestone-op                  All context for milestone operations
@@ -630,13 +631,13 @@ async function main() {
     case 'init': {
       const workflow = args[1];
       switch (workflow) {
-        case 'execute-phase':
+        case 'conduct-inquiry':
           init.cmdInitExecutePhase(cwd, args[2], raw);
           break;
-        case 'plan-phase':
+        case 'plan-inquiry':
           init.cmdInitPlanPhase(cwd, args[2], raw);
           break;
-        case 'new-project':
+        case 'new-research':
           init.cmdInitNewProject(cwd, raw);
           break;
         case 'new-milestone':
@@ -648,8 +649,11 @@ async function main() {
         case 'resume':
           init.cmdInitResume(cwd, raw);
           break;
-        case 'verify-work':
+        case 'verify-inquiry':
           init.cmdInitVerifyWork(cwd, args[2], raw);
+          break;
+        case 'scope-inquiry':
+          init.cmdInitPhaseOp(cwd, args[2], raw);
           break;
         case 'phase-op':
           init.cmdInitPhaseOp(cwd, args[2], raw);
@@ -667,7 +671,7 @@ async function main() {
           init.cmdInitProgress(cwd, raw);
           break;
         default:
-          error(`Unknown init workflow: ${workflow}\nAvailable: execute-phase, plan-phase, new-project, new-milestone, quick, resume, verify-work, phase-op, todos, milestone-op, map-codebase, progress`);
+          error(`Unknown init workflow: ${workflow}\nAvailable: conduct-inquiry, plan-inquiry, new-research, new-milestone, quick, resume, verify-inquiry, scope-inquiry, phase-op, todos, milestone-op, map-codebase, progress`);
       }
       break;
     }
