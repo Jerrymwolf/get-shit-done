@@ -86,10 +86,11 @@ Plans:
   4. Review type can be downgraded mid-study via `/grd:settings` — rigor requirements relax, no work lost
   5. Opening an existing v1.1 project with no new config fields produces correct defaults via configWithDefaults() — no crash, no missing-key errors
   6. Tests validate config schema, defaults cascade, and smart defaults for all five review types
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 16-01: TBD
+- [ ] 16-01-PLAN.md -- Config schema infrastructure: SMART_DEFAULTS table, configWithDefaults(), applySmartDefaults(), canDowngrade(), VALID_CONFIG_KEYS extension, and TDD tests
+- [ ] 16-02-PLAN.md -- System integration: loadConfig() extension, init.cjs propagation, templates/config.json update, settings.md review type downgrade
 
 ### Phase 17: Namespace Migration
 **Goal**: Every user-facing and internal reference uses the grd namespace with research-native command vocabulary
@@ -214,7 +215,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 13. Workflow Sync | v1.1 | 3/3 | Complete | 2026-03-16 |
 | 14. Path Standardization and Final Verification | v1.1 | 2/2 | Complete | 2026-03-16 |
 | 15. Upstream Sync to v1.25.1 | 5/5 | Complete    | 2026-03-17 | - |
-| 16. Config Schema and Defaults | v1.2 | 0/? | Not started | - |
+| 16. Config Schema and Defaults | v1.2 | 0/2 | Not started | - |
 | 17. Namespace Migration | v1.2 | 0/? | Not started | - |
 | 18. Research Formulation and Notes | v1.2 | 0/? | Not started | - |
 | 19. Plan-Checker Enforcement | v1.2 | 0/? | Not started | - |
@@ -224,4 +225,4 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-17 after Phase 15 planning*
+*Last updated: 2026-03-17 after Phase 16 planning*
