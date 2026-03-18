@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
-status: completed
-stopped_at: Phase 16 context gathered
-last_updated: "2026-03-17T23:56:55.725Z"
-last_activity: 2026-03-17 -- Completed 15-05 templates/references sync and VERSION bump to 1.25.1
+status: executing
+stopped_at: Completed 16-01-PLAN.md
+last_updated: "2026-03-18T00:21:56.083Z"
+last_activity: 2026-03-18 -- Completed 16-01 config schema infrastructure with smart defaults cascade
 progress:
   total_phases: 8
   completed_phases: 1
-  total_plans: 5
-  completed_plans: 5
-  percent: 100
+  total_plans: 7
+  completed_plans: 6
+  percent: 86
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** Phase 15 - Upstream Sync to v1.25.1
+**Current focus:** Phase 16 - Config Schema and Defaults
 
 ## Current Position
 
-Phase: 15 of 22 (Upstream Sync to v1.25.1)
-Plan: 05 of 5 complete
-Status: Phase complete
-Last activity: 2026-03-17 -- Completed 15-05 templates/references sync and VERSION bump to 1.25.1
+Phase: 16 of 22 (Config Schema and Defaults)
+Plan: 01 of 2 complete
+Status: In progress
+Last activity: 2026-03-18 -- Completed 16-01 config schema infrastructure with smart defaults cascade
 
-Progress: [██████████] 100%
+Progress: [█████████░] 86%
 
 ## Performance Metrics
 
@@ -46,6 +46,7 @@ Progress: [██████████] 100%
 | 15 | 5 | 24min | 4.8min |
 
 *Updated after each plan completion*
+| Phase 16 P01 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -66,6 +67,7 @@ Recent decisions affecting current work:
 - 15-04: new-project.md research vocabulary (Landscape/Questions/Frameworks/Debates) preserved as intentional divergence
 - 15-05: Preserved fork questioning.md research question types instead of overwriting with upstream
 - 15-05: Added inherit profile support to model-profiles.md from upstream v1.25.1
+- [Phase 16]: 16-01: SMART_DEFAULTS as lookup table, not computed function -- single source of truth
 
 ### Pending Todos
 
@@ -77,6 +79,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-17T23:56:55.723Z
-Stopped at: Phase 16 context gathered
-Resume file: .planning/phases/16-config-schema-and-defaults/16-CONTEXT.md
+Last session: 2026-03-18T00:21:56.081Z
+Stopped at: Completed 16-01-PLAN.md
+Resume file: None

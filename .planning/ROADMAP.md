@@ -215,7 +215,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 13. Workflow Sync | v1.1 | 3/3 | Complete | 2026-03-16 |
 | 14. Path Standardization and Final Verification | v1.1 | 2/2 | Complete | 2026-03-16 |
 | 15. Upstream Sync to v1.25.1 | 5/5 | Complete    | 2026-03-17 | - |
-| 16. Config Schema and Defaults | v1.2 | 0/2 | Not started | - |
+| 16. Config Schema and Defaults | 1/2 | In Progress|  | - |
 | 17. Namespace Migration | v1.2 | 0/? | Not started | - |
 | 18. Research Formulation and Notes | v1.2 | 0/? | Not started | - |
 | 19. Plan-Checker Enforcement | v1.2 | 0/? | Not started | - |

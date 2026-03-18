@@ -26,13 +26,13 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Config & Scoping
 
-- [ ] **CFG-01**: `researcher_tier` field in config.json (guided/standard/expert) with selection during `/grd:new-research`
-- [ ] **CFG-02**: `review_type` field in config.json (systematic/scoping/integrative/critical/narrative) with selection during `/grd:new-research`
-- [ ] **CFG-03**: `epistemological_stance` field in config.json (positivist/constructivist/pragmatist/critical) with pragmatist default if skipped
-- [ ] **CFG-04**: Smart defaults cascade -- selecting a review type auto-configures critical_appraisal, temporal_positioning, synthesis, and plan_check rigor per the Smart Defaults table
-- [ ] **CFG-05**: `configWithDefaults()` function ensuring existing projects get correct defaults for all new fields
-- [ ] **CFG-06**: `config.workflow.critical_appraisal` toggle (skips Evidence Quality section globally; defaults to false for narrative+Guided tier)
-- [ ] **CFG-07**: `config.workflow.temporal_positioning` toggle (skips era field; defaults per Smart Defaults table)
+- [x] **CFG-01**: `researcher_tier` field in config.json (guided/standard/expert) with selection during `/grd:new-research`
+- [x] **CFG-02**: `review_type` field in config.json (systematic/scoping/integrative/critical/narrative) with selection during `/grd:new-research`
+- [x] **CFG-03**: `epistemological_stance` field in config.json (positivist/constructivist/pragmatist/critical) with pragmatist default if skipped
+- [x] **CFG-04**: Smart defaults cascade -- selecting a review type auto-configures critical_appraisal, temporal_positioning, synthesis, and plan_check rigor per the Smart Defaults table
+- [x] **CFG-05**: `configWithDefaults()` function ensuring existing projects get correct defaults for all new fields
+- [x] **CFG-06**: `config.workflow.critical_appraisal` toggle (skips Evidence Quality section globally; defaults to false for narrative+Guided tier)
+- [x] **CFG-07**: `config.workflow.temporal_positioning` toggle (skips era field; defaults per Smart Defaults table)
 
 ### Research Formulation
 
@@ -95,7 +95,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 - [x] **TEST-01**: All existing 164+ tests continue to pass after all changes
 - [ ] **TEST-02**: New tests cover namespace migration (zero residual references)
 - [ ] **TEST-03**: New tests cover review type enforcement in plan-checker
-- [ ] **TEST-04**: New tests cover config schema with defaults and smart defaults cascade
+- [x] **TEST-04**: New tests cover config schema with defaults and smart defaults cascade
 - [ ] **TEST-05**: New tests cover synthesis stage workflow
 - [ ] **TEST-06**: New tests cover researcher tier template selection and adaptive output
 
@@ -144,13 +144,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NS-04 | Phase 17 | Pending |
 | NS-05 | Phase 17 | Pending |
 | NS-06 | Phase 17 | Pending |
-| CFG-01 | Phase 16 | Pending |
-| CFG-02 | Phase 16 | Pending |
-| CFG-03 | Phase 16 | Pending |
-| CFG-04 | Phase 16 | Pending |
-| CFG-05 | Phase 16 | Pending |
-| CFG-06 | Phase 16 | Pending |
-| CFG-07 | Phase 16 | Pending |
+| CFG-01 | Phase 16 | Complete |
+| CFG-02 | Phase 16 | Complete |
+| CFG-03 | Phase 16 | Complete |
+| CFG-04 | Phase 16 | Complete |
+| CFG-05 | Phase 16 | Complete |
+| CFG-06 | Phase 16 | Complete |
+| CFG-07 | Phase 16 | Complete |
 | FORM-01 | Phase 18 | Pending |
 | FORM-02 | Phase 18 | Pending |
 | FORM-03 | Phase 18 | Pending |
@@ -186,7 +186,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TEST-01 | Phase 15 | Complete |
 | TEST-02 | Phase 17 | Pending |
 | TEST-03 | Phase 19 | Pending |
-| TEST-04 | Phase 16 | Pending |
+| TEST-04 | Phase 16 | Complete |
 | TEST-05 | Phase 22 | Pending |
 | TEST-06 | Phase 21 | Pending |
 
