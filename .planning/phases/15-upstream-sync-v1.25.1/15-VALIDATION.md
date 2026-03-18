@@ -57,7 +57,7 @@ Existing infrastructure covers all phase requirements. 164 tests across 9 test f
 
 | Behavior | Requirement | Why Manual | Test Instructions |
 |----------|-------------|------------|-------------------|
-| VERSION file reads 1.25.1 | SYNC-05 | Simple file content check | `cat get-shit-done-r/VERSION` should output `1.25.1` |
+| VERSION file reads 1.25.1 | SYNC-05 | Simple file content check | `cat grd/VERSION` should output `1.25.1` |
 
 ---
 

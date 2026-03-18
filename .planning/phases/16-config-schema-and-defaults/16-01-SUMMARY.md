@@ -24,7 +24,7 @@ tech-stack:
 
 key-files:
   created: [test/config-schema.test.cjs]
-  modified: [get-shit-done-r/bin/lib/config.cjs]
+  modified: [grd/bin/lib/config.cjs]
 
 key-decisions:
   - "SMART_DEFAULTS as lookup table, not computed function -- single source of truth"
@@ -72,7 +72,7 @@ _TDD approach: RED (28 failing tests) then GREEN (all pass)_
 
 ## Files Created/Modified
 - `test/config-schema.test.cjs` - 28 unit tests across 5 describe blocks covering all config schema requirements
-- `get-shit-done-r/bin/lib/config.cjs` - Added SMART_DEFAULTS, REVIEW_TYPE_ORDER, configWithDefaults, applySmartDefaults, canDowngrade + extended VALID_CONFIG_KEYS
+- `grd/bin/lib/config.cjs` - Added SMART_DEFAULTS, REVIEW_TYPE_ORDER, configWithDefaults, applySmartDefaults, canDowngrade + extended VALID_CONFIG_KEYS
 
 ## Decisions Made
 - Implemented SMART_DEFAULTS as a constant lookup table (not computed) per RESEARCH.md recommendation

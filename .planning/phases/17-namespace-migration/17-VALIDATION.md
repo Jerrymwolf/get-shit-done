@@ -51,7 +51,7 @@ created: 2026-03-17
 ## Wave 0 Requirements
 
 - [ ] `test/namespace.test.cjs` — namespace residual scan tests for NS-06 and TEST-02
-- [ ] Test fixtures for expected zero-residual patterns (gsd-r, gsd_r, get-shit-done-r)
+- [ ] Test fixtures for expected zero-residual patterns (grd, grd, grd)
 
 *Existing test infrastructure (node --test) covers framework needs.*
 
@@ -62,7 +62,7 @@ created: 2026-03-17
 | Behavior | Requirement | Why Manual | Test Instructions |
 |----------|-------------|------------|-------------------|
 | Command autocomplete shows grd: prefix | NS-01 | Depends on Claude Code skill registration | Type `/grd:` in Claude Code, verify autocomplete shows research-native names |
-| Agent prompts use GRD terminology in output | NS-05 | Runtime LLM output cannot be unit-tested | Run a workflow, verify agent output uses GRD not GSD-R |
+| Agent prompts use GRD terminology in output | NS-05 | Runtime LLM output cannot be unit-tested | Run a workflow, verify agent output uses GRD not GRD |
 
 ---
 

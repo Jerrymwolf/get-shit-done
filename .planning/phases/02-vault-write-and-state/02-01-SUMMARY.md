@@ -22,7 +22,7 @@ tech-stack:
 key-files:
   created: []
   modified:
-    - get-shit-done-r/bin/lib/vault.cjs
+    - grd/bin/lib/vault.cjs
     - test/vault.test.cjs
 
 key-decisions:
@@ -72,7 +72,7 @@ Each task was committed atomically:
 _TDD plan: 3 commits (test -> feat -> refactor)_
 
 ## Files Created/Modified
-- `get-shit-done-r/bin/lib/vault.cjs` - Added atomicWrite() with rollback, defaultGitRunner, DEFAULT_TEMPLATE_PATH
+- `grd/bin/lib/vault.cjs` - Added atomicWrite() with rollback, defaultGitRunner, DEFAULT_TEMPLATE_PATH
 - `test/vault.test.cjs` - Added 10 atomicWrite tests: happy path, SOURCE-LOG content, git operations, rollback on git/disk failure, commit message format, return value, overwrite, missing template, nested paths
 
 ## Decisions Made

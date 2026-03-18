@@ -8,7 +8,7 @@ requires: []
 provides:
   - "core.cjs with spawnSync-based execGit and milestone scoping functions"
   - "config.cjs with VALID_CONFIG_KEYS, ensureConfigFile, setConfigValue, cmdConfigSetModelProfile"
-  - "gsd-r-tools.cjs with config-set-model-profile wired to real implementation"
+  - "grd-tools.cjs with config-set-model-profile wired to real implementation"
 affects: [15-02, 15-03, 15-04, 15-05]
 
 tech-stack:
@@ -21,16 +21,16 @@ tech-stack:
 key-files:
   created: []
   modified:
-    - "get-shit-done-r/bin/lib/core.cjs"
-    - "get-shit-done-r/bin/lib/config.cjs"
-    - "get-shit-done-r/bin/gsd-r-tools.cjs"
+    - "grd/bin/lib/core.cjs"
+    - "grd/bin/lib/config.cjs"
+    - "grd/bin/grd-tools.cjs"
 
 key-decisions:
-  - "Preserved GSD-R config keys (vault_path, commit_research) in VALID_CONFIG_KEYS Set"
+  - "Preserved GRD config keys (vault_path, commit_research) in VALID_CONFIG_KEYS Set"
   - "Removed opus-to-inherit mapping to match upstream v1.25.1 behavior"
 
 patterns-established:
-  - "Upstream sync pattern: diff upstream vs fork, apply changes, preserve GSD-R extensions"
+  - "Upstream sync pattern: diff upstream vs fork, apply changes, preserve GRD extensions"
 
 requirements-completed: [SYNC-01]
 
@@ -54,22 +54,22 @@ completed: 2026-03-17
 - Replaced execGit shell-escaping execSync with spawnSync array-based invocation
 - Removed opus-to-inherit mapping in resolveModelInternal to match upstream v1.25.1
 - Rewrote config.cjs to upstream structure: VALID_CONFIG_KEYS, ensureConfigFile, setConfigValue, cmdConfigSetModelProfile
-- Wired config-set-model-profile command in gsd-r-tools.cjs, eliminating the stub
+- Wired config-set-model-profile command in grd-tools.cjs, eliminating the stub
 
 ## Task Commits
 
 Each task was committed atomically:
 
 1. **Task 1: Sync core.cjs with v1.25.1 upstream** - `e3ac944` (feat)
-2. **Task 2: Sync config.cjs with v1.25.1 upstream and wire in gsd-r-tools.cjs** - `fa65ecd` (feat)
+2. **Task 2: Sync config.cjs with v1.25.1 upstream and wire in grd-tools.cjs** - `fa65ecd` (feat)
 
 ## Files Created/Modified
-- `get-shit-done-r/bin/lib/core.cjs` - execGit uses spawnSync, opus passes through in resolveModelInternal
-- `get-shit-done-r/bin/lib/config.cjs` - Full rewrite matching upstream with GSD-R key extensions
-- `get-shit-done-r/bin/gsd-r-tools.cjs` - config-set-model-profile routed to real implementation
+- `grd/bin/lib/core.cjs` - execGit uses spawnSync, opus passes through in resolveModelInternal
+- `grd/bin/lib/config.cjs` - Full rewrite matching upstream with GRD key extensions
+- `grd/bin/grd-tools.cjs` - config-set-model-profile routed to real implementation
 
 ## Decisions Made
-- Preserved GSD-R config keys (vault_path, commit_research) in VALID_CONFIG_KEYS Set alongside upstream keys
+- Preserved GRD config keys (vault_path, commit_research) in VALID_CONFIG_KEYS Set alongside upstream keys
 - Removed opus-to-inherit mapping to match upstream -- opus now passes through as-is
 - Kept isGitIgnored using execSync (matches upstream, separate from execGit)
 

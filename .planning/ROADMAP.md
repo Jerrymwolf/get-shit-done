@@ -1,19 +1,19 @@
-# Roadmap: GSD-R
+# Roadmap: GRD
 
 ## Overview
 
-GSD-R transforms GSD's code-commit workflow into a research-note workflow.
+GRD transforms GSD's code-commit workflow into a research-note workflow.
 
 ## Milestones
 
-- ✅ **v1.0 GSD-R MVP** -- Phases 1-8 (shipped 2026-03-12)
+- ✅ **v1.0 GRD MVP** -- Phases 1-8 (shipped 2026-03-12)
 - ✅ **v1.1 Upstream Sync** -- Phases 9-14 (shipped 2026-03-16)
 - [ ] **v1.2 Research Reorientation** -- Phases 15-22 (in progress)
 
 ## Phases
 
 <details>
-<summary>v1.0 GSD-R MVP (Phases 1-8) -- SHIPPED 2026-03-12</summary>
+<summary>v1.0 GRD MVP (Phases 1-8) -- SHIPPED 2026-03-12</summary>
 
 - [x] Phase 1: Fork and Foundation (3/3 plans) -- completed 2026-03-11
 - [x] Phase 2: Vault Write and State (2/2 plans) -- completed 2026-03-11
@@ -44,11 +44,11 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 
 ### v1.2 Research Reorientation (In Progress)
 
-**Milestone Goal:** Transform GSD-R into GRD -- a research tool that uses PM discipline, not a PM tool that produces research notes.
+**Milestone Goal:** Transform GRD into GRD -- a research tool that uses PM discipline, not a PM tool that produces research notes.
 
 - [x] **Phase 15: Upstream Sync to v1.25.1** - Sync all modules, agents, workflows, and templates with GSD v1.25.1 baseline (completed 2026-03-17)
 - [x] **Phase 16: Config Schema and Defaults** - Add researcher_tier, review_type, epistemological_stance to config with configWithDefaults() deep-merge (completed 2026-03-18)
-- [ ] **Phase 17: Namespace Migration** - Rename gsd-r to grd across all files, commands, agents, and directory structure
+- [ ] **Phase 17: Namespace Migration** - Rename grd to grd across all files, commands, agents, and directory structure
 - [ ] **Phase 18: Research Formulation and Notes** - Reframe new-research scoping, recharter parallel researchers, update note template with Evidence Quality and temporal positioning
 - [ ] **Phase 19: Plan-Checker Enforcement** - Add review-type-conditional rules with graduated enforcement
 - [ ] **Phase 20: Three-Tier Verification** - Add Tier 0 sufficiency check gating existing Tier 1 and Tier 2
@@ -97,15 +97,15 @@ Plans:
 **Depends on**: Phase 15
 **Requirements**: NS-01, NS-02, NS-03, NS-04, NS-05, NS-06, TEST-02
 **Success Criteria** (what must be TRUE):
-  1. All `/gsd-r:` command references are `/grd:` with research-native names (conduct-inquiry, scope-inquiry, plan-inquiry, verify-inquiry, new-research, complete-study, etc.)
-  2. `gsd-r-tools.cjs` is renamed to `grd-tools.cjs` and `get-shit-done-r/` is renamed to `grd/` with all path references updated
+  1. All `/grd:` command references are `/grd:` with research-native names (conduct-inquiry, scope-inquiry, plan-inquiry, verify-inquiry, new-research, complete-study, etc.)
+  2. `grd-tools.cjs` is renamed to `grd-tools.cjs` and `grd/` is renamed to `grd/` with all path references updated
   3. All 19 agent names in model-profiles.cjs use `grd-*` prefix
-  4. Automated scan finds zero residual `gsd-r` references in any user-facing output
+  4. Automated scan finds zero residual `grd` references in any user-facing output
   5. All tests pass with updated namespace references
 **Plans**: 2 plans
 
 Plans:
-- [ ] 17-01-PLAN.md -- Directory rename (get-shit-done-r/ to grd/), CLI tool rename, bulk gsd-r to grd replacement, agent name updates, namespace regression test
+- [ ] 17-01-PLAN.md -- Directory rename (grd/ to grd/), CLI tool rename, bulk grd to grd replacement, agent name updates, namespace regression test
 - [ ] 17-02-PLAN.md -- Workflow file renames to research-native names (10 files), CLI routing updates, init subcommand updates, Skill() cross-reference updates
 
 ### Phase 18: Research Formulation and Notes

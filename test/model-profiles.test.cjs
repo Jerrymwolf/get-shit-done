@@ -8,7 +8,7 @@ const {
   VALID_PROFILES,
   formatAgentToModelMapAsTable,
   getAgentToModelMapForProfile,
-} = require('../get-shit-done-r/bin/lib/model-profiles.cjs');
+} = require('../grd/bin/lib/model-profiles.cjs');
 
 // --- MODEL_PROFILES ---
 
@@ -17,9 +17,9 @@ describe('MODEL_PROFILES', () => {
     assert.equal(Object.keys(MODEL_PROFILES).length, 19);
   });
 
-  it('every agent key starts with gsd-r-', () => {
+  it('every agent key starts with grd-', () => {
     for (const key of Object.keys(MODEL_PROFILES)) {
-      assert.ok(key.startsWith('gsd-r-'), `Expected "${key}" to start with "gsd-r-"`);
+      assert.ok(key.startsWith('grd-'), `Expected "${key}" to start with "grd-"`);
     }
   });
 
@@ -45,35 +45,35 @@ describe('MODEL_PROFILES', () => {
     }
   });
 
-  it('includes all 15 upstream agents renamed to gsd-r-*', () => {
+  it('includes all 15 upstream agents renamed to grd-*', () => {
     const upstreamAgents = [
-      'gsd-r-planner',
-      'gsd-r-roadmapper',
-      'gsd-r-executor',
-      'gsd-r-phase-researcher',
-      'gsd-r-project-researcher',
-      'gsd-r-research-synthesizer',
-      'gsd-r-debugger',
-      'gsd-r-codebase-mapper',
-      'gsd-r-verifier',
-      'gsd-r-plan-checker',
-      'gsd-r-integration-checker',
-      'gsd-r-nyquist-auditor',
-      'gsd-r-ui-researcher',
-      'gsd-r-ui-checker',
-      'gsd-r-ui-auditor',
+      'grd-planner',
+      'grd-roadmapper',
+      'grd-executor',
+      'grd-phase-researcher',
+      'grd-project-researcher',
+      'grd-research-synthesizer',
+      'grd-debugger',
+      'grd-codebase-mapper',
+      'grd-verifier',
+      'grd-plan-checker',
+      'grd-integration-checker',
+      'grd-nyquist-auditor',
+      'grd-ui-researcher',
+      'grd-ui-checker',
+      'grd-ui-auditor',
     ];
     for (const agent of upstreamAgents) {
       assert.ok(agent in MODEL_PROFILES, `Missing upstream agent: ${agent}`);
     }
   });
 
-  it('includes 4 GSD-R research agents', () => {
+  it('includes 4 GRD research agents', () => {
     const researchAgents = [
-      'gsd-r-source-researcher',
-      'gsd-r-methods-researcher',
-      'gsd-r-architecture-researcher',
-      'gsd-r-limitations-researcher',
+      'grd-source-researcher',
+      'grd-methods-researcher',
+      'grd-architecture-researcher',
+      'grd-limitations-researcher',
     ];
     for (const agent of researchAgents) {
       assert.ok(agent in MODEL_PROFILES, `Missing research agent: ${agent}`);
@@ -82,10 +82,10 @@ describe('MODEL_PROFILES', () => {
 
   it('research agents match phase-researcher tier', () => {
     const researchAgents = [
-      'gsd-r-source-researcher',
-      'gsd-r-methods-researcher',
-      'gsd-r-architecture-researcher',
-      'gsd-r-limitations-researcher',
+      'grd-source-researcher',
+      'grd-methods-researcher',
+      'grd-architecture-researcher',
+      'grd-limitations-researcher',
     ];
     const expectedTier = { quality: 'opus', balanced: 'sonnet', budget: 'haiku' };
     for (const agent of researchAgents) {
@@ -97,8 +97,8 @@ describe('MODEL_PROFILES', () => {
     }
   });
 
-  it('gsd-r-planner has correct tiers', () => {
-    assert.deepEqual(MODEL_PROFILES['gsd-r-planner'], {
+  it('grd-planner has correct tiers', () => {
+    assert.deepEqual(MODEL_PROFILES['grd-planner'], {
       quality: 'opus',
       balanced: 'opus',
       budget: 'sonnet',
@@ -113,8 +113,8 @@ describe('VALID_PROFILES', () => {
     assert.deepEqual(VALID_PROFILES, ['quality', 'balanced', 'budget']);
   });
 
-  it('is derived from gsd-r-planner keys', () => {
-    assert.deepEqual(VALID_PROFILES, Object.keys(MODEL_PROFILES['gsd-r-planner']));
+  it('is derived from grd-planner keys', () => {
+    assert.deepEqual(VALID_PROFILES, Object.keys(MODEL_PROFILES['grd-planner']));
   });
 });
 
@@ -126,24 +126,24 @@ describe('getAgentToModelMapForProfile', () => {
     assert.equal(Object.keys(map).length, 19);
   });
 
-  it('returns correct model for gsd-r-planner quality', () => {
-    assert.equal(getAgentToModelMapForProfile('quality')['gsd-r-planner'], 'opus');
+  it('returns correct model for grd-planner quality', () => {
+    assert.equal(getAgentToModelMapForProfile('quality')['grd-planner'], 'opus');
   });
 
-  it('returns correct model for gsd-r-codebase-mapper budget', () => {
-    assert.equal(getAgentToModelMapForProfile('budget')['gsd-r-codebase-mapper'], 'haiku');
+  it('returns correct model for grd-codebase-mapper budget', () => {
+    assert.equal(getAgentToModelMapForProfile('budget')['grd-codebase-mapper'], 'haiku');
   });
 
   it('returns undefined values for invalid profile name', () => {
     const map = getAgentToModelMapForProfile('nonexistent');
-    assert.equal(map['gsd-r-planner'], undefined);
+    assert.equal(map['grd-planner'], undefined);
   });
 });
 
 // --- formatAgentToModelMapAsTable ---
 
 describe('formatAgentToModelMapAsTable', () => {
-  const table = formatAgentToModelMapAsTable({ 'gsd-r-planner': 'opus' });
+  const table = formatAgentToModelMapAsTable({ 'grd-planner': 'opus' });
 
   it('includes Agent and Model headers', () => {
     assert.ok(table.includes('Agent'));
@@ -156,7 +156,7 @@ describe('formatAgentToModelMapAsTable', () => {
   });
 
   it('includes agent name and model in output', () => {
-    assert.ok(table.includes('gsd-r-planner'));
+    assert.ok(table.includes('grd-planner'));
     assert.ok(table.includes('opus'));
   });
 });
@@ -164,13 +164,13 @@ describe('formatAgentToModelMapAsTable', () => {
 // --- VERSION file ---
 
 describe('VERSION file', () => {
-  it('exists at get-shit-done-r/VERSION', () => {
-    const versionPath = path.join(__dirname, '..', 'get-shit-done-r', 'VERSION');
+  it('exists at grd/VERSION', () => {
+    const versionPath = path.join(__dirname, '..', 'grd', 'VERSION');
     assert.ok(fs.existsSync(versionPath), 'VERSION file does not exist');
   });
 
   it('contains exactly 1.25.1', () => {
-    const versionPath = path.join(__dirname, '..', 'get-shit-done-r', 'VERSION');
+    const versionPath = path.join(__dirname, '..', 'grd', 'VERSION');
     const content = fs.readFileSync(versionPath, 'utf-8').trim();
     assert.equal(content, '1.25.1');
   });

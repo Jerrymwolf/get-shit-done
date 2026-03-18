@@ -8,7 +8,7 @@ const {
   stripShippedMilestones,
   replaceInCurrentMilestone,
   resolveModelInternal,
-} = require('../get-shit-done-r/bin/lib/core.cjs');
+} = require('../grd/bin/lib/core.cjs');
 
 // --- stripShippedMilestones ---
 
@@ -69,7 +69,7 @@ describe('resolveModelInternal - inherit profile', () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'core-test-'));
     fs.mkdirSync(path.join(tmpDir, '.planning'), { recursive: true });
     fs.writeFileSync(path.join(tmpDir, '.planning', 'config.json'), JSON.stringify({ model_profile: 'inherit' }));
-    const result = resolveModelInternal(tmpDir, 'gsd-r-executor');
+    const result = resolveModelInternal(tmpDir, 'grd-executor');
     assert.equal(result, 'inherit');
     fs.rmSync(tmpDir, { recursive: true });
   });
@@ -78,8 +78,8 @@ describe('resolveModelInternal - inherit profile', () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'core-test-'));
     fs.mkdirSync(path.join(tmpDir, '.planning'), { recursive: true });
     fs.writeFileSync(path.join(tmpDir, '.planning', 'config.json'), JSON.stringify({ model_profile: 'Balanced' }));
-    const result = resolveModelInternal(tmpDir, 'gsd-r-executor');
-    assert.equal(result, 'sonnet'); // gsd-r-executor balanced = sonnet
+    const result = resolveModelInternal(tmpDir, 'grd-executor');
+    assert.equal(result, 'sonnet'); // grd-executor balanced = sonnet
     fs.rmSync(tmpDir, { recursive: true });
   });
 });

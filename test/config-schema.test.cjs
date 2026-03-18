@@ -8,7 +8,7 @@ const {
   configWithDefaults,
   applySmartDefaults,
   canDowngrade,
-} = require('../get-shit-done-r/bin/lib/config.cjs');
+} = require('../grd/bin/lib/config.cjs');
 
 // --- VALID_CONFIG_KEYS ---
 

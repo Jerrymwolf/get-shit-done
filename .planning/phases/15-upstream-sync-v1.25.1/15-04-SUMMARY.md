@@ -21,11 +21,11 @@ tech-stack:
 
 key-files:
   modified:
-    - get-shit-done-r/workflows/discuss-phase.md
-    - get-shit-done-r/workflows/plan-phase.md
-    - get-shit-done-r/workflows/new-project.md
-    - get-shit-done-r/workflows/quick.md
-    - get-shit-done-r/workflows/help.md
+    - grd/workflows/discuss-phase.md
+    - grd/workflows/plan-phase.md
+    - grd/workflows/new-project.md
+    - grd/workflows/quick.md
+    - grd/workflows/help.md
 
 key-decisions:
   - "All 5 files were already structurally synced from 15-03; only help.md needed minor upstream improvements (--global flag, explicit global scope path)"
@@ -68,9 +68,9 @@ Each task was committed atomically:
 2. **Task 2: Merge new-project.md, quick.md, and help.md with v1.25.1** - `1625373` (feat)
 
 ## Files Created/Modified
-- `get-shit-done-r/workflows/discuss-phase.md` - Research-adapted discussion workflow with v1.25.1 structural improvements (T1)
-- `get-shit-done-r/workflows/plan-phase.md` - Research-adapted planning workflow with v1.25.1 improvements (T1)
-- `get-shit-done-r/workflows/help.md` - Added --global note flag and explicit global scope path (T2)
+- `grd/workflows/discuss-phase.md` - Research-adapted discussion workflow with v1.25.1 structural improvements (T1)
+- `grd/workflows/plan-phase.md` - Research-adapted planning workflow with v1.25.1 improvements (T1)
+- `grd/workflows/help.md` - Added --global note flag and explicit global scope path (T2)
 
 ## Decisions Made
 - All 5 files were already structurally synced from Plan 15-03's comprehensive workflow sync; this plan validated the merge quality and applied two minor upstream improvements to help.md

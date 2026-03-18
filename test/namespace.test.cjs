@@ -40,35 +40,44 @@ function scanForPattern(dir, pattern, extensions) {
   return hits;
 }
 
-describe('namespace: zero residual gsd-r references', () => {
+// Build search patterns from char codes to avoid the bulk rename script
+// replacing these literal strings (the test must search for the OLD names).
+// g-s-d + hyphen + r
+const OLD_PREFIX = String.fromCharCode(103, 115, 100, 45, 114);
+// g-e-t + hyphen + s-h-i-t + hyphen + d-o-n-e + hyphen + r
+const OLD_LONG = 'get-shit-done' + String.fromCharCode(45, 114);
+// g-s-d + underscore + r
+const OLD_UNDERSCORE = String.fromCharCode(103, 115, 100, 95, 114);
 
-  it('no "gsd-r" in grd/ tree', () => {
-    const hits = scanForPattern(path.join(ROOT, 'grd'), /gsd-r/, ['.cjs', '.md', '.js']);
-    assert.deepStrictEqual(hits, [], 'Residual gsd-r found in: ' + hits.join(', '));
+describe('namespace: zero residual old-namespace references', () => {
+
+  it('no old short prefix in grd/ tree', () => {
+    const hits = scanForPattern(path.join(ROOT, 'grd'), new RegExp(OLD_PREFIX), ['.cjs', '.md', '.js']);
+    assert.deepStrictEqual(hits, [], 'Residual old prefix found in: ' + hits.join(', '));
   });
 
-  it('no "get-shit-done-r" in grd/ tree', () => {
-    const hits = scanForPattern(path.join(ROOT, 'grd'), /get-shit-done-r/, ['.cjs', '.md', '.js']);
-    assert.deepStrictEqual(hits, [], 'Residual get-shit-done-r found in: ' + hits.join(', '));
+  it('no old long path in grd/ tree', () => {
+    const hits = scanForPattern(path.join(ROOT, 'grd'), new RegExp(OLD_LONG), ['.cjs', '.md', '.js']);
+    assert.deepStrictEqual(hits, [], 'Residual old long path found in: ' + hits.join(', '));
   });
 
-  it('no "gsd_r" in grd/ tree', () => {
-    const hits = scanForPattern(path.join(ROOT, 'grd'), /gsd_r/, ['.cjs', '.md', '.js']);
-    assert.deepStrictEqual(hits, [], 'Residual gsd_r found in: ' + hits.join(', '));
+  it('no old underscore variant in grd/ tree', () => {
+    const hits = scanForPattern(path.join(ROOT, 'grd'), new RegExp(OLD_UNDERSCORE), ['.cjs', '.md', '.js']);
+    assert.deepStrictEqual(hits, [], 'Residual old underscore variant found in: ' + hits.join(', '));
   });
 
-  it('no "gsd-r" in test/ tree', () => {
-    const hits = scanForPattern(path.join(ROOT, 'test'), /gsd-r/, ['.cjs']);
+  it('no old short prefix in test/ tree', () => {
+    const hits = scanForPattern(path.join(ROOT, 'test'), new RegExp(OLD_PREFIX), ['.cjs']);
     // Exclude this test file itself (it contains patterns as search strings)
     const filtered = hits.filter(h => h !== 'test/namespace.test.cjs');
-    assert.deepStrictEqual(filtered, [], 'Residual gsd-r in tests: ' + filtered.join(', '));
+    assert.deepStrictEqual(filtered, [], 'Residual old prefix in tests: ' + filtered.join(', '));
   });
 
-  it('no "get-shit-done-r" in .planning/ tree', () => {
-    const hits = scanForPattern(path.join(ROOT, '.planning'), /get-shit-done-r/, ['.md', '.json']);
+  it('no old long path in .planning/ tree', () => {
+    const hits = scanForPattern(path.join(ROOT, '.planning'), new RegExp(OLD_LONG), ['.md', '.json']);
     // Exclude files under .planning/milestones/ (historical records)
     const filtered = hits.filter(h => !h.startsWith('planning/milestones/') && !h.startsWith('.planning/milestones/'));
-    assert.deepStrictEqual(filtered, [], 'Residual get-shit-done-r in .planning/: ' + filtered.join(', '));
+    assert.deepStrictEqual(filtered, [], 'Residual old long path in .planning/: ' + filtered.join(', '));
   });
 
   it('grd/ directory exists', () => {
@@ -76,15 +85,15 @@ describe('namespace: zero residual gsd-r references', () => {
   });
 
   it('get-shit-done-r/ directory does not exist', () => {
-    assert.ok(!fs.existsSync(path.join(ROOT, 'get-shit-done-r')), 'get-shit-done-r/ directory must not exist');
+    assert.ok(!fs.existsSync(path.join(ROOT, OLD_LONG)), OLD_LONG + '/ directory must not exist');
   });
 
   it('grd-tools.cjs exists', () => {
     assert.ok(fs.existsSync(path.join(ROOT, 'grd', 'bin', 'grd-tools.cjs')), 'grd/bin/grd-tools.cjs must exist');
   });
 
-  it('gsd-r-tools.cjs does not exist', () => {
-    assert.ok(!fs.existsSync(path.join(ROOT, 'grd', 'bin', 'gsd-r-tools.cjs')), 'grd/bin/gsd-r-tools.cjs must not exist');
+  it('old tools file does not exist', () => {
+    assert.ok(!fs.existsSync(path.join(ROOT, 'grd', 'bin', OLD_PREFIX + '-tools.cjs')), 'old tools file must not exist');
   });
 
 });

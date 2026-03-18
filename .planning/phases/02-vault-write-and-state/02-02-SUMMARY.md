@@ -19,7 +19,7 @@ tech-stack:
 
 key-files:
   created: [test/state.test.cjs]
-  modified: [get-shit-done-r/bin/lib/state.cjs, get-shit-done-r/templates/state.md]
+  modified: [grd/bin/lib/state.cjs, grd/templates/state.md]
 
 key-decisions:
   - "ensureStateSections inserts before Session Continuity for consistent ordering"
@@ -67,8 +67,8 @@ _TDD cycle: RED (10 fail) -> GREEN (10 pass) -> REFACTOR (14 pass)_
 
 ## Files Created/Modified
 - `test/state.test.cjs` - 14 tests across 4 suites for note-status, source-gaps, ensureStateSections
-- `get-shit-done-r/bin/lib/state.cjs` - 6 new cmd* functions + ensureStateSections helper + table parsing utilities
-- `get-shit-done-r/templates/state.md` - Added Note Status and Source Gaps sections to template
+- `grd/bin/lib/state.cjs` - 6 new cmd* functions + ensureStateSections helper + table parsing utilities
+- `grd/templates/state.md` - Added Note Status and Source Gaps sections to template
 
 ## Decisions Made
 - ensureStateSections inserts new sections before Session Continuity for consistent ordering

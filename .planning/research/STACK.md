@@ -1,8 +1,8 @@
 # Stack Research: GRD v1.2 Research Reorientation
 
-**Domain:** Research workflow tool transformation (GSD-R to GRD)
+**Domain:** Research workflow tool transformation (GRD to GRD)
 **Researched:** 2026-03-17
-**Confidence:** HIGH (direct file comparison of upstream v1.25.1, GSD-R v1.1 codebase, and v1.2 spec)
+**Confidence:** HIGH (direct file comparison of upstream v1.25.1, GRD v1.1 codebase, and v1.2 spec)
 
 ## Core Finding: No New Dependencies Required
 
@@ -44,9 +44,9 @@ All v1.2 features are implemented through code changes in existing and new CJS m
 
 #### Sync Manifest (Incremental from v1.1 sync)
 
-| Upstream File | Diff Size | Key v1.25.1 Changes | GSD-R Impact |
+| Upstream File | Diff Size | Key v1.25.1 Changes | GRD Impact |
 |---------------|-----------|---------------------|--------------|
-| `core.cjs` | ~43 lines | `spawnSync` replaces `execSync` in `execGit`; `resolveModelInternal` drops `opus`-to-`inherit` mapping; new `stripShippedMilestones()`, `getMilestonePhaseFilter()` | Adopt. GSD-R agent names (`gsd-r-*`) become `grd-*` during namespace migration |
+| `core.cjs` | ~43 lines | `spawnSync` replaces `execSync` in `execGit`; `resolveModelInternal` drops `opus`-to-`inherit` mapping; new `stripShippedMilestones()`, `getMilestonePhaseFilter()` | Adopt. GRD agent names (`grd-*`) become `grd-*` during namespace migration |
 | `config.cjs` | ~138 lines | `ensureConfigFile()` extracted as non-exiting helper; `VALID_CONFIG_KEYS` set; `CONFIG_KEY_SUGGESTIONS` typo correction; model-profiles import | Adopt + extend `VALID_CONFIG_KEYS` with GRD keys |
 | `commands.cjs` | ~42 lines | `getMilestonePhaseFilter` scoping; ROADMAP-driven phase discovery; quick task ID (YYMMDD-xxx); archived phase handling | Adopt + namespace fix |
 | `init.cjs` | ~100 lines | Milestone phase filtering; archived phase resolution; `normalizePhaseName` padding | Adopt + namespace fix |
@@ -54,7 +54,7 @@ All v1.2 features are implemented through code changes in existing and new CJS m
 | `state.cjs` | ~92 lines | Upstream uses `gsd_state_version`; various improvements | Adopt shared changes; keep `grd_state_version`; preserve Note Status + Source Gaps extensions |
 | `verify.cjs` | ~92 lines | Various improvements | Adopt; preserve `verify-research.cjs` extensions |
 | `roadmap.cjs` | ~53 lines | `stripShippedMilestones`; milestone phase filtering | Straightforward merge |
-| `model-profiles.cjs` | ~4 lines | Minor | Rename `gsd-r-*` agents to `grd-*` |
+| `model-profiles.cjs` | ~4 lines | Minor | Rename `grd-*` agents to `grd-*` |
 
 #### New Upstream Content to Adopt
 
@@ -173,29 +173,29 @@ This is a pure-function lookup module. No external dependencies. No I/O. Testabl
 
 | Scope | File Count | Pattern |
 |-------|-----------|---------|
-| Commands | ~36 | `/gsd-r:` to `/grd:` |
-| Workflows | ~39 | `/gsd-r:` to `/grd:` |
-| Agent prompts | ~17 | `/gsd-r:` to `/grd:` |
-| References | ~14 | `/gsd-r:` to `/grd:` |
-| Templates | ~10 | `/gsd-r:` to `/grd:` |
-| CJS modules | ~17 | `gsd-r-` agent names to `grd-` |
+| Commands | ~36 | `/grd:` to `/grd:` |
+| Workflows | ~39 | `/grd:` to `/grd:` |
+| Agent prompts | ~17 | `/grd:` to `/grd:` |
+| References | ~14 | `/grd:` to `/grd:` |
+| Templates | ~10 | `/grd:` to `/grd:` |
+| CJS modules | ~17 | `grd-` agent names to `grd-` |
 | Tests | ~9 | Namespace assertions |
-| Package/config | ~3 | `get-shit-done-r` to `get-research-done` |
-| Binary | 1 | `gsd-r-tools.cjs` to `grd-tools.cjs` |
+| Package/config | ~3 | `grd` to `get-research-done` |
+| Binary | 1 | `grd-tools.cjs` to `grd-tools.cjs` |
 
-**Approach:** Adapt existing `scripts/rename-gsd-to-gsd-r.cjs` for the `/gsd-r:` to `/grd:` transformation. Run full test suite after to validate.
+**Approach:** Adapt existing `scripts/rename-gsd-to-grd.cjs` for the `/grd:` to `/grd:` transformation. Run full test suite after to validate.
 
 **Command name mapping** (from spec):
 
 | v1.1 | v1.2 | Function |
 |------|------|----------|
-| `/gsd-r:new-project` | `/grd:new-research` | Research formulation |
-| `/gsd-r:discuss-phase N` | `/grd:scope-inquiry N` | Inquiry scoping |
-| `/gsd-r:plan-phase N` | `/grd:plan-inquiry N` | Search protocol |
-| `/gsd-r:execute-phase N` | `/grd:conduct-inquiry N` | Investigation |
-| `/gsd-r:verify-work` | `/grd:verify-inquiry N` | Three-tier verification |
+| `/grd:new-project` | `/grd:new-research` | Research formulation |
+| `/grd:discuss-phase N` | `/grd:scope-inquiry N` | Inquiry scoping |
+| `/grd:plan-phase N` | `/grd:plan-inquiry N` | Search protocol |
+| `/grd:execute-phase N` | `/grd:conduct-inquiry N` | Investigation |
+| `/grd:verify-work` | `/grd:verify-inquiry N` | Three-tier verification |
 | *(new)* | `/grd:synthesize` | Synthesis stage |
-| `/gsd-r:complete-milestone` | `/grd:complete-study` | Completion |
+| `/grd:complete-milestone` | `/grd:complete-study` | Completion |
 
 ---
 
@@ -255,9 +255,9 @@ This is a pure-function lookup module. No external dependencies. No I/O. Testabl
 | docx | ^9.6.1 | ^9.6.1 | No change |
 | c8 | ^11.0.0 | ^11.0.0 | No change |
 | esbuild | ^0.24.0 | ^0.24.0 | No change |
-| Package name | get-shit-done-r | get-research-done | Namespace migration |
-| Binary | gsd-r-tools.cjs | grd-tools.cjs | Namespace migration |
-| Agent prefix | gsd-r-* | grd-* | 19 agents renamed |
+| Package name | grd | get-research-done | Namespace migration |
+| Binary | grd-tools.cjs | grd-tools.cjs | Namespace migration |
+| Agent prefix | grd-* | grd-* | 19 agents renamed |
 | Tests | 164 | ~200+ | New coverage for tier, review type, synthesis, namespace |
 
 ---
@@ -266,7 +266,7 @@ This is a pure-function lookup module. No external dependencies. No I/O. Testabl
 
 | Risk | Severity | Mitigation |
 |------|----------|------------|
-| Agent name triple-rename confusion (`gsd-*` upstream, `gsd-r-*` current, `grd-*` target) | HIGH | Sync upstream first with `gsd-r-*` names (proven v1.1 pattern), then batch rename to `grd-*` as final step |
+| Agent name triple-rename confusion (`gsd-*` upstream, `grd-*` current, `grd-*` target) | HIGH | Sync upstream first with `grd-*` names (proven v1.1 pattern), then batch rename to `grd-*` as final step |
 | `VALID_CONFIG_KEYS` rejects GRD keys | MEDIUM | Extend the Set immediately after merge. Add `researcher_tier`, `review_type`, `epistemological_stance`, `workflow.critical_appraisal`, `workflow.temporal_positioning`, `workflow.synthesis` |
 | `stripShippedMilestones` interaction with research state | LOW | Function operates on ROADMAP.md content only; research extensions are in STATE.md |
 | `spawnSync` migration in `execGit` | LOW | Drop-in behavioral replacement. Adopt directly |
@@ -290,7 +290,7 @@ Based on dependency analysis:
 ## Sources
 
 - Upstream GSD v1.25.1: `~/.claude/get-shit-done/` (direct file comparison) -- HIGH confidence
-- GSD-R v1.1 codebase: `/Users/jeremiahwolf/Desktop/Projects/APPs/GSDR/` (direct inspection) -- HIGH confidence
+- GRD v1.1 codebase: `/Users/jeremiahwolf/Desktop/Projects/APPs/GSDR/` (direct inspection) -- HIGH confidence
 - GRD v1.2 spec: `docs/GRD-v1.2-Research-Reorientation-Spec.md` -- HIGH confidence (authoritative requirements)
 - Node.js v22.20.0 runtime: verified via `node --version` -- HIGH confidence
 - v1.1 STACK.md: Previous sync manifest for merge pattern reference -- HIGH confidence

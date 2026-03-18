@@ -61,9 +61,9 @@ Add researcher_tier, review_type, and epistemological_stance to config.json with
 - `docs/GRD-v1.2-Research-Reorientation-Spec.md` §Stage 1 -- scoping question definitions, tier descriptions, review type descriptions, epistemological stance options
 
 ### Existing Config Infrastructure
-- `get-shit-done-r/bin/lib/config.cjs` -- VALID_CONFIG_KEYS, ensureConfigFile(), setConfigValue(), cmdConfigSetModelProfile() (just synced in Phase 15)
-- `get-shit-done-r/bin/lib/init.cjs` -- config propagation to workflows
-- `get-shit-done-r/templates/config.json` -- default config template
+- `grd/bin/lib/config.cjs` -- VALID_CONFIG_KEYS, ensureConfigFile(), setConfigValue(), cmdConfigSetModelProfile() (just synced in Phase 15)
+- `grd/bin/lib/init.cjs` -- config propagation to workflows
+- `grd/templates/config.json` -- default config template
 
 ### Requirements
 - `.planning/REQUIREMENTS.md` -- CFG-01 through CFG-07, TRAP-05, TEST-04
@@ -84,7 +84,7 @@ Add researcher_tier, review_type, and epistemological_stance to config.json with
 - Config keys use dot notation for nesting: `workflow.research`, `workflow.plan_check`
 - `VALID_CONFIG_KEYS` is a flat Set of dot-notation strings
 - Config template at `templates/config.json` sets initial defaults for new projects
-- `gsd-r-tools.cjs` routes CLI commands to config functions
+- `grd-tools.cjs` routes CLI commands to config functions
 
 ### Integration Points
 - `new-project.md` / `new-milestone.md` workflows prompt for config during project creation -- will need the 3 new scoping questions added

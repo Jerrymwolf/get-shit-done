@@ -76,13 +76,13 @@ No new dependencies. This phase modifies existing CJS modules only.
 ### File Modification Map
 
 ```
-get-shit-done-r/bin/lib/config.cjs      # PRIMARY: SMART_DEFAULTS, configWithDefaults(),
+grd/bin/lib/config.cjs      # PRIMARY: SMART_DEFAULTS, configWithDefaults(),
                                           #   applySmartDefaults(), extended VALID_CONFIG_KEYS,
                                           #   REVIEW_TYPE_ORDER, canDowngrade()
-get-shit-done-r/bin/lib/core.cjs         # loadConfig() extended with new fields
-get-shit-done-r/templates/config.json    # New fields added to template
-get-shit-done-r/workflows/settings.md    # Review type downgrade UI + new toggle questions
-get-shit-done-r/bin/lib/init.cjs         # init commands propagate new config fields
+grd/bin/lib/core.cjs         # loadConfig() extended with new fields
+grd/templates/config.json    # New fields added to template
+grd/workflows/settings.md    # Review type downgrade UI + new toggle questions
+grd/bin/lib/init.cjs         # init commands propagate new config fields
 test/config.test.cjs                     # NEW: config schema + defaults + smart defaults tests
 ```
 
@@ -257,7 +257,7 @@ function applySmartDefaults(config, newReviewType) {
 // In config.cjs, add to the existing Set:
 const VALID_CONFIG_KEYS = new Set([
   // ... existing keys ...
-  // GSD-R v1.2 research extensions
+  // GRD v1.2 research extensions
   'vault_path', 'commit_research',
   'researcher_tier', 'review_type', 'epistemological_stance',
   'workflow.critical_appraisal', 'workflow.temporal_positioning',
@@ -381,14 +381,14 @@ When user selects review_type change:
 
 ### Primary (HIGH confidence)
 - `docs/GRD-v1.2-Research-Reorientation-Spec.md` -- Smart Defaults table (lines 427-435), Config Toggles schema (lines 369-393), Stage 1 scoping (lines 37-63)
-- `get-shit-done-r/bin/lib/config.cjs` -- Current VALID_CONFIG_KEYS, ensureConfigFile(), setConfigValue() patterns
-- `get-shit-done-r/bin/lib/core.cjs` -- Current loadConfig() implementation with get() helper
-- `get-shit-done-r/templates/config.json` -- Current template structure
-- `get-shit-done-r/workflows/settings.md` -- Current settings UI pattern
+- `grd/bin/lib/config.cjs` -- Current VALID_CONFIG_KEYS, ensureConfigFile(), setConfigValue() patterns
+- `grd/bin/lib/core.cjs` -- Current loadConfig() implementation with get() helper
+- `grd/templates/config.json` -- Current template structure
+- `grd/workflows/settings.md` -- Current settings UI pattern
 - `.planning/phases/16-config-schema-and-defaults/16-CONTEXT.md` -- All locked decisions
 
 ### Secondary (MEDIUM confidence)
-- `get-shit-done-r/bin/lib/init.cjs` -- Init command patterns for config propagation
+- `grd/bin/lib/init.cjs` -- Init command patterns for config propagation
 
 ## Metadata
 

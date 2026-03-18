@@ -7,7 +7,7 @@ tags: [workflows, namespace-sync, research-metrics, upstream-sync]
 requires:
   - "15-02: All 12 shared CJS modules synced to v1.25.1"
 provides:
-  - "2 new upstream workflows (do.md, note.md) adopted with GSD-R namespace"
+  - "2 new upstream workflows (do.md, note.md) adopted with GRD namespace"
   - "18 namespace-only workflows synced with v1.25.1"
   - "14 minor-functional workflows synced with v1.25.1 upstream improvements"
   - "stats.md with research-specific metrics (tech debt #3 resolved)"
@@ -17,27 +17,27 @@ affects: [15-04, 15-05]
 tech-stack:
   added: []
   patterns:
-    - "Batch namespace substitution: /gsd: -> /gsd-r:, paths, tools, agent names"
+    - "Batch namespace substitution: /gsd: -> /grd:, paths, tools, agent names"
     - "Research metric injection into upstream workflow template"
 
 key-files:
   created:
-    - "get-shit-done-r/workflows/do.md"
-    - "get-shit-done-r/workflows/note.md"
+    - "grd/workflows/do.md"
+    - "grd/workflows/note.md"
   modified:
-    - "get-shit-done-r/workflows/stats.md"
-    - "get-shit-done-r/workflows/execute-plan.md"
-    - "get-shit-done-r/workflows/execute-phase.md"
-    - "get-shit-done-r/workflows/autonomous.md"
-    - "get-shit-done-r/workflows/verify-work.md"
-    - "get-shit-done-r/workflows/new-milestone.md"
-    - "get-shit-done-r/workflows/progress.md"
-    - "get-shit-done-r/workflows/transition.md"
-    - "get-shit-done-r/workflows/settings.md"
-    - "get-shit-done-r/workflows/update.md"
+    - "grd/workflows/stats.md"
+    - "grd/workflows/execute-plan.md"
+    - "grd/workflows/execute-phase.md"
+    - "grd/workflows/autonomous.md"
+    - "grd/workflows/verify-work.md"
+    - "grd/workflows/new-milestone.md"
+    - "grd/workflows/progress.md"
+    - "grd/workflows/transition.md"
+    - "grd/workflows/settings.md"
+    - "grd/workflows/update.md"
 
 key-decisions:
-  - "Took upstream as source of truth for all 34 files, re-applied GSD-R namespace"
+  - "Took upstream as source of truth for all 34 files, re-applied GRD namespace"
   - "Added research note count and source gap count to stats.md (tech debt #3)"
   - "Verified no stale Skill() calls in this batch (tech debt #4 partial)"
 
@@ -77,16 +77,16 @@ Each task was committed atomically:
 2. **Task 2: Sync minor-functional workflows with v1.25.1** - `0e7e3cb` (feat)
 
 ## Files Created/Modified
-- `get-shit-done-r/workflows/do.md` - New: freeform intent dispatcher
-- `get-shit-done-r/workflows/note.md` - New: zero-friction idea capture
-- `get-shit-done-r/workflows/stats.md` - Research metrics added (note count, source gaps)
-- `get-shit-done-r/workflows/execute-plan.md` - Upstream improvements (untracked file check, etc.)
-- `get-shit-done-r/workflows/execute-phase.md` - Upstream orchestration improvements
-- `get-shit-done-r/workflows/verify-work.md` - Upstream verification improvements
+- `grd/workflows/do.md` - New: freeform intent dispatcher
+- `grd/workflows/note.md` - New: zero-friction idea capture
+- `grd/workflows/stats.md` - Research metrics added (note count, source gaps)
+- `grd/workflows/execute-plan.md` - Upstream improvements (untracked file check, etc.)
+- `grd/workflows/execute-phase.md` - Upstream orchestration improvements
+- `grd/workflows/verify-work.md` - Upstream verification improvements
 - 28 additional workflow files synced with namespace and upstream improvements
 
 ## Decisions Made
-- Took upstream v1.25.1 as source of truth for all 34 files, re-applied GSD-R namespace via batch substitution
+- Took upstream v1.25.1 as source of truth for all 34 files, re-applied GRD namespace via batch substitution
 - Added research note count and source gap count to stats.md (resolves tech debt #3)
 - Verified no stale Skill() calls in this batch (tech debt #4 partial -- remaining stale calls in plan-phase.md and discuss-phase.md are handled in Plan 04)
 

@@ -6,7 +6,7 @@
 <domain>
 ## Phase Boundary
 
-Sync all core CJS modules, agent prompts, workflow files, and templates from GSD v1.24.0 to v1.25.1 while preserving GSD-R's research-specific modifications. Clean up all 5 known tech debt items. All 164+ existing tests must pass on the new baseline.
+Sync all core CJS modules, agent prompts, workflow files, and templates from GSD v1.24.0 to v1.25.1 while preserving GRD's research-specific modifications. Clean up all 5 known tech debt items. All 164+ existing tests must pass on the new baseline.
 
 </domain>
 
@@ -15,7 +15,7 @@ Sync all core CJS modules, agent prompts, workflow files, and templates from GSD
 
 ### Merge Strategy
 - **Diff-and-apply** across all file types (modules, agents, workflows, templates) -- same proven v1.1 pattern
-- Diff each upstream file v1.24.0 to v1.25.1, apply the delta to GSD-R's version
+- Diff each upstream file v1.24.0 to v1.25.1, apply the delta to GRD's version
 - Preserves research modifications by integrating upstream changes around them
 - **Research-phase diff analysis required** -- run `/gsd:plan-phase 15` with research enabled to produce a full file-by-file diff manifest before planning
 
@@ -35,7 +35,7 @@ Sync all core CJS modules, agent prompts, workflow files, and templates from GSD
 ### Tech Debt Cleanup
 - Clean up **all 5 items** during sync:
   1. Remove duplicate `stateExtractField` dead code in state.cjs (line 12)
-  2. Implement or remove `config-set-model-profile` stub in gsd-r-tools.cjs
+  2. Implement or remove `config-set-model-profile` stub in grd-tools.cjs
   3. Add research-specific metrics to stats.md
   4. Fix 2 stale `Skill()` namespace calls (plan-phase.md:529, discuss-phase.md:682)
   5. Remove `replaceInCurrentMilestone` unused export
@@ -63,7 +63,7 @@ Sync all core CJS modules, agent prompts, workflow files, and templates from GSD
 
 ### Upstream Source
 - `~/.claude/get-shit-done/` -- GSD v1.25.1 installed (source of truth for upstream)
-- `get-shit-done-r/VERSION` -- Currently reads 1.24.0, must read 1.25.1 after sync
+- `grd/VERSION` -- Currently reads 1.24.0, must read 1.25.1 after sync
 
 ### Known Tech Debt
 - `.planning/PROJECT.md` (Known Tech Debt section) -- All 5 items to clean up
@@ -74,7 +74,7 @@ Sync all core CJS modules, agent prompts, workflow files, and templates from GSD
 ## Existing Code Insights
 
 ### Module Inventory
-- **GSD-R has 17 CJS modules** in `get-shit-done-r/bin/lib/`
+- **GRD has 17 CJS modules** in `grd/bin/lib/`
 - **Upstream has 12 CJS modules** in `~/.claude/get-shit-done/bin/lib/`
 - **5 research-only modules** (no upstream equivalent): acquire.cjs, bootstrap.cjs, vault.cjs, verify-research.cjs, plan-checker-rules.cjs
 - **12 shared modules**: commands.cjs, config.cjs, core.cjs, frontmatter.cjs, init.cjs, milestone.cjs, model-profiles.cjs, phase.cjs, roadmap.cjs, state.cjs, template.cjs, verify.cjs
@@ -90,9 +90,9 @@ Sync all core CJS modules, agent prompts, workflow files, and templates from GSD
 - Dependency injection pattern in tests (toolRunner) must be preserved
 
 ### Integration Points
-- All modules export via `module.exports` and are consumed by `gsd-r-tools.cjs` (CLI entry point)
-- Agent prompts reference module paths via absolute paths to `get-shit-done-r/bin/lib/`
-- Workflow files reference commands via `Skill("gsd-r:...")` calls
+- All modules export via `module.exports` and are consumed by `grd-tools.cjs` (CLI entry point)
+- Agent prompts reference module paths via absolute paths to `grd/bin/lib/`
+- Workflow files reference commands via `Skill("grd:...")` calls
 
 </code_context>
 

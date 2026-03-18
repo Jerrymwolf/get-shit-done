@@ -42,16 +42,16 @@ re_verification: false
 
 | Artifact | Expected | Status | Details |
 |----------|----------|--------|---------|
-| `get-shit-done-r/bin/lib/config.cjs` | SMART_DEFAULTS, REVIEW_TYPE_ORDER, configWithDefaults, applySmartDefaults, canDowngrade | VERIFIED | All 5 new exports present at lines 384-398. 399 lines total — substantive. |
+| `grd/bin/lib/config.cjs` | SMART_DEFAULTS, REVIEW_TYPE_ORDER, configWithDefaults, applySmartDefaults, canDowngrade | VERIFIED | All 5 new exports present at lines 384-398. 399 lines total — substantive. |
 | `test/config-schema.test.cjs` | Unit tests for all config schema requirements (min 120 lines) | VERIFIED | 226 lines, 28 test cases across 5 describe blocks. All 28 pass. |
 
 ### Plan 02 Artifacts
 
 | Artifact | Expected | Status | Details |
 |----------|----------|--------|---------|
-| `get-shit-done-r/bin/lib/core.cjs` | Extended loadConfig() with new config fields | VERIFIED | Lines 116-124: researcher_tier, review_type, epistemological_stance, critical_appraisal, temporal_positioning, synthesis all returned |
-| `get-shit-done-r/templates/config.json` | Default config template with epistemological_stance | VERIFIED | All 3 top-level fields and 3 workflow toggles present |
-| `get-shit-done-r/workflows/settings.md` | Review type downgrade UI with canDowngrade references | VERIFIED | Lines 61-70 (question), 188-229 (downgrade logic), 290 (confirm table row) |
+| `grd/bin/lib/core.cjs` | Extended loadConfig() with new config fields | VERIFIED | Lines 116-124: researcher_tier, review_type, epistemological_stance, critical_appraisal, temporal_positioning, synthesis all returned |
+| `grd/templates/config.json` | Default config template with epistemological_stance | VERIFIED | All 3 top-level fields and 3 workflow toggles present |
+| `grd/workflows/settings.md` | Review type downgrade UI with canDowngrade references | VERIFIED | Lines 61-70 (question), 188-229 (downgrade logic), 290 (confirm table row) |
 
 ---
 
@@ -59,10 +59,10 @@ re_verification: false
 
 | From | To | Via | Status | Details |
 |------|----|-----|--------|---------|
-| `test/config-schema.test.cjs` | `get-shit-done-r/bin/lib/config.cjs` | require | WIRED | Line 11: `require('../get-shit-done-r/bin/lib/config.cjs')` — all 5 symbols destructured |
-| `get-shit-done-r/bin/lib/core.cjs` | `get-shit-done-r/bin/lib/config.cjs` | require SMART_DEFAULTS | WIRED | Lines 92-93: lazy require inside loadConfig() body to avoid circular dependency |
-| `get-shit-done-r/bin/lib/init.cjs` | `get-shit-done-r/bin/lib/core.cjs` | loadConfig(cwd) | WIRED | Lines 15, 96, 179, 238, 270: loadConfig(cwd) called in all cmdInit* functions |
-| `get-shit-done-r/workflows/settings.md` | `get-shit-done-r/bin/lib/config.cjs` | canDowngrade, applySmartDefaults | WIRED | Lines 194, 203, 215: canDowngrade and applySmartDefaults referenced in downgrade logic |
+| `test/config-schema.test.cjs` | `grd/bin/lib/config.cjs` | require | WIRED | Line 11: `require('../grd/bin/lib/config.cjs')` — all 5 symbols destructured |
+| `grd/bin/lib/core.cjs` | `grd/bin/lib/config.cjs` | require SMART_DEFAULTS | WIRED | Lines 92-93: lazy require inside loadConfig() body to avoid circular dependency |
+| `grd/bin/lib/init.cjs` | `grd/bin/lib/core.cjs` | loadConfig(cwd) | WIRED | Lines 15, 96, 179, 238, 270: loadConfig(cwd) called in all cmdInit* functions |
+| `grd/workflows/settings.md` | `grd/bin/lib/config.cjs` | canDowngrade, applySmartDefaults | WIRED | Lines 194, 203, 215: canDowngrade and applySmartDefaults referenced in downgrade logic |
 
 ---
 
@@ -96,13 +96,13 @@ None. Scanned `config.cjs`, `core.cjs`, `templates/config.json`, and `settings.m
 
 ### 1. Settings downgrade confirmation UX
 
-**Test:** Open a project with `review_type: systematic` in config.json. Run `/gsd-r:settings`. Select "Narrative" as the review type. Verify the confirmation prompt shows the 4 toggle changes before applying.
+**Test:** Open a project with `review_type: systematic` in config.json. Run `/grd:settings`. Select "Narrative" as the review type. Verify the confirmation prompt shows the 4 toggle changes before applying.
 **Expected:** Displays "Downgrading from systematic to narrative will change: critical_appraisal: required -> optional, temporal_positioning: required -> optional, synthesis: required -> optional, plan_check: strict -> light — Existing notes are unaffected."
 **Why human:** Workflow markdown drives LLM behavior at runtime; programmatic verification confirms text presence but cannot confirm the LLM follows the logic correctly.
 
 ### 2. Settings upgrade block UX
 
-**Test:** Open a project with `review_type: narrative`. Run `/gsd-r:settings`. Select "Systematic" as the review type.
+**Test:** Open a project with `review_type: narrative`. Run `/grd:settings`. Select "Systematic" as the review type.
 **Expected:** Displays "Cannot upgrade review type mid-study. Start a new study with /grd:new-research for higher rigor." and leaves review_type unchanged.
 **Why human:** Same reason — runtime LLM behavior cannot be unit-tested from static markdown.
 

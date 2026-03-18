@@ -17,12 +17,12 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Namespace & Identity
 
-- [ ] **NS-01**: All `/gsd-r:` command references renamed to `/grd:` across all files
+- [ ] **NS-01**: All `/grd:` command references renamed to `/grd:` across all files
 - [ ] **NS-02**: Command vocabulary renamed to research-native terms (execute-phase → conduct-inquiry, discuss-phase → scope-inquiry, plan-phase → plan-inquiry, verify-work → verify-inquiry, new-project → new-research, complete-milestone → complete-study, etc.)
-- [ ] **NS-03**: `gsd-r-tools.cjs` renamed to `grd-tools.cjs` with all internal and external references updated
-- [ ] **NS-04**: `get-shit-done-r/` directory renamed to `grd/` with all path references updated
-- [ ] **NS-05**: Agent names in model-profiles.cjs renamed from `gsd-r-*` to `grd-*`
-- [ ] **NS-06**: Zero residual `gsd-r` references in any user-facing output (verified by automated scan)
+- [ ] **NS-03**: `grd-tools.cjs` renamed to `grd-tools.cjs` with all internal and external references updated
+- [ ] **NS-04**: `grd/` directory renamed to `grd/` with all path references updated
+- [ ] **NS-05**: Agent names in model-profiles.cjs renamed from `grd-*` to `grd-*`
+- [ ] **NS-06**: Zero residual `grd` references in any user-facing output (verified by automated scan)
 
 ### Config & Scoping
 

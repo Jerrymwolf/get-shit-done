@@ -2,11 +2,11 @@
 
 **Researched:** 2026-03-17
 **Domain:** CJS module sync, workflow/template/reference merging, upstream delta analysis
-**Confidence:** HIGH (direct file-by-file diff of upstream v1.25.1 against GSD-R v1.24.0-based fork)
+**Confidence:** HIGH (direct file-by-file diff of upstream v1.25.1 against GRD v1.24.0-based fork)
 
 ## Summary
 
-This research performs a complete file-by-file diff analysis of GSD upstream v1.25.1 (`~/.claude/get-shit-done/`) against the GSD-R fork (`get-shit-done-r/`). The upstream delta from v1.24.0 to v1.25.1 is moderate: 3 modules have significant functional changes (core.cjs, config.cjs, commands.cjs), 3 have moderate changes (init.cjs, phase.cjs, verify.cjs), 2 have minor changes (roadmap.cjs, model-profiles.cjs), 1 has namespace-only changes (state.cjs), and 3 are identical (frontmatter.cjs, milestone.cjs, template.cjs). In workflows, 2 new files must be adopted (do.md, note.md), and 37 of 38 shared workflows have changes (mostly namespace + functional upstream improvements). The fork has research-specific customizations in ~16 workflows that require careful merge.
+This research performs a complete file-by-file diff analysis of GSD upstream v1.25.1 (`~/.claude/get-shit-done/`) against the GRD fork (`grd/`). The upstream delta from v1.24.0 to v1.25.1 is moderate: 3 modules have significant functional changes (core.cjs, config.cjs, commands.cjs), 3 have moderate changes (init.cjs, phase.cjs, verify.cjs), 2 have minor changes (roadmap.cjs, model-profiles.cjs), 1 has namespace-only changes (state.cjs), and 3 are identical (frontmatter.cjs, milestone.cjs, template.cjs). In workflows, 2 new files must be adopted (do.md, note.md), and 37 of 38 shared workflows have changes (mostly namespace + functional upstream improvements). The fork has research-specific customizations in ~16 workflows that require careful merge.
 
 All 164 tests pass on the current baseline. The tech debt cleanup (5 items) maps cleanly to files being touched during sync, making it efficient to address during the merge.
 
@@ -64,7 +64,7 @@ None -- discussion stayed within phase scope
 
 2. **`resolveModelInternal` drops `opus`-to-`inherit` mapping** -- Fork maps `'opus'` to `'inherit'` in two places (lines 385, 393-394). Upstream returns the value directly. Adopt upstream: the `opus` model name should pass through as-is.
 
-**GSD-R modifications (none):** No research-specific changes to core.cjs beyond what was synced in v1.1.
+**GRD modifications (none):** No research-specific changes to core.cjs beyond what was synced in v1.1.
 
 **Action:** Replace `execGit` implementation. Remove `opus`-to-`inherit` mapping. Add `spawnSync` to require destructuring.
 
@@ -79,7 +79,7 @@ None -- discussion stayed within phase scope
 
 **Upstream changes (adopt all):**
 
-1. **`VALID_CONFIG_KEYS` Set** -- New allowlist of valid config keys. Fork has no validation. Adopt and extend with GSD-R keys (`vault_path`, `commit_research`).
+1. **`VALID_CONFIG_KEYS` Set** -- New allowlist of valid config keys. Fork has no validation. Adopt and extend with GRD keys (`vault_path`, `commit_research`).
 
 2. **`CONFIG_KEY_SUGGESTIONS` typo correction map** -- Suggests correct key when user types common misspellings. Adopt as-is.
 
@@ -89,14 +89,14 @@ None -- discussion stayed within phase scope
 
 5. **`setConfigValue()` extracted as non-exiting helper** -- Same pattern: reusable without exit. Fork inlines this in `cmdConfigSet`. Adopt.
 
-6. **`cmdConfigSetModelProfile()` function** -- New command that sets profile and shows agent-to-model mapping table. Requires `model-profiles.cjs` import. Adopt -- this replaces the stub in `gsd-r-tools.cjs` (tech debt item #2).
+6. **`cmdConfigSetModelProfile()` function** -- New command that sets profile and shows agent-to-model mapping table. Requires `model-profiles.cjs` import. Adopt -- this replaces the stub in `grd-tools.cjs` (tech debt item #2).
 
 7. **`getCmdConfigSetModelProfileResultMessage()` helper** -- Formats the model profile result. Adopt.
 
-**GSD-R modifications (preserve):**
+**GRD modifications (preserve):**
 - `vault_path` and `commit_research` in config -- must be added to `VALID_CONFIG_KEYS`
 
-**Action:** This is effectively a full rewrite of config.cjs to match upstream structure, then extend `VALID_CONFIG_KEYS` with GSD-R keys. Resolves tech debt item #2 (config-set-model-profile stub).
+**Action:** This is effectively a full rewrite of config.cjs to match upstream structure, then extend `VALID_CONFIG_KEYS` with GRD keys. Resolves tech debt item #2 (config-set-model-profile stub).
 
 #### 1.3 commands.cjs -- HIGH PRIORITY
 
@@ -127,11 +127,11 @@ None -- discussion stayed within phase scope
 
 9. **Git commit stats** -- Upstream uses explicit `rev-list --count` and `rev-list --max-parents=0` with `show -s --format=%as`. Fork uses `log --reverse --format=%as --max-count=1` in a try/catch. Adopt upstream approach.
 
-**GSD-R modifications (preserve):**
-- Agent names: `gsd-r-*` prefix throughout (namespace)
-- Command references: `/gsd-r:` namespace
+**GRD modifications (preserve):**
+- Agent names: `grd-*` prefix throughout (namespace)
+- Command references: `/grd:` namespace
 
-**Action:** Large merge. Apply upstream functional changes while preserving `gsd-r-` agent names. The quick ID format change requires updating `quick.md` workflow references too.
+**Action:** Large merge. Apply upstream functional changes while preserving `grd-` agent names. The quick ID format change requires updating `quick.md` workflow references too.
 
 #### 1.4 init.cjs -- MEDIUM PRIORITY
 
@@ -154,9 +154,9 @@ None -- discussion stayed within phase scope
 
 5. **Status label: `'Not Started'` vs `'Pending'`** -- Upstream uses `'Not Started'`. Fork uses `'Pending'`. Adopt upstream.
 
-**GSD-R modifications (preserve):**
-- Agent names: `gsd-r-*` prefix
-- Context template text: `/gsd-r:discuss-phase` reference
+**GRD modifications (preserve):**
+- Agent names: `grd-*` prefix
+- Context template text: `/grd:discuss-phase` reference
 
 **Action:** Apply milestone scoping, ROADMAP-driven discovery, normalization changes. Preserve namespace.
 
@@ -189,8 +189,8 @@ None -- discussion stayed within phase scope
 
 9. **Phase section extraction** -- Upstream uses `escapeRegex` + scoped section matching for requirements extraction. Fork uses broader pattern. Adopt.
 
-**GSD-R modifications (preserve):**
-- Command references: `/gsd-r:plan-phase` in generated phase entries
+**GRD modifications (preserve):**
+- Command references: `/grd:plan-phase` in generated phase entries
 
 **Action:** Apply all upstream improvements. Preserve namespace references.
 
@@ -213,8 +213,8 @@ None -- discussion stayed within phase scope
 
 4. **Config repair defaults** -- Upstream generates more complete defaults including `phase_branch_template`, `milestone_branch_template`, nested `workflow` object, and `brave_search`. Fork generates flat structure. Adopt upstream structure.
 
-**GSD-R modifications (preserve):**
-- All `/gsd-r:` command references in error messages
+**GRD modifications (preserve):**
+- All `/grd:` command references in error messages
 - Research-specific health checks (if any -- none found in shared portion)
 
 **Action:** Apply upstream safety guards, milestone scoping, and config defaults improvements. Preserve namespace.
@@ -238,7 +238,7 @@ None -- discussion stayed within phase scope
 
 4. **Depends-on regex improvement** -- Same flexible format. Adopt.
 
-**GSD-R modifications (none):** No research-specific changes to roadmap.cjs.
+**GRD modifications (none):** No research-specific changes to roadmap.cjs.
 
 **Action:** Straightforward adopt of all upstream changes.
 
@@ -253,15 +253,15 @@ None -- discussion stayed within phase scope
 
 **Upstream changes:**
 
-1. **Agent names** -- Upstream uses `gsd-*` prefix. Fork uses `gsd-r-*` prefix. Keep fork prefix.
+1. **Agent names** -- Upstream uses `gsd-*` prefix. Fork uses `grd-*` prefix. Keep fork prefix.
 
 2. **Table drawing characters** -- Upstream uses literal Unicode (`---`, `|`, `+`). Fork uses Unicode escape sequences (`\u2500`, `\u2502`, `\u253C`). Either works -- adopt upstream for readability.
 
-3. **Comment text** -- Upstream says "GSD agent to model". Fork says "GSD-R agent to model". Keep fork text.
+3. **Comment text** -- Upstream says "GSD agent to model". Fork says "GRD agent to model". Keep fork text.
 
-**GSD-R modifications (preserve):**
-- `gsd-r-*` agent name prefix
-- 4 research-only agents: `gsd-r-source-researcher`, `gsd-r-methods-researcher`, `gsd-r-architecture-researcher`, `gsd-r-limitations-researcher`
+**GRD modifications (preserve):**
+- `grd-*` agent name prefix
+- 4 research-only agents: `grd-source-researcher`, `grd-methods-researcher`, `grd-architecture-researcher`, `grd-limitations-researcher`
 
 **Action:** Adopt Unicode character change. Preserve agent names and research agents.
 
@@ -271,14 +271,14 @@ None -- discussion stayed within phase scope
 |----------|-------|
 | Upstream lines | 723 |
 | Fork lines | 979 |
-| Diff size | 1 line shared, 256 lines GSD-R additions |
+| Diff size | 1 line shared, 256 lines GRD additions |
 | Conflict risk | VERY LOW |
 
 **Upstream changes:**
-1. **`gsd_state_version` key** -- Upstream uses `gsd_state_version`. Fork uses `gsd_r_state_version`. Keep fork version key name.
+1. **`gsd_state_version` key** -- Upstream uses `gsd_state_version`. Fork uses `grd_state_version`. Keep fork version key name.
 
-**GSD-R modifications (preserve all):**
-- `gsd_r_state_version` key
+**GRD modifications (preserve all):**
+- `grd_state_version` key
 - Note Status operations (ensureStateSections, cmdStateAddNote, cmdStateUpdateNoteStatus, cmdStateGetNotes)
 - Source Gaps operations (cmdStateAddGap, cmdStateResolveGap, cmdStateGetGaps)
 - Table parsing/rebuilding helpers (parseTableSection, rebuildTableSection)
@@ -298,7 +298,7 @@ Files are identical. No action needed.
 
 Files are identical. No action needed.
 
-#### 1.13 gsd-r-tools.cjs (entry point) -- MEDIUM PRIORITY
+#### 1.13 grd-tools.cjs (entry point) -- MEDIUM PRIORITY
 
 | Property | Value |
 |----------|-------|
@@ -309,13 +309,13 @@ Files are identical. No action needed.
 - `config-set-model-profile` command implementation (replaces stub -- tech debt item #2)
 - Any new command routing added in v1.25.1
 
-**GSD-R modifications (preserve):**
+**GRD modifications (preserve):**
 - All research-specific commands (state add-note, state get-notes, state add-gap, etc.)
 - verify research-plan command
 - bootstrap generate command
 - Research-specific imports (planCheckerRules, bootstrap)
 
-**Action:** Replace config-set-model-profile stub with real implementation. Sync any new upstream command routing. Preserve all GSD-R extensions.
+**Action:** Replace config-set-model-profile stub with real implementation. Sync any new upstream command routing. Preserve all GRD extensions.
 
 ### Group 1 Summary
 
@@ -333,16 +333,16 @@ Files are identical. No action needed.
 | frontmatter.cjs | 0 | NONE | Skip |
 | milestone.cjs | 0 | NONE | Skip |
 | template.cjs | 0 | NONE | Skip |
-| gsd-r-tools.cjs | ~132 lines | MEDIUM | Config-set-model-profile, routing |
+| grd-tools.cjs | ~132 lines | MEDIUM | Config-set-model-profile, routing |
 
 ### Group 2: Workflows (`workflows/`)
 
 #### New Upstream Workflows (adopt)
 
-| File | Lines | Purpose | GSD-R Adaptation |
+| File | Lines | Purpose | GRD Adaptation |
 |------|-------|---------|------------------|
-| `do.md` | 104 | Freeform intent dispatcher | Adopt with `/gsd-r:` namespace |
-| `note.md` | 156 | Zero-friction idea capture | Adopt with `/gsd-r:` namespace |
+| `do.md` | 104 | Freeform intent dispatcher | Adopt with `/grd:` namespace |
+| `note.md` | 156 | Zero-friction idea capture | Adopt with `/grd:` namespace |
 
 #### Fork-Only Workflow (preserve)
 
@@ -354,7 +354,7 @@ Files are identical. No action needed.
 
 **Namespace-only changes (adopt upstream, re-apply namespace):**
 
-These files differ primarily due to `/gsd:` vs `/gsd-r:` and path differences. Upstream may have functional improvements mixed in.
+These files differ primarily due to `/gsd:` vs `/grd:` and path differences. Upstream may have functional improvements mixed in.
 
 | File | Diff Lines | Functional Lines | Primary Changes |
 |------|-----------|------------------|-----------------|
@@ -381,11 +381,11 @@ These files differ primarily due to `/gsd:` vs `/gsd-r:` and path differences. U
 
 | File | Diff Lines | Functional Lines | Key Upstream Changes |
 |------|-----------|------------------|---------------------|
-| discuss-phase.md | 453 | ~283 | GSD-R has deep research vocabulary customization; upstream has structural improvements |
-| new-project.md | 304 | ~152 | GSD-R has research-specific project setup; upstream has improvements |
-| plan-phase.md | 230 | ~123 | GSD-R has research-specific planning; upstream has improvements |
-| help.md | 371 | ~122 | GSD-R has research commands; upstream has new commands (do, note) |
-| quick.md | 235 | ~122 | Upstream has YYMMDD-xxx quick ID format; GSD-R has sequential |
+| discuss-phase.md | 453 | ~283 | GRD has deep research vocabulary customization; upstream has structural improvements |
+| new-project.md | 304 | ~152 | GRD has research-specific project setup; upstream has improvements |
+| plan-phase.md | 230 | ~123 | GRD has research-specific planning; upstream has improvements |
+| help.md | 371 | ~122 | GRD has research commands; upstream has new commands (do, note) |
+| quick.md | 235 | ~122 | Upstream has YYMMDD-xxx quick ID format; GRD has sequential |
 | execute-plan.md | 126 | ~47 | Upstream improvements |
 | execute-phase.md | 98 | ~29 | Upstream improvements |
 | new-milestone.md | 106 | ~45 | Upstream improvements |
@@ -405,13 +405,13 @@ These files differ primarily due to `/gsd:` vs `/gsd-r:` and path differences. U
 
 1. **node-repair.md** -- Identical. Skip.
 2. **New files (do.md, note.md)** -- Copy from upstream, apply namespace.
-3. **Namespace-only (18 files)** -- Take upstream version, apply `/gsd-r:` namespace and path updates.
+3. **Namespace-only (18 files)** -- Take upstream version, apply `/grd:` namespace and path updates.
 4. **Functional changes (19 files)** -- Case-by-case merge. The biggest ones:
-   - **discuss-phase.md**: GSD-R has deep research vocabulary (principal investigator, research assistant, etc.). Upstream has structural improvements. Must preserve research vocabulary while adopting structural changes.
-   - **plan-phase.md**: GSD-R has research-specific planning flow. Upstream has improvements. Merge carefully.
-   - **new-project.md**: GSD-R has research project setup. Upstream has improvements. Merge carefully.
+   - **discuss-phase.md**: GRD has deep research vocabulary (principal investigator, research assistant, etc.). Upstream has structural improvements. Must preserve research vocabulary while adopting structural changes.
+   - **plan-phase.md**: GRD has research-specific planning flow. Upstream has improvements. Merge carefully.
+   - **new-project.md**: GRD has research project setup. Upstream has improvements. Merge carefully.
    - **quick.md**: Upstream has YYMMDD-xxx ID format. Adopt (matches commands.cjs change).
-   - **help.md**: Add upstream's new commands (do, note) while preserving GSD-R's research commands.
+   - **help.md**: Add upstream's new commands (do, note) while preserving GRD's research commands.
 
 ### Group 3A: Templates (`templates/`)
 
@@ -433,7 +433,7 @@ continue-here.md, milestone-archive.md, milestone.md, retrospective.md, roadmap.
 | planner-subagent-prompt.md | 28 | Namespace only |
 | project.md | 4 | Namespace only |
 | requirements.md | 4 | Namespace only |
-| research.md | 735 | **Major divergence** -- GSD-R completely rewrote for academic research |
+| research.md | 735 | **Major divergence** -- GRD completely rewrote for academic research |
 | state.md | 19 | Fork adds Note Status + Source Gaps sections |
 | UAT.md | 12 | Namespace only |
 | UI-SPEC.md | 4 | Namespace only |
@@ -455,7 +455,7 @@ continue-here.md, milestone-archive.md, milestone.md, retrospective.md, roadmap.
 **research-project/:**
 - Upstream has: ARCHITECTURE.md, FEATURES.md, PITFALLS.md, STACK.md, SUMMARY.md
 - Fork has: DEBATES.md, FRAMEWORKS.md, LANDSCAPE.md, QUESTIONS.md, SUMMARY.md
-- **Decision (from PROJECT.md):** Keep GSD-R research-project templates over upstream. The fork-specific templates are better fit for research workflow.
+- **Decision (from PROJECT.md):** Keep GRD research-project templates over upstream. The fork-specific templates are better fit for research workflow.
 - SUMMARY.md differs (vocabulary mapping: Stack->Landscape, Features->Questions, Architecture->Frameworks, Pitfalls->Debates). Keep fork version.
 
 **codebase/:**
@@ -509,14 +509,14 @@ checkpoints.md, tdd.md
 1. **Unchanged (2 files)** -- Skip.
 2. **Namespace-only (5 files)** -- Take upstream, apply namespace.
 3. **questioning.md** -- Adopt upstream changes entirely (73 lines purely functional).
-4. **model-profiles.md** -- Merge: adopt upstream structure, preserve `gsd-r-*` names and research agents.
+4. **model-profiles.md** -- Merge: adopt upstream structure, preserve `grd-*` names and research agents.
 5. **planning-config.md** -- Merge: adopt new config key documentation.
 6. **continuation-format.md** -- Merge: adopt functional improvements, apply namespace.
 7. **Fork-only (4 files)** -- Preserve.
 
 ### SYNC-02 Note: Agent Prompts
 
-Neither upstream (`~/.claude/get-shit-done/agents/`) nor fork (`get-shit-done-r/agents/`) have an agents directory. Agent behavior is embedded in workflow files, not separate agent prompt files. **SYNC-02 is satisfied by the workflow sync above.** The requirement should be marked complete when workflows are synced.
+Neither upstream (`~/.claude/get-shit-done/agents/`) nor fork (`grd/agents/`) have an agents directory. Agent behavior is embedded in workflow files, not separate agent prompt files. **SYNC-02 is satisfied by the workflow sync above.** The requirement should be marked complete when workflows are synced.
 
 ---
 
@@ -527,9 +527,9 @@ All 5 items map to files being touched during sync:
 | # | Item | File | Action | When |
 |---|------|------|--------|------|
 | 1 | Duplicate `stateExtractField` dead code at line 12 | state.cjs | Remove lines 12-19 (duplicate of lines 184-193). Note: upstream has same duplication -- we clean up our fork | During state.cjs sync |
-| 2 | `config-set-model-profile` stub in gsd-r-tools.cjs | gsd-r-tools.cjs + config.cjs | Replace stub with upstream's full `cmdConfigSetModelProfile` implementation | During config.cjs sync |
+| 2 | `config-set-model-profile` stub in grd-tools.cjs | grd-tools.cjs + config.cjs | Replace stub with upstream's full `cmdConfigSetModelProfile` implementation | During config.cjs sync |
 | 3 | Research-specific metrics in stats.md | workflows/stats.md | Add research note count, source gap count to stats output | During workflow sync |
-| 4 | 2 stale `Skill()` namespace calls | plan-phase.md:529, discuss-phase.md:682 | Change `Skill(skill="gsd:...)` to `Skill(skill="gsd-r:...")` | During workflow sync |
+| 4 | 2 stale `Skill()` namespace calls | plan-phase.md:529, discuss-phase.md:682 | Change `Skill(skill="gsd:...)` to `Skill(skill="grd:...")` | During workflow sync |
 | 5 | `replaceInCurrentMilestone` unused export | core.cjs | This function IS used by upstream (phase.cjs, roadmap.cjs). After sync, it will be used. **Not actually dead** -- remove from tech debt list |
 
 **Important finding on tech debt item #5:** The fork's core.cjs exports `replaceInCurrentMilestone` but the fork's phase.cjs and roadmap.cjs don't use it (they use `.replace()` instead). After syncing those files to upstream versions, they WILL use `replaceInCurrentMilestone`. So this tech debt resolves itself during sync -- no separate action needed.
@@ -551,7 +551,7 @@ All 5 items map to files being touched during sync:
 7. **init.cjs** seventh -- depends on core.cjs changes
 8. **phase.cjs** eighth -- depends on core.cjs changes
 9. **verify.cjs** ninth -- depends on core.cjs changes
-10. **gsd-r-tools.cjs** last -- integrates all module changes
+10. **grd-tools.cjs** last -- integrates all module changes
 
 **Run full test suite after Group 1.**
 
@@ -580,8 +580,8 @@ For each file with both upstream changes and fork modifications:
 1. Read upstream v1.25.1 version (source of truth for new features)
 2. Read fork version (source of truth for research modifications)
 3. Start with upstream version
-4. Apply GSD-R namespace changes (gsd: -> gsd-r:, paths)
-5. Apply GSD-R research-specific additions (vocabulary, extra sections)
+4. Apply GRD namespace changes (gsd: -> grd:, paths)
+5. Apply GRD research-specific additions (vocabulary, extra sections)
 6. Verify no upstream functionality was lost
 ```
 
@@ -604,12 +604,12 @@ For each file with both upstream changes and fork modifications:
 **What goes wrong:** commands.cjs outputs `YYMMDD-xxx` format but quick.md workflow still references `next_num`.
 **How to avoid:** Sync commands.cjs and quick.md together. Update all references from `next_num` to `quick_id`.
 
-### Pitfall 3: Config Validation Rejecting GSD-R Keys
+### Pitfall 3: Config Validation Rejecting GRD Keys
 **What goes wrong:** Upstream's `VALID_CONFIG_KEYS` set doesn't include `vault_path` or `commit_research`. Setting these via CLI would error.
-**How to avoid:** Immediately after adopting `VALID_CONFIG_KEYS`, add GSD-R keys to the set.
+**How to avoid:** Immediately after adopting `VALID_CONFIG_KEYS`, add GRD keys to the set.
 
 ### Pitfall 4: Stale Agent Name in Test Expectations
-**What goes wrong:** Tests assert `gsd-r-executor` model resolution, but if `opus`-to-`inherit` mapping is removed, expected values change.
+**What goes wrong:** Tests assert `grd-executor` model resolution, but if `opus`-to-`inherit` mapping is removed, expected values change.
 **How to avoid:** After removing `opus`-to-`inherit` mapping from core.cjs, check test expectations in model-profiles.test.cjs.
 
 ### Pitfall 5: Research Template Overwrite
@@ -688,7 +688,7 @@ None -- existing test infrastructure covers all phase requirements. No new test 
 
 3. **`hooks.context_warnings` in config.json template**
    - What we know: Upstream added this key. Fork doesn't have it.
-   - What's unclear: What this feature does and whether it matters for GSD-R.
+   - What's unclear: What this feature does and whether it matters for GRD.
    - Recommendation: Adopt it in the config template for upstream compatibility. Document as LOW confidence.
 
 ---
@@ -696,7 +696,7 @@ None -- existing test infrastructure covers all phase requirements. No new test 
 ## Sources
 
 ### Primary (HIGH confidence)
-- Direct file diff: `~/.claude/get-shit-done/` (v1.25.1) vs `get-shit-done-r/` (v1.24.0-based fork)
+- Direct file diff: `~/.claude/get-shit-done/` (v1.25.1) vs `grd/` (v1.24.0-based fork)
 - Test suite output: `node --test test/*.test.cjs` -- 164 tests, 0 failures
 - VERSION files: upstream=1.25.1, fork=1.24.0
 

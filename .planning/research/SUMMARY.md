@@ -1,13 +1,13 @@
 # Project Research Summary
 
 **Project:** GRD v1.2 Research Reorientation
-**Domain:** CLI research workflow tool transformation (GSD-R fork becoming GRD)
+**Domain:** CLI research workflow tool transformation (GRD fork becoming GRD)
 **Researched:** 2026-03-17
 **Confidence:** HIGH
 
 ## Executive Summary
 
-GRD v1.2 is a transformation of an existing AI-powered planning tool (GSD-R v1.1) into a methodology-aware research workflow system. The scope is a codebase reorientation: rename the namespace from `gsd-r` to `grd`, reframe the command vocabulary from PM terms to research terms, and add five research-specific capability layers (review type enforcement, researcher tier adaptation, epistemological positioning, three-tier verification, and synthesis stage). Critically, no new npm dependencies are required — every v1.2 feature is implementable with the existing zero-dependency stack (Node.js CJS modules, `node:fs`, `node:test`, `docx`). This is a pure code and configuration expansion on top of a validated 164-test codebase.
+GRD v1.2 is a transformation of an existing AI-powered planning tool (GRD v1.1) into a methodology-aware research workflow system. The scope is a codebase reorientation: rename the namespace from `grd` to `grd`, reframe the command vocabulary from PM terms to research terms, and add five research-specific capability layers (review type enforcement, researcher tier adaptation, epistemological positioning, three-tier verification, and synthesis stage). Critically, no new npm dependencies are required — every v1.2 feature is implementable with the existing zero-dependency stack (Node.js CJS modules, `node:fs`, `node:test`, `docx`). This is a pure code and configuration expansion on top of a validated 164-test codebase.
 
 The recommended approach, derived from direct codebase analysis and v1.1 sync lessons, is to execute the transformation in strict phase order: namespace migration first, then config schema extension, then feature layers (review type enforcement, three-tier verification, adaptive communication, synthesis), and upstream sync last. The dependency chain is not arbitrary — upstream sync done before feature stabilization risks architectural invalidation from an unknown 1,077-commit delta; namespace migration done after feature development requires double-editing every file. The research converges on a clear eight-phase build sequence with well-understood dependencies.
 
@@ -63,14 +63,14 @@ The architecture is a layered CLI system: CLAUDE.md Skill() registrations route 
 Three new architectural patterns introduced in v1.2: (1) config-driven behavior branching — `researcher_tier`, `review_type`, and `epistemological_stance` from `config.json` propagate through `init.cjs` to every workflow, which branches on them using conditional blocks; (2) layered verification pipeline — Tier 0 (sufficiency, new) gates Tier 1 (goal-backward, existing) gates Tier 2 (source audit, existing); (3) synthesis as standard phase execution — `/grd:synthesize` generates a PLAN.md with four tasks in three waves and delegates to the existing `execute-phase` machinery.
 
 **Major components:**
-1. CLAUDE.md / Skill() registrations — all `/gsd-r:*` become `/grd:*`; workflow filenames stay unchanged to preserve git history
-2. bin/grd-tools.cjs — CLI router; rename from `gsd-r-tools.cjs`; update ~161 path references across 40 files
+1. CLAUDE.md / Skill() registrations — all `/grd:*` become `/grd:*`; workflow filenames stay unchanged to preserve git history
+2. bin/grd-tools.cjs — CLI router; rename from `grd-tools.cjs`; update ~161 path references across 40 files
 3. bin/lib/config.cjs — add 6 new config keys; add `configWithDefaults()` deep-merge function as prerequisite for all features
 4. bin/lib/plan-checker-rules.cjs — add 4 review-type-conditional rules to existing 4 universal rules; graduated enforcement
 5. bin/lib/verify-research.cjs — add `verifyTier0()` (phase-level sufficiency); wrap as `verifyPhase()`
 6. workflows/synthesize.md — new orchestrator: validates readiness, generates synthesis PLAN.md, delegates to execute-phase
 7. templates/research-note.md — add Evidence Quality section and `era`/`review_type` frontmatter fields
-8. model-profiles.cjs — rename 19 `gsd-r-*` agents to `grd-*`; add `grd-synthesizer`
+8. model-profiles.cjs — rename 19 `grd-*` agents to `grd-*`; add `grd-synthesizer`
 
 ### Critical Pitfalls
 
@@ -187,10 +187,10 @@ Phases with standard patterns (skip research-phase):
 
 ### Primary (HIGH confidence)
 - Upstream GSD v1.25.1: `~/.claude/get-shit-done/` — direct file comparison; sync manifest
-- GSD-R v1.1 codebase: `/Users/jeremiahwolf/Desktop/Projects/APPs/GSDR/` — direct inspection of all 17 CJS modules, 41 workflow files, 164 tests
+- GRD v1.1 codebase: `/Users/jeremiahwolf/Desktop/Projects/APPs/GSDR/` — direct inspection of all 17 CJS modules, 41 workflow files, 164 tests
 - GRD v1.2 spec: `docs/GRD-v1.2-Research-Reorientation-Spec.md` — authoritative requirements, command mapping table, smart defaults matrix
 - v1.1 milestone audit: `.planning/milestones/v1.1-MILESTONE-AUDIT.md` — namespace leak patterns, tech debt inventory
-- Codebase grep analysis: 1,907 occurrences of `gsd-r` across 172 files (confirmed count); 164 tests across 9 test files
+- Codebase grep analysis: 1,907 occurrences of `grd` across 172 files (confirmed count); 164 tests across 9 test files
 
 ### Secondary (MEDIUM confidence)
 - Covidence review type documentation and scoping review protocol guide (2025)

@@ -23,10 +23,10 @@ tech-stack:
 key-files:
   created: []
   modified:
-    - get-shit-done-r/bin/lib/core.cjs
-    - get-shit-done-r/bin/lib/init.cjs
-    - get-shit-done-r/templates/config.json
-    - get-shit-done-r/workflows/settings.md
+    - grd/bin/lib/core.cjs
+    - grd/bin/lib/init.cjs
+    - grd/templates/config.json
+    - grd/workflows/settings.md
 
 key-decisions:
   - "Lazy require of config.cjs inside loadConfig() to avoid circular dependency warning"
@@ -69,10 +69,10 @@ Each task was committed atomically:
 2. **Task 2: Add review type downgrade support to settings.md and propagate new fields in init.cjs** - `8618dc6` (feat)
 
 ## Files Created/Modified
-- `get-shit-done-r/bin/lib/core.cjs` - Extended loadConfig() with 6 new research config fields and lazy SMART_DEFAULTS import
-- `get-shit-done-r/templates/config.json` - Added researcher_tier, review_type, epistemological_stance, and workflow toggles
-- `get-shit-done-r/workflows/settings.md` - Added review type question and downgrade validation flow
-- `get-shit-done-r/bin/lib/init.cjs` - Propagated 6 new config fields in cmdInitExecutePhase and cmdInitPlanPhase
+- `grd/bin/lib/core.cjs` - Extended loadConfig() with 6 new research config fields and lazy SMART_DEFAULTS import
+- `grd/templates/config.json` - Added researcher_tier, review_type, epistemological_stance, and workflow toggles
+- `grd/workflows/settings.md` - Added review type question and downgrade validation flow
+- `grd/bin/lib/init.cjs` - Propagated 6 new config fields in cmdInitExecutePhase and cmdInitPlanPhase
 
 ## Decisions Made
 - Used lazy require of config.cjs inside loadConfig() function body to avoid circular dependency warning (config.cjs imports output/error from core.cjs at module top level)
@@ -86,7 +86,7 @@ Each task was committed atomically:
 - **Found during:** Task 1
 - **Issue:** Top-level `require('./config.cjs')` in core.cjs caused circular dependency warning because config.cjs already imports output/error from core.cjs
 - **Fix:** Moved SMART_DEFAULTS require inside loadConfig() function body (lazy require)
-- **Files modified:** get-shit-done-r/bin/lib/core.cjs
+- **Files modified:** grd/bin/lib/core.cjs
 - **Verification:** No warnings on loadConfig() call
 - **Committed in:** 5c44f97 (Task 1 commit)
 

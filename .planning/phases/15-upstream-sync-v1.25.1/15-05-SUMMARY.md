@@ -23,22 +23,22 @@ tech-stack:
 key-files:
   created: []
   modified:
-    - get-shit-done-r/templates/config.json
-    - get-shit-done-r/templates/context.md
-    - get-shit-done-r/templates/phase-prompt.md
-    - get-shit-done-r/references/model-profiles.md
-    - get-shit-done-r/references/model-profile-resolution.md
-    - get-shit-done-r/references/planning-config.md
-    - get-shit-done-r/VERSION
+    - grd/templates/config.json
+    - grd/templates/context.md
+    - grd/templates/phase-prompt.md
+    - grd/references/model-profiles.md
+    - grd/references/model-profile-resolution.md
+    - grd/references/planning-config.md
+    - grd/VERSION
     - test/model-profiles.test.cjs
 
 key-decisions:
   - "Preserved fork questioning.md research-specific question types instead of overwriting with upstream"
-  - "Added upstream hooks.context_warnings to config.json while preserving GSD-R vault_path and commit_research"
+  - "Added upstream hooks.context_warnings to config.json while preserving GRD vault_path and commit_research"
   - "Added inherit profile support to model-profiles.md from upstream v1.25.1"
 
 patterns-established:
-  - "Config template includes both upstream and GSD-R keys as merged superset"
+  - "Config template includes both upstream and GRD keys as merged superset"
 
 requirements-completed: [SYNC-04, SYNC-05, TEST-01]
 
@@ -72,18 +72,18 @@ Each task was committed atomically:
 2. **Task 2: Sync references, update VERSION, run final test gate** - `a1ffae1` (feat)
 
 ## Files Created/Modified
-- `get-shit-done-r/templates/config.json` - Added upstream hooks.context_warnings key
-- `get-shit-done-r/templates/context.md` - Added canonical_refs examples to good_examples, CRITICAL guideline
-- `get-shit-done-r/templates/phase-prompt.md` - Adopted upstream anti-patterns (bad read_first, bad/good acceptance_criteria)
-- `get-shit-done-r/references/model-profiles.md` - Added inherit profile column and philosophy
-- `get-shit-done-r/references/model-profile-resolution.md` - Added inherit profile resolution note
-- `get-shit-done-r/references/planning-config.md` - Documented vault_path and commit_research config keys
-- `get-shit-done-r/VERSION` - 1.24.0 -> 1.25.1
+- `grd/templates/config.json` - Added upstream hooks.context_warnings key
+- `grd/templates/context.md` - Added canonical_refs examples to good_examples, CRITICAL guideline
+- `grd/templates/phase-prompt.md` - Adopted upstream anti-patterns (bad read_first, bad/good acceptance_criteria)
+- `grd/references/model-profiles.md` - Added inherit profile column and philosophy
+- `grd/references/model-profile-resolution.md` - Added inherit profile resolution note
+- `grd/references/planning-config.md` - Documented vault_path and commit_research config keys
+- `grd/VERSION` - 1.24.0 -> 1.25.1
 - `test/model-profiles.test.cjs` - Updated VERSION assertion to 1.25.1
 
 ## Decisions Made
 - Preserved fork questioning.md entirely: the plan said to adopt upstream, but the fork version is a superset with 6 research-specific question type categories that upstream does not have. Overwriting would lose essential research functionality.
-- Added GSD-R config keys (vault_path, commit_research) to planning-config.md documentation table alongside upstream keys.
+- Added GRD config keys (vault_path, commit_research) to planning-config.md documentation table alongside upstream keys.
 
 ## Deviations from Plan
 

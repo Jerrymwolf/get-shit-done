@@ -25,21 +25,21 @@ tech-stack:
 key-files:
   created: []
   modified:
-    - "get-shit-done-r/bin/lib/commands.cjs"
-    - "get-shit-done-r/bin/lib/init.cjs"
-    - "get-shit-done-r/bin/lib/phase.cjs"
-    - "get-shit-done-r/bin/lib/verify.cjs"
-    - "get-shit-done-r/bin/lib/roadmap.cjs"
-    - "get-shit-done-r/bin/lib/model-profiles.cjs"
-    - "get-shit-done-r/bin/lib/state.cjs"
+    - "grd/bin/lib/commands.cjs"
+    - "grd/bin/lib/init.cjs"
+    - "grd/bin/lib/phase.cjs"
+    - "grd/bin/lib/verify.cjs"
+    - "grd/bin/lib/roadmap.cjs"
+    - "grd/bin/lib/model-profiles.cjs"
+    - "grd/bin/lib/state.cjs"
 
 key-decisions:
-  - "Preserved GSD-R namespace (gsd-r-* agents, /gsd-r: commands) across all 7 synced modules"
+  - "Preserved GRD namespace (grd-* agents, /grd: commands) across all 7 synced modules"
   - "Cleaned up duplicate stateExtractField dead code in state.cjs (tech debt #1) even though upstream has same duplication"
   - "Used literal Unicode characters in model-profiles.cjs table drawing for readability"
 
 patterns-established:
-  - "Upstream sync pattern: take upstream, re-apply GSD-R namespace, verify tests pass"
+  - "Upstream sync pattern: take upstream, re-apply GRD namespace, verify tests pass"
 
 requirements-completed: [SYNC-01, TEST-01]
 
@@ -65,8 +65,8 @@ completed: 2026-03-17
 - phase.cjs: replaceInCurrentMilestone for scoped roadmap writes, stripShippedMilestones for reads, requirementsUpdated tracking, Pending|In Progress traceability matching
 - verify.cjs: Home directory safety guard (E010), inherit added to valid profiles, milestone-scoped consistency checks, improved config repair defaults with nested workflow object
 - roadmap.cjs: stripShippedMilestones for all reads, replaceInCurrentMilestone for writes, flexible goal/depends-on regex, roadmap checkbox completion trust
-- model-profiles.cjs: Literal Unicode characters for table drawing, preserving gsd-r-* agent names and 4 research-only agents
-- state.cjs: Removed duplicate stateExtractField dead code (tech debt #1), preserved gsd_r_state_version key and all research extensions
+- model-profiles.cjs: Literal Unicode characters for table drawing, preserving grd-* agent names and 4 research-only agents
+- state.cjs: Removed duplicate stateExtractField dead code (tech debt #1), preserved grd_state_version key and all research extensions
 
 ## Task Commits
 
@@ -76,16 +76,16 @@ Each task was committed atomically:
 2. **Task 2: Sync roadmap.cjs, model-profiles.cjs, state.cjs and run test gate** - `500c372` (feat)
 
 ## Files Created/Modified
-- `get-shit-done-r/bin/lib/commands.cjs` - ROADMAP-driven discovery, milestone filtering, improved stats
-- `get-shit-done-r/bin/lib/init.cjs` - YYMMDD quick IDs, ROADMAP progress, archived phase handling
-- `get-shit-done-r/bin/lib/phase.cjs` - Milestone-scoped roadmap operations, requirements tracking
-- `get-shit-done-r/bin/lib/verify.cjs` - Home directory guard, inherit profile, improved config defaults
-- `get-shit-done-r/bin/lib/roadmap.cjs` - Milestone-scoped reads/writes, flexible regex, checkbox trust
-- `get-shit-done-r/bin/lib/model-profiles.cjs` - Literal Unicode table characters
-- `get-shit-done-r/bin/lib/state.cjs` - Removed duplicate dead code (tech debt #1)
+- `grd/bin/lib/commands.cjs` - ROADMAP-driven discovery, milestone filtering, improved stats
+- `grd/bin/lib/init.cjs` - YYMMDD quick IDs, ROADMAP progress, archived phase handling
+- `grd/bin/lib/phase.cjs` - Milestone-scoped roadmap operations, requirements tracking
+- `grd/bin/lib/verify.cjs` - Home directory guard, inherit profile, improved config defaults
+- `grd/bin/lib/roadmap.cjs` - Milestone-scoped reads/writes, flexible regex, checkbox trust
+- `grd/bin/lib/model-profiles.cjs` - Literal Unicode table characters
+- `grd/bin/lib/state.cjs` - Removed duplicate dead code (tech debt #1)
 
 ## Decisions Made
-- Preserved GSD-R namespace (gsd-r-* agents, /gsd-r: commands) across all 7 synced modules
+- Preserved GRD namespace (grd-* agents, /grd: commands) across all 7 synced modules
 - Cleaned up duplicate stateExtractField in state.cjs even though upstream has same duplication
 - Used literal Unicode characters in model-profiles.cjs matching upstream for readability
 

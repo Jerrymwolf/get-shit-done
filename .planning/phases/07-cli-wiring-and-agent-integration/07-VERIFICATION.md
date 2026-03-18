@@ -21,10 +21,10 @@ re_verification: false
 
 | # | Truth | Status | Evidence |
 |---|-------|--------|----------|
-| 1 | `state add-note`, `update-note-status`, `get-notes`, `add-gap`, `resolve-gap`, `get-gaps` all work as CLI subcommands | VERIFIED | 6 `else if` branches at lines 264–303 of `gsd-r-tools.cjs`; dispatches to `state.cmdState*` functions; all 14 state tests pass |
-| 2 | `verify research-plan` invokes `validateResearchPlan()` from `plan-checker-rules.cjs` | VERIFIED | Case branch at line 404 of `gsd-r-tools.cjs`; reads plan file, calls `planCheckerRules.validateResearchPlan(planContent, bootstrapContent)`; live run returns `{"valid":true,"issues":[]}` |
-| 3 | `bootstrap generate` invokes `generateBootstrap()` from `bootstrap.cjs` | VERIFIED | `case 'bootstrap'` at line 429 of `gsd-r-tools.cjs`; parses `--data` JSON, calls `bootstrap.generateBootstrap(findings)`; live run returns `{"generated":true,"content":"..."}` |
-| 4 | `gsd-r-plan-checker.md` calls `verify research-plan` during plan validation | VERIFIED | Step 2.5 present at line 421 with exact Bash invocation `node "$HOME/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" verify research-plan "$plan" --bootstrap "$BOOTSTRAP_PATH"` |
+| 1 | `state add-note`, `update-note-status`, `get-notes`, `add-gap`, `resolve-gap`, `get-gaps` all work as CLI subcommands | VERIFIED | 6 `else if` branches at lines 264–303 of `grd-tools.cjs`; dispatches to `state.cmdState*` functions; all 14 state tests pass |
+| 2 | `verify research-plan` invokes `validateResearchPlan()` from `plan-checker-rules.cjs` | VERIFIED | Case branch at line 404 of `grd-tools.cjs`; reads plan file, calls `planCheckerRules.validateResearchPlan(planContent, bootstrapContent)`; live run returns `{"valid":true,"issues":[]}` |
+| 3 | `bootstrap generate` invokes `generateBootstrap()` from `bootstrap.cjs` | VERIFIED | `case 'bootstrap'` at line 429 of `grd-tools.cjs`; parses `--data` JSON, calls `bootstrap.generateBootstrap(findings)`; live run returns `{"generated":true,"content":"..."}` |
+| 4 | `grd-plan-checker.md` calls `verify research-plan` during plan validation | VERIFIED | Step 2.5 present at line 421 with exact Bash invocation `node "$HOME/.claude/grd/bin/grd-tools.cjs" verify research-plan "$plan" --bootstrap "$BOOTSTRAP_PATH"` |
 | 5 | All four researcher agents include `onUnavailable` → `state add-gap` wiring instructions | VERIFIED | All four files (source, methods, architecture, limitations) contain 2 occurrences of `state add-gap` and 3 occurrences of `gap_reporting`; process step 5 in each file also references `state add-gap` |
 
 **Score: 5/5 truths verified**
@@ -35,12 +35,12 @@ re_verification: false
 
 | Artifact | Expected | Status | Details |
 |----------|----------|--------|---------|
-| `get-shit-done-r/bin/gsd-r-tools.cjs` | CLI routes for all 8 new subcommands, 2 new imports | VERIFIED | `planCheckerRules` imported at line 160, `bootstrap` at line 161; all 8 route branches confirmed present; header docs updated with all new commands under "State Progression" and "Bootstrap" sections |
-| `agents/gsd-r-plan-checker.md` | Step 2.5 calling `verify research-plan` | VERIFIED | Lines 421–447 contain Step 2.5 with full Bash loop, JSON parse, and dimension-mapping logic |
-| `agents/gsd-r-source-researcher.md` | `<gap_reporting>` section with `state add-gap` | VERIFIED | Lines 51–74 contain complete `<gap_reporting>` section; line 111 adds process step 5 reference |
-| `agents/gsd-r-methods-researcher.md` | `<gap_reporting>` section with `state add-gap` | VERIFIED | Lines 51–74 contain complete `<gap_reporting>` section; line 115 adds process step 5 reference |
-| `agents/gsd-r-architecture-researcher.md` | `<gap_reporting>` section with `state add-gap` | VERIFIED | Lines 51–74 contain complete `<gap_reporting>` section; line 123 adds process step 5 reference |
-| `agents/gsd-r-limitations-researcher.md` | `<gap_reporting>` section with `state add-gap` | VERIFIED | Lines 51–74 contain complete `<gap_reporting>` section; line 138 adds process step 5 reference |
+| `grd/bin/grd-tools.cjs` | CLI routes for all 8 new subcommands, 2 new imports | VERIFIED | `planCheckerRules` imported at line 160, `bootstrap` at line 161; all 8 route branches confirmed present; header docs updated with all new commands under "State Progression" and "Bootstrap" sections |
+| `agents/grd-plan-checker.md` | Step 2.5 calling `verify research-plan` | VERIFIED | Lines 421–447 contain Step 2.5 with full Bash loop, JSON parse, and dimension-mapping logic |
+| `agents/grd-source-researcher.md` | `<gap_reporting>` section with `state add-gap` | VERIFIED | Lines 51–74 contain complete `<gap_reporting>` section; line 111 adds process step 5 reference |
+| `agents/grd-methods-researcher.md` | `<gap_reporting>` section with `state add-gap` | VERIFIED | Lines 51–74 contain complete `<gap_reporting>` section; line 115 adds process step 5 reference |
+| `agents/grd-architecture-researcher.md` | `<gap_reporting>` section with `state add-gap` | VERIFIED | Lines 51–74 contain complete `<gap_reporting>` section; line 123 adds process step 5 reference |
+| `agents/grd-limitations-researcher.md` | `<gap_reporting>` section with `state add-gap` | VERIFIED | Lines 51–74 contain complete `<gap_reporting>` section; line 138 adds process step 5 reference |
 
 ---
 
@@ -48,12 +48,12 @@ re_verification: false
 
 | From | To | Via | Status | Details |
 |------|----|-----|--------|---------|
-| `gsd-r-tools.cjs state add-note` | `state.cjs cmdStateAddNote` | CLI switch-case dispatch | WIRED | Line 269: `state.cmdStateAddNote(cwd, { note, status, sources, date }, raw)` |
-| `gsd-r-tools.cjs state add-gap` | `state.cjs cmdStateAddGap` | CLI switch-case dispatch | WIRED | Line 289: `state.cmdStateAddGap(cwd, { note, source, reason, impact }, raw)` |
-| `gsd-r-tools.cjs verify research-plan` | `plan-checker-rules.cjs validateResearchPlan` | CLI branch reading files, calling function | WIRED | Line 420: `const result = planCheckerRules.validateResearchPlan(planContent, bootstrapContent)` |
-| `gsd-r-tools.cjs bootstrap generate` | `bootstrap.cjs generateBootstrap` | CLI branch parsing JSON, calling function | WIRED | Line 437: `const result = bootstrap.generateBootstrap(findings)` |
-| `agents/gsd-r-plan-checker.md` | `gsd-r-tools.cjs verify research-plan` | Bash tool call in Step 2.5 | WIRED | Line 433: `RESEARCH_RESULT=$(node "..." verify research-plan "$plan" --bootstrap ...)` |
-| `agents/gsd-r-source-researcher.md` | `gsd-r-tools.cjs state add-gap` | Bash tool call when source unavailable | WIRED | Line 57: `node "..." state add-gap --note ... --source ... --reason ... --impact ...` |
+| `grd-tools.cjs state add-note` | `state.cjs cmdStateAddNote` | CLI switch-case dispatch | WIRED | Line 269: `state.cmdStateAddNote(cwd, { note, status, sources, date }, raw)` |
+| `grd-tools.cjs state add-gap` | `state.cjs cmdStateAddGap` | CLI switch-case dispatch | WIRED | Line 289: `state.cmdStateAddGap(cwd, { note, source, reason, impact }, raw)` |
+| `grd-tools.cjs verify research-plan` | `plan-checker-rules.cjs validateResearchPlan` | CLI branch reading files, calling function | WIRED | Line 420: `const result = planCheckerRules.validateResearchPlan(planContent, bootstrapContent)` |
+| `grd-tools.cjs bootstrap generate` | `bootstrap.cjs generateBootstrap` | CLI branch parsing JSON, calling function | WIRED | Line 437: `const result = bootstrap.generateBootstrap(findings)` |
+| `agents/grd-plan-checker.md` | `grd-tools.cjs verify research-plan` | Bash tool call in Step 2.5 | WIRED | Line 433: `RESEARCH_RESULT=$(node "..." verify research-plan "$plan" --bootstrap ...)` |
+| `agents/grd-source-researcher.md` | `grd-tools.cjs state add-gap` | Bash tool call when source unavailable | WIRED | Line 57: `node "..." state add-gap --note ... --source ... --reason ... --impact ...` |
 
 All key links from plan frontmatter verified. The pattern is complete and consistent across all 4 researcher agents.
 
@@ -65,8 +65,8 @@ All key links from plan frontmatter verified. The pattern is complete and consis
 |-------------|------------|-------------|--------|----------|
 | KNOW-02 | 07-01 | STATE.md extended with note-status tracker | SATISFIED | 3 CLI routes wired (`add-note`, `update-note-status`, `get-notes`) mapping to `cmdStateAddNote`, `cmdStateUpdateNoteStatus`, `cmdStateGetNotes` in `state.cjs` |
 | KNOW-03 | 07-01 | STATE.md extended with source-gap reporting table | SATISFIED | 3 CLI routes wired (`add-gap`, `resolve-gap`, `get-gaps`) mapping to `cmdStateAddGap`, `cmdStateResolveGap`, `cmdStateGetGaps` in `state.cjs` |
-| ORCH-06 | 07-01, 07-02 | Plan-checker validates no BOOTSTRAP.md duplication, primary sources preferred, ≤3 sources, acquisition method specified | SATISFIED | `verify research-plan` route calls `validateResearchPlan()` which enforces all 4 checks; `gsd-r-plan-checker.md` Step 2.5 invokes this during plan validation |
-| VERI-04 | 07-01 | Verification failures generate fix tasks via `/gsd-r:quick` | SATISFIED | `verify research-plan` returns structured `{ valid, issues }` JSON enabling fix-task generation; this was the missing CLI hook for the pre-existing library function |
+| ORCH-06 | 07-01, 07-02 | Plan-checker validates no BOOTSTRAP.md duplication, primary sources preferred, ≤3 sources, acquisition method specified | SATISFIED | `verify research-plan` route calls `validateResearchPlan()` which enforces all 4 checks; `grd-plan-checker.md` Step 2.5 invokes this during plan validation |
+| VERI-04 | 07-01 | Verification failures generate fix tasks via `/grd:quick` | SATISFIED | `verify research-plan` returns structured `{ valid, issues }` JSON enabling fix-task generation; this was the missing CLI hook for the pre-existing library function |
 | SRC-04 | 07-02 | Unavailable sources documented but do not block task completion — gap flagged in Open Questions | SATISFIED | All 4 researcher agents now have `<gap_reporting>` section with explicit `state add-gap` invocation and process step 5 reference; gap reporting is non-blocking (sources do not block task completion) |
 
 No orphaned requirements: all 5 IDs declared across 07-01-PLAN.md and 07-02-PLAN.md match the ROADMAP.md `**Requirements**` line for Phase 7. REQUIREMENTS.md traceability table marks all 5 as "Complete" with "Phase 7" noted.
@@ -77,7 +77,7 @@ No orphaned requirements: all 5 IDs declared across 07-01-PLAN.md and 07-02-PLAN
 
 None found.
 
-Scanned: `get-shit-done-r/bin/gsd-r-tools.cjs` (new routes), `agents/gsd-r-plan-checker.md`, `agents/gsd-r-source-researcher.md`, `agents/gsd-r-methods-researcher.md`, `agents/gsd-r-architecture-researcher.md`, `agents/gsd-r-limitations-researcher.md`.
+Scanned: `grd/bin/grd-tools.cjs` (new routes), `agents/grd-plan-checker.md`, `agents/grd-source-researcher.md`, `agents/grd-methods-researcher.md`, `agents/grd-architecture-researcher.md`, `agents/grd-limitations-researcher.md`.
 
 No TODOs, FIXMEs, placeholders, empty return bodies, or stub implementations found in any modified file.
 
@@ -105,7 +105,7 @@ None. All phase 7 deliverables are CLI and agent prompt changes verifiable via g
 
 ## Verification Summary
 
-Phase 7 goal achieved. All 8 new CLI routes are wired in `gsd-r-tools.cjs` with substantive implementations dispatching to their library functions. Both new imports (`planCheckerRules`, `bootstrap`) are present at the top of the file. The plan-checker agent has Step 2.5 with the complete research-plan validation loop. All four researcher agents have the complete `<gap_reporting>` section and process step 5 reference. The three test suites (state, plan-checker-rules, bootstrap) pass with zero regressions. All 5 requirement IDs (KNOW-02, KNOW-03, ORCH-06, VERI-04, SRC-04) are satisfied and accounted for.
+Phase 7 goal achieved. All 8 new CLI routes are wired in `grd-tools.cjs` with substantive implementations dispatching to their library functions. Both new imports (`planCheckerRules`, `bootstrap`) are present at the top of the file. The plan-checker agent has Step 2.5 with the complete research-plan validation loop. All four researcher agents have the complete `<gap_reporting>` section and process step 5 reference. The three test suites (state, plan-checker-rules, bootstrap) pass with zero regressions. All 5 requirement IDs (KNOW-02, KNOW-03, ORCH-06, VERI-04, SRC-04) are satisfied and accounted for.
 
 ---
 

@@ -1,6 +1,6 @@
 # Architecture Research: v1.2 Research Reorientation Integration
 
-**Domain:** CLI research workflow tool (GSD-R to GRD transformation)
+**Domain:** CLI research workflow tool (GRD to GRD transformation)
 **Researched:** 2026-03-17
 **Confidence:** HIGH
 
@@ -19,7 +19,7 @@
 +------+----------------------------------------------------------------+
        |
 +------v----------------------------------------------------------------+
-|                     CLI Router (bin/gsd-r-tools.cjs)                   |
+|                     CLI Router (bin/grd-tools.cjs)                   |
 |  Command dispatch, init bootstrapping, atomic operations               |
 |  RENAME: bin/grd-tools.cjs                                            |
 +------+----------------------------------------------------------------+
@@ -56,11 +56,11 @@
 
 | Component | Responsibility | v1.2 Changes |
 |-----------|---------------|--------------|
-| **CLAUDE.md / Skill()** | Command registration, namespace routing | RENAME all `/gsd-r:*` to `/grd:*`, add `/grd:synthesize` |
+| **CLAUDE.md / Skill()** | Command registration, namespace routing | RENAME all `/grd:*` to `/grd:*`, add `/grd:synthesize` |
 | **workflows/*.md** | Agent prompts with process steps | RENAME internal refs, ADD tier-aware language, ADD synthesize workflow |
-| **bin/grd-tools.cjs** | CLI entry point, command dispatch | RENAME from gsd-r-tools.cjs, update all internal paths |
+| **bin/grd-tools.cjs** | CLI entry point, command dispatch | RENAME from grd-tools.cjs, update all internal paths |
 | **bin/lib/config.cjs** | Config CRUD (`config-ensure-section`, `config-set`, `config-get`) | ADD default fields: `researcher_tier`, `review_type`, `epistemological_stance`, `workflow.critical_appraisal`, `workflow.temporal_positioning`, `workflow.synthesis` |
-| **bin/lib/model-profiles.cjs** | Agent-to-model mapping per profile | RENAME `gsd-r-*` to `grd-*`, ADD `grd-synthesizer`, `grd-sufficiency-checker` |
+| **bin/lib/model-profiles.cjs** | Agent-to-model mapping per profile | RENAME `grd-*` to `grd-*`, ADD `grd-synthesizer`, `grd-sufficiency-checker` |
 | **bin/lib/verify-research.cjs** | Two-tier note verification (goal-backward + source audit) | ADD `verifyTier0()` for evidence sufficiency, modify `verifyNote()` to three-tier |
 | **bin/lib/plan-checker-rules.cjs** | Plan validation (source limits, duplication, methods) | ADD review-type-specific rule enforcement |
 | **bin/lib/template.cjs** | Template selection and filling | ADD tier-aware template selection |
@@ -73,19 +73,19 @@
 ## Recommended Project Structure (Post v1.2)
 
 ```
-get-shit-done-r/                    # Directory name stays (git history)
+grd/                    # Directory name stays (git history)
   bin/
-    grd-tools.cjs                   # RENAMED from gsd-r-tools.cjs
+    grd-tools.cjs                   # RENAMED from grd-tools.cjs
     lib/
       acquire.cjs                   # No change
       bootstrap.cjs                 # No change
-      commands.cjs                  # Update agent name refs gsd-r-* -> grd-*
+      commands.cjs                  # Update agent name refs grd-* -> grd-*
       config.cjs                    # ADD new field defaults, smart-defaults-by-review-type
       core.cjs                      # Update namespace refs in error messages
       frontmatter.cjs               # No change
       init.cjs                      # ADD researcher_tier, review_type, epistemological_stance to init output
       milestone.cjs                 # Update namespace refs
-      model-profiles.cjs            # RENAME all gsd-r-* agent keys to grd-*, ADD new agents
+      model-profiles.cjs            # RENAME all grd-* agent keys to grd-*, ADD new agents
       phase.cjs                     # Update namespace refs
       plan-checker-rules.cjs        # ADD review-type rule matrix, ADD primary-source enforcement
       roadmap.cjs                   # Update namespace refs
@@ -121,7 +121,7 @@ get-shit-done-r/                    # Directory name stays (git history)
 
 ### Structure Rationale
 
-- **Rename gsd-r-tools.cjs to grd-tools.cjs:** The CLI entry point defines the tool identity. All workflow files reference this path via absolute path in `node "..."` calls. Single rename, but ~161 occurrences across 40 files need updating.
+- **Rename grd-tools.cjs to grd-tools.cjs:** The CLI entry point defines the tool identity. All workflow files reference this path via absolute path in `node "..."` calls. Single rename, but ~161 occurrences across 40 files need updating.
 - **New lib modules NOT recommended:** Adding `tier.cjs` and `review-type.cjs` is tempting but the actual logic (string interpolation for tier-appropriate messaging) lives in the workflow markdown prompts, not in CJS. The CJS layer only needs to (a) store/retrieve config values and (b) validate them. `config.cjs` already handles both. Adding lib modules for what amounts to prompt engineering would be over-abstraction.
 - **Synthesis templates as separate files:** Each synthesis output (THEMES.md, FRAMEWORK.md, GAPS.md, Executive Summary) has distinct structure. Template files keep the workflow prompts clean.
 - **Keep workflow filenames unchanged:** Renaming `new-project.md` to `new-research.md` etc. would break git history and all absolute path references. Instead, CLAUDE.md Skill() registrations map `/grd:new-research` -> `workflows/new-project.md`. The indirection is free and already the established pattern.
@@ -258,18 +258,18 @@ execute-plan.md (existing) with synthesis-aware subagent prompt:
 
 ### Pattern 4: Namespace Migration as Mechanical Transformation
 
-**What:** `/gsd-r:` -> `/grd:` and `gsd-r-tools.cjs` -> `grd-tools.cjs` and `gsd-r-*` agent names -> `grd-*`. These are string replacements with known patterns, not behavioral changes.
+**What:** `/grd:` -> `/grd:` and `grd-tools.cjs` -> `grd-tools.cjs` and `grd-*` agent names -> `grd-*`. These are string replacements with known patterns, not behavioral changes.
 
 **When to use:** Phase 1 of v1.2, done once, affects everything downstream.
 
-**Trade-offs:** Must be complete (359 `/gsd-r:` occurrences across 56 files, 161 `gsd-r-tools` occurrences across 40 files, 19 agent name entries in model-profiles.cjs). Partial migration causes runtime failures. Benefits: clean break, consistent identity.
+**Trade-offs:** Must be complete (359 `/grd:` occurrences across 56 files, 161 `grd-tools` occurrences across 40 files, 19 agent name entries in model-profiles.cjs). Partial migration causes runtime failures. Benefits: clean break, consistent identity.
 
 **Implementation rules:**
-1. `gsd-r-tools.cjs` -> `grd-tools.cjs` (file rename + all path references)
-2. `/gsd-r:command-name` -> `/grd:command-name` (Skill registrations + workflow cross-refs)
-3. `gsd-r-agent-name` -> `grd-agent-name` (model-profiles.cjs + all workflow agent refs)
+1. `grd-tools.cjs` -> `grd-tools.cjs` (file rename + all path references)
+2. `/grd:command-name` -> `/grd:command-name` (Skill registrations + workflow cross-refs)
+3. `grd-agent-name` -> `grd-agent-name` (model-profiles.cjs + all workflow agent refs)
 4. Also update command vocabulary in user-facing text: `new-project` -> `new-research`, `discuss-phase` -> `scope-inquiry`, etc. (but workflow FILES stay named as-is)
-5. The directory `get-shit-done-r/` stays unchanged (git history preservation)
+5. The directory `grd/` stays unchanged (git history preservation)
 
 ## Data Flow
 
@@ -391,9 +391,9 @@ review_type from config.json determines which checks run
 
 | Feature | Files Modified | Files Created | Scope |
 |---------|---------------|---------------|-------|
-| Namespace migration (`/gsd-r:` -> `/grd:`) | 56 files (359 occurrences) | 0 | Mechanical |
-| CLI rename (`gsd-r-tools` -> `grd-tools`) | 40 files (161 occurrences) + 1 file rename | 0 | Mechanical |
-| Agent rename (`gsd-r-*` -> `grd-*`) | model-profiles.cjs + all workflow agent refs | 0 | Mechanical |
+| Namespace migration (`/grd:` -> `/grd:`) | 56 files (359 occurrences) | 0 | Mechanical |
+| CLI rename (`grd-tools` -> `grd-tools`) | 40 files (161 occurrences) + 1 file rename | 0 | Mechanical |
+| Agent rename (`grd-*` -> `grd-*`) | model-profiles.cjs + all workflow agent refs | 0 | Mechanical |
 | Command vocabulary (PM -> research terms) | help.md, CLAUDE.md, all cross-referencing workflows | 0 | Mechanical |
 | Config new fields | config.cjs, templates/config.json | 0 | Small |
 | Config propagation to init | init.cjs (all 6 init commands) | 0 | Small |
@@ -444,9 +444,9 @@ Phase 8: Upstream Sync ───────────────────
 **Rationale:** Everything downstream references the namespace. Do this first so all subsequent work uses the final names. Mechanical, low risk, high coverage.
 
 **Subphases:**
-1. **1a: CLI rename** -- `gsd-r-tools.cjs` -> `grd-tools.cjs` (file + 161 path refs in 40 files)
-2. **1b: Agent name rename** -- `gsd-r-*` -> `grd-*` in model-profiles.cjs + workflow refs
-3. **1c: Command namespace** -- `/gsd-r:*` -> `/grd:*` (359 occurrences in 56 files)
+1. **1a: CLI rename** -- `grd-tools.cjs` -> `grd-tools.cjs` (file + 161 path refs in 40 files)
+2. **1b: Agent name rename** -- `grd-*` -> `grd-*` in model-profiles.cjs + workflow refs
+3. **1c: Command namespace** -- `/grd:*` -> `/grd:*` (359 occurrences in 56 files)
 4. **1d: Command vocabulary** -- PM names -> research names in help text and cross-references (`new-project` -> `new-research`, `discuss-phase` -> `scope-inquiry`, etc.)
 5. **1e: Test updates** -- Update all 164 tests to use new names
 
@@ -552,7 +552,7 @@ Phase 8: Upstream Sync ───────────────────
 1. Analyze upstream diff (v1.24.0 -> v1.25.1) to identify relevant changes
 2. Categorize: (a) core.cjs changes, (b) workflow changes, (c) new features, (d) N/A for GRD
 3. Apply relevant changes with GRD research layer preserved
-4. Re-apply GRD namespace (now `/grd:` not `/gsd-r:`) to synced files
+4. Re-apply GRD namespace (now `/grd:` not `/grd:`) to synced files
 5. Run full test suite after each merge step
 
 **Dependencies:** All prior phases complete and tests passing.
@@ -582,7 +582,7 @@ Phase 8: Upstream Sync ───────────────────
 
 **What people do:** Write a single sed script that replaces everything in one pass.
 
-**Why it's wrong:** Three distinct namespace patterns overlap (`/gsd-r:command`, `gsd-r-tools.cjs` path, `gsd-r-agent-name`). A global replace might create false matches. Tests must pass after each logical group.
+**Why it's wrong:** Three distinct namespace patterns overlap (`/grd:command`, `grd-tools.cjs` path, `grd-agent-name`). A global replace might create false matches. Tests must pass after each logical group.
 
 **Do this instead:** Migrate in 4 sub-phases (1a-1d). Run tests after each. Commit after each. Contained blast radius.
 
