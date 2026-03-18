@@ -75,8 +75,11 @@ describe('namespace: zero residual old-namespace references', () => {
 
   it('no old long path in .planning/ tree', () => {
     const hits = scanForPattern(path.join(ROOT, '.planning'), new RegExp(OLD_LONG), ['.md', '.json']);
-    // Exclude files under .planning/milestones/ (historical records)
-    const filtered = hits.filter(h => !h.startsWith('planning/milestones/') && !h.startsWith('.planning/milestones/'));
+    // Exclude: archived milestones (historical records) and SUMMARY files (describe the rename)
+    const filtered = hits.filter(h =>
+      !h.startsWith('.planning/milestones/') &&
+      !h.endsWith('-SUMMARY.md')
+    );
     assert.deepStrictEqual(filtered, [], 'Residual old long path in .planning/: ' + filtered.join(', '));
   });
 
