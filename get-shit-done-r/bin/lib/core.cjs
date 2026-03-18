@@ -64,6 +64,9 @@ function loadConfig(cwd) {
     nyquist_validation: true,
     parallelization: true,
     brave_search: false,
+    researcher_tier: 'standard',
+    review_type: 'narrative',
+    epistemological_stance: 'pragmatist',
   };
 
   try {
@@ -86,6 +89,9 @@ function loadConfig(cwd) {
       return undefined;
     };
 
+    // Lazy require to avoid circular dependency (config.cjs imports output/error from core.cjs)
+    const { SMART_DEFAULTS } = require('./config.cjs');
+
     const parallelization = (() => {
       const val = get('parallelization');
       if (typeof val === 'boolean') return val;
@@ -107,6 +113,15 @@ function loadConfig(cwd) {
       parallelization,
       brave_search: get('brave_search') ?? defaults.brave_search,
       model_overrides: parsed.model_overrides || null,
+      researcher_tier: get('researcher_tier') ?? defaults.researcher_tier,
+      review_type: get('review_type') ?? defaults.review_type,
+      epistemological_stance: get('epistemological_stance') ?? defaults.epistemological_stance,
+      critical_appraisal: get('critical_appraisal', { section: 'workflow', field: 'critical_appraisal' })
+        ?? (SMART_DEFAULTS[get('review_type') ?? 'narrative'] || SMART_DEFAULTS.narrative).critical_appraisal,
+      temporal_positioning: get('temporal_positioning', { section: 'workflow', field: 'temporal_positioning' })
+        ?? (SMART_DEFAULTS[get('review_type') ?? 'narrative'] || SMART_DEFAULTS.narrative).temporal_positioning,
+      synthesis: get('synthesis', { section: 'workflow', field: 'synthesis' })
+        ?? (SMART_DEFAULTS[get('review_type') ?? 'narrative'] || SMART_DEFAULTS.narrative).synthesis,
     };
   } catch {
     return defaults;

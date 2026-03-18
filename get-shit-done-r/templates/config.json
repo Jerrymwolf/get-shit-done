@@ -3,12 +3,18 @@
   "granularity": "standard",
   "vault_path": "",
   "commit_research": true,
+  "researcher_tier": "standard",
+  "review_type": "narrative",
+  "epistemological_stance": "pragmatist",
   "workflow": {
     "research": true,
     "plan_check": true,
     "verifier": true,
     "auto_advance": false,
-    "nyquist_validation": true
+    "nyquist_validation": true,
+    "critical_appraisal": "optional",
+    "temporal_positioning": "optional",
+    "synthesis": "optional"
   },
   "planning": {
     "commit_docs": true,
