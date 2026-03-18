@@ -1,16 +1,16 @@
 ---
-gsd_state_version: 1.0
+grd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
-status: completed
-stopped_at: Phase 17 context gathered
-last_updated: "2026-03-18T02:12:19.872Z"
-last_activity: 2026-03-18 -- Completed 16-02 config integration with loadConfig extension, settings downgrade, init propagation
+status: executing
+stopped_at: Completed 17-01-PLAN.md
+last_updated: "2026-03-18T03:11:26.062Z"
+last_activity: "2026-03-18 -- Completed 17-01 namespace rename: gsd-r to grd across 170+ files"
 progress:
   total_phases: 8
   completed_phases: 2
-  total_plans: 7
-  completed_plans: 7
+  total_plans: 9
+  completed_plans: 8
   percent: 100
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** Phase 16 - Config Schema and Defaults
+**Current focus:** Phase 17 - Namespace Migration
 
 ## Current Position
 
-Phase: 16 of 22 (Config Schema and Defaults)
-Plan: 02 of 2 complete
-Status: Phase complete
-Last activity: 2026-03-18 -- Completed 16-02 config integration with loadConfig extension, settings downgrade, init propagation
+Phase: 17 of 22 (Namespace Migration)
+Plan: 01 of 2 complete
+Status: In progress
+Last activity: 2026-03-18 -- Completed 17-01 namespace rename: gsd-r to grd across 170+ files
 
 Progress: [██████████] 100%
 
@@ -48,6 +48,7 @@ Progress: [██████████] 100%
 *Updated after each plan completion*
 | Phase 16 P01 | 2min | 2 tasks | 2 files |
 | Phase 16 P02 | 3min | 2 tasks | 4 files |
+| Phase 17 P01 | 4min | 2 tasks | 227 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,8 @@ Recent decisions affecting current work:
 - 15-05: Added inherit profile support to model-profiles.md from upstream v1.25.1
 - [Phase 16]: 16-01: SMART_DEFAULTS as lookup table, not computed function -- single source of truth
 - [Phase 16]: 16-02: Lazy require of config.cjs inside loadConfig() to avoid circular dependency
+- [Phase 17]: Used char-code construction in namespace test to prevent bulk rename from corrupting search patterns
+- [Phase 17]: Extended .planning/ rename scope to all historical planning docs, not just config.json and phase 17
 
 ### Pending Todos
 
@@ -81,6 +84,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-18T02:12:19.870Z
-Stopped at: Phase 17 context gathered
-Resume file: .planning/phases/17-namespace-migration/17-CONTEXT.md
+Last session: 2026-03-18T03:11:26.060Z
+Stopped at: Completed 17-01-PLAN.md
+Resume file: None

@@ -17,12 +17,12 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Namespace & Identity
 
-- [ ] **NS-01**: All `/grd:` command references renamed to `/grd:` across all files
+- [x] **NS-01**: All `/grd:` command references renamed to `/grd:` across all files
 - [ ] **NS-02**: Command vocabulary renamed to research-native terms (execute-phase → conduct-inquiry, discuss-phase → scope-inquiry, plan-phase → plan-inquiry, verify-work → verify-inquiry, new-project → new-research, complete-milestone → complete-study, etc.)
-- [ ] **NS-03**: `grd-tools.cjs` renamed to `grd-tools.cjs` with all internal and external references updated
-- [ ] **NS-04**: `grd/` directory renamed to `grd/` with all path references updated
-- [ ] **NS-05**: Agent names in model-profiles.cjs renamed from `grd-*` to `grd-*`
-- [ ] **NS-06**: Zero residual `grd` references in any user-facing output (verified by automated scan)
+- [x] **NS-03**: `grd-tools.cjs` renamed to `grd-tools.cjs` with all internal and external references updated
+- [x] **NS-04**: `grd/` directory renamed to `grd/` with all path references updated
+- [x] **NS-05**: Agent names in model-profiles.cjs renamed from `grd-*` to `grd-*`
+- [x] **NS-06**: Zero residual `grd` references in any user-facing output (verified by automated scan)
 
 ### Config & Scoping
 
@@ -93,7 +93,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 ### Testing
 
 - [x] **TEST-01**: All existing 164+ tests continue to pass after all changes
-- [ ] **TEST-02**: New tests cover namespace migration (zero residual references)
+- [x] **TEST-02**: New tests cover namespace migration (zero residual references)
 - [ ] **TEST-03**: New tests cover review type enforcement in plan-checker
 - [x] **TEST-04**: New tests cover config schema with defaults and smart defaults cascade
 - [ ] **TEST-05**: New tests cover synthesis stage workflow
@@ -138,12 +138,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SYNC-03 | Phase 15 | Complete |
 | SYNC-04 | Phase 15 | Complete |
 | SYNC-05 | Phase 15 | Complete |
-| NS-01 | Phase 17 | Pending |
+| NS-01 | Phase 17 | Complete |
 | NS-02 | Phase 17 | Pending |
-| NS-03 | Phase 17 | Pending |
-| NS-04 | Phase 17 | Pending |
-| NS-05 | Phase 17 | Pending |
-| NS-06 | Phase 17 | Pending |
+| NS-03 | Phase 17 | Complete |
+| NS-04 | Phase 17 | Complete |
+| NS-05 | Phase 17 | Complete |
+| NS-06 | Phase 17 | Complete |
 | CFG-01 | Phase 16 | Complete |
 | CFG-02 | Phase 16 | Complete |
 | CFG-03 | Phase 16 | Complete |
@@ -184,7 +184,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TIER-03 | Phase 21 | Pending |
 | TIER-04 | Phase 21 | Pending |
 | TEST-01 | Phase 15 | Complete |
-| TEST-02 | Phase 17 | Pending |
+| TEST-02 | Phase 17 | Complete |
 | TEST-03 | Phase 19 | Pending |
 | TEST-04 | Phase 16 | Complete |
 | TEST-05 | Phase 22 | Pending |
