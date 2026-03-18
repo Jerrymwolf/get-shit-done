@@ -102,11 +102,11 @@ Plans:
   3. All 19 agent names in model-profiles.cjs use `grd-*` prefix
   4. Automated scan finds zero residual `gsd-r` references in any user-facing output
   5. All tests pass with updated namespace references
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 17-01: TBD
-- [ ] 17-02: TBD
+- [ ] 17-01-PLAN.md -- Directory rename (get-shit-done-r/ to grd/), CLI tool rename, bulk gsd-r to grd replacement, agent name updates, namespace regression test
+- [ ] 17-02-PLAN.md -- Workflow file renames to research-native names (10 files), CLI routing updates, init subcommand updates, Skill() cross-reference updates
 
 ### Phase 18: Research Formulation and Notes
 **Goal**: The research workflow speaks scholarly vocabulary from project creation through note writing
@@ -216,7 +216,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 14. Path Standardization and Final Verification | v1.1 | 2/2 | Complete | 2026-03-16 |
 | 15. Upstream Sync to v1.25.1 | 5/5 | Complete    | 2026-03-17 | - |
 | 16. Config Schema and Defaults | 2/2 | Complete    | 2026-03-18 | - |
-| 17. Namespace Migration | v1.2 | 0/? | Not started | - |
+| 17. Namespace Migration | v1.2 | 0/2 | Not started | - |
 | 18. Research Formulation and Notes | v1.2 | 0/? | Not started | - |
 | 19. Plan-Checker Enforcement | v1.2 | 0/? | Not started | - |
 | 20. Three-Tier Verification | v1.2 | 0/? | Not started | - |
@@ -225,4 +225,4 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-17 after Phase 16 planning*
+*Last updated: 2026-03-18 after Phase 17 planning*
