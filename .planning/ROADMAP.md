@@ -121,11 +121,13 @@ Plans:
   6. Research note template includes Evidence Quality section scaled by review type and influenced by epistemological stance
   7. Research note frontmatter includes `era`, `review_type`, `inquiry`, and `status` fields with era skippable via config
   8. `--prd <file>` and `--batch N` flags implemented for scope-inquiry
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 18-01: TBD
-- [ ] 18-02: TBD
+- [ ] 18-01-PLAN.md -- PROJECT.md prospectus template + new-research scoping questions (FORM-01, FORM-03)
+- [ ] 18-02-PLAN.md -- Researcher recharter: 4 new scholarly templates, prompt updates, synthesizer references (FORM-02)
+- [ ] 18-03-PLAN.md -- Template vocabulary reframing: BOOTSTRAP.md, REQUIREMENTS.md, ROADMAP.md (FORM-04, FORM-05, FORM-06)
+- [ ] 18-04-PLAN.md -- Research note Evidence Quality + frontmatter, --prd flag, Phase 18 tests (NOTE-01, NOTE-02, NOTE-03, TRAP-01)
 
 ### Phase 19: Plan-Checker Enforcement
 **Goal**: The plan-checker enforces review-type-appropriate rigor at the search protocol stage
@@ -217,7 +219,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 15. Upstream Sync to v1.25.1 | 5/5 | Complete    | 2026-03-17 | - |
 | 16. Config Schema and Defaults | 2/2 | Complete    | 2026-03-18 | - |
 | 17. Namespace Migration | 2/2 | Complete    | 2026-03-18 | - |
-| 18. Research Formulation and Notes | v1.2 | 0/? | Not started | - |
+| 18. Research Formulation and Notes | v1.2 | 0/4 | Not started | - |
 | 19. Plan-Checker Enforcement | v1.2 | 0/? | Not started | - |
 | 20. Three-Tier Verification | v1.2 | 0/? | Not started | - |
 | 21. Adaptive Communication | v1.2 | 0/? | Not started | - |
@@ -225,4 +227,4 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-18 after Phase 17 planning*
+*Last updated: 2026-03-18 after Phase 18 planning*
