@@ -1,67 +1,74 @@
 # PROJECT.md Template
 
-Template for `.planning/PROJECT.md` — the living project context document.
+Template for `.planning/PROJECT.md` — the living research prospectus.
 
 <template>
 
 ```markdown
-# [Project Name]
+# [Study Name]
 
-## What This Is
+## Problem Statement
 
-[Current accurate description — 2-3 sentences. What does this product do and who is it for?
-Use the user's language and framing. Update whenever reality drifts from this description.]
+[What problem or question drives this research? 2-3 sentences framing the research gap or need.
+Use the researcher's language. Update if the research question evolves.]
 
-## Core Value
+## Significance
 
-[The ONE thing that matters most. If everything else fails, this must work.
-One sentence that drives prioritization when tradeoffs arise.]
+[Why does this matter? Who benefits from answering this question?
+Connect to broader scholarly or practical implications.]
 
-## Requirements
+## Epistemological Stance
 
-### Validated
+**Stance:** [positivist / constructivist / pragmatist / critical]
+[Brief note on what this means for evidence evaluation in this study.]
 
-<!-- Shipped and confirmed valuable. -->
+## Review Type
 
-(None yet — ship to validate)
+**Type:** [systematic / scoping / integrative / critical / narrative]
+[Brief note on the methodological implications -- what standards apply.]
 
-### Active
+## Researcher Tier
 
-<!-- Current scope. Building toward these. -->
+**Tier:** [guided / standard / expert]
+[Determines communication style throughout the workflow.]
 
-- [ ] [Requirement 1]
-- [ ] [Requirement 2]
-- [ ] [Requirement 3]
+## Research Questions
+
+### Primary
+
+- [ ] [Research Question 1]
+- [ ] [Research Question 2]
+
+### Secondary
+
+- [ ] [Research Question 3]
+- [ ] [Research Question 4]
 
 ### Out of Scope
 
-<!-- Explicit boundaries. Includes reasoning to prevent re-adding. -->
-
-- [Exclusion 1] — [why]
-- [Exclusion 2] — [why]
+- [Excluded question] -- [why]
+- [Excluded question] -- [why]
 
 ## Context
 
-[Background information that informs implementation:
-- Technical environment or ecosystem
-- Relevant prior work or experience
-- User research or feedback themes
-- Known issues to address]
+[Background that informs the research:
+- Disciplinary context and traditions
+- Prior work or existing knowledge
+- Target audience for the research output
+- Known methodological constraints]
 
 ## Constraints
 
-- **[Type]**: [What] — [Why]
-- **[Type]**: [What] — [Why]
+- **[Type]**: [What] -- [Why]
+- **[Type]**: [What] -- [Why]
 
-Common types: Tech stack, Timeline, Budget, Dependencies, Compatibility, Performance, Security
+Common types: Timeline, Source availability, Disciplinary boundaries, Language, Access, Methodology
 
-## Key Decisions
-
-<!-- Decisions that constrain future work. Add throughout project lifecycle. -->
+## Methodological Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| [Choice] | [Why] | [✓ Good / ⚠️ Revisit / — Pending] |
+| [Choice] | [Why] | [Good / Revisit / Pending] |
 
 ---
 *Last updated: [date] after [trigger]*
@@ -71,98 +78,116 @@ Common types: Tech stack, Timeline, Budget, Dependencies, Compatibility, Perform
 
 <guidelines>
 
-**What This Is:**
-- Current accurate description of the product
-- 2-3 sentences capturing what it does and who it's for
-- Use the user's words and framing
-- Update when the product evolves beyond this description
+**Problem Statement:**
+- Frame the research gap clearly
+- State what is unknown or contested
+- 2-3 sentences capturing the driving question
+- Use the researcher's words and framing
+- Update when the research question evolves beyond this description
 
-**Core Value:**
-- The single most important thing
-- Everything else can fail; this cannot
-- Drives prioritization when tradeoffs arise
-- Rarely changes; if it does, it's a significant pivot
+**Significance:**
+- Connect to broader impact -- scholarly advancement, practical application, or social benefit
+- Why this research matters to the field and beyond
+- Rarely changes; if it does, it signals a significant reorientation
 
-**Requirements — Validated:**
-- Requirements that shipped and proved valuable
-- Format: `- ✓ [Requirement] — [version/phase]`
-- These are locked — changing them requires explicit discussion
+**Epistemological Stance:**
+- Positivist, constructivist, pragmatist, or critical
+- Shapes what counts as valid evidence throughout the study
+- Influences how critical appraisal operates
+- Set during research scoping; can be changed via `/grd:settings`
 
-**Requirements — Active:**
-- Current scope being built toward
-- These are hypotheses until shipped and validated
-- Move to Validated when shipped, Out of Scope if invalidated
+**Review Type:**
+- Systematic, scoping, integrative, critical, or narrative
+- Determines rigor requirements enforced by the plan-checker
+- Each type has associated methodological standards (PRISMA, Arksey & O'Malley, etc.)
+- Can be downgraded mid-study; rigor requirements relax, no work is lost
 
-**Requirements — Out of Scope:**
-- Explicit boundaries on what we're not building
-- Always include reasoning (prevents re-adding later)
-- Includes: considered and rejected, deferred to future, explicitly excluded
+**Researcher Tier:**
+- Guided, standard, or expert
+- Determines communication style: how much the tool explains along the way
+- Does NOT affect rigor -- every tier produces defense-quality output
+- Set during research scoping; can be changed via `/grd:settings`
+
+**Research Questions -- Primary:**
+- Primary questions drive the study
+- These are hypotheses until investigation provides answers
+- Move to answered when evidence supports a conclusion
+
+**Research Questions -- Secondary:**
+- Secondary questions emerge during investigation
+- Often discovered during literature review or analysis
+- May be promoted to primary or moved to out of scope
+
+**Research Questions -- Out of Scope:**
+- Explicit boundaries on what this study does not investigate
+- Always include reasoning (prevents scope creep)
+- Includes: considered and excluded, deferred to future work, explicitly out of bounds
 
 **Context:**
-- Background that informs implementation decisions
-- Technical environment, prior work, user feedback
-- Known issues or technical debt to address
+- Background that informs the research approach
+- Disciplinary context, prior work, target audience
+- Known methodological constraints or limitations
 - Update as new context emerges
 
 **Constraints:**
-- Hard limits on implementation choices
-- Tech stack, timeline, budget, compatibility, dependencies
-- Include the "why" — constraints without rationale get questioned
+- Hard limits on the research
+- Timeline, source availability, disciplinary boundaries, language, access, methodology
+- Include the "why" -- constraints without rationale get questioned
 
-**Key Decisions:**
-- Significant choices that affect future work
-- Add decisions as they're made throughout the project
+**Methodological Decisions:**
+- Track choices like "excluded grey literature", "focused on post-2010 studies", "prioritized English-language sources"
+- Add decisions as they are made throughout the study
 - Track outcome when known:
-  - ✓ Good — decision proved correct
-  - ⚠️ Revisit — decision may need reconsideration
-  - — Pending — too early to evaluate
+  - Good -- decision proved correct
+  - Revisit -- decision may need reconsideration
+  - Pending -- too early to evaluate
 
 **Last Updated:**
 - Always note when and why the document was updated
-- Format: `after Phase 2` or `after v1.0 milestone`
+- Format: `after Inquiry 2` or `after v1.0 milestone`
 - Triggers review of whether content is still accurate
 
 </guidelines>
 
 <evolution>
 
-PROJECT.md evolves throughout the project lifecycle.
+PROJECT.md evolves throughout the research lifecycle.
 
-**After each phase transition:**
-1. Requirements invalidated? → Move to Out of Scope with reason
-2. Requirements validated? → Move to Validated with phase reference
-3. New requirements emerged? → Add to Active
-4. Decisions to log? → Add to Key Decisions
-5. "What This Is" still accurate? → Update if drifted
+**After each inquiry completes:**
+1. Research questions refined? -- Update wording, move between Primary/Secondary/Out of Scope
+2. Research questions answered? -- Mark answered with inquiry reference
+3. New research questions emerged? -- Add to appropriate category
+4. Methodological decisions to log? -- Add to Methodological Decisions table
+5. Problem Statement still accurate? -- Update if the research focus has shifted
 
 **After each milestone:**
 1. Full review of all sections
-2. Core Value check — still the right priority?
-3. Audit Out of Scope — reasons still valid?
-4. Update Context with current state (users, feedback, metrics)
+2. Significance check -- still the right framing?
+3. Audit Out of Scope -- reasons still valid?
+4. Update Context with current state (findings, new literature, refined understanding)
 
 </evolution>
 
 <brownfield>
 
-For existing codebases:
+For existing research:
 
-1. **Map codebase first** via `/grd:map-codebase`
+1. **Map existing research first** via `/grd:map-codebase`
 
-2. **Infer Validated requirements** from existing code:
-   - What does the codebase actually do?
-   - What patterns are established?
-   - What's clearly working and relied upon?
+2. **Identify established findings from existing literature inventory:**
+   - What has the research already established?
+   - What patterns or themes are documented?
+   - What is clearly supported and relied upon?
 
-3. **Gather Active requirements** from user:
+3. **Gather active research questions** from researcher:
    - Present inferred current state
-   - Ask what they want to build next
+   - Ask what they want to investigate next
 
 4. **Initialize:**
-   - Validated = inferred from existing code
-   - Active = user's goals for this work
-   - Out of Scope = boundaries user specifies
-   - Context = includes current codebase state
+   - Primary = established findings from existing inventory
+   - Secondary = researcher's goals for this work
+   - Out of Scope = boundaries researcher specifies
+   - Context = includes current research state
 
 </brownfield>
 
@@ -175,8 +200,8 @@ STATE.md references PROJECT.md:
 
 See: .planning/PROJECT.md (updated [date])
 
-**Core value:** [One-liner from Core Value section]
-**Current focus:** [Current phase name]
+**Research focus:** [One-liner from Problem Statement section]
+**Current inquiry:** [Current inquiry name]
 ```
 
 This ensures Claude reads current PROJECT.md context.
