@@ -223,7 +223,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 17. Namespace Migration | 2/2 | Complete    | 2026-03-18 | - |
 | 18. Research Formulation and Notes | 4/4 | Complete    | 2026-03-20 | - |
 | 19. Plan-Checker Enforcement | 2/2 | Complete    | 2026-03-20 | - |
-| 20. Three-Tier Verification | 2/2 | Complete   | 2026-03-20 | - |
+| 20. Three-Tier Verification | 2/2 | Complete    | 2026-03-20 | - |
 | 21. Adaptive Communication | v1.2 | 0/? | Not started | - |
 | 22. Synthesis Stage | v1.2 | 0/? | Not started | - |
 
