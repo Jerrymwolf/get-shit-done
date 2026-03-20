@@ -124,7 +124,7 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 18-01-PLAN.md -- PROJECT.md prospectus template + new-research scoping questions (FORM-01, FORM-03)
+- [x] 18-01-PLAN.md -- PROJECT.md prospectus template + new-research scoping questions (FORM-01, FORM-03)
 - [ ] 18-02-PLAN.md -- Researcher recharter: 4 new scholarly templates, prompt updates, synthesizer references (FORM-02)
 - [ ] 18-03-PLAN.md -- Template vocabulary reframing: BOOTSTRAP.md, REQUIREMENTS.md, ROADMAP.md (FORM-04, FORM-05, FORM-06)
 - [ ] 18-04-PLAN.md -- Research note Evidence Quality + frontmatter, --prd flag, Phase 18 tests (NOTE-01, NOTE-02, NOTE-03, TRAP-01)

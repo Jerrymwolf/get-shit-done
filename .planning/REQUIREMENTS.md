@@ -36,9 +36,9 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Research Formulation
 
-- [ ] **FORM-01**: `/grd:new-research` scoping includes researcher tier, review type, epistemological positioning, and standard topic/significance/audience questions
+- [x] **FORM-01**: `/grd:new-research` scoping includes researcher tier, review type, epistemological positioning, and standard topic/significance/audience questions
 - [ ] **FORM-02**: 4 parallel researchers renamed and rechartered (Methodological Landscape, Prior Findings & Key Themes, Theoretical Framework Survey, Limitations Critiques & Debates)
-- [ ] **FORM-03**: PROJECT.md serves as research prospectus with problem statement, significance, epistemological stance, review type, researcher tier, research questions, and constraints
+- [x] **FORM-03**: PROJECT.md serves as research prospectus with problem statement, significance, epistemological stance, review type, researcher tier, research questions, and constraints
 - [ ] **FORM-04**: BOOTSTRAP.md reframed as "state-of-the-field assessment" with scholarly vocabulary (Established → Contested → Unexplored maps to known → debated → gap)
 - [ ] **FORM-05**: REQUIREMENTS.md vocabulary shifted to "research objectives / specific aims" — each REQ-ID is a research objective with acceptance criteria defining what "answered" means
 - [ ] **FORM-06**: ROADMAP.md reframed as "research design / study plan" — phases described as lines of inquiry, not administrative phases
@@ -151,9 +151,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CFG-05 | Phase 16 | Complete |
 | CFG-06 | Phase 16 | Complete |
 | CFG-07 | Phase 16 | Complete |
-| FORM-01 | Phase 18 | Pending |
+| FORM-01 | Phase 18 | Complete |
 | FORM-02 | Phase 18 | Pending |
-| FORM-03 | Phase 18 | Pending |
+| FORM-03 | Phase 18 | Complete |
 | FORM-04 | Phase 18 | Pending |
 | FORM-05 | Phase 18 | Pending |
 | FORM-06 | Phase 18 | Pending |

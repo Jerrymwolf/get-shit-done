@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
-status: completed
-stopped_at: Phase 18 context gathered
-last_updated: "2026-03-19T00:56:07.102Z"
-last_activity: "2026-03-18 -- Completed 17-02 workflow file renames: 10 files renamed to research-native command vocabulary"
+status: in_progress
+stopped_at: Completed 18-01-PLAN.md
+last_updated: "2026-03-20T00:07:00Z"
+last_activity: "2026-03-20 -- Completed 18-01 PROJECT.md prospectus template + new-research scoping questions"
 progress:
   total_phases: 8
   completed_phases: 3
-  total_plans: 9
-  completed_plans: 9
-  percent: 100
+  total_plans: 13
+  completed_plans: 10
+  percent: 77
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** Phase 17 - Namespace Migration
+**Current focus:** Phase 18 - Research Formulation and Notes
 
 ## Current Position
 
-Phase: 17 of 22 (Namespace Migration)
-Plan: 02 of 2 complete
-Status: Complete
-Last activity: 2026-03-18 -- Completed 17-02 workflow file renames: 10 files renamed to research-native command vocabulary
+Phase: 18 of 22 (Research Formulation and Notes)
+Plan: 01 of 4 complete
+Status: In Progress
+Last activity: 2026-03-20 -- Completed 18-01 PROJECT.md prospectus template + new-research scoping questions
 
-Progress: [██████████] 100%
+Progress: [███░░░░░░░] 25%
 
 ## Performance Metrics
 
@@ -50,6 +50,7 @@ Progress: [██████████] 100%
 | Phase 16 P02 | 3min | 2 tasks | 4 files |
 | Phase 17 P01 | 4min | 2 tasks | 227 files |
 | Phase 17 P02 | 4min | 2 tasks | 44 files |
+| Phase 18 P01 | 3min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Recent decisions affecting current work:
 - [Phase 17]: Extended .planning/ rename scope to all historical planning docs, not just config.json and phase 17
 - [Phase 17]: Kept JS function names as internal identifiers, only renamed user-facing CLI labels and error messages
 - [Phase 17]: Added scope-inquiry as alias for phase-op init (discuss-phase previously used phase-op)
+- [Phase 18]: All GSD stage banners in new-research.md replaced with GRD (all steps, not just Steps 3 and 6)
+- [Phase 18]: Step 3a Research Scoping runs for both interactive and auto mode paths
 
 ### Pending Todos
 
@@ -87,6 +90,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-19T00:56:07.099Z
-Stopped at: Phase 18 context gathered
-Resume file: .planning/phases/18-research-formulation-and-notes/18-CONTEXT.md
+Last session: 2026-03-20T00:07:00Z
+Stopped at: Completed 18-01-PLAN.md
+Resume file: .planning/phases/18-research-formulation-and-notes/18-02-PLAN.md
