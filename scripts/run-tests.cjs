@@ -8,14 +8,14 @@ const { readdirSync } = require('fs');
 const { join } = require('path');
 const { execFileSync } = require('child_process');
 
-const testDir = join(__dirname, '..', 'tests');
+const testDir = join(__dirname, '..', 'test');
 const files = readdirSync(testDir)
   .filter(f => f.endsWith('.test.cjs'))
   .sort()
-  .map(f => join('tests', f));
+  .map(f => join('test', f));
 
 if (files.length === 0) {
-  console.error('No test files found in tests/');
+  console.error('No test files found in test/');
   process.exit(1);
 }
 
