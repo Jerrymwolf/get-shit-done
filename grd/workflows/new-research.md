@@ -600,28 +600,28 @@ Check if this is greenfield or subsequent milestone:
 Display spawning indicator:
 ```
 ◆ Spawning 4 researchers in parallel...
-  → Landscape research
-  → Questions research
-  → Frameworks research
-  → Debates research
+  → Methodological Landscape
+  → Prior Findings & Key Themes
+  → Theoretical Framework Survey
+  → Limitations, Critiques & Debates
 ```
 
 Spawn 4 parallel grd-project-researcher agents with path references:
 
 ```
 Task(prompt="<research_type>
-Project Research — Landscape dimension for [domain].
+Project Research — Methodological Landscape for [domain].
 </research_type>
 
 <milestone_context>
 [greenfield OR subsequent]
 
-Greenfield: Research the key authors, institutions, and seminal works in [domain].
-Subsequent: Research who the key contributors are for [target area] within [domain]. Don't re-research already-covered ground.
+Greenfield: What methods, instruments, datasets, and research designs have been used to study [domain]?
+Subsequent: What methods have been used to study [target area] within [domain]? Don't re-research already-covered ground.
 </milestone_context>
 
 <question>
-Who are the key authors, institutions, and seminal works in [domain]?
+What methods, instruments, datasets, and research designs have been used to study [domain]? What validated scales or interview protocols exist?
 </question>
 
 <files_to_read>
@@ -629,37 +629,37 @@ Who are the key authors, institutions, and seminal works in [domain]?
 </files_to_read>
 
 <downstream_consumer>
-Your LANDSCAPE.md feeds into roadmap creation. Be prescriptive:
-- Key authors with institutional affiliations
-- Seminal works with publication dates and impact
-- Intellectual lineage and how ideas developed
+Your METHODOLOGICAL-LANDSCAPE.md feeds into search protocol development. Be prescriptive:
+- Methods taxonomy with design types identified
+- Validated instruments listed with references
+- Research design patterns catalogued
 </downstream_consumer>
 
 <quality_gate>
-- [ ] Key authors identified with institutional affiliations
-- [ ] Seminal works cited with dates and significance
-- [ ] Confidence levels assigned to each recommendation
+- [ ] Methods inventory with design types identified
+- [ ] Validated instruments listed with references
+- [ ] Research design patterns catalogued
 </quality_gate>
 
 <output>
-Write to: .planning/research/LANDSCAPE.md
-Use template: /Users/jeremiahwolf/.claude/grd/templates/research-project/LANDSCAPE.md
+Write to: .planning/research/METHODOLOGICAL-LANDSCAPE.md
+Use template: /Users/jeremiahwolf/.claude/grd/templates/research-project/METHODOLOGICAL-LANDSCAPE.md
 </output>
-", subagent_type="grd-project-researcher", model="{researcher_model}", description="Landscape research")
+", subagent_type="grd-project-researcher", model="{researcher_model}", description="Methodological Landscape research")
 
 Task(prompt="<research_type>
-Project Research — Questions dimension for [domain].
+Project Research — Prior Findings & Key Themes for [domain].
 </research_type>
 
 <milestone_context>
 [greenfield OR subsequent]
 
-Greenfield: What are the central research questions in [domain]? What's settled vs. open?
-Subsequent: What questions remain open regarding [target area] within [domain]?
+Greenfield: What has the field established empirically about [domain]? What are the recurring themes?
+Subsequent: What findings exist for [target area] within [domain]? Don't re-research already-covered ground.
 </milestone_context>
 
 <question>
-What are the central research questions in [domain]? What's settled vs. open?
+What has the field established empirically about [domain]? What are the recurring themes and convergent findings across studies?
 </question>
 
 <files_to_read>
@@ -667,37 +667,37 @@ What are the central research questions in [domain]? What's settled vs. open?
 </files_to_read>
 
 <downstream_consumer>
-Your QUESTIONS.md feeds into requirements definition. Categorize clearly:
-- Settled questions (consensus exists)
-- Open questions (actively debated)
-- Tractability assessment (which questions are answerable with available sources)
+Your PRIOR-FINDINGS.md feeds into research objectives definition. Apply thematic analysis principles (Braun & Clarke, 2006). Categorize clearly:
+- Thematic clusters grouping findings by theme
+- Convergent vs. divergent findings distinguished
+- Evidence strength assessed per theme
 </downstream_consumer>
 
 <quality_gate>
-- [ ] Questions categorized as settled vs. open
-- [ ] Tractability assessed for each question
-- [ ] Dependencies between questions identified
+- [ ] Findings grouped by theme not chronology
+- [ ] Convergent vs. divergent findings distinguished
+- [ ] Evidence strength assessed per theme
 </quality_gate>
 
 <output>
-Write to: .planning/research/QUESTIONS.md
-Use template: /Users/jeremiahwolf/.claude/grd/templates/research-project/QUESTIONS.md
+Write to: .planning/research/PRIOR-FINDINGS.md
+Use template: /Users/jeremiahwolf/.claude/grd/templates/research-project/PRIOR-FINDINGS.md
 </output>
-", subagent_type="grd-project-researcher", model="{researcher_model}", description="Questions research")
+", subagent_type="grd-project-researcher", model="{researcher_model}", description="Prior Findings research")
 
 Task(prompt="<research_type>
-Project Research — Frameworks dimension for [domain].
+Project Research — Theoretical Framework Survey for [domain].
 </research_type>
 
 <milestone_context>
 [greenfield OR subsequent]
 
-Greenfield: What theoretical frameworks exist in [domain]? How do they relate?
-Subsequent: What frameworks apply to [target area] within [domain]?
+Greenfield: What theories organize [domain]? How do major constructs relate? Where do theoretical traditions diverge?
+Subsequent: What frameworks apply to [target area] within [domain]? Don't re-research already-covered ground.
 </milestone_context>
 
 <question>
-What theoretical frameworks exist in [domain]? How do they relate?
+What theories organize [domain]? How do major constructs relate? Where do theoretical traditions diverge?
 </question>
 
 <files_to_read>
@@ -705,8 +705,8 @@ What theoretical frameworks exist in [domain]? How do they relate?
 </files_to_read>
 
 <downstream_consumer>
-Your FRAMEWORKS.md informs phase structure in roadmap. Include:
-- Dominant theoretical framework and its key constructs
+Your THEORETICAL-FRAMEWORK.md informs inquiry structure in the research design. Include:
+- Dominant framework with constructs
 - Competing models and when each is preferred
 - Integration attempts and relationships between frameworks
 </downstream_consumer>
@@ -718,24 +718,24 @@ Your FRAMEWORKS.md informs phase structure in roadmap. Include:
 </quality_gate>
 
 <output>
-Write to: .planning/research/FRAMEWORKS.md
-Use template: /Users/jeremiahwolf/.claude/grd/templates/research-project/FRAMEWORKS.md
+Write to: .planning/research/THEORETICAL-FRAMEWORK.md
+Use template: /Users/jeremiahwolf/.claude/grd/templates/research-project/THEORETICAL-FRAMEWORK.md
 </output>
-", subagent_type="grd-project-researcher", model="{researcher_model}", description="Frameworks research")
+", subagent_type="grd-project-researcher", model="{researcher_model}", description="Theoretical Framework research")
 
 Task(prompt="<research_type>
-Project Research — Debates dimension for [domain].
+Project Research — Limitations, Critiques & Debates for [domain].
 </research_type>
 
 <milestone_context>
 [greenfield OR subsequent]
 
-Greenfield: What are the active debates and controversies in [domain]?
-Subsequent: What debates surround [target area] within [domain]?
+Greenfield: Where do prominent scholars disagree about [domain]? What methodological weaknesses recur? What assumptions remain untested?
+Subsequent: What debates and limitations surround [target area] within [domain]? Don't re-research already-covered ground.
 </milestone_context>
 
 <question>
-What are the active debates and controversies in [domain]?
+Where do prominent scholars disagree about [domain]? What methodological weaknesses recur? What assumptions remain untested? What findings have failed to replicate?
 </question>
 
 <files_to_read>
@@ -743,23 +743,23 @@ What are the active debates and controversies in [domain]?
 </files_to_read>
 
 <downstream_consumer>
-Your DEBATES.md prevents blind spots in roadmap/planning. For each debate:
-- Key positions and their proponents
+Your LIMITATIONS-DEBATES.md prevents blind spots in research design (critical appraisal per CASP UK, 2024; problematization per Alvesson & Sandberg, 2011). For each issue:
+- Key positions with proponents
 - Methodological disputes affecting evidence evaluation
-- Recently overturned assumptions
+- Replication failures and untested assumptions
 </downstream_consumer>
 
 <quality_gate>
 - [ ] Debates are specific to this domain (not generic academic issues)
 - [ ] Key positions identified with proponents
-- [ ] Implications for the research project noted
+- [ ] Replication failures and untested assumptions catalogued
 </quality_gate>
 
 <output>
-Write to: .planning/research/DEBATES.md
-Use template: /Users/jeremiahwolf/.claude/grd/templates/research-project/DEBATES.md
+Write to: .planning/research/LIMITATIONS-DEBATES.md
+Use template: /Users/jeremiahwolf/.claude/grd/templates/research-project/LIMITATIONS-DEBATES.md
 </output>
-", subagent_type="grd-project-researcher", model="{researcher_model}", description="Debates research")
+", subagent_type="grd-project-researcher", model="{researcher_model}", description="Limitations & Debates research")
 ```
 
 After all 4 agents complete, spawn synthesizer to create SUMMARY.md:
@@ -771,10 +771,10 @@ Synthesize research outputs into SUMMARY.md.
 </task>
 
 <files_to_read>
-- .planning/research/LANDSCAPE.md
-- .planning/research/QUESTIONS.md
-- .planning/research/FRAMEWORKS.md
-- .planning/research/DEBATES.md
+- .planning/research/METHODOLOGICAL-LANDSCAPE.md
+- .planning/research/PRIOR-FINDINGS.md
+- .planning/research/THEORETICAL-FRAMEWORK.md
+- .planning/research/LIMITATIONS-DEBATES.md
 </files_to_read>
 
 <output>
@@ -793,9 +793,9 @@ Display research complete banner and key findings:
 
 ## Key Findings
 
-**Landscape:** [from SUMMARY.md]
-**Key Questions:** [from SUMMARY.md]
-**Watch Out For:** [from SUMMARY.md]
+**Methodological Landscape:** [from SUMMARY.md]
+**Prior Findings:** [from SUMMARY.md]
+**Limitations & Debates:** [from SUMMARY.md]
 
 Files: `.planning/research/`
 ```
@@ -818,7 +818,7 @@ Read PROJECT.md and extract:
 - Stated constraints (budget, timeline, tech limitations)
 - Any explicit scope boundaries
 
-**If research exists:** Read research/QUESTIONS.md and extract research question categories.
+**If research exists:** Read research/PRIOR-FINDINGS.md and extract research question categories.
 
 **If auto mode:**
 - Auto-include all table stakes features (users expect these)
@@ -1137,10 +1137,10 @@ Exit skill and invoke SlashCommand("/grd:scope-inquiry 1 --auto")
 - `.planning/PROJECT.md`
 - `.planning/config.json`
 - `.planning/research/` (if research selected)
-  - `LANDSCAPE.md`
-  - `QUESTIONS.md`
-  - `FRAMEWORKS.md`
-  - `DEBATES.md`
+  - `METHODOLOGICAL-LANDSCAPE.md`
+  - `PRIOR-FINDINGS.md`
+  - `THEORETICAL-FRAMEWORK.md`
+  - `LIMITATIONS-DEBATES.md`
   - `SUMMARY.md`
 - `.planning/REQUIREMENTS.md`
 - `.planning/ROADMAP.md`
