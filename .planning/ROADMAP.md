@@ -138,10 +138,11 @@ Plans:
   2. Early investigation phases (1-2) receive advisory warnings; later phases receive blocking errors (graduated enforcement)
   3. Review type mismatch interactive gate offers "Downgrade review type" / "Add rigor" / "Override" when rigor falls below review type requirements
   4. Tests cover each review type's expected rule set and graduated enforcement behavior
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 19-01: TBD
+- [ ] 19-01-PLAN.md -- RIGOR_LEVELS table, 3 new CJS checks, graduated enforcement, core.cjs/init.cjs rigor propagation, tests (PLAN-01, PLAN-02, TEST-03)
+- [ ] 19-02-PLAN.md -- TRAP-02 gate in plan-inquiry.md, planner prompt XML schemas, checker prompt rigor context and qualitative diversity (TRAP-02, PLAN-01)
 
 ### Phase 20: Three-Tier Verification
 **Goal**: Verification catches insufficient evidence before checking goal-backward quality and source completeness
@@ -220,11 +221,11 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 16. Config Schema and Defaults | 2/2 | Complete    | 2026-03-18 | - |
 | 17. Namespace Migration | 2/2 | Complete    | 2026-03-18 | - |
 | 18. Research Formulation and Notes | 4/4 | Complete    | 2026-03-20 | - |
-| 19. Plan-Checker Enforcement | v1.2 | 0/? | Not started | - |
+| 19. Plan-Checker Enforcement | v1.2 | 0/2 | Not started | - |
 | 20. Three-Tier Verification | v1.2 | 0/? | Not started | - |
 | 21. Adaptive Communication | v1.2 | 0/? | Not started | - |
 | 22. Synthesis Stage | v1.2 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-18 after Phase 18 planning*
+*Last updated: 2026-03-20 after Phase 19 planning*
