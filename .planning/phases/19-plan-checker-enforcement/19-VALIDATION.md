@@ -2,8 +2,8 @@
 phase: 19
 slug: plan-checker-enforcement
 status: draft
-nyquist_compliant: false
-wave_0_complete: false
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-03-19
 ---
 
@@ -19,7 +19,7 @@ created: 2026-03-19
 |----------|-------|
 | **Framework** | node:test (built-in) |
 | **Config file** | none — existing test runner at scripts/run-tests.cjs |
-| **Quick run command** | `node --test test/plan-checker-*.test.cjs` |
+| **Quick run command** | `node --test test/plan-checker-rules.test.cjs` |
 | **Full suite command** | `node scripts/run-tests.cjs` |
 | **Estimated runtime** | ~5 seconds |
 
@@ -27,7 +27,7 @@ created: 2026-03-19
 
 ## Sampling Rate
 
-- **After every task commit:** Run `node --test test/plan-checker-*.test.cjs`
+- **After every task commit:** Run `node --test test/plan-checker-rules.test.cjs`
 - **After every plan wave:** Run `node scripts/run-tests.cjs`
 - **Before `/grd:verify-inquiry`:** Full suite must be green
 - **Max feedback latency:** 5 seconds
@@ -38,21 +38,17 @@ created: 2026-03-19
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 19-01-01 | 01 | 1 | PLAN-01 | unit | `node --test test/plan-checker-rigor.test.cjs` | ❌ W0 | ⬜ pending |
-| 19-01-02 | 01 | 1 | PLAN-01 | unit | `node --test test/plan-checker-rigor.test.cjs` | ❌ W0 | ⬜ pending |
-| 19-02-01 | 02 | 1 | PLAN-02 | unit | `node --test test/plan-checker-graduated.test.cjs` | ❌ W0 | ⬜ pending |
-| 19-03-01 | 03 | 2 | TRAP-02 | integration | `node --test test/plan-checker-gate.test.cjs` | ❌ W0 | ⬜ pending |
-| 19-04-01 | 04 | 2 | TEST-03 | unit | `node --test test/plan-checker-*.test.cjs` | ❌ W0 | ⬜ pending |
+| 19-01-01 | 01 | 1 | PLAN-01, PLAN-02, TEST-03 | unit | `node --test test/plan-checker-rules.test.cjs` | yes (extending) | pending |
+| 19-01-02 | 01 | 1 | PLAN-01 | integration | `node grd/bin/grd-tools.cjs init plan-inquiry 19 2>&1 \| grep -q '"plan_check_rigor"' && echo PASS \|\| echo FAIL` | n/a (CLI check) | pending |
+| 19-02-01 | 02 | 2 | TRAP-02, PLAN-01 | grep | `grep -q 'CHECKPOINT: Review Type Mismatch' grd/workflows/plan-inquiry.md && grep -q 'PLAN_CHECK_RIGOR.*jq' grd/workflows/plan-inquiry.md && echo PASS \|\| echo FAIL` | n/a (workflow file) | pending |
 
-*Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
+*Status: pending / green / red / flaky*
 
 ---
 
 ## Wave 0 Requirements
 
-- [ ] `test/plan-checker-rigor.test.cjs` — stubs for PLAN-01 (RIGOR_LEVELS table, new check functions)
-- [ ] `test/plan-checker-graduated.test.cjs` — stubs for PLAN-02 (position-based threshold, advisory vs blocking)
-- [ ] `test/plan-checker-gate.test.cjs` — stubs for TRAP-02 (checkpoint presentation logic)
+None. All tests extend the existing `test/plan-checker-rules.test.cjs` file. No new test scaffolds needed before execution.
 
 *Existing test infrastructure (node:test, run-tests.cjs) covers framework needs.*
 
@@ -69,11 +65,11 @@ created: 2026-03-19
 
 ## Validation Sign-Off
 
-- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references
-- [ ] No watch-mode flags
-- [ ] Feedback latency < 5s
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] All tasks have `<automated>` verify commands
+- [x] Sampling continuity: no 3 consecutive tasks without automated verify
+- [x] Wave 0 complete (no MISSING references)
+- [x] No watch-mode flags
+- [x] Feedback latency < 5s
+- [x] `nyquist_compliant: true` set in frontmatter
 
 **Approval:** pending
