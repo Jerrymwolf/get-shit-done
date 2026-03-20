@@ -1,29 +1,32 @@
-# Bootstrap: Existing Research Inventory
+# State-of-the-Field Assessment
 
-<!-- Produced during /grd:new-research. Every subsequent phase loads this file
-to avoid re-researching known findings. Update as research progresses. -->
+<!-- Produced during /grd:new-research. Every subsequent inquiry loads this file
+to avoid re-investigating established findings. Update as research progresses.
+Equivalent to a preliminary scoping review (Arksey & O'Malley, 2005). -->
 
-## Already Established (do not re-research)
+## Established Knowledge
 
-<!-- Findings with high confidence that should be treated as givens.
-Subagents must not spend context re-evaluating these unless new
-contradictory evidence emerges. -->
+<!-- Findings with strong consensus in the field. Treat as established knowledge.
+Do not re-investigate unless new contradictory evidence emerges.
+Maps to: known / settled in the literature. -->
 
 | Finding | Source Note | Confidence | Date |
 |---|---|---|---|
 
-## Partially Established (extend, don't restart)
+## Contested Claims
 
-<!-- Findings where something is known but gaps remain.
-Subagents should build on existing knowledge, not start from scratch. -->
+<!-- Findings where evidence exists but consensus is lacking.
+Build on existing knowledge, investigate opposing positions.
+Maps to: debated / contested in the literature. -->
 
 | Finding | What's Known | What's Missing | Source Note |
 |---|---|---|---|
 
-## Not Yet Researched
+## Knowledge Gaps
 
 <!-- Topics identified as important but not yet investigated.
-Each entry becomes a candidate for a research task in planning. -->
+Each entry becomes a candidate for an inquiry task in the research design.
+Maps to: gap / unexplored in the literature. -->
 
 | Topic | Why It Matters | Target Note |
 |---|---|---|
