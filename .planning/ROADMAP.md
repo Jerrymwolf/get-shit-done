@@ -51,7 +51,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 - [x] **Phase 17: Namespace Migration** - Rename grd to grd across all files, commands, agents, and directory structure (completed 2026-03-18)
 - [x] **Phase 18: Research Formulation and Notes** - Reframe new-research scoping, recharter parallel researchers, update note template with Evidence Quality and temporal positioning (completed 2026-03-20)
 - [x] **Phase 19: Plan-Checker Enforcement** - Add review-type-conditional rules with graduated enforcement (completed 2026-03-20)
-- [ ] **Phase 20: Three-Tier Verification** - Add Tier 0 sufficiency check gating existing Tier 1 and Tier 2
+- [x] **Phase 20: Three-Tier Verification** - Add Tier 0 sufficiency check gating existing Tier 1 and Tier 2 (completed 2026-03-20)
 - [ ] **Phase 21: Adaptive Communication** - Apply researcher tier adaptation across all agent prompts, templates, verification, and error messages
 - [ ] **Phase 22: Synthesis Stage** - Build /grd:synthesize with thematic synthesis, theoretical integration, gap analysis, and argument construction
 
@@ -223,7 +223,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 17. Namespace Migration | 2/2 | Complete    | 2026-03-18 | - |
 | 18. Research Formulation and Notes | 4/4 | Complete    | 2026-03-20 | - |
 | 19. Plan-Checker Enforcement | 2/2 | Complete    | 2026-03-20 | - |
-| 20. Three-Tier Verification | 1/2 | In Progress|  | - |
+| 20. Three-Tier Verification | 2/2 | Complete   | 2026-03-20 | - |
 | 21. Adaptive Communication | v1.2 | 0/? | Not started | - |
 | 22. Synthesis Stage | v1.2 | 0/? | Not started | - |
 

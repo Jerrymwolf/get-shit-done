@@ -58,7 +58,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 - [x] **VER-01**: Tier 0 sufficiency verification checks whether enough evidence has been gathered for the selected review type, including saturation assessment and epistemological consistency check
 - [x] **VER-02**: Sufficiency criteria scale by review type (systematic=exhaustive, scoping=representative, narrative=adequate coverage)
-- [ ] **VER-03**: Three-tier verification pipeline: Tier 0 (sufficiency) → Tier 1 (goal-backward) → Tier 2 (source audit), with `--skip-tier0` flag
+- [x] **VER-03**: Three-tier verification pipeline: Tier 0 (sufficiency) → Tier 1 (goal-backward) → Tier 2 (source audit), with `--skip-tier0` flag
 
 ### Synthesis
 
@@ -82,7 +82,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 - [x] **TRAP-01**: `--prd <file>` flag for scope-inquiry (skip scoping, use file as locked context) and `--batch N` flag (group N questions per turn)
 - [x] **TRAP-02**: Review type mismatch interactive gate — when plan-checker detects rigor below review type, offer "Downgrade review type" / "Add rigor" / "Override"
-- [ ] **TRAP-03**: Saturation interactive gate in Tier 0 verification — offer "Evidence is sufficient" / "Continue investigating" / "Add inquiry"
+- [x] **TRAP-03**: Saturation interactive gate in Tier 0 verification — offer "Evidence is sufficient" / "Continue investigating" / "Add inquiry"
 - [ ] **TRAP-04**: Synthesis scope interactive gate before `/grd:synthesize` — offer "Full synthesis (all 4 activities)" / "Themes + argument only" / "Skip synthesis"
 - [x] **TRAP-05**: Review type downgrade via `/grd:settings` mid-study — rigor requirements relax, no work lost
 
@@ -164,7 +164,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PLAN-02 | Phase 19 | Complete |
 | VER-01 | Phase 20 | Complete |
 | VER-02 | Phase 20 | Complete |
-| VER-03 | Phase 20 | Pending |
+| VER-03 | Phase 20 | Complete |
 | SYN-01 | Phase 22 | Pending |
 | SYN-02 | Phase 22 | Pending |
 | SYN-03 | Phase 22 | Pending |
@@ -175,7 +175,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SYN-08 | Phase 22 | Pending |
 | TRAP-01 | Phase 18 | Complete |
 | TRAP-02 | Phase 19 | Complete |
-| TRAP-03 | Phase 20 | Pending |
+| TRAP-03 | Phase 20 | Complete |
 | TRAP-04 | Phase 22 | Pending |
 | TRAP-05 | Phase 16 | Complete |
 | COMP-01 | Phase 22 | Pending |
