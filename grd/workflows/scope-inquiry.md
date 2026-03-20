@@ -114,7 +114,7 @@ Never proceed with an empty answer.
 
 <process>
 
-**Express path available:** If you already have a PRD or acceptance criteria document, use `/grd:plan-inquiry {phase} --prd path/to/prd.md` to skip this discussion and go straight to planning.
+**Express path available:** If you already have a research brief or protocol document, use `/grd:scope-inquiry {phase} --prd path/to/brief.md` to skip interactive scoping. The brief will be parsed for inclusion criteria, search boundaries, disciplinary scope, and research questions.
 
 <step name="initialize" priority="first">
 Phase number from argument (required).
@@ -404,6 +404,26 @@ For each selected area, conduct a focused discussion loop.
 - `--batch` mode: 1 grouped turn with 2-5 numbered questions, then check whether to continue
 
 Each answer (or answer set, in batch mode) should reveal the next question or next batch.
+
+**PRD mode support:** Parse optional `--prd` from `$ARGUMENTS`.
+- Accept `--prd <filepath>` or `--prd=<filepath>`
+- If `--prd` is present:
+  1. Read the provided file
+  2. Parse for research-relevant sections:
+     - **Inclusion criteria** -- what counts as relevant evidence
+     - **Exclusion criteria** -- what to exclude
+     - **Search boundaries** -- databases, grey literature, date ranges
+     - **Disciplinary scope** -- which fields to search
+     - **Research questions** -- if stated in the brief
+  3. Generate a CONTEXT.md from the parsed content:
+     - Map inclusion/exclusion criteria to `<decisions>` section
+     - Map search boundaries to `<specifics>` section
+     - Map disciplinary scope to `<domain>` section
+     - Map research questions to inform the `<decisions>` section
+  4. Write CONTEXT.md WITHOUT user interaction
+  5. Commit and exit (skip all interactive scoping)
+
+**If both `--prd` and `--batch` are present:** `--prd` takes precedence (skip interactive mode entirely).
 
 **Auto mode (`--auto`):** For each area, Claude selects the recommended option (first option, or the one explicitly marked "recommended") for every question without using AskUserQuestion. Log each auto-selected choice:
 ```
