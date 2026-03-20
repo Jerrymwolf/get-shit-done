@@ -200,7 +200,67 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "chore: add proj
 node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-set workflow._auto_chain_active true
 ```
 
-Proceed to Step 4 (skip Steps 3 and 5).
+Proceed to Step 4 (skip Steps 3 and 5). **But first run Step 3a (Research Scoping) -- tier/type/epistemology selection applies to auto mode too.**
+
+## 3a. Research Scoping
+
+**Display stage banner:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ GRD ► RESEARCH SCOPING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**Round 1 -- Research Configuration (3 questions):**
+
+```
+AskUserQuestion([
+  {
+    header: "Experience",
+    question: "What is your research background?",
+    multiSelect: false,
+    options: [
+      { label: "Guided", description: "Curious non-academic, undergrad, early graduate -- plain language, explains why each step matters" },
+      { label: "Standard", description: "Mid-career graduate, doctoral candidate -- academic vocabulary with brief context" },
+      { label: "Expert", description: "Post-doc, faculty, established researcher -- precise terminology, maximum efficiency" }
+    ]
+  },
+  {
+    header: "Review Type",
+    question: "What kind of review is this?",
+    multiSelect: false,
+    options: [
+      { label: "Systematic", description: "PRISMA 2020 protocol, pre-defined search strategy, critical appraisal of every study" },
+      { label: "Scoping", description: "Arksey & O'Malley framework, maps extent of evidence, charting rather than appraising" },
+      { label: "Integrative", description: "Whittemore & Knafl, combines diverse methodologies, five-stage process" },
+      { label: "Critical", description: "Evaluates quality and contribution of literature, identifies gaps and new directions" },
+      { label: "Narrative", description: "Broadest, most flexible, suitable for exploring wide topics" }
+    ]
+  },
+  {
+    header: "Epistemology",
+    question: "What counts as valid evidence for your study? (Skip to default to Pragmatist)",
+    multiSelect: false,
+    options: [
+      { label: "Positivist", description: "Objective reality, testable hypotheses, quantitative evidence prioritized" },
+      { label: "Constructivist", description: "Multiple realities, meaning is co-constructed, qualitative evidence valued" },
+      { label: "Pragmatist (default)", description: "Whatever works -- mixed methods, problem-centered" },
+      { label: "Critical", description: "Knowledge shaped by power structures, research aims at transformation" }
+    ]
+  }
+])
+```
+
+**Write to config immediately:**
+```bash
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-set researcher_tier "[selected_lower]"
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-set review_type "[selected_lower]"
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-set epistemological_stance "[selected_lower]"
+```
+
+**Apply smart defaults for selected review type:**
+Smart defaults cascade automatically via configWithDefaults() when init.cjs reads config.
 
 ## 3. Deep Questioning
 
@@ -210,7 +270,7 @@ Proceed to Step 4 (skip Steps 3 and 5).
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► QUESTIONING
+ GRD ► QUESTIONING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -218,7 +278,7 @@ Proceed to Step 4 (skip Steps 3 and 5).
 
 Ask inline (freeform, NOT AskUserQuestion):
 
-"What do you want to build?"
+"What is your research problem?"
 
 Wait for their response. This gives you the context needed to ask intelligent follow-up questions.
 
@@ -227,11 +287,11 @@ Wait for their response. This gives you the context needed to ask intelligent fo
 Based on what they said, ask follow-up questions that dig into their response. Use AskUserQuestion with options that probe what they mentioned — interpretations, clarifications, concrete examples.
 
 Keep following threads. Each answer opens new threads to explore. Ask about:
-- What excited them
-- What problem sparked this
+- What drew them to this topic
+- What gap or tension prompted this inquiry
 - What they mean by vague terms
-- What it would actually look like
-- What's already decided
+- What a successful answer would look like
+- What methodological choices are already made
 
 Consult `questioning.md` for techniques:
 - Challenge vagueness
@@ -249,7 +309,7 @@ As you go, mentally check the context checklist from `questioning.md`. If gaps r
 When you could write a clear PROJECT.md, use AskUserQuestion:
 
 - header: "Ready?"
-- question: "I think I understand what you're after. Ready to create PROJECT.md?"
+- question: "I think I understand your research problem. Ready to create the research prospectus?"
 - options:
   - "Create PROJECT.md" — Let's move forward
   - "Keep exploring" — I want to share more / ask me more
@@ -262,7 +322,7 @@ Loop until "Create PROJECT.md" selected.
 
 **If auto mode:** Synthesize from provided document. No "Ready?" gate was shown — proceed directly to commit.
 
-Synthesize all context into `.planning/PROJECT.md` using the template from `templates/project.md`.
+Synthesize into `.planning/PROJECT.md` using the research prospectus template from `templates/project.md`.
 
 **For greenfield projects:**
 
@@ -520,7 +580,7 @@ Use AskUserQuestion:
 Display stage banner:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► RESEARCHING
+ GRD ► RESEARCHING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Researching [domain] ecosystem...
@@ -728,7 +788,7 @@ Commit after writing.
 Display research complete banner and key findings:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► RESEARCH COMPLETE ✓
+ GRD ► RESEARCH COMPLETE ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ## Key Findings
@@ -747,7 +807,7 @@ Files: `.planning/research/`
 Display stage banner:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► DEFINING REQUIREMENTS
+ GRD ► DEFINING REQUIREMENTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -892,7 +952,7 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs: define v1
 Display stage banner:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► CREATING ROADMAP
+ GRD ► CREATING ROADMAP
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ◆ Spawning roadmapper...
@@ -1023,7 +1083,7 @@ Present completion summary:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PROJECT INITIALIZED ✓
+ GRD ► PROJECT INITIALIZED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 **[Project Name]**
