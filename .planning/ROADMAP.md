@@ -49,7 +49,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 - [x] **Phase 15: Upstream Sync to v1.25.1** - Sync all modules, agents, workflows, and templates with GSD v1.25.1 baseline (completed 2026-03-17)
 - [x] **Phase 16: Config Schema and Defaults** - Add researcher_tier, review_type, epistemological_stance to config with configWithDefaults() deep-merge (completed 2026-03-18)
 - [x] **Phase 17: Namespace Migration** - Rename grd to grd across all files, commands, agents, and directory structure (completed 2026-03-18)
-- [ ] **Phase 18: Research Formulation and Notes** - Reframe new-research scoping, recharter parallel researchers, update note template with Evidence Quality and temporal positioning
+- [x] **Phase 18: Research Formulation and Notes** - Reframe new-research scoping, recharter parallel researchers, update note template with Evidence Quality and temporal positioning (completed 2026-03-20)
 - [ ] **Phase 19: Plan-Checker Enforcement** - Add review-type-conditional rules with graduated enforcement
 - [ ] **Phase 20: Three-Tier Verification** - Add Tier 0 sufficiency check gating existing Tier 1 and Tier 2
 - [ ] **Phase 21: Adaptive Communication** - Apply researcher tier adaptation across all agent prompts, templates, verification, and error messages
@@ -219,7 +219,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 15. Upstream Sync to v1.25.1 | 5/5 | Complete    | 2026-03-17 | - |
 | 16. Config Schema and Defaults | 2/2 | Complete    | 2026-03-18 | - |
 | 17. Namespace Migration | 2/2 | Complete    | 2026-03-18 | - |
-| 18. Research Formulation and Notes | 3/4 | In Progress|  | - |
+| 18. Research Formulation and Notes | 4/4 | Complete   | 2026-03-20 | - |
 | 19. Plan-Checker Enforcement | v1.2 | 0/? | Not started | - |
 | 20. Three-Tier Verification | v1.2 | 0/? | Not started | - |
 | 21. Adaptive Communication | v1.2 | 0/? | Not started | - |

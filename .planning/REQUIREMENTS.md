@@ -45,9 +45,9 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Research Notes
 
-- [ ] **NOTE-01**: Research note template includes Evidence Quality section with depth scaled by review type (systematic=full CASP/GRADE, scoping=charting, integrative/critical=proportional, narrative=optional) and influenced by epistemological stance (positivist prioritizes RCTs/meta-analyses, constructivist values rich description)
-- [ ] **NOTE-02**: Research note frontmatter includes `era` field (foundational/developmental/contemporary/emerging) for temporal positioning, skippable via config
-- [ ] **NOTE-03**: Research note frontmatter updated with `review_type`, `inquiry`, `era`, and `status` fields
+- [x] **NOTE-01**: Research note template includes Evidence Quality section with depth scaled by review type (systematic=full CASP/GRADE, scoping=charting, integrative/critical=proportional, narrative=optional) and influenced by epistemological stance (positivist prioritizes RCTs/meta-analyses, constructivist values rich description)
+- [x] **NOTE-02**: Research note frontmatter includes `era` field (foundational/developmental/contemporary/emerging) for temporal positioning, skippable via config
+- [x] **NOTE-03**: Research note frontmatter updated with `review_type`, `inquiry`, `era`, and `status` fields
 
 ### Plan-Checker
 
@@ -80,7 +80,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Trap Doors & Interactive Gates
 
-- [ ] **TRAP-01**: `--prd <file>` flag for scope-inquiry (skip scoping, use file as locked context) and `--batch N` flag (group N questions per turn)
+- [x] **TRAP-01**: `--prd <file>` flag for scope-inquiry (skip scoping, use file as locked context) and `--batch N` flag (group N questions per turn)
 - [ ] **TRAP-02**: Review type mismatch interactive gate — when plan-checker detects rigor below review type, offer "Downgrade review type" / "Add rigor" / "Override"
 - [ ] **TRAP-03**: Saturation interactive gate in Tier 0 verification — offer "Evidence is sufficient" / "Continue investigating" / "Add inquiry"
 - [ ] **TRAP-04**: Synthesis scope interactive gate before `/grd:synthesize` — offer "Full synthesis (all 4 activities)" / "Themes + argument only" / "Skip synthesis"
@@ -157,9 +157,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FORM-04 | Phase 18 | Complete |
 | FORM-05 | Phase 18 | Complete |
 | FORM-06 | Phase 18 | Complete |
-| NOTE-01 | Phase 18 | Pending |
-| NOTE-02 | Phase 18 | Pending |
-| NOTE-03 | Phase 18 | Pending |
+| NOTE-01 | Phase 18 | Complete |
+| NOTE-02 | Phase 18 | Complete |
+| NOTE-03 | Phase 18 | Complete |
 | PLAN-01 | Phase 19 | Pending |
 | PLAN-02 | Phase 19 | Pending |
 | VER-01 | Phase 20 | Pending |
@@ -173,7 +173,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SYN-06 | Phase 22 | Pending |
 | SYN-07 | Phase 22 | Pending |
 | SYN-08 | Phase 22 | Pending |
-| TRAP-01 | Phase 18 | Pending |
+| TRAP-01 | Phase 18 | Complete |
 | TRAP-02 | Phase 19 | Pending |
 | TRAP-03 | Phase 20 | Pending |
 | TRAP-04 | Phase 22 | Pending |
