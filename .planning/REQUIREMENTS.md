@@ -81,7 +81,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 ### Trap Doors & Interactive Gates
 
 - [x] **TRAP-01**: `--prd <file>` flag for scope-inquiry (skip scoping, use file as locked context) and `--batch N` flag (group N questions per turn)
-- [ ] **TRAP-02**: Review type mismatch interactive gate — when plan-checker detects rigor below review type, offer "Downgrade review type" / "Add rigor" / "Override"
+- [x] **TRAP-02**: Review type mismatch interactive gate — when plan-checker detects rigor below review type, offer "Downgrade review type" / "Add rigor" / "Override"
 - [ ] **TRAP-03**: Saturation interactive gate in Tier 0 verification — offer "Evidence is sufficient" / "Continue investigating" / "Add inquiry"
 - [ ] **TRAP-04**: Synthesis scope interactive gate before `/grd:synthesize` — offer "Full synthesis (all 4 activities)" / "Themes + argument only" / "Skip synthesis"
 - [x] **TRAP-05**: Review type downgrade via `/grd:settings` mid-study — rigor requirements relax, no work lost
@@ -174,7 +174,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SYN-07 | Phase 22 | Pending |
 | SYN-08 | Phase 22 | Pending |
 | TRAP-01 | Phase 18 | Complete |
-| TRAP-02 | Phase 19 | Pending |
+| TRAP-02 | Phase 19 | Complete |
 | TRAP-03 | Phase 20 | Pending |
 | TRAP-04 | Phase 22 | Pending |
 | TRAP-05 | Phase 16 | Complete |
