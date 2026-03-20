@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
-status: completed
-stopped_at: Phase 20 context gathered
-last_updated: "2026-03-20T21:39:19.154Z"
-last_activity: 2026-03-20 -- Completed 19-02 rigor-aware checker, TRAP-02 gate, planner XML schemas
+status: executing
+stopped_at: Completed 20-01-PLAN.md
+last_updated: "2026-03-20T22:13:24.631Z"
+last_activity: 2026-03-20 -- Completed 20-01 verify-sufficiency.cjs with review-type-scaled structural checks
 progress:
   total_phases: 8
   completed_phases: 5
-  total_plans: 15
-  completed_plans: 15
-  percent: 100
+  total_plans: 17
+  completed_plans: 16
+  percent: 94
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** Phase 19 - Plan Checker Enforcement
+**Current focus:** Phase 20 - Three-Tier Verification
 
 ## Current Position
 
-Phase: 19 of 22 (Plan Checker Enforcement)
-Plan: 2 of 2 complete (01, 02 done)
-Status: Phase Complete
-Last activity: 2026-03-20 -- Completed 19-02 rigor-aware checker, TRAP-02 gate, planner XML schemas
+Phase: 20 of 22 (Three-Tier Verification)
+Plan: 1 of 2 complete (01 done)
+Status: In Progress
+Last activity: 2026-03-20 -- Completed 20-01 verify-sufficiency.cjs with review-type-scaled structural checks
 
-Progress: [██████████] 100%
+Progress: [█████████░] 94%
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Progress: [██████████] 100%
 | Phase 18 P04 | 4min | 3 tasks | 8 files |
 | Phase 19 P01 | 4min | 2 tasks | 4 files |
 | Phase 19 P02 | 3min | 1 tasks | 1 files |
+| Phase 20 P01 | 4min | 1 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -96,6 +97,9 @@ Recent decisions affecting current work:
 - [Phase 19]: TRAP-02 gate replaces old force/retry/abandon -- uses REVIEW_TYPE_ORDER for downgrade target
 - [Phase 19]: Qualitative diversity checks (disciplinary, methodological) are agent-level, not CJS
 - [Phase 19]: Warnings never trigger revision loop -- only blocking errors do
+- [Phase 20]: Exported parseFrontmatter/extractSection/extractKeywords from verify-research.cjs for reuse by verify-sufficiency.cjs
+- [Phase 20]: Note-to-objective matching: inquiry field primary, keyword overlap (>=30%) fallback
+- [Phase 20]: Epistemological consistency is CJS stub for pragmatist auto-pass; agent handles qualitative assessment
 
 ### Pending Todos
 
@@ -107,6 +111,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-20T21:39:19.150Z
-Stopped at: Phase 20 context gathered
-Resume file: .planning/phases/20-three-tier-verification/20-CONTEXT.md
+Last session: 2026-03-20T22:13:24.629Z
+Stopped at: Completed 20-01-PLAN.md
+Resume file: None

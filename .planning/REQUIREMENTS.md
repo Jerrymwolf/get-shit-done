@@ -56,8 +56,8 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Verification
 
-- [ ] **VER-01**: Tier 0 sufficiency verification checks whether enough evidence has been gathered for the selected review type, including saturation assessment and epistemological consistency check
-- [ ] **VER-02**: Sufficiency criteria scale by review type (systematic=exhaustive, scoping=representative, narrative=adequate coverage)
+- [x] **VER-01**: Tier 0 sufficiency verification checks whether enough evidence has been gathered for the selected review type, including saturation assessment and epistemological consistency check
+- [x] **VER-02**: Sufficiency criteria scale by review type (systematic=exhaustive, scoping=representative, narrative=adequate coverage)
 - [ ] **VER-03**: Three-tier verification pipeline: Tier 0 (sufficiency) → Tier 1 (goal-backward) → Tier 2 (source audit), with `--skip-tier0` flag
 
 ### Synthesis
@@ -162,8 +162,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NOTE-03 | Phase 18 | Complete |
 | PLAN-01 | Phase 19 | Complete |
 | PLAN-02 | Phase 19 | Complete |
-| VER-01 | Phase 20 | Pending |
-| VER-02 | Phase 20 | Pending |
+| VER-01 | Phase 20 | Complete |
+| VER-02 | Phase 20 | Complete |
 | VER-03 | Phase 20 | Pending |
 | SYN-01 | Phase 22 | Pending |
 | SYN-02 | Phase 22 | Pending |
