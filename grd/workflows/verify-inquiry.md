@@ -2,6 +2,9 @@
 Validate built features through conversational testing with persistent state. Creates UAT.md that tracks test progress, survives /clear, and feeds gaps into /grd:plan-inquiry --gaps.
 
 User tests, Claude records. One test at a time. Plain text responses.
+
+Flags:
+- --skip-tier0: Skip Tier 0 sufficiency check, run only Tier 1 (goal-backward) and Tier 2 (source audit)
 </purpose>
 
 <philosophy>
@@ -28,7 +31,109 @@ INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init verify-work
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 
-Parse JSON for: `planner_model`, `checker_model`, `commit_docs`, `phase_found`, `phase_dir`, `phase_number`, `phase_name`, `has_verification`.
+Parse JSON for: `planner_model`, `checker_model`, `commit_docs`, `phase_found`, `phase_dir`, `phase_number`, `phase_name`, `has_verification`, `review_type`, `epistemological_stance`, `researcher_tier`, `temporal_positioning`.
+
+Also parse `$ARGUMENTS` for `--skip-tier0` flag:
+```
+SKIP_TIER0=false
+if [[ "$ARGUMENTS" == *"--skip-tier0"* ]]; then
+  SKIP_TIER0=true
+fi
+```
+</step>
+
+<step name="tier0_sufficiency" priority="after-init">
+**Tier 0: Evidence Sufficiency Assessment**
+
+This step runs structural sufficiency checks before the existing UAT-based verification flow.
+Tier 0 runs before Tier 1 and Tier 2 in the verification pipeline.
+
+**If --skip-tier0 is present (SKIP_TIER0=true):**
+
+Output in the verification report:
+```
+## Tier 0: Sufficiency Assessment
+Skipped (--skip-tier0)
+```
+
+Proceed directly to existing verification (check_active_session).
+
+**If --skip-tier0 is NOT present:**
+
+Run structural sufficiency checks using verify-sufficiency.cjs module:
+
+1. **Discover all research notes in the vault:**
+   ```bash
+   # Use the project's vault directory structure
+   # Notes live in {Study}-Research/ subdirectories organized by inquiry
+   ```
+
+2. **Parse objectives from REQUIREMENTS.md:**
+   ```bash
+   cat .planning/REQUIREMENTS.md
+   ```
+
+3. **Run verifySufficiency(notes, objectives, config)** where config includes:
+   - review_type: from init JSON (default 'narrative')
+   - epistemological_stance: from init JSON (default 'pragmatist')
+   - workflow.temporal_positioning: from init JSON
+
+4. **Qualitative assessment** (agent performs these, not CJS):
+   - **Saturation check:** Read Key Findings from the last 3 notes (sorted by date). If all 3 confirm existing themes without introducing new concepts, note "Evidence appears saturated." If they extend or introduce new themes, note "Evidence still diversifying."
+   - **Epistemological consistency:** If stance is 'pragmatist', output "Pragmatist stance: methodological flexibility expected. (AUTO-PASS)". For other stances, assess whether source selection and evidence quality patterns are consistent with the declared stance. Output as warning only, never blocking.
+
+5. **Format Tier 0 report section:**
+   ```markdown
+   ## Tier 0: Sufficiency Assessment
+
+   ### Coverage Summary
+   | Objective | Notes | Required | Status |
+   |-----------|-------|----------|--------|
+   | OBJ-01   | 4     | 3        | PASS   |
+   | OBJ-02   | 1     | 3        | GAP    |
+
+   ### Era Coverage
+   [distribution table] -- X/4 eras (PASS/GAP)
+
+   ### Methodological Diversity
+   [per-objective diversity status -- systematic only]
+
+   ### Saturation Assessment
+   Last 3 notes introduced N new themes. Evidence appears [saturated/still diversifying].
+
+   ### Epistemological Consistency
+   [Assessment or auto-pass message]
+
+   **Tier 0 Result:** PASS / INSUFFICIENT
+   ```
+
+6. **If Tier 0 Result is PASS:** Proceed to existing verification (check_active_session for UAT). Include Tier 0 report in verifier agent context for Tier 1/2.
+
+7. **If Tier 0 Result is INSUFFICIENT:** Fire the saturation gate (saturation_gate step).
+</step>
+
+<step name="saturation_gate">
+**CHECKPOINT: Sufficiency Assessment**
+
+Fires only when Tier 0 finds gaps. Uses the standard CHECKPOINT box pattern matching TRAP-02.
+
+Display:
+```
+CHECKPOINT: Sufficiency Assessment
+
+Tier 0 found the following gaps:
+[List each gap from verifySufficiency result]
+
+[1] Evidence is sufficient -- override and proceed to Tier 1/2 verification
+[2] Continue investigating -- return to /grd:conduct-inquiry to gather more evidence
+[3] Add inquiry -- route to /grd:add-inquiry to create a new line of inquiry
+```
+
+Wait for user response.
+
+- If user selects [1]: Log override in report ("Tier 0: OVERRIDDEN by researcher"). Proceed to check_active_session. Include Tier 0 report (with override note) in verifier agent context for Tier 1/2.
+- If user selects [2]: Display "Verification paused. Run `/grd:conduct-inquiry {phase}` to continue investigating." Stop.
+- If user selects [3]: Display "Verification paused. Run `/grd:add-inquiry` to add a new line of inquiry, then continue investigating." Stop.
 </step>
 
 <step name="check_active_session">
