@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
 status: in_progress
-stopped_at: Completed 18-01-PLAN.md
-last_updated: "2026-03-20T00:07:00Z"
-last_activity: "2026-03-20 -- Completed 18-01 PROJECT.md prospectus template + new-research scoping questions"
+stopped_at: Completed 18-03-PLAN.md
+last_updated: "2026-03-20T00:08:00Z"
+last_activity: "2026-03-20 -- Completed 18-03 template vocabulary reframe: bootstrap, requirements, roadmap"
 progress:
   total_phases: 8
   completed_phases: 3
   total_plans: 13
-  completed_plans: 10
-  percent: 77
+  completed_plans: 11
+  percent: 85
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 ## Current Position
 
 Phase: 18 of 22 (Research Formulation and Notes)
-Plan: 01 of 4 complete
+Plan: 03 of 4 complete
 Status: In Progress
-Last activity: 2026-03-20 -- Completed 18-01 PROJECT.md prospectus template + new-research scoping questions
+Last activity: 2026-03-20 -- Completed 18-03 template vocabulary reframe: bootstrap, requirements, roadmap
 
-Progress: [███░░░░░░░] 25%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
@@ -51,6 +51,7 @@ Progress: [███░░░░░░░] 25%
 | Phase 17 P01 | 4min | 2 tasks | 227 files |
 | Phase 17 P02 | 4min | 2 tasks | 44 files |
 | Phase 18 P01 | 3min | 2 tasks | 2 files |
+| Phase 18 P03 | 4min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,8 @@ Recent decisions affecting current work:
 - [Phase 17]: Added scope-inquiry as alias for phase-op init (discuss-phase previously used phase-op)
 - [Phase 18]: All GSD stage banners in new-research.md replaced with GRD (all steps, not just Steps 3 and 6)
 - [Phase 18]: Step 3a Research Scoping runs for both interactive and auto mode paths
+- [Phase 18]: Bootstrap parser accepts both old and new section headers for backward compatibility
+- [Phase 18]: Requirements example rewritten as SDT-Values Integration Study with scholarly themes
 
 ### Pending Todos
 
@@ -90,6 +93,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-20T00:07:00Z
-Stopped at: Completed 18-01-PLAN.md
-Resume file: .planning/phases/18-research-formulation-and-notes/18-02-PLAN.md
+Last session: 2026-03-20T00:08:00Z
+Stopped at: Completed 18-03-PLAN.md
+Resume file: .planning/phases/18-research-formulation-and-notes/18-04-PLAN.md
