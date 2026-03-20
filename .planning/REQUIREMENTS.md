@@ -51,8 +51,8 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Plan-Checker
 
-- [ ] **PLAN-01**: Plan-checker validates against review type requirements (7 checks: source budget, no duplication, primary sources, systematic search strategy, multi-disciplinary perspectives, inclusion/exclusion criteria, diverse methodologies)
-- [ ] **PLAN-02**: Plan-checker uses graduated enforcement -- advisory warnings in early investigation phases, blocking errors in later phases
+- [x] **PLAN-01**: Plan-checker validates against review type requirements (7 checks: source budget, no duplication, primary sources, systematic search strategy, multi-disciplinary perspectives, inclusion/exclusion criteria, diverse methodologies)
+- [x] **PLAN-02**: Plan-checker uses graduated enforcement -- advisory warnings in early investigation phases, blocking errors in later phases
 
 ### Verification
 
@@ -94,7 +94,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 - [x] **TEST-01**: All existing 164+ tests continue to pass after all changes
 - [x] **TEST-02**: New tests cover namespace migration (zero residual references)
-- [ ] **TEST-03**: New tests cover review type enforcement in plan-checker
+- [x] **TEST-03**: New tests cover review type enforcement in plan-checker
 - [x] **TEST-04**: New tests cover config schema with defaults and smart defaults cascade
 - [ ] **TEST-05**: New tests cover synthesis stage workflow
 - [ ] **TEST-06**: New tests cover researcher tier template selection and adaptive output
@@ -160,8 +160,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NOTE-01 | Phase 18 | Complete |
 | NOTE-02 | Phase 18 | Complete |
 | NOTE-03 | Phase 18 | Complete |
-| PLAN-01 | Phase 19 | Pending |
-| PLAN-02 | Phase 19 | Pending |
+| PLAN-01 | Phase 19 | Complete |
+| PLAN-02 | Phase 19 | Complete |
 | VER-01 | Phase 20 | Pending |
 | VER-02 | Phase 20 | Pending |
 | VER-03 | Phase 20 | Pending |
@@ -185,7 +185,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TIER-04 | Phase 21 | Pending |
 | TEST-01 | Phase 15 | Complete |
 | TEST-02 | Phase 17 | Complete |
-| TEST-03 | Phase 19 | Pending |
+| TEST-03 | Phase 19 | Complete |
 | TEST-04 | Phase 16 | Complete |
 | TEST-05 | Phase 22 | Pending |
 | TEST-06 | Phase 21 | Pending |
