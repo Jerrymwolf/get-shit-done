@@ -1,11 +1,11 @@
-# Debates Research Template
+# Limitations, Critiques & Debates Template
 
-Template for `.planning/research/DEBATES.md` — active controversies and debates in the research domain.
+Template for `.planning/research/LIMITATIONS-DEBATES.md` -- active controversies, methodological weaknesses, and untested assumptions in the research domain.
 
 <template>
 
 ```markdown
-# Active Debates
+# Limitations, Critiques & Debates
 
 **Domain:** [research domain]
 **Researched:** [date]
@@ -57,11 +57,27 @@ Template for `.planning/research/DEBATES.md` — active controversies and debate
 **Response from mainstream:** [how the mainstream has responded]
 **Assessment:** [how valid is the criticism?]
 
+## Replication Failures
+
+Findings that have failed to replicate or produced substantially different results on retesting.
+
+| Finding | Original Study | Replication Attempt | Outcome |
+|---------|---------------|--------------------|---------|
+| [what was claimed] | [original authors, year] | [who replicated, year] | [confirmed/failed/partial -- what differed] |
+
 ## Unresolved Tensions
 
 | Tension | Why Unresolved | Impact on Project |
 |---------|----------------|-------------------|
 | [tension] | [what prevents resolution] | [how it affects our research] |
+
+## Untested Assumptions
+
+Assumptions widely held in the field that have not been empirically tested.
+
+| Assumption | Held By | Why Untested | Risk If Wrong |
+|-----------|---------|-------------|---------------|
+| [assumption] | [who assumes this] | [practical/ethical/methodological barrier] | [what changes if this is false] |
 
 ## Recently Overturned Assumptions
 
@@ -74,7 +90,7 @@ Template for `.planning/research/DEBATES.md` — active controversies and debate
 - [Sources for debate mapping]
 
 ---
-*Debates research for: [domain]*
+*Limitations, critiques & debates research for: [domain]*
 *Researched: [date]*
 ```
 
@@ -82,20 +98,32 @@ Template for `.planning/research/DEBATES.md` — active controversies and debate
 
 <guidelines>
 
+Critical appraisal (CASP UK, 2024). Problematization (Alvesson & Sandberg, 2011). Focus on what assumptions remain untested and what findings have failed to replicate.
+
 **Major Controversies:**
-- Present both sides fairly — even if one is stronger
+- Present both sides fairly -- even if one is stronger
 - Include key proponents (not anonymous "some researchers")
-- Note the current state — deadlock, leaning one way, or resolving
+- Note the current state -- deadlock, leaning one way, or resolving
 
 **Methodological Disputes:**
 - These affect what evidence we can trust
-- Different methods → different conclusions is common
+- Different methods lead to different conclusions is common
 - Critical for evaluating sources during the project
 
 **Criticisms:**
 - Focus on substantive criticisms, not straw men
-- Include the mainstream response — fair debate requires it
+- Include the mainstream response -- fair debate requires it
 - Assess validity based on evidence, not authority
+
+**Replication Failures:**
+- Document cases where findings did not hold up on retesting
+- Include both outright failures and partial replications
+- Note whether the failure is due to method, context, or the original finding being wrong
+
+**Untested Assumptions:**
+- These are the field's blind spots -- widely held beliefs with no direct evidence
+- Distinguish between "untested because hard to test" and "untested because assumed obvious"
+- These often make the best research questions
 
 **Recently Overturned:**
 - Shows the field is alive and self-correcting

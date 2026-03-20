@@ -1,11 +1,11 @@
-# Frameworks Research Template
+# Theoretical Framework Survey Template
 
-Template for `.planning/research/FRAMEWORKS.md` — theoretical and conceptual frameworks for the research domain.
+Template for `.planning/research/THEORETICAL-FRAMEWORK.md` -- theoretical and conceptual frameworks organizing the research domain.
 
 <template>
 
 ```markdown
-# Theoretical Frameworks
+# Theoretical Framework Survey
 
 **Domain:** [research domain]
 **Researched:** [date]
@@ -22,7 +22,7 @@ Template for `.planning/research/FRAMEWORKS.md` — theoretical and conceptual f
 | [construct] | [what it means] | [how measured] | [what research shows] |
 
 ### Key Propositions
-1. [Proposition]: [evidence status — supported/mixed/challenged]
+1. [Proposition]: [evidence status -- supported/mixed/challenged]
 2. [Proposition]: [evidence status]
 
 ### Strengths
@@ -72,12 +72,20 @@ Template for `.planning/research/FRAMEWORKS.md` — theoretical and conceptual f
 ### Integrative Attempts
 - [Author (Year)]: [how they tried to integrate, success/failure]
 
+## Disciplinary Contributions
+
+For interdisciplinary topics: what does each discipline contribute?
+
+| Discipline | Key Theories | Distinctive Methods | Contribution to Domain |
+|-----------|-------------|--------------------|-----------------------|
+| [discipline] | [theories from this field] | [methods it brings] | [what it uniquely explains] |
+
 ## Sources
 
 - [Sources for framework analysis]
 
 ---
-*Frameworks research for: [domain]*
+*Theoretical framework survey for: [domain]*
 *Researched: [date]*
 ```
 
@@ -85,24 +93,31 @@ Template for `.planning/research/FRAMEWORKS.md` — theoretical and conceptual f
 
 <guidelines>
 
+Conceptual framework construction (Ravitch & Riggan, 2017). For interdisciplinary topics: what does each discipline contribute? (Repko & Szostak, 2021).
+
 **Dominant Framework:**
-- Every field has one — identify it clearly
+- Every field has one -- identify it clearly
 - Include constructs and how they're measured
 - Note both strengths and limitations honestly
 
 **Competing Frameworks:**
-- Don't just list alternatives — explain HOW they differ
+- Don't just list alternatives -- explain HOW they differ
 - Include when each is preferred (context matters)
 - Some "competing" frameworks are actually complementary
 
 **Framework Comparison:**
 - Use consistent comparison dimensions
 - Include empirical support level for each
-- Note blind spots — what each framework can't explain
+- Note blind spots -- what each framework can't explain
 
 **Relationships:**
 - Complementary frameworks can be used together
 - Contradictory frameworks require choosing (or acknowledging the tension)
-- Note integration attempts — these are often the most interesting recent work
+- Note integration attempts -- these are often the most interesting recent work
+
+**Disciplinary Contributions:**
+- For interdisciplinary topics, map what each discipline brings to the table
+- Identify where disciplinary assumptions clash
+- Note which discipline's methods are dominant and whether that creates blind spots
 
 </guidelines>
