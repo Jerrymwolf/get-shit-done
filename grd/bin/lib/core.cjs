@@ -116,6 +116,15 @@ function loadConfig(cwd) {
       researcher_tier: get('researcher_tier') ?? defaults.researcher_tier,
       review_type: get('review_type') ?? defaults.review_type,
       epistemological_stance: get('epistemological_stance') ?? defaults.epistemological_stance,
+      plan_check: (() => {
+        const val = get('plan_check', { section: 'workflow', field: 'plan_check' });
+        if (val === true) return 'moderate';   // backward compat: boolean true -> moderate
+        if (val === false) return false;        // explicitly disabled
+        if (typeof val === 'string') return val; // strict/moderate/light
+        // Fall back to smart default for the review type
+        const rt = get('review_type') ?? defaults.review_type;
+        return (SMART_DEFAULTS[rt] || SMART_DEFAULTS.narrative).plan_check;
+      })(),
       critical_appraisal: get('critical_appraisal', { section: 'workflow', field: 'critical_appraisal' })
         ?? (SMART_DEFAULTS[get('review_type') ?? 'narrative'] || SMART_DEFAULTS.narrative).critical_appraisal,
       temporal_positioning: get('temporal_positioning', { section: 'workflow', field: 'temporal_positioning' })

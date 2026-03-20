@@ -112,6 +112,16 @@ function cmdInitPlanPhase(cwd, phase, raw) {
     // Workflow flags
     research_enabled: config.research,
     plan_checker_enabled: config.plan_checker,
+    plan_check_rigor: config.plan_check || 'moderate',
+    total_phases: (() => {
+      try {
+        const roadmapPath = path.join(cwd, '.planning', 'ROADMAP.md');
+        const content = fs.readFileSync(roadmapPath, 'utf-8');
+        const phasePattern = /^###\s+Phase\s+\d+[A-Z]?(?:\.\d+)*\s*:/gim;
+        const matches = content.match(phasePattern);
+        return matches ? matches.length : null;
+      } catch { return null; }
+    })(),
     nyquist_validation_enabled: config.nyquist_validation,
     commit_docs: config.commit_docs,
 
