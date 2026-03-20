@@ -347,6 +347,8 @@ RESEARCH_PATH=$(printf '%s\n' "$INIT" | jq -r '.research_path // empty')
 VERIFICATION_PATH=$(printf '%s\n' "$INIT" | jq -r '.verification_path // empty')
 UAT_PATH=$(printf '%s\n' "$INIT" | jq -r '.uat_path // empty')
 CONTEXT_PATH=$(printf '%s\n' "$INIT" | jq -r '.context_path // empty')
+PLAN_CHECK_RIGOR=$(printf '%s\n' "$INIT" | jq -r '.plan_check_rigor // "moderate"')
+TOTAL_PHASES=$(printf '%s\n' "$INIT" | jq -r '.total_phases // empty')
 ```
 
 ## 7.5. Verify Nyquist Artifacts
@@ -455,6 +457,52 @@ Every task MUST include these fields — they are NOT optional:
 - [ ] Waves assigned for parallel execution
 - [ ] must_haves derived from phase goal
 </quality_gate>
+
+<research_rigor>
+## Review-Type-Specific Plan Elements
+
+Current review type rigor: **{plan_check_rigor}** (from config)
+
+When creating research plans, include these elements based on rigor level:
+
+### Source Tier Attributes
+Add `tier="primary|secondary|tertiary"` to every `<src>` tag:
+- **primary**: Original empirical studies, foundational theoretical works
+- **secondary**: Review articles, meta-analyses, systematic reviews
+- **tertiary**: Textbooks, encyclopedias, handbooks
+
+Example: `<src method="firecrawl" format="md" tier="primary">https://doi.org/...</src>`
+
+### Search Strategy Block (required at strict and moderate rigor)
+Add at plan level (outside `<tasks>`):
+```xml
+<search-strategy>
+  <databases>PubMed, PsycINFO, Web of Science, Google Scholar</databases>
+  <keywords>self-determination theory AND values, intrinsic motivation AND personal values</keywords>
+  <date-range>2000-2026</date-range>
+</search-strategy>
+```
+
+### Inclusion/Exclusion Criteria Block (required at strict and moderate rigor)
+Add at plan level (outside `<tasks>`):
+```xml
+<criteria>
+  <include>
+    - Peer-reviewed empirical studies
+    - English language
+    - Primary framework alignment
+  </include>
+  <exclude>
+    - Non-peer-reviewed grey literature (unless seminal)
+    - Studies without empirical data
+  </exclude>
+</criteria>
+```
+
+At **light** rigor (narrative reviews): these blocks are optional but recommended.
+At **moderate** rigor (scoping/integrative/critical): search-strategy and criteria required; primary source ratio advisory.
+At **strict** rigor (systematic): all elements required; primary source ratio >= 50% enforced.
+</research_rigor>
 ```
 
 ```
@@ -499,14 +547,64 @@ Checker prompt:
 </files_to_read>
 
 **Phase requirement IDs (MUST ALL be covered):** {phase_req_ids}
+**Plan check rigor:** {plan_check_rigor}
+**Phase position:** {phase_number} of {total_phases}
 
 **Project instructions:** Read ./CLAUDE.md if exists — verify plans honor project guidelines
 **Project skills:** Check .claude/skills/ or .agents/skills/ directory (if either exists) — verify plans account for project skill rules
 </verification_context>
 
+<rigor_instructions>
+## Review-Type Enforcement
+
+Use the CJS module `plan-checker-rules.cjs` for structural validation. Call `validateResearchPlan(planContent, bootstrapContent, { rigorLevel: '{plan_check_rigor}', phaseNumber: {phase_number}, totalPhases: {total_phases} })`.
+
+The CJS module handles these structural checks:
+1. Source duplication (universal — always blocking)
+2. Source limits / max 3 per task (universal — always blocking)
+3. Acquisition methods (universal — always blocking)
+4. Context budget / >30 page papers (universal — always blocking)
+5. Primary source ratio (review-type-specific — graduated by phase position)
+6. Search strategy block existence and fields (review-type-specific — graduated by phase position)
+7. Inclusion/exclusion criteria block existence (review-type-specific — graduated by phase position)
+
+**You** assess these qualitative checks (CJS cannot do these):
+- **Disciplinary diversity** (for interdisciplinary topics at any review type): Are sources drawn from multiple disciplinary perspectives relevant to the research questions? Flag if all sources come from a single discipline when the topic spans multiple fields. Cite Repko & Szostak (2021).
+- **Methodological diversity** (for integrative reviews): Do sources include varied methodologies (qualitative, quantitative, mixed methods)? Flag if all sources use the same methodology. Cite Whittemore & Knafl (2005).
+
+These qualitative checks produce **warnings** (never blocking errors) — they require judgment about the research topic.
+
+## Output Format
+
+If all CJS checks pass AND no qualitative warnings:
+```
+## VERIFICATION PASSED
+```
+
+If all CJS checks pass BUT qualitative warnings exist OR CJS returns warnings:
+```
+## VERIFICATION PASSED (with warnings)
+
+### Warnings
+{list of warning messages from CJS warnings array and your qualitative assessment}
+```
+
+If CJS returns blocking issues:
+```
+## ISSUES FOUND
+
+### Blocking Issues
+{list from CJS issues array}
+
+### Warnings (if any)
+{list from CJS warnings array and qualitative assessment}
+```
+</rigor_instructions>
+
 <expected_output>
-- ## VERIFICATION PASSED — all checks pass
-- ## ISSUES FOUND — structured issue list
+- ## VERIFICATION PASSED — all checks pass, no warnings
+- ## VERIFICATION PASSED (with warnings) — all checks pass, advisory warnings present
+- ## ISSUES FOUND — structured issue list with blocking issues and optional warnings
 </expected_output>
 ```
 
@@ -522,6 +620,7 @@ Task(
 ## 11. Handle Checker Return
 
 - **`## VERIFICATION PASSED`:** Display confirmation, proceed to step 13.
+- **`## VERIFICATION PASSED (with warnings)`:** Display confirmation with warnings. Warnings are advisory — proceed to step 13. Display: `Plan-checker passed with advisory warnings:` followed by the warning list.
 - **`## ISSUES FOUND`:** Display issues, check iteration count, proceed to step 12.
 
 ## 12. Revision Loop (Max 3 Iterations)
@@ -565,11 +664,42 @@ Task(
 
 After planner returns -> spawn checker again (step 10), increment iteration_count.
 
-**If iteration_count >= 3:**
+**If iteration_count >= 3 AND blocking issues remain:**
 
-Display: `Max iterations reached. {N} issues remain:` + issue list
+Determine the next-lower review type for downgrade option:
+- Read current review_type from init context
+- Use REVIEW_TYPE_ORDER: ['systematic', 'scoping', 'integrative', 'critical', 'narrative']
+- The downgrade target is the next entry in the array (e.g., systematic -> scoping, scoping -> integrative)
+- If already at 'narrative' (lowest), omit the downgrade option
 
-Offer: 1) Force proceed, 2) Provide guidance and retry, 3) Abandon
+Display:
+
+```
++------------------------------------------------------------------+
+|  CHECKPOINT: Review Type Mismatch                                 |
++------------------------------------------------------------------+
+
+The plan-checker found issues that could not be resolved after 3 attempts:
+{remaining_blocking_issues}
+
+Current review type: {review_type} (plan_check: {plan_check_rigor})
+
+Options:
+1. Downgrade review type to {next_lower_type} (relaxes rigor requirements permanently via applySmartDefaults)
+2. Send back to planner with additional guidance (you provide specific instructions)
+3. Override and proceed (this plan only; next phase starts fresh)
+
+YOUR ACTION: Enter 1, 2, or 3
+```
+
+**Handling each option:**
+- **Option 1 (Downgrade):** Run `node grd/bin/grd-tools.cjs config-set review_type {next_lower_type}` then `node grd/bin/grd-tools.cjs apply-smart-defaults {next_lower_type}`. Display: `Review type downgraded to {next_lower_type}. Rigor requirements updated.` Re-run checker with new rigor level (go to step 10 with updated plan_check_rigor).
+- **Option 2 (Retry with guidance):** Prompt user for additional guidance text. Spawn planner with guidance appended to revision prompt. Reset iteration_count to 0. Go to step 10 after planner returns.
+- **Option 3 (Override):** Display: `Override accepted for this plan. Proceeding with {N} unresolved issues.` Proceed to step 13.
+
+**If iteration_count >= 3 AND only warnings remain (no blocking issues):**
+
+This should not happen (warnings don't trigger revision loop), but as a safety net: proceed to step 13 with warnings displayed.
 
 ## 13. Present Final Status
 
