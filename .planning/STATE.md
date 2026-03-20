@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
-status: in_progress
-stopped_at: Completed 18-03-PLAN.md
-last_updated: "2026-03-20T00:08:00Z"
-last_activity: "2026-03-20 -- Completed 18-03 template vocabulary reframe: bootstrap, requirements, roadmap"
+status: executing
+stopped_at: Completed 18-02-PLAN.md
+last_updated: "2026-03-20T00:17:56.450Z"
+last_activity: "2026-03-20 -- Completed 18-02 researcher recharter: scholarly templates and prompts"
 progress:
   total_phases: 8
   completed_phases: 3
   total_plans: 13
-  completed_plans: 11
-  percent: 85
+  completed_plans: 12
+  percent: 92
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 ## Current Position
 
 Phase: 18 of 22 (Research Formulation and Notes)
-Plan: 03 of 4 complete
+Plan: 3 of 4 complete (01, 02, 03 done; 04 remaining)
 Status: In Progress
-Last activity: 2026-03-20 -- Completed 18-03 template vocabulary reframe: bootstrap, requirements, roadmap
+Last activity: 2026-03-20 -- Completed 18-02 researcher recharter: scholarly templates and prompts
 
-Progress: [████████░░] 75%
+Progress: [█████████░] 92%
 
 ## Performance Metrics
 
@@ -52,6 +52,7 @@ Progress: [████████░░] 75%
 | Phase 17 P02 | 4min | 2 tasks | 44 files |
 | Phase 18 P01 | 3min | 2 tasks | 2 files |
 | Phase 18 P03 | 4min | 2 tasks | 6 files |
+| Phase 18 P02 | 4min | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,8 @@ Recent decisions affecting current work:
 - [Phase 18]: Step 3a Research Scoping runs for both interactive and auto mode paths
 - [Phase 18]: Bootstrap parser accepts both old and new section headers for backward compatibility
 - [Phase 18]: Requirements example rewritten as SDT-Values Integration Study with scholarly themes
+- [Phase 18]: Researcher templates include full scholarly structure with tables matching each mission
+- [Phase 18]: Agent prompts embed scholarly citations (Braun & Clarke, CASP UK, Alvesson & Sandberg) directly in downstream_consumer text
 
 ### Pending Todos
 
@@ -93,6 +96,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-20T00:08:00Z
-Stopped at: Completed 18-03-PLAN.md
-Resume file: .planning/phases/18-research-formulation-and-notes/18-04-PLAN.md
+Last session: 2026-03-20T00:17:56.448Z
+Stopped at: Completed 18-02-PLAN.md
+Resume file: None

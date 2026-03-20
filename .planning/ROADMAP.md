@@ -219,7 +219,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 15. Upstream Sync to v1.25.1 | 5/5 | Complete    | 2026-03-17 | - |
 | 16. Config Schema and Defaults | 2/2 | Complete    | 2026-03-18 | - |
 | 17. Namespace Migration | 2/2 | Complete    | 2026-03-18 | - |
-| 18. Research Formulation and Notes | 2/4 | In Progress|  | - |
+| 18. Research Formulation and Notes | 3/4 | In Progress|  | - |
 | 19. Plan-Checker Enforcement | v1.2 | 0/? | Not started | - |
 | 20. Three-Tier Verification | v1.2 | 0/? | Not started | - |
 | 21. Adaptive Communication | v1.2 | 0/? | Not started | - |
