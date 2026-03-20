@@ -429,6 +429,9 @@ function generateFixTasks(verificationResult, noteMetadata) {
 }
 
 module.exports = {
+  parseFrontmatter,
+  extractSection,
+  extractKeywords,
   verifyTier1,
   verifyTier2,
   verifyNote,
