@@ -154,10 +154,11 @@ Plans:
   3. `--skip-tier0` flag bypasses sufficiency check while preserving existing Tier 1 and Tier 2 behavior
   4. Saturation interactive gate offers "Evidence is sufficient" / "Continue investigating" / "Add inquiry"
   5. Existing `verifyNote()` behavior is unchanged; `verifyPhase()` wraps the three-tier pipeline
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 20-01: TBD
+- [ ] 20-01-PLAN.md -- SUFFICIENCY_CRITERIA table, structural check functions (discoverNotes, checkObjectiveCoverage, checkEraCoverage, checkMethodologicalDiversity, checkEpistemologicalConsistency, verifySufficiency), TDD tests (VER-01, VER-02)
+- [ ] 20-02-PLAN.md -- Three-tier pipeline orchestration in verify-inquiry.md, saturation gate (TRAP-03), init.cjs skip_tier0 propagation (VER-03, TRAP-03)
 
 ### Phase 21: Adaptive Communication
 **Goal**: GRD adapts its communication to the researcher's experience level without changing the underlying rigor
@@ -222,10 +223,10 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 17. Namespace Migration | 2/2 | Complete    | 2026-03-18 | - |
 | 18. Research Formulation and Notes | 4/4 | Complete    | 2026-03-20 | - |
 | 19. Plan-Checker Enforcement | 2/2 | Complete    | 2026-03-20 | - |
-| 20. Three-Tier Verification | v1.2 | 0/? | Not started | - |
+| 20. Three-Tier Verification | v1.2 | 0/2 | Not started | - |
 | 21. Adaptive Communication | v1.2 | 0/? | Not started | - |
 | 22. Synthesis Stage | v1.2 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-20 after Phase 19 planning*
+*Last updated: 2026-03-20 after Phase 20 planning*
