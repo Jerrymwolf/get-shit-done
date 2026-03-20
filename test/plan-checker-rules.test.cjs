@@ -4,11 +4,15 @@ const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 
 const {
+  RIGOR_LEVELS,
   validateResearchPlan,
   checkSourceDuplication,
   checkSourceLimits,
   checkAcquisitionMethods,
   checkContextBudget,
+  checkPrimarySourceRatio,
+  checkSearchStrategy,
+  checkCriteria,
 } = require('../grd/bin/lib/plan-checker-rules.cjs');
 
 // ─── Fixtures ───────────────────────────────────────────────────────────────
@@ -72,6 +76,21 @@ ${sources}
   <o>vault/Note.md</o>
   <action>Research this topic.</action>
 </task>`;
+}
+
+function makePlanWithBlocks(tasks, searchStrategy, criteria) {
+  let plan = `---
+phase: 04
+plan: 01
+type: research
+---
+
+<tasks>
+${tasks}
+</tasks>`;
+  if (searchStrategy) plan += '\n' + searchStrategy;
+  if (criteria) plan += '\n' + criteria;
+  return plan;
 }
 
 // ─── Suite 1: checkSourceDuplication ────────────────────────────────────────
@@ -215,9 +234,20 @@ describe('checkContextBudget', () => {
 
 describe('validateResearchPlan', () => {
   it('returns valid for a clean plan', () => {
-    const plan = makePlan(makeTask('Read about Hybrid search strategies',
-      '    <src method="firecrawl" format="md">https://example.com</src>'
-    ));
+    const plan = makePlanWithBlocks(
+      makeTask('Read about Hybrid search strategies',
+        '    <src method="firecrawl" format="md" tier="primary">https://example.com</src>'
+      ),
+      `<search-strategy>
+  <databases>PubMed</databases>
+  <keywords>hybrid search</keywords>
+  <date-range>2020-2026</date-range>
+</search-strategy>`,
+      `<criteria>
+  <include>English, peer-reviewed</include>
+  <exclude>Non-empirical</exclude>
+</criteria>`
+    );
     const result = validateResearchPlan(plan, bootstrapEstablished);
     assert.equal(result.valid, true);
     assert.equal(result.issues.length, 0);
@@ -268,5 +298,275 @@ describe('Edge cases', () => {
     const result = checkSourceDuplication(plan, bootstrapEstablished);
     assert.equal(result.valid, false);
     assert.ok(result.issues.length > 0);
+  });
+});
+
+// ─── Suite 7: RIGOR_LEVELS table ────────────────────────────────────────────
+
+describe('RIGOR_LEVELS table', () => {
+  it('strict: all checks are error severity', () => {
+    assert.equal(RIGOR_LEVELS.strict.primary_source_ratio, 'error');
+    assert.equal(RIGOR_LEVELS.strict.search_strategy, 'error');
+    assert.equal(RIGOR_LEVELS.strict.criteria, 'error');
+  });
+
+  it('moderate: primary_source_ratio is warning, others error', () => {
+    assert.equal(RIGOR_LEVELS.moderate.primary_source_ratio, 'warning');
+    assert.equal(RIGOR_LEVELS.moderate.search_strategy, 'error');
+    assert.equal(RIGOR_LEVELS.moderate.criteria, 'error');
+  });
+
+  it('light: all checks are warning severity', () => {
+    assert.equal(RIGOR_LEVELS.light.primary_source_ratio, 'warning');
+    assert.equal(RIGOR_LEVELS.light.search_strategy, 'warning');
+    assert.equal(RIGOR_LEVELS.light.criteria, 'warning');
+  });
+});
+
+// ─── Suite 8: checkPrimarySourceRatio ───────────────────────────────────────
+
+describe('checkPrimarySourceRatio', () => {
+  it('errors when below 50% at strict', () => {
+    const plan = makePlan(makeTask('Research topic', [
+      '    <src method="firecrawl" format="md" tier="primary">https://a.com</src>',
+      '    <src method="web_fetch" format="md" tier="secondary">https://b.com</src>',
+      '    <src method="wget" format="pdf" tier="tertiary">https://c.com</src>',
+    ].join('\n')));
+    const result = checkPrimarySourceRatio(plan, 'strict');
+    assert.equal(result.valid, false);
+    assert.ok(result.issues[0].includes('below 50%'));
+    assert.equal(result.warnings.length, 0);
+  });
+
+  it('warns when below 50% at light', () => {
+    const plan = makePlan(makeTask('Research topic', [
+      '    <src method="firecrawl" format="md" tier="primary">https://a.com</src>',
+      '    <src method="web_fetch" format="md" tier="secondary">https://b.com</src>',
+      '    <src method="wget" format="pdf" tier="tertiary">https://c.com</src>',
+    ].join('\n')));
+    const result = checkPrimarySourceRatio(plan, 'light');
+    assert.equal(result.valid, true);
+    assert.equal(result.issues.length, 0);
+    assert.ok(result.warnings[0].includes('below 50%'));
+  });
+
+  it('passes when above 50% at strict', () => {
+    const plan = makePlan(makeTask('Research topic', [
+      '    <src method="firecrawl" format="md" tier="primary">https://a.com</src>',
+      '    <src method="web_fetch" format="md" tier="primary">https://b.com</src>',
+      '    <src method="wget" format="pdf" tier="secondary">https://c.com</src>',
+    ].join('\n')));
+    const result = checkPrimarySourceRatio(plan, 'strict');
+    assert.equal(result.valid, true);
+    assert.equal(result.issues.length, 0);
+  });
+
+  it('passes with 0 sources (nothing to check)', () => {
+    const plan = makePlan(`<task type="auto">
+  <n>Write summary</n>
+  <action>Summarize.</action>
+</task>`);
+    const result = checkPrimarySourceRatio(plan, 'strict');
+    assert.equal(result.valid, true);
+    assert.equal(result.issues.length, 0);
+  });
+
+  it('ignores non-research tasks', () => {
+    const plan = makePlan(`<task type="auto">
+  <n>Build thing</n>
+  <sources>
+    <src method="firecrawl" format="md" tier="tertiary">https://a.com</src>
+  </sources>
+</task>`);
+    const result = checkPrimarySourceRatio(plan, 'strict');
+    assert.equal(result.valid, true);
+  });
+});
+
+// ─── Suite 9: checkSearchStrategy ───────────────────────────────────────────
+
+describe('checkSearchStrategy', () => {
+  it('errors when block missing at strict', () => {
+    const plan = makePlan(makeTask('Research topic',
+      '    <src method="firecrawl" format="md">https://a.com</src>'
+    ));
+    const result = checkSearchStrategy(plan, 'strict');
+    assert.equal(result.valid, false);
+    assert.ok(result.issues[0].includes('Missing <search-strategy>'));
+  });
+
+  it('warns when block missing at light', () => {
+    const plan = makePlan(makeTask('Research topic',
+      '    <src method="firecrawl" format="md">https://a.com</src>'
+    ));
+    const result = checkSearchStrategy(plan, 'light');
+    assert.equal(result.valid, true);
+    assert.equal(result.issues.length, 0);
+    assert.ok(result.warnings[0].includes('Missing'));
+  });
+
+  it('passes with complete block at strict', () => {
+    const plan = makePlanWithBlocks(
+      makeTask('Research topic', '    <src method="firecrawl" format="md">https://a.com</src>'),
+      `<search-strategy>
+  <databases>PubMed, Scopus</databases>
+  <keywords>SDT, motivation</keywords>
+  <date-range>2020-2026</date-range>
+</search-strategy>`,
+      null
+    );
+    const result = checkSearchStrategy(plan, 'strict');
+    assert.equal(result.valid, true);
+    assert.equal(result.issues.length, 0);
+  });
+
+  it('errors when missing keywords at strict', () => {
+    const plan = makePlanWithBlocks(
+      makeTask('Research topic', '    <src method="firecrawl" format="md">https://a.com</src>'),
+      `<search-strategy>
+  <databases>PubMed</databases>
+  <date-range>2020-2026</date-range>
+</search-strategy>`,
+      null
+    );
+    const result = checkSearchStrategy(plan, 'strict');
+    assert.equal(result.valid, false);
+    assert.ok(result.issues.some(i => i.includes('missing required field: <keywords>')));
+  });
+});
+
+// ─── Suite 10: checkCriteria ────────────────────────────────────────────────
+
+describe('checkCriteria', () => {
+  it('errors when block missing at strict', () => {
+    const plan = makePlan(makeTask('Research topic',
+      '    <src method="firecrawl" format="md">https://a.com</src>'
+    ));
+    const result = checkCriteria(plan, 'strict');
+    assert.equal(result.valid, false);
+    assert.ok(result.issues[0].includes('Missing <criteria>'));
+  });
+
+  it('warns when block missing at light', () => {
+    const plan = makePlan(makeTask('Research topic',
+      '    <src method="firecrawl" format="md">https://a.com</src>'
+    ));
+    const result = checkCriteria(plan, 'light');
+    assert.equal(result.valid, true);
+    assert.equal(result.issues.length, 0);
+    assert.ok(result.warnings[0].includes('Missing'));
+  });
+
+  it('passes with complete block at strict', () => {
+    const plan = makePlanWithBlocks(
+      makeTask('Research topic', '    <src method="firecrawl" format="md">https://a.com</src>'),
+      null,
+      `<criteria>
+  <include>English language, peer-reviewed, 2020-2026</include>
+  <exclude>Conference abstracts, non-empirical</exclude>
+</criteria>`
+    );
+    const result = checkCriteria(plan, 'strict');
+    assert.equal(result.valid, true);
+    assert.equal(result.issues.length, 0);
+  });
+
+  it('errors when missing exclude sub-element at strict', () => {
+    const plan = makePlanWithBlocks(
+      makeTask('Research topic', '    <src method="firecrawl" format="md">https://a.com</src>'),
+      null,
+      `<criteria>
+  <include>English language, peer-reviewed</include>
+</criteria>`
+    );
+    const result = checkCriteria(plan, 'strict');
+    assert.equal(result.valid, false);
+    assert.ok(result.issues.some(i => i.includes('missing <exclude>')));
+  });
+});
+
+// ─── Suite 11: Graduated enforcement ────────────────────────────────────────
+
+describe('Graduated enforcement', () => {
+  const planWithIssues = makePlan(makeTask('Research topic', [
+    '    <src method="firecrawl" format="md" tier="secondary">https://a.com</src>',
+    '    <src method="web_fetch" format="md" tier="tertiary">https://b.com</src>',
+  ].join('\n')));
+
+  it('early phase downgrades new checks to warnings even at strict rigor', () => {
+    const result = validateResearchPlan(planWithIssues, bootstrapEmpty, {
+      rigorLevel: 'strict',
+      phaseNumber: 1,
+      totalPhases: 9,
+    });
+    // New checks should be warnings (downgraded), not errors
+    // primary_source_ratio at light -> warning, search_strategy at light -> warning, criteria at light -> warning
+    assert.equal(result.warnings.length > 0, true, 'should have warnings');
+    // The new checks should not produce errors since they are downgraded to light
+    // (Only universal checks would produce issues, and this plan has none)
+    const newCheckIssues = result.issues.filter(i =>
+      i.includes('Primary source') || i.includes('search-strategy') || i.includes('criteria')
+    );
+    assert.equal(newCheckIssues.length, 0, 'new checks should be warnings in early phase');
+  });
+
+  it('late phase uses configured severity', () => {
+    const result = validateResearchPlan(planWithIssues, bootstrapEmpty, {
+      rigorLevel: 'strict',
+      phaseNumber: 5,
+      totalPhases: 9,
+    });
+    // At strict with late phase: primary_source_ratio=error, search_strategy=error, criteria=error
+    assert.ok(result.issues.some(i => i.includes('below 50%')), 'primary source ratio should be error');
+    assert.ok(result.issues.some(i => i.includes('search-strategy')), 'search strategy should be error');
+    assert.ok(result.issues.some(i => i.includes('criteria')), 'criteria should be error');
+  });
+
+  it('universal checks are not affected by phase position', () => {
+    // Plan with 4+ sources to trigger checkSourceLimits
+    const plan = makePlan(makeTask('Research topic', [
+      '    <src method="firecrawl" format="md" tier="primary">https://a.com</src>',
+      '    <src method="web_fetch" format="md" tier="primary">https://b.com</src>',
+      '    <src method="wget" format="pdf" tier="primary">https://c.com</src>',
+      '    <src method="gh-cli" format="md" tier="primary">gh issue view 1</src>',
+    ].join('\n')));
+    const result = validateResearchPlan(plan, bootstrapEmpty, {
+      rigorLevel: 'light',
+      phaseNumber: 1,
+      totalPhases: 9,
+    });
+    assert.ok(result.issues.some(i => i.includes('max 3 sources')), 'universal check still blocks');
+  });
+});
+
+// ─── Suite 12: validateResearchPlan with rigor ──────────────────────────────
+
+describe('validateResearchPlan with rigor', () => {
+  it('backward compat: no options arg works', () => {
+    const plan = makePlan(makeTask('Read about Hybrid search strategies',
+      '    <src method="firecrawl" format="md">https://example.com</src>'
+    ));
+    const result = validateResearchPlan(plan, bootstrapEstablished);
+    assert.equal(result.valid, false); // will have search-strategy/criteria issues at moderate defaults
+    assert.ok(Array.isArray(result.issues));
+    assert.ok(Array.isArray(result.warnings));
+  });
+
+  it('rigorLevel is passed through to new checks', () => {
+    const plan = makePlan(makeTask('Research topic',
+      '    <src method="firecrawl" format="md" tier="secondary">https://a.com</src>'
+    ));
+    // At light, all new checks produce warnings not errors
+    const result = validateResearchPlan(plan, bootstrapEmpty, { rigorLevel: 'light' });
+    assert.ok(result.warnings.length > 0, 'should have warnings at light level');
+  });
+
+  it('warnings array is present in return value', () => {
+    const plan = makePlan(makeTask('Research topic',
+      '    <src method="firecrawl" format="md">https://a.com</src>'
+    ));
+    const result = validateResearchPlan(plan, bootstrapEmpty);
+    assert.ok('warnings' in result, 'result must have warnings field');
+    assert.ok(Array.isArray(result.warnings));
   });
 });
