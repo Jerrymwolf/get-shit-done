@@ -3,10 +3,10 @@
 /**
  * bootstrap.cjs - BOOTSTRAP.md generation and querying
  *
- * Manages the project's existing-knowledge registry. Three tiers:
- * - Established: high-confidence findings (do not re-research)
- * - Partially Established: known but gaps remain (extend, don't restart)
- * - Not Yet Researched: identified topics awaiting investigation
+ * Manages the project's state-of-the-field assessment. Three tiers:
+ * - Established Knowledge: strong consensus findings in the field
+ * - Contested Claims: evidence exists but consensus is lacking
+ * - Knowledge Gaps: identified topics awaiting investigation
  */
 
 /**
@@ -62,11 +62,11 @@ function parseBootstrap(content) {
   let notResearched = [];
 
   for (const section of sections) {
-    if (/^## Already Established/m.test(section)) {
+    if (/^## Established Knowledge/m.test(section) || /^## Already Established/m.test(section)) {
       established = parseTable(section, ['finding', 'sourceNote', 'confidence', 'date']);
-    } else if (/^## Partially Established/m.test(section)) {
+    } else if (/^## Contested Claims/m.test(section) || /^## Partially Established/m.test(section)) {
       partial = parseTable(section, ['finding', 'whatsKnown', 'whatsMissing', 'sourceNote']);
-    } else if (/^## Not Yet Researched/m.test(section)) {
+    } else if (/^## Knowledge Gaps/m.test(section) || /^## Not Yet Researched/m.test(section)) {
       notResearched = parseTable(section, ['topic', 'whyItMatters', 'targetNote']);
     }
   }
@@ -94,34 +94,37 @@ function generateBootstrap(findings) {
     `| ${f.topic} | ${f.whyItMatters} | ${f.targetNote} |`
   ).join('\n');
 
-  return `# Bootstrap: Existing Research Inventory
+  return `# State-of-the-Field Assessment
 
-<!-- Produced during /grd:new-project. Every subsequent phase loads this file
-to avoid re-researching known findings. Update as research progresses. -->
+<!-- Produced during /grd:new-research. Every subsequent inquiry loads this file
+to avoid re-investigating established findings. Update as research progresses.
+Equivalent to a preliminary scoping review (Arksey & O'Malley, 2005). -->
 
-## Already Established (do not re-research)
+## Established Knowledge
 
-<!-- Findings with high confidence that should be treated as givens.
-Subagents must not spend context re-evaluating these unless new
-contradictory evidence emerges. -->
+<!-- Findings with strong consensus in the field. Treat as established knowledge.
+Do not re-investigate unless new contradictory evidence emerges.
+Maps to: known / settled in the literature. -->
 
 | Finding | Source Note | Confidence | Date |
 |---|---|---|---|
 ${estRows}
 
-## Partially Established (extend, don't restart)
+## Contested Claims
 
-<!-- Findings where something is known but gaps remain.
-Subagents should build on existing knowledge, not start from scratch. -->
+<!-- Findings where evidence exists but consensus is lacking.
+Build on existing knowledge, investigate opposing positions.
+Maps to: debated / contested in the literature. -->
 
 | Finding | What's Known | What's Missing | Source Note |
 |---|---|---|---|
 ${partRows}
 
-## Not Yet Researched
+## Knowledge Gaps
 
 <!-- Topics identified as important but not yet investigated.
-Each entry becomes a candidate for a research task in planning. -->
+Each entry becomes a candidate for an inquiry task in the research design.
+Maps to: gap / unexplored in the literature. -->
 
 | Topic | Why It Matters | Target Note |
 |---|---|---|

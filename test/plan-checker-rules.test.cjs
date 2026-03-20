@@ -14,20 +14,20 @@ const {
 // ─── Fixtures ───────────────────────────────────────────────────────────────
 
 const bootstrapEstablished = `
-## Already Established (do not re-research)
+## Established Knowledge
 
 | Finding | Source Note | Confidence | Date |
 |---|---|---|---|
 | RAG reduces hallucination by 40% | RAG-Overview.md | high | 2026-01-15 |
 | LightRAG uses graph-based indexing | LightRAG-Arch.md | high | 2026-01-20 |
 
-## Partially Established (extend, don't restart)
+## Contested Claims
 
 | Finding | What's Known | What's Missing | Source Note |
 |---|---|---|---|
 | Vector DB benchmarks vary by dataset | FAISS faster on small sets | Large-scale comparison | VectorDB-Bench.md |
 
-## Not Yet Researched
+## Knowledge Gaps
 
 | Topic | Why It Matters | Target Note |
 |---|---|---|
@@ -35,17 +35,17 @@ const bootstrapEstablished = `
 `;
 
 const bootstrapEmpty = `
-## Already Established (do not re-research)
+## Established Knowledge
 
 | Finding | Source Note | Confidence | Date |
 |---|---|---|---|
 
-## Partially Established (extend, don't restart)
+## Contested Claims
 
 | Finding | What's Known | What's Missing | Source Note |
 |---|---|---|---|
 
-## Not Yet Researched
+## Knowledge Gaps
 
 | Topic | Why It Matters | Target Note |
 |---|---|---|
@@ -89,7 +89,7 @@ describe('checkSourceDuplication', () => {
               result.issues[0].toLowerCase().includes('already established'));
   });
 
-  it('passes when finding is in Not Yet Researched tier', () => {
+  it('passes when finding is in Knowledge Gaps tier', () => {
     const plan = makePlan(makeTask(
       'Read about Hybrid search strategies',
       '    <src method="firecrawl" format="md">https://example.com</src>'

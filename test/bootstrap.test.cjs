@@ -11,41 +11,41 @@ const {
 
 // ─── Fixtures ───────────────────────────────────────────────────────────────
 
-const bootstrapFull = `# Bootstrap: Existing Research Inventory
+const bootstrapFull = `# State-of-the-Field Assessment
 
-## Already Established (do not re-research)
+## Established Knowledge
 
 | Finding | Source Note | Confidence | Date |
 |---|---|---|---|
 | RAG reduces hallucination by 40% | RAG-Overview.md | high | 2026-01-15 |
 | LightRAG uses graph-based indexing | LightRAG-Arch.md | high | 2026-01-20 |
 
-## Partially Established (extend, don't restart)
+## Contested Claims
 
 | Finding | What's Known | What's Missing | Source Note |
 |---|---|---|---|
 | Vector DB benchmarks vary by dataset | FAISS faster on small sets | Large-scale comparison | VectorDB-Bench.md |
 
-## Not Yet Researched
+## Knowledge Gaps
 
 | Topic | Why It Matters | Target Note |
 |---|---|---|
 | Hybrid search strategies | May outperform pure vector | Hybrid-Search.md |
 `;
 
-const bootstrapEmpty = `# Bootstrap: Existing Research Inventory
+const bootstrapEmpty = `# State-of-the-Field Assessment
 
-## Already Established (do not re-research)
+## Established Knowledge
 
 | Finding | Source Note | Confidence | Date |
 |---|---|---|---|
 
-## Partially Established (extend, don't restart)
+## Contested Claims
 
 | Finding | What's Known | What's Missing | Source Note |
 |---|---|---|---|
 
-## Not Yet Researched
+## Knowledge Gaps
 
 | Topic | Why It Matters | Target Note |
 |---|---|---|
@@ -88,9 +88,9 @@ describe('parseBootstrap', () => {
 describe('generateBootstrap', () => {
   it('generates valid BOOTSTRAP.md from template', () => {
     const result = generateBootstrap({ established: [], partial: [], notResearched: [] });
-    assert.ok(result.includes('## Already Established'));
-    assert.ok(result.includes('## Partially Established'));
-    assert.ok(result.includes('## Not Yet Researched'));
+    assert.ok(result.includes('## Established Knowledge'));
+    assert.ok(result.includes('## Contested Claims'));
+    assert.ok(result.includes('## Knowledge Gaps'));
   });
 
   it('populates tiers from provided findings', () => {

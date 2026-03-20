@@ -1,74 +1,74 @@
-# Requirements Template
+# Research Objectives Template
 
-Template for `.planning/REQUIREMENTS.md` — checkable requirements that define "done."
+Template for `.planning/REQUIREMENTS.md` — checkable research objectives that define what "answered" means.
 
 <template>
 
 ```markdown
-# Requirements: [Project Name]
+# Research Objectives: [Study Name]
 
 **Defined:** [date]
-**Core Value:** [from PROJECT.md]
+**Research Focus:** [from PROJECT.md Problem Statement]
 
-## v1 Requirements
+## Primary Research Objectives
 
-Requirements for initial release. Each maps to roadmap phases.
+Research objectives for this study. Each maps to lines of inquiry in the research design.
 
-### Authentication
+### [Theme Name]
 
-- [ ] **AUTH-01**: User can sign up with email and password
-- [ ] **AUTH-02**: User receives email verification after signup
-- [ ] **AUTH-03**: User can reset password via email link
-- [ ] **AUTH-04**: User session persists across browser refresh
+- [ ] **[THEME]-01**: [Research objective description]
+- [ ] **[THEME]-02**: [Research objective description]
+- [ ] **[THEME]-03**: [Research objective description]
+- [ ] **[THEME]-04**: [Research objective description]
 
-### [Category 2]
+### [Theme 2]
 
-- [ ] **[CAT]-01**: [Requirement description]
-- [ ] **[CAT]-02**: [Requirement description]
-- [ ] **[CAT]-03**: [Requirement description]
+- [ ] **[THEME]-01**: [Research objective description]
+- [ ] **[THEME]-02**: [Research objective description]
+- [ ] **[THEME]-03**: [Research objective description]
 
-### [Category 3]
+### [Theme 3]
 
-- [ ] **[CAT]-01**: [Requirement description]
-- [ ] **[CAT]-02**: [Requirement description]
+- [ ] **[THEME]-01**: [Research objective description]
+- [ ] **[THEME]-02**: [Research objective description]
 
-## v2 Requirements
+## Secondary Research Objectives
 
-Deferred to future release. Tracked but not in current roadmap.
+Deferred to future investigation. Tracked but not in current research design.
 
-### [Category]
+### [Theme]
 
-- **[CAT]-01**: [Requirement description]
-- **[CAT]-02**: [Requirement description]
+- **[THEME]-01**: [Research objective description]
+- **[THEME]-02**: [Research objective description]
 
 ## Out of Scope
 
-Explicitly excluded. Documented to prevent scope creep.
+Explicitly excluded from this study. Documented to prevent scope drift.
 
-| Feature | Reason |
+| Topic | Reason |
 |---------|--------|
-| [Feature] | [Why excluded] |
-| [Feature] | [Why excluded] |
+| [Topic] | [Why excluded] |
+| [Topic] | [Why excluded] |
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
+Which inquiries address which research objectives. Updated during research design creation.
 
-| Requirement | Phase | Status |
+| Objective | Inquiry | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
-| [REQ-ID] | Phase [N] | Pending |
+| [THEME]-01 | Inquiry 1 | Pending |
+| [THEME]-02 | Inquiry 1 | Pending |
+| [THEME]-03 | Inquiry 1 | Pending |
+| [THEME]-04 | Inquiry 1 | Pending |
+| [REQ-ID] | Inquiry [N] | Pending |
 
 **Coverage:**
-- v1 requirements: [X] total
-- Mapped to phases: [Y]
+- Primary objectives: [X] total
+- Mapped to inquiries: [Y]
 - Unmapped: [Z] ⚠️
 
 ---
-*Requirements defined: [date]*
+*Research objectives defined: [date]*
 *Last updated: [date] after [trigger]*
 ```
 
@@ -76,155 +76,120 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 <guidelines>
 
-**Requirement Format:**
-- ID: `[CATEGORY]-[NUMBER]` (AUTH-01, CONTENT-02, SOCIAL-03)
-- Description: User-centric, testable, atomic
-- Checkbox: Only for v1 requirements (v2 are not yet actionable)
+**Objective Format:**
+- ID: `[THEME]-[NUMBER]` (THEO-01, EMPR-02, CULT-03)
+- Description: Researcher-defined, verifiable, atomic -- acceptance criteria define what "answered" means
+- Checkbox: Only for primary research objectives (secondary are not yet actionable)
 
-**Categories:**
-- Derive from research QUESTIONS.md themes
+**Themes:**
+- Derive from Prior Findings thematic clusters
 - Keep consistent with domain conventions
-- Typical: Authentication, Content, Social, Notifications, Moderation, Payments, Admin
+- Typical: Theoretical Foundation, Empirical Evidence, Cross-Cultural, Methodological, Synthesis
 
-**v1 vs v2:**
-- v1: Committed scope, will be in roadmap phases
-- v2: Acknowledged but deferred, not in current roadmap
-- Moving v2 → v1 requires roadmap update
+**Primary vs Secondary:**
+- Primary: Committed scope, mapped to inquiries in research design
+- Secondary: Acknowledged but deferred to future investigation
+- Moving Secondary → Primary requires research design update
 
 **Out of Scope:**
 - Explicit exclusions with reasoning
-- Prevents "why didn't you include X?" later
+- Prevents "why didn't you investigate X?" later
 - Anti-features from research belong here with warnings
 
 **Traceability:**
-- Empty initially, populated during roadmap creation
-- Each requirement maps to exactly one phase
-- Unmapped requirements = roadmap gap
+- Empty initially, populated during research design creation
+- Each research objective maps to exactly one inquiry
+- Unmapped objectives = research design gap
 
 **Status Values:**
 - Pending: Not started
-- In Progress: Phase is active
-- Complete: Requirement verified
+- In Progress: Inquiry is active
+- Complete: Objective verified
 - Blocked: Waiting on external factor
 
 </guidelines>
 
 <evolution>
 
-**After each phase completes:**
-1. Mark covered requirements as Complete
+**After each inquiry completes:**
+1. Mark covered research objectives as Complete
 2. Update traceability status
-3. Note any requirements that changed scope
+3. Note any research objectives that changed scope
 
-**After roadmap updates:**
-1. Verify all v1 requirements still mapped
-2. Add new requirements if scope expanded
-3. Move requirements to v2/out of scope if descoped
+**After research design updates:**
+1. Verify all primary research objectives still mapped
+2. Add new research objectives if scope expanded
+3. Move research objectives to secondary/out of scope if descoped
 
-**Requirement completion criteria:**
-- Requirement is "Complete" when:
-  - Feature is implemented
-  - Feature is verified (tests pass, manual check done)
-  - Feature is committed
+**Research objective completion criteria:**
+- Research objective is "Complete" when:
+  - Inquiry is conducted
+  - Findings are verified (evidence reviewed, quality assessed)
+  - Results are committed
 
 </evolution>
 
 <example>
 
 ```markdown
-# Requirements: CommunityApp
+# Research Objectives: SDT-Values Integration Study
 
 **Defined:** 2025-01-14
-**Core Value:** Users can share and discuss content with people who share their interests
+**Research Focus:** How do Schwartz's value dimensions interact with SDT's basic psychological needs across cultures?
 
-## v1 Requirements
+## Primary Research Objectives
 
-### Authentication
+### Theoretical Foundation
 
-- [ ] **AUTH-01**: User can sign up with email and password
-- [ ] **AUTH-02**: User receives email verification after signup
-- [ ] **AUTH-03**: User can reset password via email link
-- [ ] **AUTH-04**: User session persists across browser refresh
+- [ ] **THEO-01**: Identify where SDT need satisfaction and Schwartz value dimensions overlap in published theoretical models
+- [ ] **THEO-02**: Map the proposed causal mechanisms linking values to need satisfaction across major theoretical frameworks
 
-### Profiles
+### Empirical Evidence
 
-- [ ] **PROF-01**: User can create profile with display name
-- [ ] **PROF-02**: User can upload avatar image
-- [ ] **PROF-03**: User can write bio (max 500 chars)
-- [ ] **PROF-04**: User can view other users' profiles
+- [ ] **EMPR-01**: Synthesize empirical findings on the relationship between value orientations and basic psychological need satisfaction
+- [ ] **EMPR-02**: Assess the strength and consistency of evidence for value-need interaction effects across study designs
 
-### Content
+### Cross-Cultural
 
-- [ ] **CONT-01**: User can create text post
-- [ ] **CONT-02**: User can upload image with post
-- [ ] **CONT-03**: User can edit own posts
-- [ ] **CONT-04**: User can delete own posts
-- [ ] **CONT-05**: User can view feed of posts
+- [ ] **CULT-01**: Compare patterns of value-need interaction across individualist and collectivist cultural contexts
 
-### Social
+## Secondary Research Objectives
 
-- [ ] **SOCL-01**: User can follow other users
-- [ ] **SOCL-02**: User can unfollow users
-- [ ] **SOCL-03**: User can like posts
-- [ ] **SOCL-04**: User can comment on posts
-- [ ] **SOCL-05**: User can view activity feed (followed users' posts)
+### Methodological
 
-## v2 Requirements
+- **METH-01**: Evaluate the psychometric properties of instruments used to measure both value orientations and need satisfaction simultaneously
+- **METH-02**: Identify methodological limitations common across SDT-values integration studies
 
-### Notifications
+### Developmental
 
-- **NOTF-01**: User receives in-app notifications
-- **NOTF-02**: User receives email for new followers
-- **NOTF-03**: User receives email for comments on own posts
-- **NOTF-04**: User can configure notification preferences
-
-### Moderation
-
-- **MODR-01**: User can report content
-- **MODR-02**: User can block other users
-- **MODR-03**: Admin can view reported content
-- **MODR-04**: Admin can remove content
-- **MODR-05**: Admin can ban users
+- **DEVL-01**: Trace how value-need interactions evolve across the lifespan
+- **DEVL-02**: Identify critical periods where value formation intersects with need satisfaction patterns
 
 ## Out of Scope
 
-| Feature | Reason |
+| Topic | Reason |
 |---------|--------|
-| Real-time chat | High complexity, not core to community value |
-| Video posts | Storage/bandwidth costs, defer to v2+ |
-| OAuth login | Email/password sufficient for v1 |
-| Mobile app | Web-first, mobile later |
+| Intervention design | Applied research; this study maps the theoretical landscape |
+| Clinical populations | Different need dynamics; separate study warranted |
+| Non-Schwartz value models | Scope limited to Schwartz for coherence; other frameworks deferred |
 
 ## Traceability
 
-| Requirement | Phase | Status |
+| Objective | Inquiry | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
-| PROF-01 | Phase 2 | Pending |
-| PROF-02 | Phase 2 | Pending |
-| PROF-03 | Phase 2 | Pending |
-| PROF-04 | Phase 2 | Pending |
-| CONT-01 | Phase 3 | Pending |
-| CONT-02 | Phase 3 | Pending |
-| CONT-03 | Phase 3 | Pending |
-| CONT-04 | Phase 3 | Pending |
-| CONT-05 | Phase 3 | Pending |
-| SOCL-01 | Phase 4 | Pending |
-| SOCL-02 | Phase 4 | Pending |
-| SOCL-03 | Phase 4 | Pending |
-| SOCL-04 | Phase 4 | Pending |
-| SOCL-05 | Phase 4 | Pending |
+| THEO-01 | Inquiry 1 | Pending |
+| THEO-02 | Inquiry 1 | Pending |
+| EMPR-01 | Inquiry 2 | Pending |
+| EMPR-02 | Inquiry 2 | Pending |
+| CULT-01 | Inquiry 3 | Pending |
 
 **Coverage:**
-- v1 requirements: 18 total
-- Mapped to phases: 18
+- Primary objectives: 5 total
+- Mapped to inquiries: 5
 - Unmapped: 0 ✓
 
 ---
-*Requirements defined: 2025-01-14*
+*Research objectives defined: 2025-01-14*
 *Last updated: 2025-01-14 after initial definition*
 ```
 

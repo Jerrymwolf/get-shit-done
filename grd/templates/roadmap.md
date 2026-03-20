@@ -1,39 +1,39 @@
-# Roadmap Template
+# Research Design Template
 
 Template for `.planning/ROADMAP.md`.
 
-## Initial Roadmap (v1.0 Greenfield)
+## Initial Research Design (v1.0 Greenfield)
 
 ```markdown
-# Roadmap: [Project Name]
+# Research Design: [Study Name]
 
 ## Overview
 
-[One paragraph describing the journey from start to finish]
+[One paragraph describing the research journey from formulation to synthesis]
 
-## Phases
+## Lines of Inquiry
 
-**Phase Numbering:**
-- Integer phases (1, 2, 3): Planned milestone work
-- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+**Inquiry Numbering:**
+- Integer inquiries (1, 2, 3): Planned lines of investigation
+- Decimal inquiries (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-Decimal phases appear between their surrounding integers in numeric order.
+Decimal inquiries appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: [Name]** - [One-line description]
-- [ ] **Phase 2: [Name]** - [One-line description]
-- [ ] **Phase 3: [Name]** - [One-line description]
-- [ ] **Phase 4: [Name]** - [One-line description]
+- [ ] **Inquiry 1: [Name]** - [One-line description]
+- [ ] **Inquiry 2: [Name]** - [One-line description]
+- [ ] **Inquiry 3: [Name]** - [One-line description]
+- [ ] **Inquiry 4: [Name]** - [One-line description]
 
-## Phase Details
+## Inquiry Details
 
-### Phase 1: [Name]
-**Goal**: [What this phase delivers]
-**Depends on**: Nothing (first phase)
+### Inquiry 1: [Name]
+**Goal**: [What this inquiry investigates]
+**Depends on**: Nothing (first inquiry)
 **Requirements**: [REQ-01, REQ-02, REQ-03]  <!-- brackets optional, parser handles both formats -->
 **Success Criteria** (what must be TRUE):
-  1. [Observable behavior from user perspective]
-  2. [Observable behavior from user perspective]
-  3. [Observable behavior from user perspective]
+  1. [Observable outcome from the researcher's perspective]
+  2. [Observable outcome from the researcher's perspective]
+  3. [Observable outcome from the researcher's perspective]
 **Plans**: [Number of plans, e.g., "3 plans" or "TBD"]
 
 Plans:
@@ -41,22 +41,22 @@ Plans:
 - [ ] 01-02: [Brief description of second plan]
 - [ ] 01-03: [Brief description of third plan]
 
-### Phase 2: [Name]
-**Goal**: [What this phase delivers]
-**Depends on**: Phase 1
+### Inquiry 2: [Name]
+**Goal**: [What this inquiry investigates]
+**Depends on**: Inquiry 1
 **Requirements**: [REQ-04, REQ-05]
 **Success Criteria** (what must be TRUE):
-  1. [Observable behavior from user perspective]
-  2. [Observable behavior from user perspective]
+  1. [Observable outcome from the researcher's perspective]
+  2. [Observable outcome from the researcher's perspective]
 **Plans**: [Number of plans]
 
 Plans:
 - [ ] 02-01: [Brief description]
 - [ ] 02-02: [Brief description]
 
-### Phase 2.1: Critical Fix (INSERTED)
-**Goal**: [Urgent work inserted between phases]
-**Depends on**: Phase 2
+### Inquiry 2.1: Critical Fix (INSERTED)
+**Goal**: [Urgent work inserted between inquiries]
+**Depends on**: Inquiry 2
 **Success Criteria** (what must be TRUE):
   1. [What the fix achieves]
 **Plans**: 1 plan
@@ -64,27 +64,27 @@ Plans:
 Plans:
 - [ ] 02.1-01: [Description]
 
-### Phase 3: [Name]
-**Goal**: [What this phase delivers]
-**Depends on**: Phase 2
+### Inquiry 3: [Name]
+**Goal**: [What this inquiry investigates]
+**Depends on**: Inquiry 2
 **Requirements**: [REQ-06, REQ-07, REQ-08]
 **Success Criteria** (what must be TRUE):
-  1. [Observable behavior from user perspective]
-  2. [Observable behavior from user perspective]
-  3. [Observable behavior from user perspective]
+  1. [Observable outcome from the researcher's perspective]
+  2. [Observable outcome from the researcher's perspective]
+  3. [Observable outcome from the researcher's perspective]
 **Plans**: [Number of plans]
 
 Plans:
 - [ ] 03-01: [Brief description]
 - [ ] 03-02: [Brief description]
 
-### Phase 4: [Name]
-**Goal**: [What this phase delivers]
-**Depends on**: Phase 3
+### Inquiry 4: [Name]
+**Goal**: [What this inquiry investigates]
+**Depends on**: Inquiry 3
 **Requirements**: [REQ-09, REQ-10]
 **Success Criteria** (what must be TRUE):
-  1. [Observable behavior from user perspective]
-  2. [Observable behavior from user perspective]
+  1. [Observable outcome from the researcher's perspective]
+  2. [Observable outcome from the researcher's perspective]
 **Plans**: [Number of plans]
 
 Plans:
@@ -93,9 +93,9 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 2 → 2.1 → 2.2 → 3 → 3.1 → 4
+Inquiries execute in numeric order: 2 → 2.1 → 2.2 → 3 → 3.1 → 4
 
-| Phase | Plans Complete | Status | Completed |
+| Inquiry | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. [Name] | 0/3 | Not started | - |
 | 2. [Name] | 0/2 | Not started | - |
@@ -105,25 +105,25 @@ Phases execute in numeric order: 2 → 2.1 → 2.2 → 3 → 3.1 → 4
 
 <guidelines>
 **Initial planning (v1.0):**
-- Phase count depends on granularity setting (coarse: 3-5, standard: 5-8, fine: 8-12)
-- Each phase delivers something coherent
-- Phases can have 1+ plans (split if >3 tasks or multiple subsystems)
+- Inquiry count depends on granularity setting (coarse: 3-5, standard: 5-8, fine: 8-12)
+- Each inquiry investigates a coherent line of research
+- Inquiries can have 1+ search protocols (split if >3 tasks or multiple subsystems)
 - Plans use naming: {phase}-{plan}-PLAN.md (e.g., 01-02-PLAN.md)
 - No time estimates (this isn't enterprise PM)
 - Progress table updated by execute workflow
 - Plan count can be "TBD" initially, refined during planning
 
 **Success criteria:**
-- 2-5 observable behaviors per phase (from user's perspective)
-- Cross-checked against requirements during roadmap creation
+- 2-5 observable outcomes per inquiry (from the researcher's perspective)
+- Cross-checked against research objectives during research design creation
 - Flow downstream to `must_haves` in plan-phase
 - Verified by verify-phase after execution
-- Format: "User can [action]" or "[Thing] works/exists"
+- Format: "Researcher can [action]" or "[Finding/Synthesis] exists"
 
-**After milestones ship:**
+**After studies complete:**
 - Collapse completed milestones in `<details>` tags
 - Add new milestone sections for upcoming work
-- Keep continuous phase numbering (never restart at 01)
+- Keep continuous inquiry numbering (never restart at 01)
 </guidelines>
 
 <status_values>
@@ -133,26 +133,26 @@ Phases execute in numeric order: 2 → 2.1 → 2.2 → 3 → 3.1 → 4
 - `Deferred` - Pushed to later (with reason)
 </status_values>
 
-## Milestone-Grouped Roadmap (After v1.0 Ships)
+## Milestone-Grouped Research Design (After v1.0 Ships)
 
 After completing first milestone, reorganize with milestone groupings:
 
 ```markdown
-# Roadmap: [Project Name]
+# Research Design: [Study Name]
 
 ## Milestones
 
-- ✅ **v1.0 MVP** - Phases 1-4 (shipped YYYY-MM-DD)
-- 🚧 **v1.1 [Name]** - Phases 5-6 (in progress)
-- 📋 **v2.0 [Name]** - Phases 7-10 (planned)
+- ✅ **v1.0 Initial Study** - Inquiries 1-4 (completed YYYY-MM-DD)
+- 🚧 **v1.1 [Name]** - Inquiries 5-6 (in progress)
+- 📋 **v2.0 [Name]** - Inquiries 7-10 (planned)
 
-## Phases
+## Lines of Inquiry
 
 <details>
-<summary>✅ v1.0 MVP (Phases 1-4) - SHIPPED YYYY-MM-DD</summary>
+<summary>✅ v1.0 Initial Study (Inquiries 1-4) - COMPLETED YYYY-MM-DD</summary>
 
-### Phase 1: [Name]
-**Goal**: [What this phase delivers]
+### Inquiry 1: [Name]
+**Goal**: [What this inquiry investigated]
 **Plans**: 3 plans
 
 Plans:
@@ -160,43 +160,43 @@ Plans:
 - [x] 01-02: [Brief description]
 - [x] 01-03: [Brief description]
 
-[... remaining v1.0 phases ...]
+[... remaining v1.0 inquiries ...]
 
 </details>
 
 ### 🚧 v1.1 [Name] (In Progress)
 
-**Milestone Goal:** [What v1.1 delivers]
+**Milestone Goal:** [What v1.1 investigates]
 
-#### Phase 5: [Name]
-**Goal**: [What this phase delivers]
-**Depends on**: Phase 4
+#### Inquiry 5: [Name]
+**Goal**: [What this inquiry investigates]
+**Depends on**: Inquiry 4
 **Plans**: 2 plans
 
 Plans:
 - [ ] 05-01: [Brief description]
 - [ ] 05-02: [Brief description]
 
-[... remaining v1.1 phases ...]
+[... remaining v1.1 inquiries ...]
 
 ### 📋 v2.0 [Name] (Planned)
 
-**Milestone Goal:** [What v2.0 delivers]
+**Milestone Goal:** [What v2.0 investigates]
 
-[... v2.0 phases ...]
+[... v2.0 inquiries ...]
 
 ## Progress
 
-| Phase | Milestone | Plans Complete | Status | Completed |
+| Inquiry | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 1. Foundation | v1.0 | 3/3 | Complete | YYYY-MM-DD |
-| 2. Features | v1.0 | 2/2 | Complete | YYYY-MM-DD |
-| 5. Security | v1.1 | 0/2 | Not started | - |
+| 2. Theoretical | v1.0 | 2/2 | Complete | YYYY-MM-DD |
+| 5. Integration | v1.1 | 0/2 | Not started | - |
 ```
 
 **Notes:**
-- Milestone emoji: ✅ shipped, 🚧 in progress, 📋 planned
+- Milestone emoji: ✅ completed, 🚧 in progress, 📋 planned
 - Completed milestones collapsed in `<details>` for readability
 - Current/future milestones expanded
-- Continuous phase numbering (01-99)
+- Continuous inquiry numbering (01-99)
 - Progress table includes milestone column
