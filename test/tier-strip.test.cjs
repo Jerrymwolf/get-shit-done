@@ -258,6 +258,141 @@ describe('Template round-trip safety', () => {
   }
 });
 
+const ADAPTED_WORKFLOWS = [
+  'new-research.md', 'scope-inquiry.md', 'plan-inquiry.md',
+  'conduct-inquiry.md', 'verify-inquiry.md', 'progress.md',
+];
+
+describe('Workflow tier block completeness', () => {
+  for (const workflow of ADAPTED_WORKFLOWS) {
+    it(`${workflow} has tier-guided blocks`, () => {
+      const content = fs.readFileSync(
+        path.join(ROOT, 'grd', 'workflows', workflow), 'utf-8'
+      );
+      assert.ok(content.includes('<tier-guided>'), `${workflow} missing <tier-guided>`);
+      assert.ok(content.includes('</tier-guided>'), `${workflow} missing </tier-guided>`);
+    });
+
+    it(`${workflow} has tier-standard blocks`, () => {
+      const content = fs.readFileSync(
+        path.join(ROOT, 'grd', 'workflows', workflow), 'utf-8'
+      );
+      assert.ok(content.includes('<tier-standard>'), `${workflow} missing <tier-standard>`);
+      assert.ok(content.includes('</tier-standard>'), `${workflow} missing </tier-standard>`);
+    });
+
+    it(`${workflow} has tier-expert blocks`, () => {
+      const content = fs.readFileSync(
+        path.join(ROOT, 'grd', 'workflows', workflow), 'utf-8'
+      );
+      assert.ok(content.includes('<tier-expert>'), `${workflow} missing <tier-expert>`);
+      assert.ok(content.includes('</tier-expert>'), `${workflow} missing </tier-expert>`);
+    });
+
+    it(`${workflow} has no orphaned tier tags after stripping`, () => {
+      const content = fs.readFileSync(
+        path.join(ROOT, 'grd', 'workflows', workflow), 'utf-8'
+      );
+      for (const tier of VALID_TIERS) {
+        const result = stripTierContent(content, tier, 'xml');
+        assert.ok(
+          !/<tier-(guided|standard|expert)>/.test(result),
+          `${workflow} has orphaned opening tier tag after stripping for ${tier}`
+        );
+        assert.ok(
+          !/<\/tier-(guided|standard|expert)>/.test(result),
+          `${workflow} has orphaned closing tier tag after stripping for ${tier}`
+        );
+      }
+    });
+  }
+});
+
+describe('Agent researcher_tier context blocks', () => {
+  it('verify-inquiry.md has researcher_tier context block', () => {
+    const content = fs.readFileSync(
+      path.join(ROOT, 'grd', 'workflows', 'verify-inquiry.md'), 'utf-8'
+    );
+    assert.ok(content.includes('<researcher_tier>'), 'verify-inquiry.md missing <researcher_tier>');
+    assert.ok(content.includes('</researcher_tier>'), 'verify-inquiry.md missing </researcher_tier>');
+  });
+
+  it('conduct-inquiry.md has researcher_tier context block', () => {
+    const content = fs.readFileSync(
+      path.join(ROOT, 'grd', 'workflows', 'conduct-inquiry.md'), 'utf-8'
+    );
+    assert.ok(content.includes('<researcher_tier>'), 'conduct-inquiry.md missing <researcher_tier>');
+    assert.ok(content.includes('</researcher_tier>'), 'conduct-inquiry.md missing </researcher_tier>');
+  });
+
+  it('plan-inquiry.md has researcher_tier context block', () => {
+    const content = fs.readFileSync(
+      path.join(ROOT, 'grd', 'workflows', 'plan-inquiry.md'), 'utf-8'
+    );
+    assert.ok(content.includes('<researcher_tier>'), 'plan-inquiry.md missing <researcher_tier>');
+    assert.ok(content.includes('</researcher_tier>'), 'plan-inquiry.md missing </researcher_tier>');
+  });
+
+  it('researcher_tier block contains all three tier variants', () => {
+    const agentWorkflows = ['verify-inquiry.md', 'conduct-inquiry.md', 'plan-inquiry.md'];
+    for (const workflow of agentWorkflows) {
+      const content = fs.readFileSync(
+        path.join(ROOT, 'grd', 'workflows', workflow), 'utf-8'
+      );
+      // Extract the researcher_tier block
+      const match = content.match(/<researcher_tier>([\s\S]*?)<\/researcher_tier>/);
+      assert.ok(match, `${workflow} researcher_tier block not found`);
+      const block = match[1];
+      assert.ok(block.includes('<tier-guided>'), `${workflow} researcher_tier missing <tier-guided>`);
+      assert.ok(block.includes('<tier-standard>'), `${workflow} researcher_tier missing <tier-standard>`);
+      assert.ok(block.includes('<tier-expert>'), `${workflow} researcher_tier missing <tier-expert>`);
+    }
+  });
+});
+
+describe('Workflow tier content verification', () => {
+  it('progress.md guided tier explains next steps', () => {
+    const content = fs.readFileSync(
+      path.join(ROOT, 'grd', 'workflows', 'progress.md'), 'utf-8'
+    );
+    const result = stripTierContent(content, 'guided', 'xml');
+    // Guided tier should have explanatory text about what the next step does
+    assert.ok(
+      result.includes('next step'),
+      'guided tier should explain what the next step does'
+    );
+  });
+
+  it('progress.md expert tier shows commands only in Next Up sections', () => {
+    const content = fs.readFileSync(
+      path.join(ROOT, 'grd', 'workflows', 'progress.md'), 'utf-8'
+    );
+    const result = stripTierContent(content, 'expert', 'xml');
+    // Expert should have /grd: commands
+    assert.ok(
+      result.includes('/grd:'),
+      'expert tier should include /grd: commands'
+    );
+    // Expert should NOT have the guided explanatory phrases
+    assert.ok(
+      !result.includes('this gives you a fresh context window for'),
+      'expert tier should not include guided-style explanations'
+    );
+  });
+
+  it('verify-inquiry.md guided tier explains verification failures', () => {
+    const content = fs.readFileSync(
+      path.join(ROOT, 'grd', 'workflows', 'verify-inquiry.md'), 'utf-8'
+    );
+    const result = stripTierContent(content, 'guided', 'xml');
+    // Guided tier researcher_tier block should mention explaining
+    assert.ok(
+      result.includes('Explain') || result.includes('explain'),
+      'guided tier should include explanation-oriented language in researcher_tier'
+    );
+  });
+});
+
 describe('Template content verification', () => {
   it('research-note.md guided tier has Key Findings guidance', () => {
     const content = fs.readFileSync(
