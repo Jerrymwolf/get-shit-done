@@ -73,10 +73,10 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Adaptive Communication
 
-- [ ] **TIER-01**: All agent prompts include researcher tier context and adapt vocabulary, explanations, and information density accordingly
+- [x] **TIER-01**: All agent prompts include researcher tier context and adapt vocabulary, explanations, and information density accordingly
 - [x] **TIER-02**: All templates adapt by tier (Guided=inline guidance comments, Standard=brief descriptions, Expert=headers only)
-- [ ] **TIER-03**: Verification feedback adapts by tier (Guided=explains what failed and why, Standard=states failure with standard, Expert=terse)
-- [ ] **TIER-04**: Error messages and next-action routing adapt by tier (Guided=suggests next steps and explains, Standard=states requirement and rationale, Expert=states requirement only)
+- [x] **TIER-03**: Verification feedback adapts by tier (Guided=explains what failed and why, Standard=states failure with standard, Expert=terse)
+- [x] **TIER-04**: Error messages and next-action routing adapt by tier (Guided=suggests next steps and explains, Standard=states requirement and rationale, Expert=states requirement only)
 
 ### Trap Doors & Interactive Gates
 
@@ -179,10 +179,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TRAP-04 | Phase 22 | Pending |
 | TRAP-05 | Phase 16 | Complete |
 | COMP-01 | Phase 22 | Pending |
-| TIER-01 | Phase 21 | Pending |
+| TIER-01 | Phase 21 | Complete |
 | TIER-02 | Phase 21 | Complete |
-| TIER-03 | Phase 21 | Pending |
-| TIER-04 | Phase 21 | Pending |
+| TIER-03 | Phase 21 | Complete |
+| TIER-04 | Phase 21 | Complete |
 | TEST-01 | Phase 15 | Complete |
 | TEST-02 | Phase 17 | Complete |
 | TEST-03 | Phase 19 | Complete |

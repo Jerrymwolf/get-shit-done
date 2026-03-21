@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
 status: unknown
-stopped_at: Completed 21-02-PLAN.md
-last_updated: "2026-03-21T19:09:04.257Z"
+stopped_at: Completed 21-03-PLAN.md
+last_updated: "2026-03-21T19:11:11.995Z"
 progress:
   total_phases: 16
-  completed_phases: 14
+  completed_phases: 15
   total_plans: 35
-  completed_plans: 34
+  completed_plans: 35
 ---
 
 # Project State
@@ -55,6 +55,7 @@ Plan: 3 of 3
 | Phase 20 P02 | 3min | 2 tasks | 2 files |
 | Phase 21 P01 | 2min | 1 tasks | 2 files |
 | Phase 21 P02 | 6min | 2 tasks | 8 files |
+| Phase 21 P03 | 7min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -101,6 +102,9 @@ Recent decisions affecting current work:
 - [Phase 20]: Tier 0 prepended to verify-inquiry.md as new step, existing UAT flow completely preserved
 - [Phase 21]: Non-greedy regex with [\s\S]*? for inner content handles nested XML safely in tier-strip
 - [Phase 21]: Standard tier content stays unwrapped as baseline; only guided-exclusive and standard-exclusive content wrapped in tier blocks
+- [Phase 21]: researcher_tier blocks placed inside agent spawn prompts for tier-adapted communication
+- [Phase 21]: Guided tier explains what each step does and why; Expert tier shows command only
+- [Phase 21]: TRAP-02 and TRAP-03 checkpoint gates fully tier-adapted (guided explains consequences)
 
 ### Pending Todos
 
@@ -112,6 +116,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-21T19:09:04.255Z
-Stopped at: Completed 21-02-PLAN.md
+Last session: 2026-03-21T19:11:11.993Z
+Stopped at: Completed 21-03-PLAN.md
 Resume file: None

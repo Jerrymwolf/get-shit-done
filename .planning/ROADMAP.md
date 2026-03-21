@@ -52,7 +52,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 - [x] **Phase 18: Research Formulation and Notes** - Reframe new-research scoping, recharter parallel researchers, update note template with Evidence Quality and temporal positioning (completed 2026-03-20)
 - [x] **Phase 19: Plan-Checker Enforcement** - Add review-type-conditional rules with graduated enforcement (completed 2026-03-20)
 - [x] **Phase 20: Three-Tier Verification** - Add Tier 0 sufficiency check gating existing Tier 1 and Tier 2 (completed 2026-03-20)
-- [ ] **Phase 21: Adaptive Communication** - Apply researcher tier adaptation across all agent prompts, templates, verification, and error messages
+- [x] **Phase 21: Adaptive Communication** - Apply researcher tier adaptation across all agent prompts, templates, verification, and error messages (completed 2026-03-21)
 - [ ] **Phase 22: Synthesis Stage** - Build /grd:synthesize with thematic synthesis, theoretical integration, gap analysis, and argument construction
 
 ## Phase Details
@@ -175,7 +175,7 @@ Plans:
 Plans:
 - [x] 21-01-PLAN.md -- stripTierContent() CJS utility with TDD tests for XML and comment modes (TEST-06)
 - [x] 21-02-PLAN.md -- Tier-conditional comment blocks in all 7 research-facing templates with completeness tests (TIER-02)
-- [ ] 21-03-PLAN.md -- Tier-conditional XML blocks in 6 key workflows, researcher_tier context blocks for 3 agents, workflow content tests (TIER-01, TIER-03, TIER-04, TEST-06)
+- [x] 21-03-PLAN.md -- Tier-conditional XML blocks in 6 key workflows, researcher_tier context blocks for 3 agents, workflow content tests (TIER-01, TIER-03, TIER-04, TEST-06)
 
 ### Phase 22: Synthesis Stage
 **Goal**: Researchers can transform verified notes into structured scholarship through thematic synthesis, theoretical integration, gap analysis, and argument construction
@@ -225,7 +225,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 18. Research Formulation and Notes | 4/4 | Complete    | 2026-03-20 | - |
 | 19. Plan-Checker Enforcement | 2/2 | Complete    | 2026-03-20 | - |
 | 20. Three-Tier Verification | 2/2 | Complete    | 2026-03-20 | - |
-| 21. Adaptive Communication | v1.2 | 2/3 | In Progress|  |
+| 21. Adaptive Communication | v1.2 | 3/3 | Complete   | 2026-03-21 |
 | 22. Synthesis Stage | v1.2 | 0/? | Not started | - |
 
 ---
