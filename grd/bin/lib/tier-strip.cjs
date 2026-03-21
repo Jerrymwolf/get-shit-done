@@ -9,6 +9,8 @@
  * - Comment mode (<!-- tier:guided -->...<!-- /tier:guided -->) for templates
  *
  * Core utility for GRD's adaptive communication system.
+ *
+ * Usage: const result = stripTierContent(content, 'guided', 'xml');
  */
 
 const VALID_TIERS = ['guided', 'standard', 'expert'];
