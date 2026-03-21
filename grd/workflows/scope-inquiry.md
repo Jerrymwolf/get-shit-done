@@ -638,11 +638,25 @@ Created: .planning/phases/${PADDED_PHASE}-${SLUG}/${PADDED_PHASE}-CONTEXT.md
 
 ## ▶ Next Up
 
-**Phase ${PHASE}: [Name]** — [Goal from ROADMAP.md]
+<tier-guided>
+Your research decisions are captured. The next step creates a search protocol -- a structured plan for how to find, acquire, and organize the evidence you need. The planner will use the decisions you just made to build specific search tasks.
+
+**Plan Inquiry ${PHASE}** -- create a search protocol from your decisions
 
 `/grd:plan-inquiry ${PHASE}`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` first -- this gives you a fresh context window for planning</sub>
+</tier-guided>
+<tier-standard>
+**Plan Inquiry ${PHASE}** -- create search protocol
+
+`/grd:plan-inquiry ${PHASE}`
+
+<sub>`/clear` first -- fresh context window</sub>
+</tier-standard>
+<tier-expert>
+`/grd:plan-inquiry ${PHASE}`
+</tier-expert>
 
 ---
 

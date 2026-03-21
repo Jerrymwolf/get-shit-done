@@ -134,6 +134,27 @@ Execute each wave in sequence. Within a wave: parallel if `PARALLELIZATION=true`
        - .claude/skills/ or .agents/skills/ (Project skills, if either exists — list skills, read SKILL.md for each, follow relevant rules during implementation)
        </files_to_read>
 
+       <researcher_tier>
+       ## Communication Style: ${researcher_tier}
+
+       <tier-guided>
+       **Vocabulary:** Explain technical terms on first use. Use everyday language alongside academic terms.
+       **Explanation depth:** Explain what you are doing and why at each step. Provide context for decisions.
+       **Information density:** Prefer clarity over brevity. One concept per sentence.
+       **Examples:** Include concrete examples for abstract concepts.
+       </tier-guided>
+       <tier-standard>
+       **Vocabulary:** Academic vocabulary with brief context where non-obvious.
+       **Explanation depth:** Standard scholarly communication.
+       **Information density:** Balanced -- clear but concise.
+       </tier-standard>
+       <tier-expert>
+       **Vocabulary:** Precise terminology without elaboration. Maximum information density.
+       **Explanation depth:** No elaboration unless ambiguous.
+       **Information density:** Maximum. Assume familiarity with all concepts.
+       </tier-expert>
+       </researcher_tier>
+
        <success_criteria>
        - [ ] All tasks executed
        - [ ] Each task committed individually
@@ -353,9 +374,25 @@ All automated checks passed. {N} items need human testing:
 ---
 ## ▶ Next Up
 
+<tier-guided>
+The verification found some gaps in your evidence. The next step creates fix plans to address what's missing -- the planner will read the verification report and create targeted tasks to close each gap.
+
+**Plan gap closure** -- create fix plans for missing evidence
+
 `/grd:plan-inquiry {X} --gaps`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` first -- this gives you a fresh context window</sub>
+</tier-guided>
+<tier-standard>
+**Plan gap closure** -- create fix plans
+
+`/grd:plan-inquiry {X} --gaps`
+
+<sub>`/clear` first -- fresh context window</sub>
+</tier-standard>
+<tier-expert>
+`/grd:plan-inquiry {X} --gaps`
+</tier-expert>
 
 Also: `cat {phase_dir}/{phase_num}-VERIFICATION.md` — full report
 Also: `/grd:verify-inquiry {X}` — manual testing first

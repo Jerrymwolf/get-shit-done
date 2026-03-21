@@ -42,6 +42,30 @@ fi
 ```
 </step>
 
+<researcher_tier>
+## Communication Style: ${researcher_tier}
+
+<tier-guided>
+**When reporting verification results:**
+- Explain what each check means before stating pass/fail
+- When something fails, explain WHY it matters (not just that it failed)
+- Suggest specific next steps for each failure
+- Use plain language alongside technical terms
+</tier-guided>
+<tier-standard>
+**When reporting verification results:**
+- State what failed with the relevant standard
+- Include the specific requirement that was not met
+- Brief rationale for why the check exists
+</tier-standard>
+<tier-expert>
+**When reporting verification results:**
+- Terse failure statements only
+- Requirement ID + failure description
+- No elaboration unless ambiguous
+</tier-expert>
+</researcher_tier>
+
 <step name="tier0_sufficiency" priority="after-init">
 **Tier 0: Evidence Sufficiency Assessment**
 
@@ -121,12 +145,30 @@ Display:
 ```
 CHECKPOINT: Sufficiency Assessment
 
+<tier-guided>
+Before running the full verification, GRD checks whether you have enough evidence to draw conclusions. This "sufficiency check" looks at whether each research objective has enough notes, whether your sources cover the right time periods, and whether you have methodological diversity.
+
+The check found these gaps:
+[List each gap from verifySufficiency result]
+
+You have three options:
+[1] **Override and proceed** -- you believe the evidence is sufficient despite the gaps. The verification will continue with Tier 1 (goal-backward) and Tier 2 (source audit) checks. Good if you've intentionally scoped your evidence narrowly.
+[2] **Continue investigating** -- go back to gathering more evidence. Good if you agree there are gaps and want to fill them before verifying.
+[3] **Add a new inquiry** -- create a new line of investigation to address the gaps. Good if the gaps point to a research question you haven't explored yet.
+</tier-guided>
+<tier-standard>
 Tier 0 found the following gaps:
 [List each gap from verifySufficiency result]
 
 [1] Evidence is sufficient -- override and proceed to Tier 1/2 verification
 [2] Continue investigating -- return to /grd:conduct-inquiry to gather more evidence
 [3] Add inquiry -- route to /grd:add-inquiry to create a new line of inquiry
+</tier-standard>
+<tier-expert>
+Gaps: [List each gap from verifySufficiency result]
+
+[1] Override -- proceed to Tier 1/2  [2] Continue investigating  [3] Add inquiry
+</tier-expert>
 ```
 
 Wait for user response.
@@ -629,9 +671,21 @@ Plans verified and ready for execution.
 
 ## ▶ Next Up
 
-**Execute fixes** — run fix plans
+<tier-guided>
+Fix plans are ready. The next step executes them -- each plan addresses a specific gap found during verification. After execution, you can re-verify to confirm the gaps are closed.
+
+**Execute fixes** -- run the fix plans
 
 `/clear` then `/grd:conduct-inquiry {phase} --gaps-only`
+</tier-guided>
+<tier-standard>
+**Execute fixes** -- run fix plans
+
+`/clear` then `/grd:conduct-inquiry {phase} --gaps-only`
+</tier-standard>
+<tier-expert>
+`/clear` then `/grd:conduct-inquiry {phase} --gaps-only`
+</tier-expert>
 
 ───────────────────────────────────────────────────────────────
 ```

@@ -1116,11 +1116,25 @@ Exit skill and invoke SlashCommand("/grd:scope-inquiry 1 --auto")
 
 ## ▶ Next Up
 
-**Phase 1: [Phase Name]** — [Goal from ROADMAP.md]
+<tier-guided>
+Your research project is set up. The next step is to scope your first inquiry -- this is where you clarify your research approach, decide what questions matter most, and capture decisions that will guide all the work that follows.
 
-/grd:scope-inquiry 1 — gather context and clarify approach
+**Scope Inquiry 1** -- clarify your research approach and priorities
 
-<sub>/clear first → fresh context window</sub>
+`/grd:scope-inquiry 1`
+
+<sub>`/clear` first -- this gives you a fresh context window for scoping</sub>
+</tier-guided>
+<tier-standard>
+**Scope Inquiry 1** -- clarify research approach
+
+`/grd:scope-inquiry 1`
+
+<sub>`/clear` first -- fresh context window</sub>
+</tier-standard>
+<tier-expert>
+`/grd:scope-inquiry 1`
+</tier-expert>
 
 ---
 

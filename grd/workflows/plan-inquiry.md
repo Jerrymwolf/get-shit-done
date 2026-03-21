@@ -409,6 +409,23 @@ Planner prompt:
 **Project skills:** Check .claude/skills/ or .agents/skills/ directory (if either exists) — read SKILL.md files, plans should account for project skill rules
 </planning_context>
 
+<researcher_tier>
+## Communication Style: ${researcher_tier}
+
+<tier-guided>
+**When describing plans:** Explain what each plan does, why it matters, and what the researcher will get from it. Use everyday language.
+**When presenting options:** Explain tradeoffs in concrete terms with examples.
+</tier-guided>
+<tier-standard>
+**When describing plans:** Use standard scholarly vocabulary with brief context.
+**When presenting options:** State tradeoffs concisely.
+</tier-standard>
+<tier-expert>
+**When describing plans:** Terse descriptions. Methodology terms only.
+**When presenting options:** Options list, no elaboration.
+</tier-expert>
+</researcher_tier>
+
 <downstream_consumer>
 Output consumed by /grd:conduct-inquiry. Plans need:
 - Frontmatter (wave, depends_on, files_modified, autonomous)
@@ -679,6 +696,22 @@ Display:
 |  CHECKPOINT: Review Type Mismatch                                 |
 +------------------------------------------------------------------+
 
+<tier-guided>
+The plan-checker checks whether your search plans meet the rigor standards for your chosen review type ({review_type}). After 3 revision attempts, some issues remain unresolved. This means the plans don't yet match what's expected for a {review_type} review.
+
+Here's what wasn't resolved:
+{remaining_blocking_issues}
+
+Current review type: {review_type} (plan_check: {plan_check_rigor})
+
+You have three options:
+1. **Downgrade review type** to {next_lower_type} -- this permanently relaxes the rigor requirements, meaning fewer checks on source quality and search strategy. Good if the original review type was too ambitious for your topic.
+2. **Provide guidance** -- tell the planner specifically what to fix. The planner will try again with your instructions. Good if you see what's wrong and know how to fix it.
+3. **Override and proceed** -- accept the plans as-is for this phase only. The next phase starts fresh with full rigor checks. Good if the issues are minor or you want to move forward.
+
+YOUR ACTION: Enter 1, 2, or 3
+</tier-guided>
+<tier-standard>
 The plan-checker found issues that could not be resolved after 3 attempts:
 {remaining_blocking_issues}
 
@@ -690,6 +723,15 @@ Options:
 3. Override and proceed (this plan only; next phase starts fresh)
 
 YOUR ACTION: Enter 1, 2, or 3
+</tier-standard>
+<tier-expert>
+Unresolved after 3 iterations:
+{remaining_blocking_issues}
+
+Review type: {review_type} | Rigor: {plan_check_rigor}
+
+[1] Downgrade to {next_lower_type}  [2] Retry with guidance  [3] Override
+</tier-expert>
 ```
 
 **Handling each option:**
@@ -785,11 +827,25 @@ Verification: {Passed | Passed with override | Skipped}
 
 ## ▶ Next Up
 
-**Execute Phase {X}** — run all {N} plans
+<tier-guided>
+Your search protocol is ready. The next step runs all the plans we just created -- each one acquires specific sources and synthesizes them into research notes.
 
-/grd:conduct-inquiry {X}
+**Execute Inquiry {X}** -- run all {N} plans
 
-<sub>/clear first → fresh context window</sub>
+`/grd:conduct-inquiry {X}`
+
+<sub>`/clear` first -- this gives you a fresh context window for execution</sub>
+</tier-guided>
+<tier-standard>
+**Execute Inquiry {X}** -- run all {N} plans
+
+`/grd:conduct-inquiry {X}`
+
+<sub>`/clear` first -- fresh context window</sub>
+</tier-standard>
+<tier-expert>
+`/grd:conduct-inquiry {X}`
+</tier-expert>
 
 ───────────────────────────────────────────────────────────────
 

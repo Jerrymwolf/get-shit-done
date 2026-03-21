@@ -21,9 +21,19 @@ Extract from init JSON: `project_exists`, `roadmap_exists`, `state_exists`, `pha
 If `project_exists` is false (no `.planning/` directory):
 
 ```
+<tier-guided>
+No planning structure found. This means no research project has been set up yet. The planning structure is where GRD tracks your research phases, notes, and progress.
+
+Run `/grd:new-research` to start a new project -- this will set up your research structure and guide you through defining your first research questions.
+</tier-guided>
+<tier-standard>
 No planning structure found.
 
-Run /grd:new-research to start a new project.
+Run `/grd:new-research` to start a new project.
+</tier-standard>
+<tier-expert>
+No `.planning/` directory. Run `/grd:new-research`.
+</tier-expert>
 ```
 
 Exit.
@@ -178,11 +188,25 @@ Read its `<objective>` section.
 
 ## ▶ Next Up
 
-**{phase}-{plan}: [Plan Name]** — [objective summary from PLAN.md]
+<tier-guided>
+There are unexecuted plans ready to run. The next step executes them -- each plan acquires sources and produces research notes.
+
+**{phase}-{plan}: [Plan Name]** -- [objective summary from PLAN.md]
 
 `/grd:conduct-inquiry {phase}`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` first -- this gives you a fresh context window for execution</sub>
+</tier-guided>
+<tier-standard>
+**{phase}-{plan}: [Plan Name]** -- [objective summary from PLAN.md]
+
+`/grd:conduct-inquiry {phase}`
+
+<sub>`/clear` first -- fresh context window</sub>
+</tier-standard>
+<tier-expert>
+`/grd:conduct-inquiry {phase}`
+</tier-expert>
 
 ---
 ```
@@ -200,12 +224,27 @@ Check if `{phase_num}-CONTEXT.md` exists in phase directory.
 
 ## ▶ Next Up
 
-**Phase {N}: {Name}** — {Goal from ROADMAP.md}
-<sub>✓ Context gathered, ready to plan</sub>
+<tier-guided>
+Context has been gathered for this phase. The next step creates a search protocol -- a plan for what sources to find and how to organize your research.
+
+**Phase {N}: {Name}** -- {Goal from ROADMAP.md}
+<sub>Context gathered, ready to plan</sub>
 
 `/grd:plan-inquiry {phase-number}`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` first -- this gives you a fresh context window for planning</sub>
+</tier-guided>
+<tier-standard>
+**Phase {N}: {Name}** -- {Goal from ROADMAP.md}
+<sub>Context gathered, ready to plan</sub>
+
+`/grd:plan-inquiry {phase-number}`
+
+<sub>`/clear` first -- fresh context window</sub>
+</tier-standard>
+<tier-expert>
+`/grd:plan-inquiry {phase-number}`
+</tier-expert>
 
 ---
 ```
@@ -217,11 +256,25 @@ Check if `{phase_num}-CONTEXT.md` exists in phase directory.
 
 ## ▶ Next Up
 
-**Phase {N}: {Name}** — {Goal from ROADMAP.md}
+<tier-guided>
+This phase hasn't been scoped yet. The next step is to clarify your research approach -- you'll discuss what questions matter, what depth you need, and capture decisions that guide the work.
 
-`/grd:scope-inquiry {phase}` — gather context and clarify approach
+**Phase {N}: {Name}** -- {Goal from ROADMAP.md}
 
-<sub>`/clear` first → fresh context window</sub>
+`/grd:scope-inquiry {phase}`
+
+<sub>`/clear` first -- this gives you a fresh context window for scoping</sub>
+</tier-guided>
+<tier-standard>
+**Phase {N}: {Name}** -- {Goal from ROADMAP.md}
+
+`/grd:scope-inquiry {phase}` -- gather context and clarify approach
+
+<sub>`/clear` first -- fresh context window</sub>
+</tier-standard>
+<tier-expert>
+`/grd:scope-inquiry {phase}`
+</tier-expert>
 
 ---
 
@@ -290,11 +343,25 @@ Read ROADMAP.md to get the next phase's name and goal.
 
 ## ▶ Next Up
 
-**Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
+<tier-guided>
+The current phase is complete. The next step scopes the next phase -- you'll discuss your research approach for the next topic before creating search plans.
 
-`/grd:scope-inquiry {Z+1}` — gather context and clarify approach
+**Phase {Z+1}: {Name}** -- {Goal from ROADMAP.md}
 
-<sub>`/clear` first → fresh context window</sub>
+`/grd:scope-inquiry {Z+1}`
+
+<sub>`/clear` first -- this gives you a fresh context window</sub>
+</tier-guided>
+<tier-standard>
+**Phase {Z+1}: {Name}** -- {Goal from ROADMAP.md}
+
+`/grd:scope-inquiry {Z+1}` -- gather context and clarify approach
+
+<sub>`/clear` first -- fresh context window</sub>
+</tier-standard>
+<tier-expert>
+`/grd:scope-inquiry {Z+1}`
+</tier-expert>
 
 ---
 
@@ -318,11 +385,25 @@ All {N} phases finished!
 
 ## ▶ Next Up
 
-**Complete Milestone** — archive and prepare for next
+<tier-guided>
+All phases in this milestone are finished. The next step archives your work and prepares for the next milestone -- this includes summarizing what was accomplished and setting up for the next round of research.
+
+**Complete Milestone** -- archive and prepare for next
 
 `/grd:complete-study`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` first -- this gives you a fresh context window</sub>
+</tier-guided>
+<tier-standard>
+**Complete Milestone** -- archive and prepare for next
+
+`/grd:complete-study`
+
+<sub>`/clear` first -- fresh context window</sub>
+</tier-standard>
+<tier-expert>
+`/grd:complete-study`
+</tier-expert>
 
 ---
 
@@ -349,11 +430,25 @@ Ready to plan the next milestone.
 
 ## ▶ Next Up
 
-**Start Next Milestone** — questioning → research → requirements → roadmap
+<tier-guided>
+The previous milestone is complete and archived. The next step starts a new milestone cycle -- you'll define new research questions, gather requirements, and build a roadmap for the next round of investigation.
+
+**Start Next Milestone** -- questioning, research, requirements, roadmap
 
 `/grd:new-milestone`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` first -- this gives you a fresh context window</sub>
+</tier-guided>
+<tier-standard>
+**Start Next Milestone** -- questioning, research, requirements, roadmap
+
+`/grd:new-milestone`
+
+<sub>`/clear` first -- fresh context window</sub>
+</tier-standard>
+<tier-expert>
+`/grd:new-milestone`
+</tier-expert>
 
 ---
 ```
