@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
 status: unknown
-stopped_at: Completed 21-01-PLAN.md
-last_updated: "2026-03-21T19:01:18.982Z"
+stopped_at: Completed 21-02-PLAN.md
+last_updated: "2026-03-21T19:09:04.257Z"
 progress:
   total_phases: 16
   completed_phases: 14
   total_plans: 35
-  completed_plans: 33
+  completed_plans: 34
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 ## Current Position
 
 Phase: 21 (adaptive-communication) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Plan: 2 of 3
 | Phase 20 P01 | 4min | 1 tasks | 3 files |
 | Phase 20 P02 | 3min | 2 tasks | 2 files |
 | Phase 21 P01 | 2min | 1 tasks | 2 files |
+| Phase 21 P02 | 6min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -99,6 +100,7 @@ Recent decisions affecting current work:
 - [Phase 20]: Epistemological consistency is CJS stub for pragmatist auto-pass; agent handles qualitative assessment
 - [Phase 20]: Tier 0 prepended to verify-inquiry.md as new step, existing UAT flow completely preserved
 - [Phase 21]: Non-greedy regex with [\s\S]*? for inner content handles nested XML safely in tier-strip
+- [Phase 21]: Standard tier content stays unwrapped as baseline; only guided-exclusive and standard-exclusive content wrapped in tier blocks
 
 ### Pending Todos
 
@@ -110,6 +112,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-21T19:01:18.980Z
-Stopped at: Completed 21-01-PLAN.md
+Last session: 2026-03-21T19:09:04.255Z
+Stopped at: Completed 21-02-PLAN.md
 Resume file: None

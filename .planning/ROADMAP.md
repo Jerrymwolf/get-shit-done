@@ -174,7 +174,7 @@ Plans:
 
 Plans:
 - [x] 21-01-PLAN.md -- stripTierContent() CJS utility with TDD tests for XML and comment modes (TEST-06)
-- [ ] 21-02-PLAN.md -- Tier-conditional comment blocks in all 7 research-facing templates with completeness tests (TIER-02)
+- [x] 21-02-PLAN.md -- Tier-conditional comment blocks in all 7 research-facing templates with completeness tests (TIER-02)
 - [ ] 21-03-PLAN.md -- Tier-conditional XML blocks in 6 key workflows, researcher_tier context blocks for 3 agents, workflow content tests (TIER-01, TIER-03, TIER-04, TEST-06)
 
 ### Phase 22: Synthesis Stage
@@ -225,7 +225,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 18. Research Formulation and Notes | 4/4 | Complete    | 2026-03-20 | - |
 | 19. Plan-Checker Enforcement | 2/2 | Complete    | 2026-03-20 | - |
 | 20. Three-Tier Verification | 2/2 | Complete    | 2026-03-20 | - |
-| 21. Adaptive Communication | v1.2 | 1/3 | In Progress|  |
+| 21. Adaptive Communication | v1.2 | 2/3 | In Progress|  |
 | 22. Synthesis Stage | v1.2 | 0/? | Not started | - |
 
 ---
