@@ -2,16 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
-status: completed
-stopped_at: Phase 21 context gathered
-last_updated: "2026-03-21T01:57:08.794Z"
-last_activity: 2026-03-20 -- Completed 20-02 three-tier pipeline and saturation gate in verify-inquiry.md
+status: unknown
+stopped_at: Completed 21-01-PLAN.md
+last_updated: "2026-03-21T19:01:18.982Z"
 progress:
-  total_phases: 8
-  completed_phases: 6
-  total_plans: 17
-  completed_plans: 17
-  percent: 100
+  total_phases: 16
+  completed_phases: 14
+  total_plans: 35
+  completed_plans: 33
 ---
 
 # Project State
@@ -21,20 +19,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** Phase 20 - Three-Tier Verification
+**Current focus:** Phase 21 — adaptive-communication
 
 ## Current Position
 
-Phase: 20 of 22 (Three-Tier Verification)
-Plan: 2 of 2 complete (01, 02 done)
-Status: Phase Complete
-Last activity: 2026-03-20 -- Completed 20-02 three-tier pipeline and saturation gate in verify-inquiry.md
-
-Progress: [██████████] 100%
+Phase: 21 (adaptive-communication) — EXECUTING
+Plan: 2 of 3
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 5
 - Average duration: 4.8min
 - Total execution time: 0.40 hours
@@ -58,6 +53,7 @@ Progress: [██████████] 100%
 | Phase 19 P02 | 3min | 1 tasks | 1 files |
 | Phase 20 P01 | 4min | 1 tasks | 3 files |
 | Phase 20 P02 | 3min | 2 tasks | 2 files |
+| Phase 21 P01 | 2min | 1 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -102,6 +98,7 @@ Recent decisions affecting current work:
 - [Phase 20]: Note-to-objective matching: inquiry field primary, keyword overlap (>=30%) fallback
 - [Phase 20]: Epistemological consistency is CJS stub for pragmatist auto-pass; agent handles qualitative assessment
 - [Phase 20]: Tier 0 prepended to verify-inquiry.md as new step, existing UAT flow completely preserved
+- [Phase 21]: Non-greedy regex with [\s\S]*? for inner content handles nested XML safely in tier-strip
 
 ### Pending Todos
 
@@ -113,6 +110,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-21T01:57:08.792Z
-Stopped at: Phase 21 context gathered
-Resume file: .planning/phases/21-adaptive-communication/21-CONTEXT.md
+Last session: 2026-03-21T19:01:18.980Z
+Stopped at: Completed 21-01-PLAN.md
+Resume file: None

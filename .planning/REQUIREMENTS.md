@@ -97,7 +97,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 - [x] **TEST-03**: New tests cover review type enforcement in plan-checker
 - [x] **TEST-04**: New tests cover config schema with defaults and smart defaults cascade
 - [ ] **TEST-05**: New tests cover synthesis stage workflow
-- [ ] **TEST-06**: New tests cover researcher tier template selection and adaptive output
+- [x] **TEST-06**: New tests cover researcher tier template selection and adaptive output
 
 ## Future Requirements
 
@@ -188,7 +188,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TEST-03 | Phase 19 | Complete |
 | TEST-04 | Phase 16 | Complete |
 | TEST-05 | Phase 22 | Pending |
-| TEST-06 | Phase 21 | Pending |
+| TEST-06 | Phase 21 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 55 total
