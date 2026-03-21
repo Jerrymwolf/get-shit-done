@@ -2,8 +2,16 @@
 
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const { stripTierContent, VALID_TIERS } = require('../grd/bin/lib/tier-strip.cjs');
+
+const ROOT = path.join(__dirname, '..');
+const ADAPTED_TEMPLATES = [
+  'research-note.md', 'source-log.md', 'research-task.md',
+  'project.md', 'bootstrap.md', 'requirements.md', 'roadmap.md',
+];
 
 describe('stripTierContent()', () => {
 
@@ -178,4 +186,125 @@ describe('stripTierContent()', () => {
     });
   });
 
+});
+
+describe('Template completeness scan', () => {
+  for (const template of ADAPTED_TEMPLATES) {
+    it(`${template} has guided tier blocks`, () => {
+      const content = fs.readFileSync(
+        path.join(ROOT, 'grd', 'templates', template), 'utf-8'
+      );
+      assert.ok(
+        content.includes('<!-- tier:guided -->'),
+        `${template} missing <!-- tier:guided --> block`
+      );
+      assert.ok(
+        content.includes('<!-- /tier:guided -->'),
+        `${template} missing <!-- /tier:guided --> closing tag`
+      );
+    });
+
+    it(`${template} has no orphaned tier tags after stripping`, () => {
+      const content = fs.readFileSync(
+        path.join(ROOT, 'grd', 'templates', template), 'utf-8'
+      );
+      for (const tier of VALID_TIERS) {
+        const result = stripTierContent(content, tier, 'comment');
+        assert.ok(
+          !/<!-- tier:(guided|standard|expert) -->/.test(result),
+          `${template} has orphaned opening tier tag after stripping for ${tier}`
+        );
+        assert.ok(
+          !/<!-- \/tier:(guided|standard|expert) -->/.test(result),
+          `${template} has orphaned closing tier tag after stripping for ${tier}`
+        );
+      }
+    });
+  }
+});
+
+describe('Template round-trip safety', () => {
+  for (const template of ADAPTED_TEMPLATES) {
+    for (const tier of VALID_TIERS) {
+      it(`${template} stripped for ${tier} produces clean output`, () => {
+        const content = fs.readFileSync(
+          path.join(ROOT, 'grd', 'templates', template), 'utf-8'
+        );
+        const result = stripTierContent(content, tier, 'comment');
+
+        // No orphaned tier tags
+        assert.ok(
+          !/<!-- tier:(guided|standard|expert) -->/.test(result),
+          `orphaned opening tier tag in ${template} for ${tier}`
+        );
+        assert.ok(
+          !/<!-- \/tier:(guided|standard|expert) -->/.test(result),
+          `orphaned closing tier tag in ${template} for ${tier}`
+        );
+
+        // Non-empty output
+        assert.ok(
+          result.trim().length > 0,
+          `${template} stripped for ${tier} should not be empty`
+        );
+
+        // Section headers preserved (# or ## or deeper)
+        assert.ok(
+          /^#{1,6}\s/m.test(result),
+          `${template} stripped for ${tier} should preserve section headers`
+        );
+      });
+    }
+  }
+});
+
+describe('Template content verification', () => {
+  it('research-note.md guided tier has Key Findings guidance', () => {
+    const content = fs.readFileSync(
+      path.join(ROOT, 'grd', 'templates', 'research-note.md'), 'utf-8'
+    );
+    const result = stripTierContent(content, 'guided', 'comment');
+    assert.ok(
+      result.includes('single most important thing someone should take away'),
+      'guided tier should include Key Findings guidance text'
+    );
+  });
+
+  it('research-note.md expert tier has no description comments', () => {
+    const content = fs.readFileSync(
+      path.join(ROOT, 'grd', 'templates', 'research-note.md'), 'utf-8'
+    );
+    const result = stripTierContent(content, 'expert', 'comment');
+    // Expert should have no guidance comments (only structural content)
+    // Check that the guided and standard guidance text is absent
+    assert.ok(
+      !result.includes('single most important thing'),
+      'expert tier should not include guided Key Findings guidance'
+    );
+    assert.ok(
+      !result.includes('2-3 sentence summary of what this note concludes'),
+      'expert tier should not include standard Key Findings description'
+    );
+  });
+
+  it('research-note.md standard tier preserves baseline descriptions', () => {
+    const content = fs.readFileSync(
+      path.join(ROOT, 'grd', 'templates', 'research-note.md'), 'utf-8'
+    );
+    const result = stripTierContent(content, 'standard', 'comment');
+    // Standard tier should preserve the existing description comments
+    assert.ok(
+      result.includes('2-3 sentence summary of what this note concludes'),
+      'standard tier should preserve Key Findings description'
+    );
+    assert.ok(
+      result.includes('Main body of the research note'),
+      'standard tier should preserve Analysis description'
+    );
+    // Standard tier should NOT include guided-only guidance
+    assert.ok(
+      !result.includes('single most important thing someone should take away'),
+      'standard tier should not include guided-only Key Findings guidance'
+    );
+  });
 });
