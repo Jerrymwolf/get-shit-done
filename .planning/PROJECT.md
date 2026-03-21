@@ -66,7 +66,7 @@ Every research finding is self-contained and auditable — the note plus its act
 - **Upstream base:** GSD v1.24.0
 - **Tech stack:** Node.js CommonJS, zero external dependencies, node:test runner
 - **Lines of code:** ~32K across CJS modules, agent prompts, templates, references
-- **Tests:** 164 tests across 9 test files, all passing
+- **Tests:** 252+ tests across 10+ test files, all passing
 - **Upstream repo**: https://github.com/gsd-build/get-shit-done (also https://github.com/Jerrymwolf/get-shit-done)
 - **Upstream local:** ~/.claude/get-shit-done/ (v1.24.0 installed)
 - **Source acquisition tools available**: Firecrawl CLI, web_fetch, wget/curl, gh CLI
@@ -125,4 +125,4 @@ Every research finding is self-contained and auditable — the note plus its act
 - Trap doors: config toggles, command flags, interactive gates, smart defaults by review type
 
 ---
-*Last updated: 2026-03-17 after v1.2 milestone start*
+*Last updated: 2026-03-21 after Phase 21 (Adaptive Communication) complete — tier-conditional content system across all templates and workflows*
