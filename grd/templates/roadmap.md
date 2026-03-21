@@ -9,15 +9,25 @@ Template for `.planning/ROADMAP.md`.
 
 ## Overview
 
+<!-- tier:guided -->
+<!-- Write one paragraph describing the research journey from formulation to synthesis. This is a high-level narrative of what you plan to investigate, in what order, and why that order makes sense. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 [One paragraph describing the research journey from formulation to synthesis]
+<!-- /tier:standard -->
 
 ## Lines of Inquiry
 
+<!-- tier:guided -->
+<!-- Each inquiry below represents a focused line of investigation into one aspect of your research questions. Later inquiries can depend on earlier ones if findings build on each other. Integer inquiries (1, 2, 3) are planned; decimal inquiries (2.1, 2.2) are urgent insertions added mid-study. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 **Inquiry Numbering:**
 - Integer inquiries (1, 2, 3): Planned lines of investigation
 - Decimal inquiries (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 Decimal inquiries appear between their surrounding integers in numeric order.
+<!-- /tier:standard -->
 
 - [ ] **Inquiry 1: [Name]** - [One-line description]
 - [ ] **Inquiry 2: [Name]** - [One-line description]
@@ -35,6 +45,10 @@ Decimal inquiries appear between their surrounding integers in numeric order.
   2. [Observable outcome from the researcher's perspective]
   3. [Observable outcome from the researcher's perspective]
 **Plans**: [Number of plans, e.g., "3 plans" or "TBD"]
+
+<!-- tier:guided -->
+<!-- Each plan is a concrete work package within this inquiry. Plans are executed in order. The plan list is populated during the planning stage. -->
+<!-- /tier:guided -->
 
 Plans:
 - [ ] 01-01: [Brief description of first plan]

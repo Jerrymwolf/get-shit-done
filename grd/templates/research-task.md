@@ -1,7 +1,12 @@
 <!-- Research Task Template
 
+<!-- tier:guided -->
+<!-- This template defines how to write research tasks in PLAN.md files. Each task acquires sources (PDFs, web pages, etc.), synthesizes them into a research note, and verifies the sources are attached. The <src> blocks tell the executor which URLs to fetch and how. The <verify> section lists what the executor checks after writing the note. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 Use this template when creating research tasks in PLAN.md files.
 Each task acquires sources, synthesizes a note, and verifies source attachment.
+<!-- /tier:standard -->
 
 Valid method values for <src>:
   - firecrawl: Scrape web page to markdown via Firecrawl MCP
@@ -19,8 +24,13 @@ Valid format values for <src>:
 
 ## Source Type Examples
 
+<!-- tier:guided -->
+<!-- The planner writes <src> blocks using the right method and format for each source type. Here are examples for common source types you'll encounter. The method determines how the source is fetched; the format determines the file extension. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 The planner should generate <src> blocks using the appropriate method/format
 combination for each source type:
+<!-- /tier:standard -->
 
 ### arXiv Paper (PDF)
 ```xml
@@ -85,7 +95,12 @@ combination for each source type:
 
 ## Source Limits
 
+<!-- tier:guided -->
+<!-- Keep tasks focused: maximum 3 sources per task, and papers over 30 pages get their own dedicated task. Fewer, higher-quality sources produce better notes than many shallow ones. This keeps each task within the executor's context budget. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 To keep tasks focused and within subagent context budgets:
+<!-- /tier:standard -->
 
 - **Maximum 3 sources per task.** If a topic requires more sources, split into
   multiple tasks that produce separate notes. The synthesizer can merge later.
@@ -98,9 +113,14 @@ To keep tasks focused and within subagent context budgets:
 
 ## Context Budget
 
+<!-- tier:guided -->
+<!-- Each research task should use about half of the executor's context window, leaving room for the agent prompt, templates, and synthesis. In practice: 1-2 short sources fit comfortably, a 30+ page paper needs its own task, and 3 sources of any size is the maximum. When in doubt, use fewer sources per task. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 Each research task should produce work that fits within approximately 50% of the
 subagent's context window. This leaves room for the agent prompt, source protocol,
 templates, and synthesis output. In practice:
+<!-- /tier:standard -->
 
 - **1-2 short sources** (README, docs page): Comfortable fit.
 - **1 medium source** (10-20 page paper): Comfortable fit.

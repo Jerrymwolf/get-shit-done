@@ -1,5 +1,9 @@
 # Source Acquisition Log
 
+<!-- tier:guided -->
+<!-- This log tracks every source you encounter during your research. Add one row per source as you find it. The status column tracks whether you've read it, noted it, or excluded it. This is your audit trail -- it proves your search was thorough. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 <!-- Every source cited in the parent note must appear here, either with a file
 or a documented reason why the file is unavailable.
 
@@ -10,6 +14,7 @@ Status values:
   - unavailable: Source URL dead, 404, or otherwise inaccessible
   - rate-limited: Temporarily blocked; may retry later
 -->
+<!-- /tier:standard -->
 
 | Source | URL | Method | File | Status | Notes |
 |---|---|---|---|---|---|

@@ -9,30 +9,59 @@ Template for `.planning/PROJECT.md` — the living research prospectus.
 
 ## Problem Statement
 
+<!-- tier:guided -->
+<!-- Describe the research gap or question driving this study in 2-3 sentences. Use your own words -- this should make sense to someone unfamiliar with the topic. Update this section if the research question evolves. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 [What problem or question drives this research? 2-3 sentences framing the research gap or need.
 Use the researcher's language. Update if the research question evolves.]
+<!-- /tier:standard -->
 
 ## Significance
 
+<!-- tier:guided -->
+<!-- Explain why answering this question matters. Who benefits? What broader scholarly or practical implications does it connect to? This rarely changes; if it does, it signals a significant reorientation of the study. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 [Why does this matter? Who benefits from answering this question?
 Connect to broader scholarly or practical implications.]
+<!-- /tier:standard -->
 
 ## Epistemological Stance
 
 **Stance:** [positivist / constructivist / pragmatist / critical]
+<!-- tier:guided -->
+<!-- Your epistemological stance shapes what counts as valid evidence throughout the study. Positivist prioritizes quantitative evidence; constructivist values qualitative depth; pragmatist uses whatever best answers the question; critical examines power dynamics. Set during research scoping; change via `/grd:settings`. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 [Brief note on what this means for evidence evaluation in this study.]
+<!-- /tier:standard -->
 
 ## Review Type
 
 **Type:** [systematic / scoping / integrative / critical / narrative]
+<!-- tier:guided -->
+<!-- Your review type determines what methodological standards apply. Systematic follows PRISMA; scoping follows Arksey & O'Malley; integrative and critical have proportional rigor; narrative is the most flexible. The plan-checker enforces standards matching your review type. Can be downgraded mid-study; rigor requirements relax, no work is lost. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 [Brief note on the methodological implications -- what standards apply.]
+<!-- /tier:standard -->
 
 ## Researcher Tier
 
 **Tier:** [guided / standard / expert]
+<!-- tier:guided -->
+<!-- This determines how much the tool explains along the way. Guided provides the most explanation; Expert provides the least. This does NOT affect rigor -- every tier produces defense-quality output. Change via `/grd:settings`. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 [Determines communication style throughout the workflow.]
+<!-- /tier:standard -->
 
 ## Research Questions
+
+<!-- tier:guided -->
+<!-- List your main research questions below. Primary questions are what you must answer -- they drive the study. Secondary questions are nice-to-have and may be promoted later. Out of Scope questions clarify what you're explicitly not investigating, which prevents scope creep. -->
+<!-- /tier:guided -->
 
 ### Primary
 
@@ -51,20 +80,35 @@ Connect to broader scholarly or practical implications.]
 
 ## Context
 
+<!-- tier:guided -->
+<!-- Provide background that informs how you approach this research: what discipline are you working in, what prior work exists, who is the audience for your output, and what methodological constraints do you know about upfront? Update this section as new context emerges during the study. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 [Background that informs the research:
 - Disciplinary context and traditions
 - Prior work or existing knowledge
 - Target audience for the research output
 - Known methodological constraints]
+<!-- /tier:standard -->
 
 ## Constraints
 
+<!-- tier:guided -->
+<!-- Hard limits on your research. Common types include timeline, source availability, disciplinary boundaries, language, access restrictions, and methodology. Always include why the constraint exists -- constraints without rationale get questioned. -->
+<!-- /tier:guided -->
+
 - **[Type]**: [What] -- [Why]
 - **[Type]**: [What] -- [Why]
 
+<!-- tier:standard -->
 Common types: Timeline, Source availability, Disciplinary boundaries, Language, Access, Methodology
+<!-- /tier:standard -->
 
 ## Methodological Decisions
+
+<!-- tier:guided -->
+<!-- Track choices you make during the study, like "excluded grey literature" or "focused on post-2010 studies". Add decisions as they are made. The Outcome column tracks whether the decision proved correct (Good), needs reconsideration (Revisit), or is too early to evaluate (Pending). -->
+<!-- /tier:guided -->
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|

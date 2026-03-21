@@ -12,7 +12,12 @@ Template for `.planning/REQUIREMENTS.md` — checkable research objectives that 
 
 ## Primary Research Objectives
 
+<!-- tier:guided -->
+<!-- Each objective is a specific aim of your research. The ID (like THEO-01) helps track it throughout the study. Acceptance criteria define what "answered" means -- what evidence would satisfy this objective? Group objectives by theme (e.g., Theoretical Foundation, Empirical Evidence, Cross-Cultural). -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 Research objectives for this study. Each maps to lines of inquiry in the research design.
+<!-- /tier:standard -->
 
 ### [Theme Name]
 
@@ -34,7 +39,12 @@ Research objectives for this study. Each maps to lines of inquiry in the researc
 
 ## Secondary Research Objectives
 
+<!-- tier:guided -->
+<!-- Secondary objectives are acknowledged but deferred to future investigation. They are not yet actionable -- moving one to Primary requires updating the research design. Track them here so they are not forgotten. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 Deferred to future investigation. Tracked but not in current research design.
+<!-- /tier:standard -->
 
 ### [Theme]
 
@@ -43,7 +53,12 @@ Deferred to future investigation. Tracked but not in current research design.
 
 ## Out of Scope
 
+<!-- tier:guided -->
+<!-- Explicit exclusions from this study with reasoning. Documenting what you chose NOT to investigate prevents "why didn't you look at X?" questions later and guards against scope creep. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 Explicitly excluded from this study. Documented to prevent scope drift.
+<!-- /tier:standard -->
 
 | Topic | Reason |
 |---------|--------|
@@ -52,7 +67,12 @@ Explicitly excluded from this study. Documented to prevent scope drift.
 
 ## Traceability
 
+<!-- tier:guided -->
+<!-- This table maps which inquiries address which research objectives. It is empty initially and populated when you create the research design. Every primary objective should map to exactly one inquiry -- unmapped objectives mean there is a gap in the research design. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
 Which inquiries address which research objectives. Updated during research design creation.
+<!-- /tier:standard -->
 
 | Objective | Inquiry | Status |
 |-------------|-------|--------|
