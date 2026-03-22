@@ -15,7 +15,7 @@ Read all files referenced by the invoking prompt's execution_context before star
 Load all context in one call (paths only to minimize orchestrator context):
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init plan-phase "$PHASE")
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init plan-inquiry "$PHASE")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

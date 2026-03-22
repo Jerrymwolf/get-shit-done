@@ -13,7 +13,7 @@ UI-SPEC.md locks spacing, typography, color, copywriting, and design system deci
 ## 1. Initialize
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init plan-phase "$PHASE")
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init plan-inquiry "$PHASE")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

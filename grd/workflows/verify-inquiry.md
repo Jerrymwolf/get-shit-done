@@ -27,7 +27,7 @@ No Pass/Fail buttons. No severity questions. Just: "Here's what should happen. D
 If $ARGUMENTS contains a phase number, load context:
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init verify-work "${PHASE_ARG}")
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init verify-inquiry "${PHASE_ARG}")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

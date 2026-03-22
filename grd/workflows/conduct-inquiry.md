@@ -16,7 +16,7 @@ Read STATE.md before any operation to load project context.
 Load all context in one call:
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init execute-phase "${PHASE_ARG}")
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init conduct-inquiry "${PHASE_ARG}")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

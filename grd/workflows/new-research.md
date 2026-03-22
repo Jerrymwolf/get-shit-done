@@ -46,7 +46,7 @@ The document should describe what you want to build.
 **MANDATORY FIRST STEP — Execute these checks before ANY user interaction:**
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init new-project)
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init new-research)
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

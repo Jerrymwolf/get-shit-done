@@ -15,7 +15,7 @@ Read config.json for planning behavior settings.
 Load execution context (paths only to minimize orchestrator context):
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init execute-phase "${PHASE}")
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init conduct-inquiry "${PHASE}")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

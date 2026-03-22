@@ -594,7 +594,7 @@ Check branching strategy and offer merge options.
 Use `init milestone-op` for context, or load config directly:
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init execute-phase "1")
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init conduct-inquiry "1")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

@@ -15,7 +15,7 @@ Read ROADMAP.md to identify investigation phases and their verification status.
 Load execution context:
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init execute-phase "${PHASE_ARG}")
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init conduct-inquiry "${PHASE_ARG}")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 
