@@ -1,30 +1,32 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.2
-milestone_name: Research Reorientation
-status: complete
-stopped_at: Milestone v1.2 shipped
+milestone: v1.3
+milestone_name: Upstream Sync + Rename + Source Pipeline Wiring
+status: active
+stopped_at: null
 last_updated: "2026-03-22"
 progress:
-  total_phases: 18
-  completed_phases: 18
-  total_plans: 39
-  completed_plans: 39
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-17)
+See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** v1.2 complete — milestone shipped 2026-03-22
+**Current focus:** v1.3 Upstream Sync + Rename + Source Pipeline Wiring
 
 ## Current Position
 
-Phase: 24 of 24 (complete)
-Plan: All complete
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-22 — Milestone v1.3 started
 
 ## Performance Metrics
 

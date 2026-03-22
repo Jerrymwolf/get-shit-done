@@ -107,22 +107,16 @@ Every research finding is self-contained and auditable — the note plus its act
 - 2 stale Skill() namespace calls (plan-phase.md:529, discuss-phase.md:682)
 - `replaceInCurrentMilestone` exported but unused
 
-## Current Milestone: v1.2 Research Reorientation
+## Current Milestone: v1.3 Upstream Sync + Rename + Source Pipeline Wiring
 
-**Goal:** Transform GRD into GRD — a research tool that uses PM discipline, not a PM tool that produces research notes.
+**Goal:** Sync GRD to upstream GSD v1.28.0, eliminate all GSD-R branding, adopt research-native command vocabulary, and wire the source acquisition pipeline.
 
 **Target features:**
-- `/grd:` namespace with research-native command names
-- Researcher tier (Guided/Standard/Expert) adaptive communication
-- Review type selection with plan-checker enforcement
-- Epistemological positioning
-- Revised parallel researchers (Methodological Landscape, Prior Findings, Theoretical Framework, Limitations & Debates)
-- Evidence Quality section in research notes (scaled by review type)
-- Temporal positioning in note frontmatter
-- Synthesis stage (`/grd:synthesize`) with thematic synthesis, theoretical integration, gap analysis, argument construction
-- Three-tier verification (sufficiency + goal-backward + source audit)
-- Recursive loops as first-class operations
-- Trap doors: config toggles, command flags, interactive gates, smart defaults by review type
+- Upstream sync from v1.25.1 → v1.28.0 (upstream wins, re-apply research layer)
+- Bulk rename GSD-R → GRD across files, directories, and content
+- Research-native command vocabulary — 6 core command renames with cross-reference updates
+- Wire source acquisition pipeline — connect acquire.cjs, vault.cjs, source-researcher to conduct-inquiry
+- README + docs/DESIGN.md rewrite with final-state naming
 
 ---
-*Last updated: 2026-03-22 after Phase 22 (Synthesis Stage) complete — /grd:synthesize workflow with 4 agents, 4 templates, 4-wave execution, complete-study integration. Last phase of v1.2.*
+*Last updated: 2026-03-22 after milestone v1.3 started*
