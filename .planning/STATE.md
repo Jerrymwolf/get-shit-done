@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
 status: unknown
-stopped_at: Completed 22-01-PLAN.md
-last_updated: "2026-03-22T00:11:15.883Z"
+stopped_at: Completed 22-02-PLAN.md
+last_updated: "2026-03-22T00:17:31.628Z"
 progress:
   total_phases: 16
-  completed_phases: 15
+  completed_phases: 16
   total_plans: 37
-  completed_plans: 36
+  completed_plans: 37
 ---
 
 # Project State
@@ -57,6 +57,7 @@ Plan: 2 of 2
 | Phase 21 P02 | 6min | 2 tasks | 8 files |
 | Phase 21 P03 | 7min | 2 tasks | 7 files |
 | Phase 22 P01 | 5min | 2 tasks | 13 files |
+| Phase 22 P02 | 4min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -109,6 +110,7 @@ Recent decisions affecting current work:
 - [Phase 22]: Each synthesis agent embeds its scholarly methodology as operational guardrails, not just references
 - [Phase 22]: deliverable_format stored in PROJECT.md (not config.json) per D-09 -- argument agent reads PROJECT.md
 - [Phase 22]: Fixed .gitignore: changed gaps.md to /gaps.md so grd/templates/gaps.md is trackable
+- [Phase 22]: 4-wave strict ordering per D-07: themes < framework < gaps < argument -- gaps requires FRAMEWORK.md
 
 ### Pending Todos
 
@@ -120,6 +122,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-22T00:11:15.882Z
-Stopped at: Completed 22-01-PLAN.md
+Last session: 2026-03-22T00:17:31.626Z
+Stopped at: Completed 22-02-PLAN.md
 Resume file: None
