@@ -122,6 +122,70 @@ Wait for confirmation.
 
 </step>
 
+<step name="validate_synthesis">
+
+Check if synthesis is required for this study and validate synthesis outputs.
+
+**1. Read synthesis config:**
+
+```bash
+# Read config.workflow.synthesis via configWithDefaults()
+# Values: 'required', 'recommended', 'optional', false
+```
+
+**2. If synthesis is `false` or `optional` and no synthesis outputs exist:**
+Skip this step, proceed to gather_stats.
+
+**3. If synthesis is `required` or `recommended` and synthesis outputs exist:**
+Validate all expected synthesis outputs:
+
+- Check `{vault_path}/00-THEMES.md` exists
+- Check `{vault_path}/00-FRAMEWORK.md` exists
+- Check `{vault_path}/00-GAPS.md` exists
+- Check `{vault_path}/00-Executive-Summary.md` exists
+- Verify Executive Summary references all themes from THEMES.md (grep for theme names from `### Theme` headers)
+
+**4. If synthesis is `required` and outputs are MISSING:**
+
+```
+AskUserQuestion(
+  header: "Synthesis Required",
+  question: "This review type requires synthesis but synthesis outputs are missing.",
+  options: [
+    "Run /grd:synthesize" -- "Complete synthesis first, then return to complete-study",
+    "Proceed anyway" -- "Complete study with gaps noted in the completion report",
+    "Abort" -- "Return to development"
+  ]
+)
+```
+
+- **"Run /grd:synthesize":** Exit with instruction to run `/grd:synthesize` first, then return.
+- **"Proceed anyway":** Continue with gaps noted in completion output.
+- **"Abort":** Exit workflow.
+
+**5. Study stats collection (D-16):**
+
+After synthesis validation, collect brief research stats:
+
+- **Note count:** Count `.md` files in vault (excluding `00-*` prefixed files and files in `-sources/` directories)
+- **Source count:** Count files in all `-sources/` directories across the vault
+- **Theme count:** Count `### Theme` headers in `00-THEMES.md` (if exists)
+- **Gap count:** Count `### Gap` headers in `00-GAPS.md` (if exists)
+- **Verification status:** Read from latest VERIFICATION.md
+
+Include these stats in the completion output report:
+
+```
+Study Stats:
+- Research notes: {note_count}
+- Sources acquired: {source_count}
+- Themes identified: {theme_count}
+- Gaps identified: {gap_count}
+- Verification: {status}
+```
+
+</step>
+
 <step name="gather_stats">
 
 Calculate milestone statistics:
