@@ -54,8 +54,8 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 - [x] **Phase 20: Three-Tier Verification** - Add Tier 0 sufficiency check gating existing Tier 1 and Tier 2 (completed 2026-03-20)
 - [x] **Phase 21: Adaptive Communication** - Apply researcher tier adaptation across all agent prompts, templates, verification, and error messages (completed 2026-03-21)
 - [x] **Phase 22: Synthesis Stage** - Build /grd:synthesize with thematic synthesis, theoretical integration, gap analysis, and argument construction (completed 2026-03-22)
-- [ ] **Phase 23: Workflow Init Alignment** - Fix 8 workflow files calling old init subcommand names; restore E2E flow (gap closure)
-- [ ] **Phase 24: Verification Pipeline Wiring** - Expose verify-sufficiency.cjs via CLI and fix temporal_positioning config bug (gap closure)
+- [x] **Phase 23: Workflow Init Alignment** - Fix 8 workflow files calling old init subcommand names; restore E2E flow (gap closure) (completed 2026-03-22)
+- [x] **Phase 24: Verification Pipeline Wiring** - Expose verify-sufficiency.cjs via CLI and fix temporal_positioning config bug (gap closure) (completed 2026-03-22)
 
 ## Phase Details
 
@@ -210,7 +210,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 23-01-PLAN.md -- Fix init subcommand names in 8 workflow files (NS-02, FORM-01, SYN-01, COMP-01)
+- [x] 23-01-PLAN.md -- Fix init subcommand names in 8 workflow files (NS-02, FORM-01, SYN-01, COMP-01)
 
 ### Phase 24: Verification Pipeline Wiring
 **Goal:** Tier 0 sufficiency checks are reachable from the verification workflow and temporal_positioning config is correctly propagated
@@ -226,7 +226,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 24-01-PLAN.md -- Wire verify-sufficiency to CLI, fix temporal_positioning bug, add tests (VER-01, VER-02, CFG-07)
+- [x] 24-01-PLAN.md -- Wire verify-sufficiency to CLI, fix temporal_positioning bug, add tests (VER-01, VER-02, CFG-07)
 
 ## Progress
 
@@ -260,8 +260,8 @@ Note: Phases 23 and 24 can execute in parallel (gap closure phases with no inter
 | 20. Three-Tier Verification | 2/2 | Complete    | 2026-03-20 | - |
 | 21. Adaptive Communication | v1.2 | 3/3 | Complete    | 2026-03-21 |
 | 22. Synthesis Stage | v1.2 | 2/2 | Complete    | 2026-03-22 |
-| 23. Workflow Init Alignment | v1.2 | 0/1 | Not Started | - |
-| 24. Verification Pipeline Wiring | v1.2 | 0/1 | Not Started | - |
+| 23. Workflow Init Alignment | v1.2 | 1/1 | Complete | 2026-03-22 |
+| 24. Verification Pipeline Wiring | v1.2 | 1/1 | Complete | 2026-03-22 |
 
 ---
 *Roadmap created: 2026-03-11*

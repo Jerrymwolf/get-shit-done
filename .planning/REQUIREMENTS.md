@@ -18,7 +18,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 ### Namespace & Identity
 
 - [x] **NS-01**: All `/grd:` command references renamed to `/grd:` across all files
-- [ ] **NS-02**: Command vocabulary renamed to research-native terms (execute-phase → conduct-inquiry, discuss-phase → scope-inquiry, plan-phase → plan-inquiry, verify-work → verify-inquiry, new-project → new-research, complete-milestone → complete-study, etc.)
+- [x] **NS-02**: Command vocabulary renamed to research-native terms (execute-phase → conduct-inquiry, discuss-phase → scope-inquiry, plan-phase → plan-inquiry, verify-work → verify-inquiry, new-project → new-research, complete-milestone → complete-study, etc.)
 - [x] **NS-03**: `grd-tools.cjs` renamed to `grd-tools.cjs` with all internal and external references updated
 - [x] **NS-04**: `grd/` directory renamed to `grd/` with all path references updated
 - [x] **NS-05**: Agent names in model-profiles.cjs renamed from `grd-*` to `grd-*`
@@ -32,11 +32,11 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 - [x] **CFG-04**: Smart defaults cascade -- selecting a review type auto-configures critical_appraisal, temporal_positioning, synthesis, and plan_check rigor per the Smart Defaults table
 - [x] **CFG-05**: `configWithDefaults()` function ensuring existing projects get correct defaults for all new fields
 - [x] **CFG-06**: `config.workflow.critical_appraisal` toggle (skips Evidence Quality section globally; defaults to false for narrative+Guided tier)
-- [ ] **CFG-07**: `config.workflow.temporal_positioning` toggle (skips era field; defaults per Smart Defaults table)
+- [x] **CFG-07**: `config.workflow.temporal_positioning` toggle (skips era field; defaults per Smart Defaults table)
 
 ### Research Formulation
 
-- [ ] **FORM-01**: `/grd:new-research` scoping includes researcher tier, review type, epistemological positioning, and standard topic/significance/audience questions
+- [x] **FORM-01**: `/grd:new-research` scoping includes researcher tier, review type, epistemological positioning, and standard topic/significance/audience questions
 - [x] **FORM-02**: 4 parallel researchers renamed and rechartered (Methodological Landscape, Prior Findings & Key Themes, Theoretical Framework Survey, Limitations Critiques & Debates)
 - [x] **FORM-03**: PROJECT.md serves as research prospectus with problem statement, significance, epistemological stance, review type, researcher tier, research questions, and constraints
 - [x] **FORM-04**: BOOTSTRAP.md reframed as "state-of-the-field assessment" with scholarly vocabulary (Established → Contested → Unexplored maps to known → debated → gap)
@@ -56,13 +56,13 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Verification
 
-- [ ] **VER-01**: Tier 0 sufficiency verification checks whether enough evidence has been gathered for the selected review type, including saturation assessment and epistemological consistency check
-- [ ] **VER-02**: Sufficiency criteria scale by review type (systematic=exhaustive, scoping=representative, narrative=adequate coverage)
+- [x] **VER-01**: Tier 0 sufficiency verification checks whether enough evidence has been gathered for the selected review type, including saturation assessment and epistemological consistency check
+- [x] **VER-02**: Sufficiency criteria scale by review type (systematic=exhaustive, scoping=representative, narrative=adequate coverage)
 - [x] **VER-03**: Three-tier verification pipeline: Tier 0 (sufficiency) → Tier 1 (goal-backward) → Tier 2 (source audit), with `--skip-tier0` flag
 
 ### Synthesis
 
-- [ ] **SYN-01**: `/grd:synthesize` workflow exists and reuses execute-phase machinery
+- [x] **SYN-01**: `/grd:synthesize` workflow exists and reuses execute-phase machinery
 - [x] **SYN-02**: Thematic synthesis agent produces THEMES.md mapping patterns and themes across all verified notes
 - [x] **SYN-03**: Theoretical integration agent produces FRAMEWORK.md testing evidence against theoretical framework from Stage 1
 - [x] **SYN-04**: Gap analysis agent produces GAPS.md with typed gaps (Muller-Bloch & Kranz taxonomy) and problematization
@@ -88,7 +88,7 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 
 ### Completion
 
-- [ ] **COMP-01**: `/grd:complete-study` includes deliverable assembly — compile synthesis into the target format specified in PROJECT.md
+- [x] **COMP-01**: `/grd:complete-study` includes deliverable assembly — compile synthesis into the target format specified in PROJECT.md
 
 ### Testing
 
@@ -139,7 +139,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SYNC-04 | Phase 15 | Complete |
 | SYNC-05 | Phase 15 | Complete |
 | NS-01 | Phase 17 | Complete |
-| NS-02 | Phase 23 | Pending |
+| NS-02 | Phase 23 | Complete |
 | NS-03 | Phase 17 | Complete |
 | NS-04 | Phase 17 | Complete |
 | NS-05 | Phase 17 | Complete |
@@ -150,8 +150,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CFG-04 | Phase 16 | Complete |
 | CFG-05 | Phase 16 | Complete |
 | CFG-06 | Phase 16 | Complete |
-| CFG-07 | Phase 24 | Pending |
-| FORM-01 | Phase 23 | Pending |
+| CFG-07 | Phase 24 | Complete |
+| FORM-01 | Phase 23 | Complete |
 | FORM-02 | Phase 18 | Complete |
 | FORM-03 | Phase 18 | Complete |
 | FORM-04 | Phase 18 | Complete |
@@ -162,10 +162,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NOTE-03 | Phase 18 | Complete |
 | PLAN-01 | Phase 19 | Complete |
 | PLAN-02 | Phase 19 | Complete |
-| VER-01 | Phase 24 | Pending |
-| VER-02 | Phase 24 | Pending |
+| VER-01 | Phase 24 | Complete |
+| VER-02 | Phase 24 | Complete |
 | VER-03 | Phase 20 | Complete |
-| SYN-01 | Phase 23 | Pending |
+| SYN-01 | Phase 23 | Complete |
 | SYN-02 | Phase 22 | Complete |
 | SYN-03 | Phase 22 | Complete |
 | SYN-04 | Phase 22 | Complete |
@@ -178,7 +178,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TRAP-03 | Phase 20 | Complete |
 | TRAP-04 | Phase 22 | Complete |
 | TRAP-05 | Phase 16 | Complete |
-| COMP-01 | Phase 23 | Pending |
+| COMP-01 | Phase 23 | Complete |
 | TIER-01 | Phase 21 | Complete |
 | TIER-02 | Phase 21 | Complete |
 | TIER-03 | Phase 21 | Complete |
@@ -194,8 +194,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 - v1.2 requirements: 55 total
 - Mapped to phases: 55
 - Unmapped: 0
-- Pending (gap closure): 7
+- Pending (gap closure): 0
 
 ---
 *Requirements defined: 2026-03-17*
-*Last updated: 2026-03-22 after milestone audit gap closure (7 requirements reassigned to Phases 23-24)*
+*Last updated: 2026-03-22 after Phases 23-24 gap closure complete*
