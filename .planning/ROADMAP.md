@@ -54,6 +54,8 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 - [x] **Phase 20: Three-Tier Verification** - Add Tier 0 sufficiency check gating existing Tier 1 and Tier 2 (completed 2026-03-20)
 - [x] **Phase 21: Adaptive Communication** - Apply researcher tier adaptation across all agent prompts, templates, verification, and error messages (completed 2026-03-21)
 - [x] **Phase 22: Synthesis Stage** - Build /grd:synthesize with thematic synthesis, theoretical integration, gap analysis, and argument construction (completed 2026-03-22)
+- [ ] **Phase 23: Workflow Init Alignment** - Fix 8 workflow files calling old init subcommand names; restore E2E flow (gap closure)
+- [ ] **Phase 24: Verification Pipeline Wiring** - Expose verify-sufficiency.cjs via CLI and fix temporal_positioning config bug (gap closure)
 
 ## Phase Details
 
@@ -196,12 +198,37 @@ Plans:
 - [x] 22-01-PLAN.md -- Agent infrastructure: 4 agent prompts, 4 output templates, model-profiles update, deliverable_format additions, test updates (SYN-02, SYN-03, SYN-04, SYN-05, SYN-08)
 - [x] 22-02-PLAN.md -- Synthesize workflow, complete-study integration, synthesis tests (SYN-01, SYN-06, SYN-07, TRAP-04, COMP-01, TEST-05)
 
+### Phase 23: Workflow Init Alignment
+**Goal:** All workflow init calls match the research-native subcommand names in grd-tools.cjs, restoring the full E2E research flow
+**Depends on**: Phase 17
+**Requirements**: NS-02, FORM-01, SYN-01, COMP-01
+**Gap Closure:** Closes init subcommand name mismatch from v1.2 audit (8 workflow files)
+**Success Criteria** (what must be TRUE):
+  1. All 8 workflow files call correct init subcommand names (plan-inquiry, conduct-inquiry, verify-inquiry, new-research)
+  2. The full E2E flow (new-research → scope-inquiry → plan-inquiry → conduct-inquiry → verify-inquiry → synthesize → complete-study) initializes without errors
+  3. All existing tests continue to pass
+**Plans**: TBD
+
+### Phase 24: Verification Pipeline Wiring
+**Goal:** Tier 0 sufficiency checks are reachable from the verification workflow and temporal_positioning config is correctly propagated
+**Depends on**: Phase 20
+**Requirements**: VER-01, VER-02, CFG-07
+**Gap Closure:** Closes verify-sufficiency orphan and temporal_positioning bug from v1.2 audit
+**Success Criteria** (what must be TRUE):
+  1. `grd-tools.cjs` exposes a CLI command that invokes `verifySufficiency()` from verify-sufficiency.cjs
+  2. `verify-inquiry.md` can call Tier 0 sufficiency checks through the CLI
+  3. `init.cjs cmdInitVerifyWork` reads `config.temporal_positioning` (not `config.workflow?.temporal_positioning`)
+  4. When `temporal_positioning` is set to `false` or `optional`, era coverage checks in Tier 0 respect the setting
+  5. All existing tests continue to pass; new test covers temporal_positioning propagation
+**Plans**: TBD
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 15 -> 16 -> 17 -> 18 -> 19 -> 20 -> 21 -> 22
+Phases execute in numeric order: 15 -> 16 -> 17 -> 18 -> 19 -> 20 -> 21 -> 22 -> 23/24
 Note: Phases 16 and 17 can execute in parallel (both depend only on Phase 15).
 Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
+Note: Phases 23 and 24 can execute in parallel (gap closure phases with no interdependency).
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -227,7 +254,9 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 20. Three-Tier Verification | 2/2 | Complete    | 2026-03-20 | - |
 | 21. Adaptive Communication | v1.2 | 3/3 | Complete    | 2026-03-21 |
 | 22. Synthesis Stage | v1.2 | 2/2 | Complete    | 2026-03-22 |
+| 23. Workflow Init Alignment | v1.2 | 0/0 | Not Started | - |
+| 24. Verification Pipeline Wiring | v1.2 | 0/0 | Not Started | - |
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-21 after Phase 22 planning*
+*Last updated: 2026-03-22 after audit gap closure planning*
