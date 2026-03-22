@@ -1,201 +1,128 @@
-# Requirements: GRD v1.2 Research Reorientation
+# Requirements: GRD v1.3 Upstream Sync + Rename + Source Pipeline Wiring
 
-**Defined:** 2026-03-17
+**Defined:** 2026-03-22
 **Core Value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
 
-## v1.2 Requirements
+## v1.3 Requirements
 
-Requirements for the Research Reorientation milestone. Each maps to roadmap phases.
+Requirements for the Upstream Sync + Rename + Source Pipeline Wiring milestone. Each maps to roadmap phases.
 
 ### Upstream Sync
 
-- [x] **SYNC-01**: All core CJS modules synced with GSD v1.25.1 while preserving research-specific modifications
-- [x] **SYNC-02**: All agent prompts synced with GSD v1.25.1 while preserving research adaptations
-- [x] **SYNC-03**: All workflow and command files synced with GSD v1.25.1 while preserving research adaptations
-- [x] **SYNC-04**: All templates synced with GSD v1.25.1 while preserving research adaptations
-- [x] **SYNC-05**: VERSION file updated to 1.25.1 and all 164+ tests pass on new baseline
+- [ ] **SYNC-01**: GRD CJS modules synced with GSD v1.28.0 preserving all research extensions
+- [ ] **SYNC-02**: GRD workflows synced with GSD v1.28.0 preserving research adaptations
+- [ ] **SYNC-03**: GRD agent prompts synced with GSD v1.28.0 preserving research-specific agents
+- [ ] **SYNC-04**: GRD templates synced with GSD v1.28.0 preserving research note templates
+- [ ] **SYNC-05**: VERSION file updated to 1.28.0
+- [ ] **SYNC-06**: All tests pass after sync (existing 514+ tests green)
 
-### Namespace & Identity
+### Rename
 
-- [x] **NS-01**: All `/grd:` command references renamed to `/grd:` across all files
-- [x] **NS-02**: Command vocabulary renamed to research-native terms (execute-phase → conduct-inquiry, discuss-phase → scope-inquiry, plan-phase → plan-inquiry, verify-work → verify-inquiry, new-project → new-research, complete-milestone → complete-study, etc.)
-- [x] **NS-03**: `grd-tools.cjs` renamed to `grd-tools.cjs` with all internal and external references updated
-- [x] **NS-04**: `grd/` directory renamed to `grd/` with all path references updated
-- [x] **NS-05**: Agent names in model-profiles.cjs renamed from `grd-*` to `grd-*`
-- [x] **NS-06**: Zero residual `grd` references in any user-facing output (verified by automated scan)
+- [ ] **REN-01**: `commands/gsd-r/` directory renamed to `commands/grd/`
+- [ ] **REN-02**: All 16 agent files renamed from `gsd-r-*.md` to `grd-*.md`
+- [ ] **REN-03**: All 3 hook files renamed from `gsd-*.js` to `grd-*.js`
+- [ ] **REN-04**: Bulk content replacement: zero instances of `gsd-r`, `GSD-R`, `get-shit-done-r` in active files
+- [ ] **REN-05**: install.js internal references updated (markers, variable names, agent mappings)
+- [ ] **REN-06**: Config files updated (.gitignore, .claude/settings.local.json, package.json files array)
+- [ ] **REN-07**: Test files updated with new filenames and paths
+- [ ] **REN-08**: Old migration scripts deleted (rename-gsd-to-gsd-r.cjs, bulk-rename-planning.cjs)
+- [ ] **REN-09**: All tests pass after rename
 
-### Config & Scoping
+### Command Vocabulary
 
-- [x] **CFG-01**: `researcher_tier` field in config.json (guided/standard/expert) with selection during `/grd:new-research`
-- [x] **CFG-02**: `review_type` field in config.json (systematic/scoping/integrative/critical/narrative) with selection during `/grd:new-research`
-- [x] **CFG-03**: `epistemological_stance` field in config.json (positivist/constructivist/pragmatist/critical) with pragmatist default if skipped
-- [x] **CFG-04**: Smart defaults cascade -- selecting a review type auto-configures critical_appraisal, temporal_positioning, synthesis, and plan_check rigor per the Smart Defaults table
-- [x] **CFG-05**: `configWithDefaults()` function ensuring existing projects get correct defaults for all new fields
-- [x] **CFG-06**: `config.workflow.critical_appraisal` toggle (skips Evidence Quality section globally; defaults to false for narrative+Guided tier)
-- [x] **CFG-07**: `config.workflow.temporal_positioning` toggle (skips era field; defaults per Smart Defaults table)
+- [ ] **CMD-01**: 6 command files renamed (new-project→new-research, discuss-phase→scope-inquiry, plan-phase→plan-inquiry, execute-phase→conduct-inquiry, verify-work→verify-inquiry, complete-milestone→complete-study)
+- [ ] **CMD-02**: Cross-references updated in all 34 command files
+- [ ] **CMD-03**: Cross-references updated in 17 workflow files (context-sensitive, identifier-only)
+- [ ] **CMD-04**: Cross-references updated in 16 agent files
+- [ ] **CMD-05**: Old command filenames no longer exist in `commands/grd/`
+- [ ] **CMD-06**: All tests pass after vocabulary update
 
-### Research Formulation
+### Source Pipeline
 
-- [x] **FORM-01**: `/grd:new-research` scoping includes researcher tier, review type, epistemological positioning, and standard topic/significance/audience questions
-- [x] **FORM-02**: 4 parallel researchers renamed and rechartered (Methodological Landscape, Prior Findings & Key Themes, Theoretical Framework Survey, Limitations Critiques & Debates)
-- [x] **FORM-03**: PROJECT.md serves as research prospectus with problem statement, significance, epistemological stance, review type, researcher tier, research questions, and constraints
-- [x] **FORM-04**: BOOTSTRAP.md reframed as "state-of-the-field assessment" with scholarly vocabulary (Established → Contested → Unexplored maps to known → debated → gap)
-- [x] **FORM-05**: REQUIREMENTS.md vocabulary shifted to "research objectives / specific aims" — each REQ-ID is a research objective with acceptance criteria defining what "answered" means
-- [x] **FORM-06**: ROADMAP.md reframed as "research design / study plan" — phases described as lines of inquiry, not administrative phases
+- [ ] **SRC-01**: conduct-inquiry workflow spawns source-researcher agent after each plan's executor completes
+- [ ] **SRC-02**: atomicWrite() called during note creation (note + sources + SOURCE-LOG + git commit)
+- [ ] **SRC-03**: validateReferences() works end-to-end in verify-inquiry with real sources
+- [ ] **SRC-04**: Template path resolution works for both local and global installs
+- [ ] **SRC-05**: Running conduct-inquiry on a phase with `<src>` blocks produces `-sources/` directories with acquired files
 
-### Research Notes
+### Documentation
 
-- [x] **NOTE-01**: Research note template includes Evidence Quality section with depth scaled by review type (systematic=full CASP/GRADE, scoping=charting, integrative/critical=proportional, narrative=optional) and influenced by epistemological stance (positivist prioritizes RCTs/meta-analyses, constructivist values rich description)
-- [x] **NOTE-02**: Research note frontmatter includes `era` field (foundational/developmental/contemporary/emerging) for temporal positioning, skippable via config
-- [x] **NOTE-03**: Research note frontmatter updated with `review_type`, `inquiry`, `era`, and `status` fields
-
-### Plan-Checker
-
-- [x] **PLAN-01**: Plan-checker validates against review type requirements (7 checks: source budget, no duplication, primary sources, systematic search strategy, multi-disciplinary perspectives, inclusion/exclusion criteria, diverse methodologies)
-- [x] **PLAN-02**: Plan-checker uses graduated enforcement -- advisory warnings in early investigation phases, blocking errors in later phases
-
-### Verification
-
-- [x] **VER-01**: Tier 0 sufficiency verification checks whether enough evidence has been gathered for the selected review type, including saturation assessment and epistemological consistency check
-- [x] **VER-02**: Sufficiency criteria scale by review type (systematic=exhaustive, scoping=representative, narrative=adequate coverage)
-- [x] **VER-03**: Three-tier verification pipeline: Tier 0 (sufficiency) → Tier 1 (goal-backward) → Tier 2 (source audit), with `--skip-tier0` flag
-
-### Synthesis
-
-- [x] **SYN-01**: `/grd:synthesize` workflow exists and reuses execute-phase machinery
-- [x] **SYN-02**: Thematic synthesis agent produces THEMES.md mapping patterns and themes across all verified notes
-- [x] **SYN-03**: Theoretical integration agent produces FRAMEWORK.md testing evidence against theoretical framework from Stage 1
-- [x] **SYN-04**: Gap analysis agent produces GAPS.md with typed gaps (Muller-Bloch & Kranz taxonomy) and problematization
-- [x] **SYN-05**: Argument construction agent produces Executive Summary assembling synthesis into coherent scholarly argument
-- [x] **SYN-06**: Synthesis respects dependency ordering: 6a (themes) before 6b/6c (framework/gaps run in parallel), all before 6d (argument)
-- [x] **SYN-07**: Synthesis skippable via `config.workflow.synthesis: false` and individual activities via `--skip-themes`, `--skip-framework`, `--skip-gaps` flags
-- [x] **SYN-08**: Synthesis output follows `{Study}-Research/` directory structure with `00-` prefixed synthesis files and numbered line-of-inquiry subdirectories
-
-### Adaptive Communication
-
-- [x] **TIER-01**: All agent prompts include researcher tier context and adapt vocabulary, explanations, and information density accordingly
-- [x] **TIER-02**: All templates adapt by tier (Guided=inline guidance comments, Standard=brief descriptions, Expert=headers only)
-- [x] **TIER-03**: Verification feedback adapts by tier (Guided=explains what failed and why, Standard=states failure with standard, Expert=terse)
-- [x] **TIER-04**: Error messages and next-action routing adapt by tier (Guided=suggests next steps and explains, Standard=states requirement and rationale, Expert=states requirement only)
-
-### Trap Doors & Interactive Gates
-
-- [x] **TRAP-01**: `--prd <file>` flag for scope-inquiry (skip scoping, use file as locked context) and `--batch N` flag (group N questions per turn)
-- [x] **TRAP-02**: Review type mismatch interactive gate — when plan-checker detects rigor below review type, offer "Downgrade review type" / "Add rigor" / "Override"
-- [x] **TRAP-03**: Saturation interactive gate in Tier 0 verification — offer "Evidence is sufficient" / "Continue investigating" / "Add inquiry"
-- [x] **TRAP-04**: Synthesis scope interactive gate before `/grd:synthesize` — offer "Full synthesis (all 4 activities)" / "Themes + argument only" / "Skip synthesis"
-- [x] **TRAP-05**: Review type downgrade via `/grd:settings` mid-study — rigor requirements relax, no work lost
-
-### Completion
-
-- [x] **COMP-01**: `/grd:complete-study` includes deliverable assembly — compile synthesis into the target format specified in PROJECT.md
-
-### Testing
-
-- [x] **TEST-01**: All existing 164+ tests continue to pass after all changes
-- [x] **TEST-02**: New tests cover namespace migration (zero residual references)
-- [x] **TEST-03**: New tests cover review type enforcement in plan-checker
-- [x] **TEST-04**: New tests cover config schema with defaults and smart defaults cascade
-- [x] **TEST-05**: New tests cover synthesis stage workflow
-- [x] **TEST-06**: New tests cover researcher tier template selection and adaptive output
+- [ ] **DOC-01**: README.md rewritten with final-state naming, command references, and translation table
+- [ ] **DOC-02**: docs/DESIGN.md updated with all naming changes
+- [ ] **DOC-03**: All command examples in docs match new invocations
+- [ ] **DOC-04**: No stale branding in user-facing documentation
 
 ## Future Requirements
 
-Deferred to future milestones. Tracked but not in current roadmap.
+### v2.1 — Obsidian Vault Target
 
-### Bibliometrics
+- **OBS-01**: vault_path config option for Obsidian vault directory
+- **OBS-02**: atomicWrite() outputs to configured vault path
+- **OBS-03**: Obsidian-flavored wikilinks for cross-referencing inquiry notes
 
-- **BIB-01**: Citation network analysis via OpenAlex/Semantic Scholar integration
-- **BIB-02**: Co-citation clustering and intellectual lineage visualization
+### v2.2 — NotebookLM Verification + Synthesis
 
-### PRISMA
+- **NLM-01**: Auto-upload acquired sources to NotebookLM notebook
+- **NLM-02**: Tier 3 verification via notebook_query() for claim checking
+- **NLM-03**: Audio Overview and synthesis artifact generation
 
-- **PRISMA-01**: Automated PRISMA 2020 flow diagram generation from SOURCE-LOG.md data
-- **PRISMA-02**: Study-level screening/inclusion/exclusion count tracking
+### v2.3 — Academic Database Access
 
-### Source Classification
-
-- **CLASS-01**: Practitioner-academic source type distinction with different appraisal criteria
+- **ADB-01**: DOI resolver with Unpaywall/Sci-Hub fallback
+- **ADB-02**: Semantic Scholar / OpenAlex API integration
+- **ADB-03**: Citation graph traversal (depth-limited)
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Automated source quality scoring | Quality assessment requires human judgment; auto-scoring produces false confidence |
-| Automatic era classification by date | Era is intellectual positioning, not chronology; a 2020 paper can be foundational |
-| Per-field granular epistemological enforcement | Epistemology is a framing lens, not enforceable rules; over-operationalizing produces rigidity |
-| Real-time collaboration | Single-user research tool (same as v1.0/v1.1) |
-| Mobile/web UI | CLI only (same as v1.0/v1.1) |
+| Obsidian vault integration | Deferred to v2.1 — requires working source pipeline first |
+| NotebookLM verification layer | Deferred to v2.2 — requires working source pipeline first |
+| Academic database access | Deferred to v2.3 — highest complexity, needs solid v2.0 foundation |
+| Institutional proxy auth | University-specific, manual setup per institution |
+| PRISMA flow diagram generation | Deferred from v1.2, not needed for pipeline wiring |
+| Bibliometric mapping | Deferred from v1.2, independent feature |
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SYNC-01 | Phase 15 | Complete |
-| SYNC-02 | Phase 15 | Complete |
-| SYNC-03 | Phase 15 | Complete |
-| SYNC-04 | Phase 15 | Complete |
-| SYNC-05 | Phase 15 | Complete |
-| NS-01 | Phase 17 | Complete |
-| NS-02 | Phase 23 | Complete |
-| NS-03 | Phase 17 | Complete |
-| NS-04 | Phase 17 | Complete |
-| NS-05 | Phase 17 | Complete |
-| NS-06 | Phase 17 | Complete |
-| CFG-01 | Phase 16 | Complete |
-| CFG-02 | Phase 16 | Complete |
-| CFG-03 | Phase 16 | Complete |
-| CFG-04 | Phase 16 | Complete |
-| CFG-05 | Phase 16 | Complete |
-| CFG-06 | Phase 16 | Complete |
-| CFG-07 | Phase 24 | Complete |
-| FORM-01 | Phase 23 | Complete |
-| FORM-02 | Phase 18 | Complete |
-| FORM-03 | Phase 18 | Complete |
-| FORM-04 | Phase 18 | Complete |
-| FORM-05 | Phase 18 | Complete |
-| FORM-06 | Phase 18 | Complete |
-| NOTE-01 | Phase 18 | Complete |
-| NOTE-02 | Phase 18 | Complete |
-| NOTE-03 | Phase 18 | Complete |
-| PLAN-01 | Phase 19 | Complete |
-| PLAN-02 | Phase 19 | Complete |
-| VER-01 | Phase 24 | Complete |
-| VER-02 | Phase 24 | Complete |
-| VER-03 | Phase 20 | Complete |
-| SYN-01 | Phase 23 | Complete |
-| SYN-02 | Phase 22 | Complete |
-| SYN-03 | Phase 22 | Complete |
-| SYN-04 | Phase 22 | Complete |
-| SYN-05 | Phase 22 | Complete |
-| SYN-06 | Phase 22 | Complete |
-| SYN-07 | Phase 22 | Complete |
-| SYN-08 | Phase 22 | Complete |
-| TRAP-01 | Phase 18 | Complete |
-| TRAP-02 | Phase 19 | Complete |
-| TRAP-03 | Phase 20 | Complete |
-| TRAP-04 | Phase 22 | Complete |
-| TRAP-05 | Phase 16 | Complete |
-| COMP-01 | Phase 23 | Complete |
-| TIER-01 | Phase 21 | Complete |
-| TIER-02 | Phase 21 | Complete |
-| TIER-03 | Phase 21 | Complete |
-| TIER-04 | Phase 21 | Complete |
-| TEST-01 | Phase 15 | Complete |
-| TEST-02 | Phase 17 | Complete |
-| TEST-03 | Phase 19 | Complete |
-| TEST-04 | Phase 16 | Complete |
-| TEST-05 | Phase 22 | Complete |
-| TEST-06 | Phase 21 | Complete |
+| SYNC-01 | TBD | Pending |
+| SYNC-02 | TBD | Pending |
+| SYNC-03 | TBD | Pending |
+| SYNC-04 | TBD | Pending |
+| SYNC-05 | TBD | Pending |
+| SYNC-06 | TBD | Pending |
+| REN-01 | TBD | Pending |
+| REN-02 | TBD | Pending |
+| REN-03 | TBD | Pending |
+| REN-04 | TBD | Pending |
+| REN-05 | TBD | Pending |
+| REN-06 | TBD | Pending |
+| REN-07 | TBD | Pending |
+| REN-08 | TBD | Pending |
+| REN-09 | TBD | Pending |
+| CMD-01 | TBD | Pending |
+| CMD-02 | TBD | Pending |
+| CMD-03 | TBD | Pending |
+| CMD-04 | TBD | Pending |
+| CMD-05 | TBD | Pending |
+| CMD-06 | TBD | Pending |
+| SRC-01 | TBD | Pending |
+| SRC-02 | TBD | Pending |
+| SRC-03 | TBD | Pending |
+| SRC-04 | TBD | Pending |
+| SRC-05 | TBD | Pending |
+| DOC-01 | TBD | Pending |
+| DOC-02 | TBD | Pending |
+| DOC-03 | TBD | Pending |
+| DOC-04 | TBD | Pending |
 
 **Coverage:**
-- v1.2 requirements: 55 total
-- Mapped to phases: 55
-- Unmapped: 0
-- Pending (gap closure): 0
+- v1.3 requirements: 30 total
+- Mapped to phases: 0
+- Unmapped: 30 ⚠️
 
 ---
-*Requirements defined: 2026-03-17*
-*Last updated: 2026-03-22 after Phases 23-24 gap closure complete*
+*Requirements defined: 2026-03-22*
+*Last updated: 2026-03-22 after initial definition*
