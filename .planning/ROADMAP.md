@@ -193,7 +193,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 22-01-PLAN.md -- Agent infrastructure: 4 agent prompts, 4 output templates, model-profiles update, deliverable_format additions, test updates (SYN-02, SYN-03, SYN-04, SYN-05, SYN-08)
+- [x] 22-01-PLAN.md -- Agent infrastructure: 4 agent prompts, 4 output templates, model-profiles update, deliverable_format additions, test updates (SYN-02, SYN-03, SYN-04, SYN-05, SYN-08)
 - [ ] 22-02-PLAN.md -- Synthesize workflow, complete-study integration, synthesis tests (SYN-01, SYN-06, SYN-07, TRAP-04, COMP-01, TEST-05)
 
 ## Progress
@@ -226,7 +226,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 19. Plan-Checker Enforcement | 2/2 | Complete    | 2026-03-20 | - |
 | 20. Three-Tier Verification | 2/2 | Complete    | 2026-03-20 | - |
 | 21. Adaptive Communication | v1.2 | 3/3 | Complete    | 2026-03-21 |
-| 22. Synthesis Stage | v1.2 | 0/2 | Not started | - |
+| 22. Synthesis Stage | v1.2 | 1/2 | In Progress|  |
 
 ---
 *Roadmap created: 2026-03-11*

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
 status: unknown
-stopped_at: Completed 21-03-PLAN.md
-last_updated: "2026-03-21T19:15:28.290Z"
+stopped_at: Completed 22-01-PLAN.md
+last_updated: "2026-03-22T00:11:15.883Z"
 progress:
   total_phases: 16
   completed_phases: 15
-  total_plans: 35
-  completed_plans: 35
+  total_plans: 37
+  completed_plans: 36
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** Phase 21 — adaptive-communication
+**Current focus:** Phase 22 — synthesis-stage
 
 ## Current Position
 
-Phase: 22
-Plan: Not started
+Phase: 22 (synthesis-stage) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Plan: Not started
 | Phase 21 P01 | 2min | 1 tasks | 2 files |
 | Phase 21 P02 | 6min | 2 tasks | 8 files |
 | Phase 21 P03 | 7min | 2 tasks | 7 files |
+| Phase 22 P01 | 5min | 2 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -105,6 +106,9 @@ Recent decisions affecting current work:
 - [Phase 21]: researcher_tier blocks placed inside agent spawn prompts for tier-adapted communication
 - [Phase 21]: Guided tier explains what each step does and why; Expert tier shows command only
 - [Phase 21]: TRAP-02 and TRAP-03 checkpoint gates fully tier-adapted (guided explains consequences)
+- [Phase 22]: Each synthesis agent embeds its scholarly methodology as operational guardrails, not just references
+- [Phase 22]: deliverable_format stored in PROJECT.md (not config.json) per D-09 -- argument agent reads PROJECT.md
+- [Phase 22]: Fixed .gitignore: changed gaps.md to /gaps.md so grd/templates/gaps.md is trackable
 
 ### Pending Todos
 
@@ -116,6 +120,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-21T19:11:11.993Z
-Stopped at: Completed 21-03-PLAN.md
+Last session: 2026-03-22T00:11:15.882Z
+Stopped at: Completed 22-01-PLAN.md
 Resume file: None

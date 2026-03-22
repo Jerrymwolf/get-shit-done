@@ -63,13 +63,13 @@ Requirements for the Research Reorientation milestone. Each maps to roadmap phas
 ### Synthesis
 
 - [ ] **SYN-01**: `/grd:synthesize` workflow exists and reuses execute-phase machinery
-- [ ] **SYN-02**: Thematic synthesis agent produces THEMES.md mapping patterns and themes across all verified notes
-- [ ] **SYN-03**: Theoretical integration agent produces FRAMEWORK.md testing evidence against theoretical framework from Stage 1
-- [ ] **SYN-04**: Gap analysis agent produces GAPS.md with typed gaps (Muller-Bloch & Kranz taxonomy) and problematization
-- [ ] **SYN-05**: Argument construction agent produces Executive Summary assembling synthesis into coherent scholarly argument
+- [x] **SYN-02**: Thematic synthesis agent produces THEMES.md mapping patterns and themes across all verified notes
+- [x] **SYN-03**: Theoretical integration agent produces FRAMEWORK.md testing evidence against theoretical framework from Stage 1
+- [x] **SYN-04**: Gap analysis agent produces GAPS.md with typed gaps (Muller-Bloch & Kranz taxonomy) and problematization
+- [x] **SYN-05**: Argument construction agent produces Executive Summary assembling synthesis into coherent scholarly argument
 - [ ] **SYN-06**: Synthesis respects dependency ordering: 6a (themes) before 6b/6c (framework/gaps run in parallel), all before 6d (argument)
 - [ ] **SYN-07**: Synthesis skippable via `config.workflow.synthesis: false` and individual activities via `--skip-themes`, `--skip-framework`, `--skip-gaps` flags
-- [ ] **SYN-08**: Synthesis output follows `{Study}-Research/` directory structure with `00-` prefixed synthesis files and numbered line-of-inquiry subdirectories
+- [x] **SYN-08**: Synthesis output follows `{Study}-Research/` directory structure with `00-` prefixed synthesis files and numbered line-of-inquiry subdirectories
 
 ### Adaptive Communication
 
@@ -166,13 +166,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VER-02 | Phase 20 | Complete |
 | VER-03 | Phase 20 | Complete |
 | SYN-01 | Phase 22 | Pending |
-| SYN-02 | Phase 22 | Pending |
-| SYN-03 | Phase 22 | Pending |
-| SYN-04 | Phase 22 | Pending |
-| SYN-05 | Phase 22 | Pending |
+| SYN-02 | Phase 22 | Complete |
+| SYN-03 | Phase 22 | Complete |
+| SYN-04 | Phase 22 | Complete |
+| SYN-05 | Phase 22 | Complete |
 | SYN-06 | Phase 22 | Pending |
 | SYN-07 | Phase 22 | Pending |
-| SYN-08 | Phase 22 | Pending |
+| SYN-08 | Phase 22 | Complete |
 | TRAP-01 | Phase 18 | Complete |
 | TRAP-02 | Phase 19 | Complete |
 | TRAP-03 | Phase 20 | Complete |
