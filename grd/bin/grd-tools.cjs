@@ -423,8 +423,27 @@ async function main() {
         const result = planCheckerRules.validateResearchPlan(planContent, bootstrapContent);
         const { output: outputFn } = require('./lib/core.cjs');
         outputFn(result, raw);
+      } else if (subcommand === 'sufficiency') {
+        const suffMod = require('./lib/verify-sufficiency.cjs');
+        const core = require('./lib/core.cjs');
+        const config = core.loadConfig(cwd);
+        const vaultPath = args[2] ? (path.isAbsolute(args[2]) ? args[2] : path.join(cwd, args[2])) : path.join(cwd, config.vault_path || '.planning/notes');
+        const requirementsPath = path.join(cwd, '.planning', 'REQUIREMENTS.md');
+        const notes = suffMod.discoverNotes(vaultPath);
+        let objectives = [];
+        try {
+          const reqContent = fs.readFileSync(requirementsPath, 'utf-8');
+          objectives = suffMod.parseObjectives(reqContent);
+        } catch (_) { /* no requirements file */ }
+        const result = suffMod.verifySufficiency(notes, objectives, {
+          review_type: config.review_type || 'narrative',
+          epistemological_stance: config.epistemological_stance || 'pragmatist',
+          workflow: { temporal_positioning: config.temporal_positioning === false ? false : config.temporal_positioning },
+        });
+        const { output: outputFn } = core;
+        outputFn(result, raw);
       } else {
-        error('Unknown verify subcommand. Available: plan-structure, phase-completeness, references, commits, artifacts, key-links, research-plan');
+        error('Unknown verify subcommand. Available: plan-structure, phase-completeness, references, commits, artifacts, key-links, research-plan, sufficiency');
       }
       break;
     }

@@ -384,7 +384,7 @@ function cmdInitVerifyWork(cwd, phase, raw) {
     review_type: config.review_type || 'narrative',
     epistemological_stance: config.epistemological_stance || 'pragmatist',
     researcher_tier: config.researcher_tier || 'standard',
-    temporal_positioning: config.workflow?.temporal_positioning !== false,
+    temporal_positioning: config.temporal_positioning !== false && config.temporal_positioning !== 'optional',
 
     // Existing artifacts
     has_verification: phaseInfo?.has_verification || false,
