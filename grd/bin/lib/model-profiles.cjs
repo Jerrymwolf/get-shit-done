@@ -26,6 +26,11 @@ const MODEL_PROFILES = {
   'grd-methods-researcher':      { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },
   'grd-architecture-researcher': { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },
   'grd-limitations-researcher':  { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },
+  // --- GRD synthesis agents (match phase-researcher tier) ---
+  'grd-thematic-synthesizer':     { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },
+  'grd-framework-integrator':     { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },
+  'grd-gap-analyzer':             { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },
+  'grd-argument-constructor':     { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },
 };
 const VALID_PROFILES = Object.keys(MODEL_PROFILES['grd-planner']);
 

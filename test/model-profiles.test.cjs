@@ -13,8 +13,8 @@ const {
 // --- MODEL_PROFILES ---
 
 describe('MODEL_PROFILES', () => {
-  it('contains exactly 19 agents', () => {
-    assert.equal(Object.keys(MODEL_PROFILES).length, 19);
+  it('contains exactly 23 agents', () => {
+    assert.equal(Object.keys(MODEL_PROFILES).length, 23);
   });
 
   it('every agent key starts with grd-', () => {
@@ -97,6 +97,35 @@ describe('MODEL_PROFILES', () => {
     }
   });
 
+  it('includes 4 GRD synthesis agents', () => {
+    const synthesisAgents = [
+      'grd-thematic-synthesizer',
+      'grd-framework-integrator',
+      'grd-gap-analyzer',
+      'grd-argument-constructor',
+    ];
+    for (const agent of synthesisAgents) {
+      assert.ok(agent in MODEL_PROFILES, `Missing synthesis agent: ${agent}`);
+    }
+  });
+
+  it('synthesis agents match phase-researcher tier', () => {
+    const synthesisAgents = [
+      'grd-thematic-synthesizer',
+      'grd-framework-integrator',
+      'grd-gap-analyzer',
+      'grd-argument-constructor',
+    ];
+    const expectedTier = { quality: 'opus', balanced: 'sonnet', budget: 'haiku' };
+    for (const agent of synthesisAgents) {
+      assert.deepEqual(
+        MODEL_PROFILES[agent],
+        expectedTier,
+        `Synthesis agent "${agent}" does not match phase-researcher tier`
+      );
+    }
+  });
+
   it('grd-planner has correct tiers', () => {
     assert.deepEqual(MODEL_PROFILES['grd-planner'], {
       quality: 'opus',
@@ -121,9 +150,9 @@ describe('VALID_PROFILES', () => {
 // --- getAgentToModelMapForProfile ---
 
 describe('getAgentToModelMapForProfile', () => {
-  it('returns map with 19 entries for balanced profile', () => {
+  it('returns map with 23 entries for balanced profile', () => {
     const map = getAgentToModelMapForProfile('balanced');
-    assert.equal(Object.keys(map).length, 19);
+    assert.equal(Object.keys(map).length, 23);
   });
 
   it('returns correct model for grd-planner quality', () => {

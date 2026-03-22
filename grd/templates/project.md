@@ -57,6 +57,16 @@ Connect to broader scholarly or practical implications.]
 [Determines communication style throughout the workflow.]
 <!-- /tier:standard -->
 
+## Deliverable Format
+
+**Format:** [literature_review / research_brief / build_spec / custom]
+<!-- tier:guided -->
+<!-- This determines how your synthesis is structured in the Executive Summary. Literature review follows academic conventions with full scholarly apparatus. Research brief is condensed for practitioners. Build spec generates a technical specification for follow-on development. Custom lets you define your own structure. Set during research scoping. -->
+<!-- /tier:guided -->
+<!-- tier:standard -->
+[Determines Executive Summary structure. Set during research scoping.]
+<!-- /tier:standard -->
+
 ## Research Questions
 
 <!-- tier:guided -->

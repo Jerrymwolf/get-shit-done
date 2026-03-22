@@ -262,6 +262,26 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-set epistemologi
 **Apply smart defaults for selected review type:**
 Smart defaults cascade automatically via configWithDefaults() when init.cjs reads config.
 
+**Round 2 -- Deliverable Format (1 question):**
+
+```
+AskUserQuestion([
+  {
+    header: "Output Format",
+    question: "What format should your synthesis take?",
+    multiSelect: false,
+    options: [
+      { label: "Literature Review", description: "Full academic review chapter with scholarly apparatus" },
+      { label: "Research Brief", description: "Condensed summary for practitioners and decision-makers" },
+      { label: "Build Spec", description: "Technical specification for follow-on development project" },
+      { label: "Custom", description: "Define your own output structure during synthesis" }
+    ]
+  }
+])
+```
+
+**Store as `deliverable_format` in PROJECT.md** (not config.json -- per D-09, the argument agent reads PROJECT.md directly). Map selections: "Literature Review" -> `literature_review`, "Research Brief" -> `research_brief`, "Build Spec" -> `build_spec`, "Custom" -> `custom`. When writing PROJECT.md in Step 4, include the selected `deliverable_format` value in the Deliverable Format section.
+
 ## 3. Deep Questioning
 
 **If auto mode:** Skip (already handled in Step 2a). Extract project context from provided document instead and proceed to Step 4.
