@@ -226,7 +226,7 @@ Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
 | 19. Plan-Checker Enforcement | 2/2 | Complete    | 2026-03-20 | - |
 | 20. Three-Tier Verification | 2/2 | Complete    | 2026-03-20 | - |
 | 21. Adaptive Communication | v1.2 | 3/3 | Complete    | 2026-03-21 |
-| 22. Synthesis Stage | v1.2 | 2/2 | Complete   | 2026-03-22 |
+| 22. Synthesis Stage | v1.2 | 2/2 | Complete    | 2026-03-22 |
 
 ---
 *Roadmap created: 2026-03-11*
