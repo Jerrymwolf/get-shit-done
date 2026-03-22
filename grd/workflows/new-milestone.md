@@ -149,13 +149,13 @@ Use template: /Users/jeremiahwolf/.claude/grd/templates/research-project/{FILE}
 
 **Dimension-specific fields:**
 
-| Field | Stack | Features | Architecture | Pitfalls |
-|-------|-------|----------|-------------|----------|
-| EXISTING_CONTEXT | Existing validated capabilities (DO NOT re-research): [from PROJECT.md] | Existing features (already built): [from PROJECT.md] | Existing architecture: [from PROJECT.md or codebase map] | Focus on common mistakes when ADDING these features to existing system |
-| QUESTION | What stack additions/changes are needed for [new features]? | How do [target features] typically work? Expected behavior? | How do [target features] integrate with existing architecture? | Common mistakes when adding [target features] to [domain]? |
-| CONSUMER | Specific libraries with versions for NEW capabilities, integration points, what NOT to add | Table stakes vs differentiators vs anti-features, complexity noted, dependencies on existing | Integration points, new components, data flow changes, suggested build order | Warning signs, prevention strategy, which phase should address it |
-| GATES | Versions current (verify with Context7), rationale explains WHY, integration considered | Categories clear, complexity noted, dependencies identified | Integration points identified, new vs modified explicit, build order considers deps | Pitfalls specific to adding these features, integration pitfalls covered, prevention actionable |
-| FILE | STACK.md | FEATURES.md | ARCHITECTURE.md | PITFALLS.md |
+| Field | Landscape | Questions | Frameworks | Debates |
+|-------|-----------|-----------|------------|---------|
+| EXISTING_CONTEXT | Existing validated knowledge (DO NOT re-research): [from PROJECT.md] | Existing research questions (already investigated): [from PROJECT.md] | Existing theoretical frameworks: [from PROJECT.md or prior notes] | Focus on active debates relevant to NEW lines of inquiry |
+| QUESTION | What is the current state of the field for [new research questions]? | What are the central and sub-questions for [target inquiry]? | What theoretical frameworks apply to [target inquiry]? | What methodological and theoretical debates surround [target inquiry]? |
+| CONSUMER | Key authors, seminal works, institutional centers for NEW inquiry areas, what NOT to duplicate | Central questions (open) vs sub-questions (tractable) vs settled, complexity noted, dependencies on existing | Competing models, relationship to existing frameworks, evidence base | Active positions, methodological disputes, which phase should engage |
+| GATES | Sources current, rationale explains WHY, integration with existing knowledge considered | Questions clear, tractability noted, dependencies identified | Frameworks identified, competing models explicit, evidence base considered | Debates specific to new inquiry, methodological disputes covered, positions actionable |
+| FILE | LANDSCAPE.md | QUESTIONS.md | FRAMEWORKS.md | DEBATES.md |
 
 After all 4 complete, spawn synthesizer:
 
@@ -164,10 +164,10 @@ Task(prompt="
 Synthesize research outputs into SUMMARY.md.
 
 <files_to_read>
-- .planning/research/STACK.md
-- .planning/research/FEATURES.md
-- .planning/research/ARCHITECTURE.md
-- .planning/research/PITFALLS.md
+- .planning/research/LANDSCAPE.md
+- .planning/research/QUESTIONS.md
+- .planning/research/FRAMEWORKS.md
+- .planning/research/DEBATES.md
 </files_to_read>
 
 Write to: .planning/research/SUMMARY.md
@@ -182,9 +182,9 @@ Display key findings from SUMMARY.md:
  GRD ► RESEARCH COMPLETE ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-**Stack additions:** [from SUMMARY.md]
-**Feature table stakes:** [from SUMMARY.md]
-**Watch Out For:** [from SUMMARY.md]
+**Landscape:** [from SUMMARY.md]
+**Central questions:** [from SUMMARY.md]
+**Key debates:** [from SUMMARY.md]
 ```
 
 **If "Skip research":** Continue to Step 9.
@@ -199,7 +199,7 @@ Display key findings from SUMMARY.md:
 
 Read PROJECT.md: core value, current milestone goals, validated requirements (what exists).
 
-**If research exists:** Read FEATURES.md, extract feature categories.
+**If research exists:** Read QUESTIONS.md, extract research question categories.
 
 Present features by category:
 ```

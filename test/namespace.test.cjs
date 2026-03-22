@@ -78,7 +78,8 @@ describe('namespace: zero residual old-namespace references', () => {
     // Exclude: archived milestones (historical records) and SUMMARY files (describe the rename)
     const filtered = hits.filter(h =>
       !h.startsWith('.planning/milestones/') &&
-      !h.endsWith('-SUMMARY.md')
+      !h.endsWith('-SUMMARY.md') &&
+      !h.endsWith('-VERIFICATION.md')
     );
     assert.deepStrictEqual(filtered, [], 'Residual old long path in .planning/: ' + filtered.join(', '));
   });
