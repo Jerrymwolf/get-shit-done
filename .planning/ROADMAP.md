@@ -8,7 +8,7 @@ GRD transforms GSD's code-commit workflow into a research-note workflow.
 
 - ✅ **v1.0 GRD MVP** -- Phases 1-8 (shipped 2026-03-12)
 - ✅ **v1.1 Upstream Sync** -- Phases 9-14 (shipped 2026-03-16)
-- [ ] **v1.2 Research Reorientation** -- Phases 15-22 (in progress)
+- ✅ **v1.2 Research Reorientation** -- Phases 15-24 (shipped 2026-03-22)
 
 ## Phases
 
@@ -42,7 +42,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 
 </details>
 
-### v1.2 Research Reorientation (In Progress)
+### v1.2 Research Reorientation — SHIPPED 2026-03-22
 
 **Milestone Goal:** Transform GRD into GRD -- a research tool that uses PM discipline, not a PM tool that produces research notes.
 

@@ -1,5 +1,33 @@
 # Milestones
 
+## v1.2 Research Reorientation (Shipped: 2026-03-22)
+
+**Phases completed:** 10 phases (15-24), 39 plans total across v1.0-v1.2
+**Timeline:** 6 days (2026-03-17 → 2026-03-22)
+**Tests:** 514 passing (18 test files + smoke suite)
+
+**Key accomplishments:**
+- Synced to GSD v1.25.1 baseline preserving all research extensions
+- Added research config schema: researcher_tier, review_type, epistemological_stance with smart defaults
+- Migrated namespace from gsd-r to grd with research-native command vocabulary
+- Reframed PROJECT.md as research prospectus, rechartered 4 parallel researchers for scholarly output
+- Added review-type enforcement (systematic/scoping/integrative/critical/narrative) with PRISMA protocol awareness
+- Built three-tier verification: Tier 0 sufficiency → Tier 1 goal-backward → Tier 2 source audit
+- Implemented adaptive communication across 3 researcher tiers (guided/standard/expert)
+- Created synthesis stage: thematic synthesis, theoretical integration, gap analysis, argument construction
+- Added 69-test comprehensive smoke test suite covering structural integrity, CLI routes, config, and E2E pipeline
+
+**Tech debt accepted:**
+- Duplicate stateExtractField in state.cjs (carried from v1.1)
+- config-set-model-profile stub in grd-tools.cjs (carried from v1.1)
+- stats.md research metrics deferred
+- Bibliometric mapping deferred to future milestone
+- PRISMA flow diagram generation deferred to future milestone
+
+**Archive:** `.planning/ROADMAP.md` (phases 15-24 section)
+
+---
+
 ## v1.1 Upstream Sync (Shipped: 2026-03-16)
 
 **Phases completed:** 6 phases, 11 plans, 22 tasks

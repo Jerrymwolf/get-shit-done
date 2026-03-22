@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation
-status: unknown
-stopped_at: Completed 22-02-PLAN.md
-last_updated: "2026-03-22T00:20:56.702Z"
+status: complete
+stopped_at: Milestone v1.2 shipped
+last_updated: "2026-03-22"
 progress:
-  total_phases: 16
-  completed_phases: 16
-  total_plans: 37
-  completed_plans: 37
+  total_phases: 18
+  completed_phases: 18
+  total_plans: 39
+  completed_plans: 39
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** Phase 22 — synthesis-stage
+**Current focus:** v1.2 complete — milestone shipped 2026-03-22
 
 ## Current Position
 
-Phase: 22
-Plan: Not started
+Phase: 24 of 24 (complete)
+Plan: All complete
 
 ## Performance Metrics
 
