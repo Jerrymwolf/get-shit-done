@@ -207,7 +207,10 @@ Plans:
   1. All 8 workflow files call correct init subcommand names (plan-inquiry, conduct-inquiry, verify-inquiry, new-research)
   2. The full E2E flow (new-research → scope-inquiry → plan-inquiry → conduct-inquiry → verify-inquiry → synthesize → complete-study) initializes without errors
   3. All existing tests continue to pass
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 23-01-PLAN.md -- Fix init subcommand names in 8 workflow files (NS-02, FORM-01, SYN-01, COMP-01)
 
 ### Phase 24: Verification Pipeline Wiring
 **Goal:** Tier 0 sufficiency checks are reachable from the verification workflow and temporal_positioning config is correctly propagated
@@ -220,7 +223,10 @@ Plans:
   3. `init.cjs cmdInitVerifyWork` reads `config.temporal_positioning` (not `config.workflow?.temporal_positioning`)
   4. When `temporal_positioning` is set to `false` or `optional`, era coverage checks in Tier 0 respect the setting
   5. All existing tests continue to pass; new test covers temporal_positioning propagation
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 24-01-PLAN.md -- Wire verify-sufficiency to CLI, fix temporal_positioning bug, add tests (VER-01, VER-02, CFG-07)
 
 ## Progress
 
@@ -254,9 +260,9 @@ Note: Phases 23 and 24 can execute in parallel (gap closure phases with no inter
 | 20. Three-Tier Verification | 2/2 | Complete    | 2026-03-20 | - |
 | 21. Adaptive Communication | v1.2 | 3/3 | Complete    | 2026-03-21 |
 | 22. Synthesis Stage | v1.2 | 2/2 | Complete    | 2026-03-22 |
-| 23. Workflow Init Alignment | v1.2 | 0/0 | Not Started | - |
-| 24. Verification Pipeline Wiring | v1.2 | 0/0 | Not Started | - |
+| 23. Workflow Init Alignment | v1.2 | 0/1 | Not Started | - |
+| 24. Verification Pipeline Wiring | v1.2 | 0/1 | Not Started | - |
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-22 after audit gap closure planning*
+*Last updated: 2026-03-22 after Phase 23-24 planning*
