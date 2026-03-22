@@ -68,8 +68,10 @@ describe('namespace: zero residual old-namespace references', () => {
 
   it('no old short prefix in test/ tree', () => {
     const hits = scanForPattern(path.join(ROOT, 'test'), new RegExp(OLD_PREFIX), ['.cjs']);
-    // Exclude this test file itself (it contains patterns as search strings)
-    const filtered = hits.filter(h => h !== 'test/namespace.test.cjs');
+    // Exclude test files that contain patterns as search strings or agent name literals
+    const filtered = hits.filter(h =>
+      h !== 'test/namespace.test.cjs' && h !== 'test/smoke.test.cjs'
+    );
     assert.deepStrictEqual(filtered, [], 'Residual old prefix in tests: ' + filtered.join(', '));
   });
 
