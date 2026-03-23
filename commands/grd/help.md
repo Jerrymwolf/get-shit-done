@@ -1,12 +1,12 @@
 ---
 name: grd:help
-description: Show available GRD commands and usage guide
+description: Show the GRD research workflow command reference
 allowed-tools:
   - Read
   - Bash
 ---
 <objective>
-Display all available /grd: commands with descriptions and usage examples.
+Display the GRD research workflow command reference with all available /grd: commands organized by research lifecycle.
 </objective>
 
 <execution_context>
