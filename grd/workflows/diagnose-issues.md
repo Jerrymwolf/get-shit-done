@@ -1,49 +1,56 @@
 <purpose>
-Orchestrate parallel debug agents to investigate UAT gaps and find root causes.
+Orchestrate parallel diagnosis agents to investigate research gaps and find root causes.
 
-After UAT finds gaps, spawn one debug agent per gap. Each agent investigates autonomously with symptoms pre-filled from UAT. Collect root causes, update UAT.md gaps with diagnosis, then hand off to plan-inquiry --gaps with actual diagnoses.
+After verification finds gaps in research quality, spawn one diagnosis agent per gap. Each agent investigates autonomously with symptoms pre-filled from verification results. Collect root causes, update verification gaps with diagnosis, then hand off to plan-inquiry --gaps with actual diagnoses.
 
-Orchestrator stays lean: parse gaps, spawn agents, collect results, update UAT.
+Orchestrator stays lean: parse gaps, spawn agents, collect results, update verification record.
+
+**Research gaps this workflow investigates:**
+- Methodology weaknesses (missing controls, sampling bias, unvalidated instruments)
+- Source conflicts (contradictory findings, incompatible theoretical frameworks)
+- Missing evidence (claims without sufficient support, citation gaps)
+- Analytical dead ends (circular reasoning, unfalsifiable hypotheses, tautological arguments)
+- Coverage gaps (underrepresented domains, temporal blind spots, missing perspectives)
 </purpose>
 
 <paths>
 DEBUG_DIR=.planning/debug
 
-Debug files use the `.planning/debug/` path (hidden directory with leading dot).
+Diagnosis files use the `.planning/debug/` path (hidden directory with leading dot).
 </paths>
 
 <core_principle>
-**Diagnose before planning fixes.**
+**Diagnose before planning resolutions.**
 
-UAT tells us WHAT is broken (symptoms). Debug agents find WHY (root cause). plan-inquiry --gaps then creates targeted fixes based on actual causes, not guesses.
+Verification tells us WHAT is weak (symptoms). Diagnosis agents find WHY (root cause). plan-inquiry --gaps then creates targeted resolutions based on actual causes, not guesses.
 
-Without diagnosis: "Comment doesn't refresh" → guess at fix → maybe wrong
-With diagnosis: "Comment doesn't refresh" → "useEffect missing dependency" → precise fix
+Without diagnosis: "Source conflict on measurement validity" -> guess at resolution -> maybe wrong
+With diagnosis: "Source conflict on measurement validity" -> "Ryan 2017 and Deci 2020 use incompatible operationalizations of autonomy" -> precise resolution (reconcile definitions or scope to one framework)
 </core_principle>
 
 <process>
 
 <step name="parse_gaps">
-**Extract gaps from UAT.md:**
+**Extract gaps from verification record:**
 
 Read the "Gaps" section (YAML format):
 ```yaml
-- truth: "Comment appears immediately after submission"
+- truth: "All autonomy support claims backed by empirical evidence"
   status: failed
-  reason: "User reported: works but doesn't show until I refresh the page"
+  reason: "Reviewer noted: Section 3.2 cites theoretical framework but lacks empirical validation studies"
   severity: major
   test: 2
   artifacts: []
   missing: []
 ```
 
-For each gap, also read the corresponding test from "Tests" section to get full context.
+For each gap, also read the corresponding verification check to get full context.
 
 Build gap list:
 ```
 gaps = [
-  {truth: "Comment appears immediately...", severity: "major", test_num: 2, reason: "..."},
-  {truth: "Reply button positioned correctly...", severity: "minor", test_num: 5, reason: "..."},
+  {truth: "All autonomy support claims backed...", severity: "major", test_num: 2, reason: "..."},
+  {truth: "Sources represent balanced perspectives...", severity: "minor", test_num: 5, reason: "..."},
   ...
 ]
 ```
@@ -53,19 +60,19 @@ gaps = [
 **Report diagnosis plan to user:**
 
 ```
-## Diagnosing {N} Gaps
+## Diagnosing {N} Research Gaps
 
-Spawning parallel debug agents to investigate root causes:
+Spawning parallel diagnosis agents to investigate root causes:
 
-| Gap (Truth) | Severity |
-|-------------|----------|
-| Comment appears immediately after submission | major |
-| Reply button positioned correctly | minor |
-| Delete removes comment | blocker |
+| Gap (Expected Truth) | Severity |
+|----------------------|----------|
+| All autonomy claims backed by empirical evidence | major |
+| Sources represent balanced perspectives | minor |
+| Methodology section addresses validity threats | blocker |
 
 Each agent will:
-1. Create DEBUG-{slug}.md with symptoms pre-filled
-2. Investigate autonomously (read code, form hypotheses, test)
+1. Create DIAGNOSIS-{slug}.md with symptoms pre-filled
+2. Investigate autonomously (read notes, trace reasoning, check sources)
 3. Return root cause
 
 This runs in parallel - all gaps investigated simultaneously.
@@ -73,29 +80,29 @@ This runs in parallel - all gaps investigated simultaneously.
 </step>
 
 <step name="spawn_agents">
-**Spawn debug agents in parallel:**
+**Spawn diagnosis agents in parallel:**
 
 For each gap, fill the debug-subagent-prompt template and spawn:
 
 ```
 Task(
-  prompt=filled_debug_subagent_prompt + "\n\n<files_to_read>\n- {phase_dir}/{phase_num}-UAT.md\n- .planning/STATE.md\n</files_to_read>",
+  prompt=filled_debug_subagent_prompt + "\n\n<files_to_read>\n- {phase_dir}/{phase_num}-VERIFICATION.md\n- .planning/STATE.md\n</files_to_read>",
   subagent_type="grd-debugger",
   isolation="worktree",
-  description="Debug: {truth_short}"
+  description="Diagnose: {truth_short}"
 )
 ```
 
 **All agents spawn in single message** (parallel execution).
 
 Template placeholders:
-- `{truth}`: The expected behavior that failed
-- `{expected}`: From UAT test
-- `{actual}`: Verbatim user description from reason field
-- `{errors}`: Any error messages from UAT (or "None reported")
-- `{reproduction}`: "Test {test_num} in UAT"
-- `{timeline}`: "Discovered during UAT"
-- `{goal}`: `find_root_cause_only` (UAT flow - plan-inquiry --gaps handles fixes)
+- `{truth}`: The expected research quality that failed
+- `{expected}`: From verification check
+- `{actual}`: Verbatim reviewer description from reason field
+- `{errors}`: Any specific problems identified (or "None reported")
+- `{reproduction}`: "Check {test_num} in verification"
+- `{timeline}`: "Discovered during research verification"
+- `{goal}`: `find_root_cause_only` (verification flow - plan-inquiry --gaps handles resolutions)
 - `{slug}`: Generated from truth
 </step>
 
@@ -106,7 +113,7 @@ Each agent returns with:
 ```
 ## ROOT CAUSE FOUND
 
-**Debug Session:** ${DEBUG_DIR}/{slug}.md
+**Diagnosis Session:** ${DEBUG_DIR}/{slug}.md
 
 **Root Cause:** {specific cause with evidence}
 
@@ -115,18 +122,18 @@ Each agent returns with:
 - {key finding 2}
 - {key finding 3}
 
-**Files Involved:**
-- {file1}: {what's wrong}
-- {file2}: {related issue}
+**Sources/Notes Involved:**
+- {note1}: {what's problematic}
+- {source1}: {related issue}
 
-**Suggested Fix Direction:** {brief hint for plan-inquiry --gaps}
+**Suggested Resolution Direction:** {brief hint for plan-inquiry --gaps}
 ```
 
 Parse each return to extract:
 - root_cause: The diagnosed cause
-- files: Files involved
-- debug_path: Path to debug session file
-- suggested_fix: Hint for gap closure plan
+- artifacts: Sources/notes involved
+- debug_path: Path to diagnosis session file
+- suggested_resolution: Hint for gap closure plan
 
 If agent returns `## INVESTIGATION INCONCLUSIVE`:
 - root_cause: "Investigation inconclusive - manual review needed"
@@ -134,32 +141,32 @@ If agent returns `## INVESTIGATION INCONCLUSIVE`:
 - Include remaining possibilities from agent return
 </step>
 
-<step name="update_uat">
-**Update UAT.md gaps with diagnosis:**
+<step name="update_verification">
+**Update verification record gaps with diagnosis:**
 
 For each gap in the Gaps section, add artifacts and missing fields:
 
 ```yaml
-- truth: "Comment appears immediately after submission"
+- truth: "All autonomy support claims backed by empirical evidence"
   status: failed
-  reason: "User reported: works but doesn't show until I refresh the page"
+  reason: "Reviewer noted: Section 3.2 cites theoretical framework but lacks empirical validation studies"
   severity: major
   test: 2
-  root_cause: "useEffect in CommentList.tsx missing commentCount dependency"
+  root_cause: "Section 3.2 relies on Ryan & Deci 2000 theoretical paper; no empirical studies from 2015+ acquired for autonomy support interventions"
   artifacts:
-    - path: "src/components/CommentList.tsx"
-      issue: "useEffect missing dependency"
+    - path: "vault/notes/autonomy-support-theory.md"
+      issue: "Cites only theoretical framework, no empirical validation"
   missing:
-    - "Add commentCount to useEffect dependency array"
-    - "Trigger re-render when new comment added"
-  debug_session: .planning/debug/comment-not-refreshing.md
+    - "Acquire empirical studies on autonomy support interventions (2015-2024)"
+    - "Add evidence from intervention trials to Section 3.2"
+  debug_session: .planning/debug/autonomy-claims-unsupported.md
 ```
 
 Update status in frontmatter to "diagnosed".
 
-Commit the updated UAT.md:
+Commit the updated verification record:
 ```bash
-node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs({phase_num}): add root causes from diagnosis" --files ".planning/phases/XX-name/{phase_num}-UAT.md"
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs({phase_num}): add root causes from diagnosis" --files ".planning/phases/XX-name/{phase_num}-VERIFICATION.md"
 ```
 </step>
 
@@ -168,19 +175,19 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs({phase_num
 
 Display:
 ```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GRD ► DIAGNOSIS COMPLETE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+---
+ GRD - DIAGNOSIS COMPLETE
+---
 
-| Gap (Truth) | Root Cause | Files |
-|-------------|------------|-------|
-| Comment appears immediately | useEffect missing dependency | CommentList.tsx |
-| Reply button positioned correctly | CSS flex order incorrect | ReplyButton.tsx |
-| Delete removes comment | API missing auth header | api/comments.ts |
+| Gap (Expected Truth) | Root Cause | Sources/Notes |
+|----------------------|------------|---------------|
+| Autonomy claims backed by evidence | Missing empirical studies post-2015 | autonomy-support-theory.md |
+| Balanced perspectives represented | Western-centric source selection | 8 of 10 sources US/UK only |
+| Methodology addresses validity | No construct validity discussion | methodology-note.md |
 
-Debug sessions: ${DEBUG_DIR}/
+Diagnosis sessions: ${DEBUG_DIR}/
 
-Proceeding to plan fixes...
+Proceeding to plan resolutions...
 ```
 
 Return to verify-inquiry orchestrator for automatic planning.
@@ -190,8 +197,8 @@ Do NOT offer manual next steps - verify-inquiry handles the rest.
 </process>
 
 <context_efficiency>
-Agents start with symptoms pre-filled from UAT (no symptom gathering).
-Agents only diagnose—plan-inquiry --gaps handles fixes (no fix application).
+Agents start with symptoms pre-filled from verification (no symptom gathering).
+Agents only diagnose -- plan-inquiry --gaps handles resolutions (no fix application).
 </context_efficiency>
 
 <failure_handling>
@@ -201,20 +208,20 @@ Agents only diagnose—plan-inquiry --gaps handles fixes (no fix application).
 - Report incomplete diagnosis
 
 **Agent times out:**
-- Check DEBUG-{slug}.md for partial progress
-- Can resume with /grd:debug
+- Check DIAGNOSIS-{slug}.md for partial progress
+- Can resume with /grd:diagnose
 
 **All agents fail:**
-- Something systemic (permissions, git, etc.)
+- Something systemic (missing notes, corrupted vault, etc.)
 - Report for manual investigation
 - Fall back to plan-inquiry --gaps without root causes (less precise)
 </failure_handling>
 
 <success_criteria>
-- [ ] Gaps parsed from UAT.md
-- [ ] Debug agents spawned in parallel
+- [ ] Gaps parsed from verification record
+- [ ] Diagnosis agents spawned in parallel
 - [ ] Root causes collected from all agents
-- [ ] UAT.md gaps updated with artifacts and missing
-- [ ] Debug sessions saved to ${DEBUG_DIR}/
+- [ ] Verification gaps updated with artifacts and missing items
+- [ ] Diagnosis sessions saved to ${DEBUG_DIR}/
 - [ ] Hand off to verify-inquiry for automatic planning
 </success_criteria>

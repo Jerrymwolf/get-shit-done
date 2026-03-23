@@ -1,6 +1,6 @@
 ---
-name: gsd:debug
-description: Systematic debugging with persistent state across context resets
+name: grd:diagnose
+description: Systematic diagnosis of methodology gaps, source conflicts, and analytical dead ends in research
 argument-hint: [issue description]
 allowed-tools:
   - Read
@@ -10,17 +10,24 @@ allowed-tools:
 ---
 
 <objective>
-Debug issues using scientific method with subagent isolation.
+Diagnose research issues using systematic investigation with subagent isolation.
 
-**Orchestrator role:** Gather symptoms, spawn grd-debugger agent, handle checkpoints, spawn continuations.
+**Orchestrator role:** Gather symptoms of the research problem, spawn grd-debugger agent (research diagnostician), handle checkpoints, spawn continuations.
 
-**Why subagent:** Investigation burns context fast (reading files, forming hypotheses, testing). Fresh 200k context per investigation. Main context stays lean for user interaction.
+**Why subagent:** Investigation burns context fast (reading notes, forming hypotheses about source conflicts, tracing analytical reasoning). Fresh 200k context per investigation. Main context stays lean for user interaction.
+
+**Research issues this command investigates:**
+- Methodology gaps (missing controls, weak sampling, unvalidated instruments)
+- Source conflicts (contradictory findings across studies, incompatible frameworks)
+- Analytical dead ends (circular reasoning, unfalsifiable claims, insufficient evidence)
+- Coverage gaps (missing domains, underrepresented perspectives, temporal gaps)
+- Citation integrity issues (broken source chains, missing primary sources)
 </objective>
 
 <context>
-User's issue: $ARGUMENTS
+User's research issue: $ARGUMENTS
 
-Check for active sessions:
+Check for active diagnosis sessions:
 ```bash
 ls .planning/debug/*.md 2>/dev/null | grep -v resolved | head -5
 ```
@@ -35,7 +42,7 @@ INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" state load)
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 
-Extract `commit_docs` from init JSON. Resolve debugger model:
+Extract `commit_docs` from init JSON. Resolve diagnostician model:
 ```bash
 debugger_model=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolve-model grd-debugger --raw)
 ```
@@ -44,39 +51,39 @@ debugger_model=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolv
 
 If active sessions exist AND no $ARGUMENTS:
 - List sessions with status, hypothesis, next action
-- User picks number to resume OR describes new issue
+- User picks number to resume OR describes new research issue
 
 If $ARGUMENTS provided OR user describes new issue:
 - Continue to symptom gathering
 
-## 2. Gather Symptoms (if new issue)
+## 2. Gather Research Symptoms (if new issue)
 
 Use AskUserQuestion for each:
 
-1. **Expected behavior** - What should happen?
-2. **Actual behavior** - What happens instead?
-3. **Error messages** - Any errors? (paste or describe)
-4. **Timeline** - When did this start? Ever worked?
-5. **Reproduction** - How do you trigger it?
+1. **Expected finding** - What should the research show or support?
+2. **Actual finding** - What does the evidence actually indicate?
+3. **Conflicting sources** - Any contradictions between sources? (describe)
+4. **Timeline** - When did you notice the problem? Was the analysis ever coherent?
+5. **Scope** - Which notes, sources, or domains are involved?
 
 After all gathered, confirm ready to investigate.
 
-## 3. Spawn grd-debugger Agent
+## 3. Spawn Research Diagnostician Agent
 
 Fill prompt and spawn:
 
 ```markdown
 <objective>
-Investigate issue: {slug}
+Investigate research issue: {slug}
 
 **Summary:** {trigger}
 </objective>
 
 <symptoms>
-expected: {expected}
-actual: {actual}
-errors: {errors}
-reproduction: {reproduction}
+expected_finding: {expected}
+actual_finding: {actual}
+conflicting_sources: {conflicts}
+scope: {scope}
 timeline: {timeline}
 </symptoms>
 
@@ -95,7 +102,7 @@ Task(
   prompt=filled_prompt,
   subagent_type="grd-debugger",
   model="{debugger_model}",
-  description="Debug {slug}"
+  description="Diagnose {slug}"
 )
 ```
 
@@ -104,16 +111,16 @@ Task(
 **If `## ROOT CAUSE FOUND`:**
 - Display root cause and evidence summary
 - Offer options:
-  - "Fix now" - spawn fix subagent
-  - "Plan fix" - suggest /grd:plan-inquiry --gaps
-  - "Manual fix" - done
+  - "Address now" - spawn resolution subagent
+  - "Plan resolution" - suggest /grd:plan-inquiry --gaps
+  - "Manual resolution" - done
 
 **If `## CHECKPOINT REACHED`:**
 - Present checkpoint details to user
 - Get user response
 - If checkpoint type is `human-verify`:
-  - If user confirms fixed: continue so agent can finalize/resolve/archive
-  - If user reports issues: continue so agent returns to investigation/fixing
+  - If user confirms resolved: continue so agent can finalize/resolve/archive
+  - If user reports issues: continue so agent returns to investigation
 - Spawn continuation agent (see step 5)
 
 **If `## INVESTIGATION INCONCLUSIVE`:**
@@ -129,12 +136,12 @@ When user responds to checkpoint, spawn fresh agent:
 
 ```markdown
 <objective>
-Continue debugging {slug}. Evidence is in the debug file.
+Continue diagnosing {slug}. Evidence is in the diagnosis file.
 </objective>
 
 <prior_state>
 <files_to_read>
-- .planning/debug/{slug}.md (Debug session state)
+- .planning/debug/{slug}.md (Diagnosis session state)
 </files_to_read>
 </prior_state>
 
@@ -153,7 +160,7 @@ Task(
   prompt=continuation_prompt,
   subagent_type="grd-debugger",
   model="{debugger_model}",
-  description="Continue debug {slug}"
+  description="Continue diagnosis {slug}"
 )
 ```
 
@@ -161,8 +168,8 @@ Task(
 
 <success_criteria>
 - [ ] Active sessions checked
-- [ ] Symptoms gathered (if new)
-- [ ] grd-debugger spawned with context
+- [ ] Research symptoms gathered (if new)
+- [ ] Research diagnostician spawned with context
 - [ ] Checkpoints handled correctly
-- [ ] Root cause confirmed before fixing
+- [ ] Root cause confirmed before resolving
 </success_criteria>

@@ -1,7 +1,7 @@
 <purpose>
-Generate unit and E2E tests for a completed phase based on its SUMMARY.md, CONTEXT.md, and implementation. Classifies each changed file into TDD (unit), E2E (browser), or Skip categories, presents a test plan for user approval, then generates tests following RED-GREEN conventions.
+Add verification criteria for a completed research phase based on its SUMMARY.md, CONTEXT.md, and research outputs. Classifies each research artifact into Evidence (source fidelity), Coverage (completeness), or Methodology (soundness) categories, presents a verification plan for user approval, then generates verification criteria and checks.
 
-Users currently hand-craft `/grd:quick` prompts for test generation after each phase. This workflow standardizes the process with proper classification, quality gates, and gap reporting.
+Researchers currently hand-craft verification after each phase. This workflow standardizes the process with proper classification, quality gates, and gap reporting.
 </purpose>
 
 <required_reading>
@@ -12,18 +12,19 @@ Read all files referenced by the invoking prompt's execution_context before star
 
 <step name="parse_arguments">
 Parse `$ARGUMENTS` for:
-- Phase number (integer, decimal, or letter-suffix) → store as `$PHASE_ARG`
-- Remaining text after phase number → store as `$EXTRA_INSTRUCTIONS` (optional)
+- Phase number (integer, decimal, or letter-suffix) -> store as `$PHASE_ARG`
+- Remaining text after phase number -> store as `$EXTRA_INSTRUCTIONS` (optional)
 
-Example: `/grd:add-tests 12 focus on edge cases` → `$PHASE_ARG=12`, `$EXTRA_INSTRUCTIONS="focus on edge cases"`
+Example: `/grd:add-verification 12`
+Example: `/grd:add-verification 12 focus on source coverage for autonomy domain`
 
 If no phase argument provided:
 
 ```
 ERROR: Phase number required
-Usage: /grd:add-tests <phase> [additional instructions]
-Example: /grd:add-tests 12
-Example: /grd:add-tests 12 focus on edge cases in the pricing module
+Usage: /grd:add-verification <phase> [additional instructions]
+Example: /grd:add-verification 12
+Example: /grd:add-verification 12 focus on source coverage for autonomy domain
 ```
 
 Exit.
@@ -47,9 +48,9 @@ Ensure the phase exists in .planning/phases/
 Exit.
 
 Read the phase artifacts (in order of priority):
-1. `${phase_dir}/*-SUMMARY.md` — what was implemented, files changed
-2. `${phase_dir}/CONTEXT.md` — acceptance criteria, decisions
-3. `${phase_dir}/*-VERIFICATION.md` — user-verified scenarios (if UAT was done)
+1. `${phase_dir}/*-SUMMARY.md` -- what was researched, notes created, sources acquired
+2. `${phase_dir}/CONTEXT.md` -- research objectives, scope decisions
+3. `${phase_dir}/*-VERIFICATION.md` -- verification scenarios (if already exists)
 
 If no SUMMARY.md exists:
 ```
@@ -60,49 +61,48 @@ Exit.
 
 Present banner:
 ```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GRD ► ADD TESTS — Phase ${phase_number}: ${phase_name}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+---
+ GRD - ADD VERIFICATION -- Phase ${phase_number}: ${phase_name}
+---
 ```
 </step>
 
-<step name="analyze_implementation">
-Extract the list of files modified by the phase from SUMMARY.md ("Files Changed" or equivalent section).
+<step name="analyze_research_outputs">
+Extract the list of research outputs (notes, sources, synthesis documents) from SUMMARY.md ("Files Created/Modified" or equivalent section).
 
-For each file, classify into one of three categories:
+For each artifact, classify into one of three categories:
 
-| Category | Criteria | Test Type |
-|----------|----------|-----------|
-| **TDD** | Pure functions where `expect(fn(input)).toBe(output)` is writable | Unit tests |
-| **E2E** | UI behavior verifiable by browser automation | Playwright/E2E tests |
-| **Skip** | Not meaningfully testable or already covered | None |
+| Category | Criteria | Verification Type |
+|----------|----------|-------------------|
+| **Evidence** | Source-backed claims that can be checked for fidelity | Source fidelity checks |
+| **Coverage** | Completeness assessable by scope/domain analysis | Coverage assertions |
+| **Methodology** | Methodological choices that can be evaluated for soundness | Methodology validation |
 
-**TDD classification — apply when:**
-- Business logic: calculations, pricing, tax rules, validation
-- Data transformations: mapping, filtering, aggregation, formatting
-- Parsers: CSV, JSON, XML, custom format parsing
-- Validators: input validation, schema validation, business rules
-- State machines: status transitions, workflow steps
-- Utilities: string manipulation, date handling, number formatting
+**Evidence classification -- apply when:**
+- Research notes with claims attributed to specific sources
+- Synthesis documents making cross-source assertions
+- Notes citing specific findings, statistics, or quotes
+- Source summaries that can be verified against originals
 
-**E2E classification — apply when:**
-- Keyboard shortcuts: key bindings, modifier keys, chord sequences
-- Navigation: page transitions, routing, breadcrumbs, back/forward
-- Form interactions: submit, validation errors, field focus, autocomplete
-- Selection: row selection, multi-select, shift-click ranges
-- Drag and drop: reordering, moving between containers
-- Modal dialogs: open, close, confirm, cancel
-- Data grids: sorting, filtering, inline editing, column resize
+**Coverage classification -- apply when:**
+- Domain coverage that should meet a completeness threshold
+- Source diversity (geographic, temporal, methodological, theoretical)
+- Representation of different perspectives on a debate
+- Breadth of search strategy (databases searched, date ranges)
 
-**Skip classification — apply when:**
-- UI layout/styling: CSS classes, visual appearance, responsive breakpoints
-- Configuration: config files, environment variables, feature flags
-- Glue code: dependency injection setup, middleware registration, routing tables
-- Migrations: database migrations, schema changes
-- Simple CRUD: basic create/read/update/delete with no business logic
-- Type definitions: records, DTOs, interfaces with no logic
+**Methodology classification -- apply when:**
+- Research design choices (inclusion/exclusion criteria, search strategy)
+- Analytical approach (thematic coding, systematic review, narrative synthesis)
+- Evidence quality assessment approach
+- Citation and referencing practices
+- Synthesis methodology (how sources were combined into findings)
 
-Read each file to verify classification. Don't classify based on filename alone.
+**Skip classification -- apply when:**
+- Administrative artifacts (SOURCE-LOG.md, frontmatter-only files)
+- Configuration or planning documents
+- Files with no substantive research content
+
+Read each artifact to verify classification. Don't classify based on filename alone.
 </step>
 
 <step name="present_classification">
@@ -110,24 +110,27 @@ Present the classification to the user for confirmation before proceeding:
 
 ```
 AskUserQuestion(
-  header: "Test Classification",
+  header: "Verification Classification",
   question: |
-    ## Files classified for testing
+    ## Research artifacts classified for verification
 
-    ### TDD (Unit Tests) — {N} files
-    {list of files with brief reason}
+    ### Evidence (Source Fidelity Checks) -- {N} artifacts
+    {list of notes/sources with brief reason}
 
-    ### E2E (Browser Tests) — {M} files
-    {list of files with brief reason}
+    ### Coverage (Completeness Assertions) -- {M} artifacts
+    {list of domains/areas with brief reason}
 
-    ### Skip — {K} files
-    {list of files with brief reason}
+    ### Methodology (Soundness Validation) -- {K} artifacts
+    {list of methodological choices with brief reason}
+
+    ### Skip -- {J} artifacts
+    {list of artifacts with brief reason}
 
     {if $EXTRA_INSTRUCTIONS: "Additional instructions: ${EXTRA_INSTRUCTIONS}"}
 
     How would you like to proceed?
   options:
-    - "Approve and generate test plan"
+    - "Approve and generate verification plan"
     - "Adjust classification (I'll specify changes)"
     - "Cancel"
 )
@@ -137,64 +140,65 @@ If user selects "Adjust classification": apply their changes and re-present.
 If user selects "Cancel": exit gracefully.
 </step>
 
-<step name="discover_test_structure">
-Before generating the test plan, discover the project's existing test structure:
+<step name="discover_verification_structure">
+Before generating the verification plan, discover existing verification patterns in the project:
 
 ```bash
-# Find existing test directories
-find . -type d -name "*test*" -o -name "*spec*" -o -name "*__tests__*" 2>/dev/null | head -20
-# Find existing test files for convention matching
-find . -type f \( -name "*.test.*" -o -name "*.spec.*" -o -name "*Tests.fs" -o -name "*Test.fs" \) 2>/dev/null | head -20
-# Check for test runners
-ls package.json *.sln 2>/dev/null
+# Find existing verification files
+find .planning -name "*VERIFICATION*" -o -name "*verification*" 2>/dev/null | head -20
+# Check for existing verification criteria format
+ls .planning/phases/*/VERIFICATION.md 2>/dev/null | head -5
 ```
 
 Identify:
-- Test directory structure (where unit tests live, where E2E tests live)
-- Naming conventions (`.test.ts`, `.spec.ts`, `*Tests.fs`, etc.)
-- Test runner commands (how to execute unit tests, how to execute E2E tests)
-- Test framework (xUnit, NUnit, Jest, Playwright, etc.)
+- Verification file location and naming convention
+- Criteria format (YAML, markdown checklist, structured sections)
+- Whether previous phases have verification criteria to match
 
-If test structure is ambiguous, ask the user:
+If verification structure is ambiguous, ask the user:
 ```
 AskUserQuestion(
-  header: "Test Structure",
-  question: "I found multiple test locations. Where should I create tests?",
-  options: [list discovered locations]
+  header: "Verification Structure",
+  question: "I found multiple verification formats. Which should I follow?",
+  options: [list discovered formats]
 )
 ```
 </step>
 
-<step name="generate_test_plan">
-For each approved file, create a detailed test plan.
+<step name="generate_verification_plan">
+For each approved artifact, create a detailed verification plan.
 
-**For TDD files**, plan tests following RED-GREEN-REFACTOR:
-1. Identify testable functions/methods in the file
-2. For each function: list input scenarios, expected outputs, edge cases
-3. Note: since code already exists, tests may pass immediately — that's OK, but verify they test the RIGHT behavior
+**For Evidence artifacts**, plan source fidelity checks:
+1. Identify claims in notes attributed to specific sources
+2. For each claim: specify the source, the note's representation, what to verify
+3. Include: direct quote checks, finding accuracy, context preservation, citation completeness
 
-**For E2E files**, plan tests following RED-GREEN gates:
-1. Identify user scenarios from CONTEXT.md/VERIFICATION.md
-2. For each scenario: describe the user action, expected outcome, assertions
-3. Note: RED gate means confirming the test would fail if the feature were broken
+**For Coverage artifacts**, plan completeness assertions:
+1. Identify domain/scope expectations from CONTEXT.md
+2. For each domain: expected coverage, actual coverage, what constitutes sufficient
+3. Include: source count thresholds, diversity metrics, temporal range checks
 
-Present the complete test plan:
+**For Methodology artifacts**, plan soundness validation:
+1. Identify methodological choices and their justifications
+2. For each choice: what standard it should meet, how to evaluate
+3. Include: search strategy completeness, inclusion criteria clarity, synthesis rigor
+
+Present the complete verification plan:
 
 ```
 AskUserQuestion(
-  header: "Test Plan",
+  header: "Verification Plan",
   question: |
-    ## Test Generation Plan
+    ## Verification Criteria Plan
 
-    ### Unit Tests ({N} tests across {M} files)
-    {for each file: test file path, list of test cases}
+    ### Evidence Checks ({N} checks across {M} notes)
+    {for each note: verification criteria, source to check against}
 
-    ### E2E Tests ({P} tests across {Q} files)
-    {for each file: test file path, list of test scenarios}
+    ### Coverage Assertions ({P} assertions across {Q} domains)
+    {for each domain: coverage threshold, what to verify}
 
-    ### Test Commands
-    - Unit: {discovered test command}
-    - E2E: {discovered e2e command}
+    ### Methodology Validation ({R} validations)
+    {for each method: standard to meet, how to evaluate}
 
     Ready to generate?
   options:
@@ -204,107 +208,133 @@ AskUserQuestion(
 )
 ```
 
-If "Cherry-pick": ask user which tests to include.
+If "Cherry-pick": ask user which criteria to include.
 If "Adjust plan": apply changes and re-present.
 </step>
 
-<step name="execute_tdd_generation">
-For each approved TDD test:
+<step name="execute_evidence_checks">
+For each approved evidence check:
 
-1. **Create test file** following discovered project conventions (directory, naming, imports)
+1. **Create verification entry** following discovered project conventions
 
-2. **Write test** with clear arrange/act/assert structure:
+2. **Write source fidelity check** with clear structure:
    ```
-   // Arrange — set up inputs and expected outputs
-   // Act — call the function under test
-   // Assert — verify the output matches expectations
+   Claim: [what the note asserts]
+   Source: [which source it's attributed to]
+   Check: [read source, verify claim is accurately represented]
+   Expected: [what the source should say if the claim is faithful]
    ```
 
-3. **Run the test**:
+3. **Execute the check** (read the source, compare to the note's claim):
    ```bash
-   {discovered test command}
+   # Read the relevant source and note
    ```
 
 4. **Evaluate result:**
-   - **Test passes**: Good — the implementation satisfies the test. Verify the test checks meaningful behavior (not just that it compiles).
-   - **Test fails with assertion error**: This may be a genuine bug discovered by the test. Flag it:
+   - **Fidelity confirmed**: Good -- the note accurately represents the source.
+   - **Fidelity issue found**: Flag it:
      ```
-     ⚠️ Potential bug found: {test name}
-     Expected: {expected}
-     Actual: {actual}
-     File: {implementation file}
+     EVIDENCE ISSUE: {check name}
+     Note claims: {what the note says}
+     Source says: {what the source actually says}
+     Note: {path to note}
+     Source: {path to source}
      ```
-     Do NOT fix the implementation — this is a test-generation command, not a fix command. Record the finding.
-   - **Test fails with error (import, syntax, etc.)**: This is a test error. Fix the test and re-run.
+     Do NOT fix the note -- this is a verification command, not a correction command. Record the finding.
+   - **Source unavailable**: Record as gap -- source needs to be acquired.
 </step>
 
-<step name="execute_e2e_generation">
-For each approved E2E test:
+<step name="execute_coverage_assertions">
+For each approved coverage assertion:
 
-1. **Check for existing tests** covering the same scenario:
+1. **Check for existing coverage data:**
    ```bash
-   grep -r "{scenario keyword}" {e2e test directory} 2>/dev/null
+   # Count sources in relevant domain
+   grep -r "{domain keyword}" vault/notes/ 2>/dev/null | wc -l
    ```
-   If found, extend rather than duplicate.
+   If corpus map exists, use .planning/corpus/COVERAGE.md data.
 
-2. **Create test file** targeting the user scenario from CONTEXT.md/VERIFICATION.md
-
-3. **Run the E2E test**:
-   ```bash
-   {discovered e2e command}
+2. **Create coverage assertion** targeting domain completeness:
+   ```
+   Domain: [research domain]
+   Threshold: [minimum source count / diversity requirement]
+   Actual: [what exists in the corpus]
+   Status: [met / not met / partially met]
    ```
 
-4. **Evaluate result:**
-   - **GREEN (passes)**: Record success
-   - **RED (fails)**: Determine if it's a test issue or a genuine application bug. Flag bugs:
+3. **Evaluate result:**
+   - **Coverage met**: Record success
+   - **Coverage gap**: Flag it:
      ```
-     ⚠️ E2E failure: {test name}
-     Scenario: {description}
-     Error: {error message}
+     COVERAGE GAP: {domain}
+     Expected: {threshold}
+     Actual: {what exists}
+     Missing: {what's needed}
      ```
-   - **Cannot run**: Report blocker. Do NOT mark as complete.
-     ```
-     🛑 E2E blocker: {reason tests cannot run}
-     ```
+   - **Cannot assess**: Report why and mark as needs-manual-review.
+</step>
 
-**No-skip rule:** If E2E tests cannot execute (missing dependencies, environment issues), report the blocker and mark the test as incomplete. Never mark success without actually running the test.
+<step name="execute_methodology_validation">
+For each approved methodology validation:
+
+1. **Read the methodology description** in relevant notes/CONTEXT.md
+
+2. **Evaluate against standards:**
+   ```
+   Method: [methodological choice]
+   Standard: [what good practice requires]
+   Evaluation: [how the project's approach compares]
+   Status: [sound / needs improvement / inadequate]
+   ```
+
+3. **Evaluate result:**
+   - **Sound methodology**: Record strength
+   - **Needs improvement**: Flag it:
+     ```
+     METHODOLOGY NOTE: {method}
+     Current: {what the project does}
+     Standard: {what good practice requires}
+     Gap: {specific improvement needed}
+     ```
+   - **Cannot evaluate**: Record limitation.
 </step>
 
 <step name="summary_and_commit">
-Create a test coverage report and present to user:
+Create a verification report and present to user:
 
 ```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GRD ► TEST GENERATION COMPLETE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+---
+ GRD - VERIFICATION CRITERIA COMPLETE
+---
 
 ## Results
 
-| Category | Generated | Passing | Failing | Blocked |
-|----------|-----------|---------|---------|---------|
-| Unit     | {N}       | {n1}    | {n2}    | {n3}    |
-| E2E      | {M}       | {m1}    | {m2}    | {m3}    |
+| Category     | Generated | Confirmed | Issues  | Gaps    |
+|-------------|-----------|-----------|---------|---------|
+| Evidence    | {N}       | {n1}      | {n2}    | {n3}    |
+| Coverage    | {M}       | {m1}      | {m2}    | {m3}    |
+| Methodology | {K}       | {k1}      | {k2}    | {k3}    |
 
 ## Files Created/Modified
-{list of test files with paths}
+{list of verification files with paths}
 
 ## Coverage Gaps
-{areas that couldn't be tested and why}
+{areas that couldn't be verified and why}
 
-## Bugs Discovered
-{any assertion failures that indicate implementation bugs}
+## Issues Discovered
+{any fidelity issues or methodology weaknesses found}
 ```
 
-Record test generation in project state:
+Record verification in project state:
 ```bash
 node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" state-snapshot
 ```
 
-If there are passing tests to commit:
+If there are verification criteria to commit:
 
 ```bash
-git add {test files}
-git commit -m "test(phase-${phase_number}): add unit and E2E tests from add-tests command"
+git add {verification files}
+git commit -m "chore(phase-${phase_number}): add verification criteria from add-verification command"
 ```
 
 Present next steps:
@@ -312,22 +342,22 @@ Present next steps:
 ```
 ---
 
-## ▶ Next Up
+## Next Up
 
-{if bugs discovered:}
-**Fix discovered bugs:** `/grd:quick fix the {N} test failures discovered in phase ${phase_number}`
+{if issues discovered:}
+**Address discovered issues:** `/grd:quick address the {N} verification issues discovered in phase ${phase_number}`
 
-{if blocked tests:}
-**Resolve test blockers:** {description of what's needed}
+{if coverage gaps:}
+**Fill coverage gaps:** `/grd:plan-inquiry` to plan additional source acquisition
 
 {otherwise:}
-**All tests passing!** Phase ${phase_number} is fully tested.
+**All verification criteria confirmed!** Phase ${phase_number} research outputs are well-supported.
 
 ---
 
 **Also available:**
-- `/grd:add-tests {next_phase}` — test another phase
-- `/grd:verify-inquiry {phase_number}` — run UAT verification
+- `/grd:add-verification {next_phase}` -- verify another phase
+- `/grd:verify-inquiry {phase_number}` -- run full research verification
 
 ---
 ```
@@ -337,15 +367,16 @@ Present next steps:
 
 <success_criteria>
 - [ ] Phase artifacts loaded (SUMMARY.md, CONTEXT.md, optionally VERIFICATION.md)
-- [ ] All changed files classified into TDD/E2E/Skip categories
+- [ ] All research outputs classified into Evidence/Coverage/Methodology/Skip categories
 - [ ] Classification presented to user and approved
-- [ ] Project test structure discovered (directories, conventions, runners)
-- [ ] Test plan presented to user and approved
-- [ ] TDD tests generated with arrange/act/assert structure
-- [ ] E2E tests generated targeting user scenarios
-- [ ] All tests executed — no untested tests marked as passing
-- [ ] Bugs discovered by tests flagged (not fixed)
-- [ ] Test files committed with proper message
+- [ ] Existing verification structure discovered
+- [ ] Verification plan presented to user and approved
+- [ ] Evidence checks generated with source fidelity structure
+- [ ] Coverage assertions generated with domain completeness thresholds
+- [ ] Methodology validations generated with standards-based evaluation
+- [ ] All checks executed -- no unverified criteria marked as confirmed
+- [ ] Issues discovered by checks flagged (not fixed)
+- [ ] Verification files committed with proper message
 - [ ] Coverage gaps documented
 - [ ] Next steps presented to user
 </success_criteria>
