@@ -53,6 +53,7 @@ Every research finding is self-contained and auditable — the note plus its act
 - Research-native command vocabulary — scope-inquiry, conduct-inquiry, etc. — v1.3 Phase 27 ✓
 - Agent and workflow reorientation — research language in prompts and examples — v1.3 Phase 28 ✓
 - Research template variants — research task types and summary frontmatter — v1.3 Phase 29 ✓
+- Command reconceptualization (diagnostics/corpus) — diagnose, map-corpus, add-verification — v1.3 Phase 30 ✓
 <!-- v1.3 Upstream Sync + Rename + Source Pipeline Wiring -->
 (See REQUIREMENTS.md for remaining v1.3 requirements: Source Pipeline Wiring, Documentation Rewrite)
 
