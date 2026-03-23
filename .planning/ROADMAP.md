@@ -115,7 +115,10 @@ Plans:
   2. Old command filenames (new-project.md, discuss-phase.md, plan-phase.md, execute-phase.md, verify-work.md, complete-milestone.md) no longer exist in `commands/grd/`
   3. `grep` for old `/grd:` prefixed command names across commands/, agents/, grd/workflows/, README.md, and docs/DESIGN.md returns zero results
   4. All tests pass after vocabulary update
-**Plans**: TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 27-01-PLAN.md -- Delete old command files, bulk /grd: replacement, context-aware bare identifier replacement in 17 workflow files
 
 #### Phase 28: Source Pipeline Wiring
 **Goal**: Running conduct-inquiry on a phase with `<src>` blocks produces `-sources/` directories with acquired files that pass Tier 2 verification
@@ -148,6 +151,6 @@ Phases execute in numeric order: 25 -> 26 -> 27 -> 28 / 29 (28 and 29 can run in
 |-------|-----------|----------------|--------|-----------|
 | 25. Upstream Sync to v1.28.0 | v1.3 | 6/6 | Complete    | 2026-03-23 |
 | 26. Rename GSD-R to GRD | v1.3 | 2/3 | Complete    | 2026-03-23 |
-| 27. Command Vocabulary | v1.3 | 0/TBD | Not started | - |
+| 27. Command Vocabulary | v1.3 | 0/1 | Planned | - |
 | 28. Source Pipeline Wiring | v1.3 | 0/TBD | Not started | - |
 | 29. Documentation Rewrite | v1.3 | 0/TBD | Not started | - |
