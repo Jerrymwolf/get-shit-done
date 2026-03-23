@@ -109,16 +109,17 @@ Every research finding is self-contained and auditable — the note plus its act
 - 2 stale Skill() namespace calls (plan-phase.md:529, discuss-phase.md:682)
 - `replaceInCurrentMilestone` exported but unused
 
-## Current Milestone: v1.3 Upstream Sync + Rename + Source Pipeline Wiring
+## Current Milestone: v1.3 Research-Native Purification
 
-**Goal:** Sync GRD to upstream GSD v1.28.0, eliminate all GSD-R branding, adopt research-native command vocabulary, and wire the source acquisition pipeline.
+**Goal:** Reconceptualize every PM/application-development feature into its research equivalent — nothing removed, everything reframed for scholarly workflows.
 
 **Target features:**
-- Upstream sync from v1.25.1 → v1.28.0 (upstream wins, re-apply research layer)
-- Bulk rename GSD-R → GRD across files, directories, and content
-- Research-native command vocabulary — 6 core command renames with cross-reference updates
-- Wire source acquisition pipeline — connect acquire.cjs, vault.cjs, source-researcher to conduct-inquiry
-- README + docs/DESIGN.md rewrite with final-state naming
+- Reconceptualize 7 PM-only commands into research equivalents (ship→Obsidian export, debug→diagnose, map-codebase→map corpus, add-tests→add verification criteria, pr-branch→export clean research, ui-phase→presentation design, ui-review→output review)
+- Reorient scope-inquiry and verify-inquiry examples with research vocabulary (replace UI/feature language with methodology/scope/evidence language)
+- Fix remaining "GSD" references in 4 agent files (executor, verifier, plan-checker, roadmapper)
+- Create research-specific plan task template and summary template variants
+- Reorganize `/grd:help` around the research workflow with proper categorization
+- Rewrite template frontmatter for research outputs (sources_acquired, findings, evidence_quality)
 
 ---
-*Last updated: 2026-03-23 after Phase 25 (Upstream Sync to v1.28.0) complete — 23 CJS modules, 68 workflows, 16 templates synced with GSD v1.28.0*
+*Last updated: 2026-03-23 after v1.2 shipped — starting v1.3 Research-Native Purification*

@@ -1,30 +1,32 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.2
-milestone_name: Research Reorientation — SHIPPED 2026-03-22
-status: Milestone complete
-stopped_at: Completed 27-01-PLAN.md
-last_updated: "2026-03-23T17:44:56.358Z"
+milestone: v1.3
+milestone_name: Research-Native Purification
+status: Defining requirements
+stopped_at: null
+last_updated: "2026-03-23T19:00:00.000Z"
 progress:
-  total_phases: 21
-  completed_phases: 21
-  total_plans: 49
-  completed_plans: 49
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-17)
+See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** v1.2 complete — milestone shipped 2026-03-22
+**Current focus:** v1.3 Research-Native Purification — reconceptualize PM features as research equivalents
 
 ## Current Position
 
-Phase: 27 of 24 (complete)
-Plan: Not started
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-23 — Milestone v1.3 started
 
 ## Performance Metrics
 
