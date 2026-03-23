@@ -291,6 +291,7 @@ See `/Users/jeremiahwolf/.claude/grd/references/tdd.md` for TDD plan structure.
 | `checkpoint:human-verify` | Visual/functional verification | Pauses, returns to orchestrator |
 | `checkpoint:decision` | Implementation choices | Pauses, returns to orchestrator |
 | `checkpoint:human-action` | Truly unavoidable manual steps (rare) | Pauses, returns to orchestrator |
+| `research` | Source acquisition, note-taking, literature review, synthesis | Fully autonomous |
 
 **Checkpoint behavior in parallel execution:**
 - Plan runs until checkpoint
@@ -495,6 +496,80 @@ files_modified: [...]
     - database.ts contains SSL conditional on NODE_ENV
     - .env.example contains DATABASE_POOL_MAX
   </acceptance_criteria>
+</task>
+```
+
+---
+
+## Research Task Examples
+
+Research tasks produce scholarly artifacts -- notes, source files, and synthesis documents. Unlike code tasks that create/modify source files, research tasks acquire sources, create annotated notes, and synthesize findings. The `<sources>` element is unique to research tasks and specifies where to search or what prior notes to build upon.
+
+**Source acquisition task:**
+
+```xml
+<task type="research">
+  <name>Task N: [Research action - e.g., "Acquire sources on autonomy support"]</name>
+  <files>vault/notes/topic-note.md, vault/sources/source-file.pdf</files>
+  <read_first>vault/notes/existing-related-note.md</read_first>
+  <sources>
+    - Database: PsycINFO, Web of Science
+    - Search terms: "autonomy support" AND "self-determination"
+    - Date range: 2015-2024
+  </sources>
+  <action>
+    Search specified databases for empirical studies on autonomy support interventions.
+    For each relevant source:
+    1. Acquire the PDF or full text into vault/sources/
+    2. Create a structured note in vault/notes/ with:
+       - Citation (APA 7th)
+       - Key findings
+       - Methodology summary
+       - Relevance to research question
+       - Direct quotes with page numbers
+    3. Tag note with domains: [autonomy, SDT, intervention]
+  </action>
+  <verify>
+    - vault/notes/ contains at least 1 new note file
+    - Each note has frontmatter: domain, sources, findings
+  </verify>
+  <acceptance_criteria>
+    - Note files contain "domain:" frontmatter field
+    - Note files contain "sources:" frontmatter field
+    - Note files contain "findings:" section with content
+    - Source files exist in vault/sources/ for each referenced citation
+  </acceptance_criteria>
+  <done>Sources acquired and annotated with structured notes linking back to source files</done>
+</task>
+```
+
+**Synthesis task:**
+
+```xml
+<task type="research">
+  <name>Task N: [Synthesis action - e.g., "Synthesize findings on measurement approaches"]</name>
+  <files>vault/notes/synthesis-measurement.md</files>
+  <read_first>vault/notes/source-note-1.md, vault/notes/source-note-2.md</read_first>
+  <sources>
+    - Prior notes: vault/notes/source-note-1.md, vault/notes/source-note-2.md
+  </sources>
+  <action>
+    Synthesize findings from acquired source notes into a thematic analysis:
+    1. Identify convergent findings across sources
+    2. Note methodological differences and their implications
+    3. Map debates and unresolved questions
+    4. Produce synthesis note with evidence_quality assessment
+  </action>
+  <verify>
+    - vault/notes/synthesis-measurement.md exists with synthesis content
+    - References at least 2 source notes
+  </verify>
+  <acceptance_criteria>
+    - Synthesis note contains "evidence_quality:" frontmatter
+    - Synthesis note contains "domains_covered:" frontmatter
+    - Synthesis note references source notes by filename
+  </acceptance_criteria>
+  <done>Synthesis note produced with cross-source thematic analysis and evidence quality rating</done>
 </task>
 ```
 
