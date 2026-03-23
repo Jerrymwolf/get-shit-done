@@ -105,7 +105,9 @@ Plans:
   1. phase-prompt.md includes research-task examples with `<task type="research">` blocks showing sources, notes, and findings structure
   2. A research-summary template variant exists with frontmatter fields: sources_acquired, notes_produced, evidence_quality, domains_covered
   3. summary.md template detects project type and renders appropriate frontmatter (code fields for code projects, research fields for research projects)
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 29-01-PLAN.md — Add research task examples to phase-prompt.md and research frontmatter variant to summary.md
 
 ### Phase 30: Command Reconceptualization -- Diagnostics and Corpus
 **Goal**: Three PM-only commands become research-native tools that researchers would reach for naturally
@@ -176,11 +178,11 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 26. GSD-to-GRD Rename | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 27. Research-Native Command Vocabulary | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 28. Agent and Workflow Reorientation | v1.3 | 2/2 | Complete    | 2026-03-23 |
-| 29. Research Template Variants | v1.3 | 0/TBD | Not started | - |
+| 29. Research Template Variants | v1.3 | 0/1 | Not started | - |
 | 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/TBD | Not started | - |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 0/TBD | Not started | - |
 | 32. Help Reorganization | v1.3 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-23 after Phase 28 planning*
+*Last updated: 2026-03-23 after Phase 29 planning*
