@@ -1,7 +1,7 @@
 ---
 name: gsd:map-codebase
-description: Analyze codebase with parallel mapper agents to produce .planning/codebase/ documents
-argument-hint: "[optional: specific area to map, e.g., 'api' or 'auth']"
+description: Survey research corpus with parallel mapper agents to produce .planning/codebase/ analysis documents
+argument-hint: "[optional: specific domain to survey, e.g., 'methodology' or 'theoretical framework']"
 allowed-tools:
   - Read
   - Bash
@@ -12,11 +12,11 @@ allowed-tools:
 ---
 
 <objective>
-Analyze existing codebase using parallel grd-codebase-mapper agents to produce structured codebase documents.
+Survey the existing research corpus using parallel grd-codebase-mapper agents to produce structured analysis documents about the knowledge landscape.
 
 Each mapper agent explores a focus area and **writes documents directly** to `.planning/codebase/`. The orchestrator only receives confirmations, keeping context usage minimal.
 
-Output: .planning/codebase/ folder with 7 structured documents about the codebase state.
+Output: .planning/codebase/ folder with 7 structured documents about the corpus and knowledge landscape.
 </objective>
 
 <execution_context>
@@ -24,47 +24,47 @@ Output: .planning/codebase/ folder with 7 structured documents about the codebas
 </execution_context>
 
 <context>
-Focus area: $ARGUMENTS (optional - if provided, tells agents to focus on specific subsystem)
+Focus area: $ARGUMENTS (optional - if provided, tells agents to focus on specific research domain)
 
 **Load project state if exists:**
 Check for .planning/STATE.md - loads context if project already initialized
 
 **This command can run:**
-- Before /grd:new-research (brownfield codebases) - creates codebase map first
-- After /grd:new-research (greenfield codebases) - updates codebase map as code evolves
-- Anytime to refresh codebase understanding
+- Before /grd:new-research (projects with existing source materials and notes) - creates corpus survey first
+- After /grd:new-research (new research projects) - updates corpus survey as sources are acquired
+- Anytime to refresh understanding of the research landscape
 </context>
 
 <when_to_use>
-**Use map-codebase for:**
-- Brownfield projects before initialization (understand existing code first)
-- Refreshing codebase map after significant changes
-- Onboarding to an unfamiliar codebase
-- Before major refactoring (understand current state)
-- When STATE.md references outdated codebase info
+**Use map-corpus for:**
+- Projects with existing source materials and notes (understand existing research first)
+- Refreshing corpus survey after acquiring new sources
+- Onboarding to an unfamiliar research domain
+- Before major analytical reorientation (understand current knowledge state)
+- When STATE.md references outdated corpus information
 
-**Skip map-codebase for:**
-- Greenfield projects with no code yet (nothing to map)
-- Trivial codebases (<5 files)
+**Skip map-corpus for:**
+- New research projects with no existing sources (nothing to survey)
+- Trivial projects (<5 source files)
 </when_to_use>
 
 <process>
 1. Check if .planning/codebase/ already exists (offer to refresh or skip)
 2. Create .planning/codebase/ directory structure
 3. Spawn 4 parallel grd-codebase-mapper agents:
-   - Agent 1: tech focus → writes STACK.md, INTEGRATIONS.md
-   - Agent 2: arch focus → writes ARCHITECTURE.md, STRUCTURE.md
-   - Agent 3: quality focus → writes CONVENTIONS.md, TESTING.md
-   - Agent 4: concerns focus → writes CONCERNS.md
+   - Agent 1: sources focus -> writes STACK.md, INTEGRATIONS.md
+   - Agent 2: framework focus -> writes ARCHITECTURE.md, STRUCTURE.md
+   - Agent 3: methodology focus -> writes CONVENTIONS.md, TESTING.md
+   - Agent 4: gaps focus -> writes CONCERNS.md
 4. Wait for agents to complete, collect confirmations (NOT document contents)
 5. Verify all 7 documents exist with line counts
-6. Commit codebase map
+6. Commit corpus survey
 7. Offer next steps (typically: /grd:new-research or /grd:plan-inquiry)
 </process>
 
 <success_criteria>
 - [ ] .planning/codebase/ directory created
-- [ ] All 7 codebase documents written by mapper agents
+- [ ] All 7 corpus analysis documents written by mapper agents
 - [ ] Documents follow template structure
 - [ ] Parallel agents completed without errors
 - [ ] User knows next steps

@@ -1,9 +1,9 @@
 <purpose>
-Orchestrate parallel codebase mapper agents to analyze codebase and produce structured documents in .planning/codebase/
+Orchestrate parallel corpus mapper agents to analyze research sources and produce structured documents in .planning/codebase/
 
 Each agent has fresh context, explores a specific focus area, and **writes documents directly**. The orchestrator only receives confirmation + line counts, then writes a summary.
 
-Output: .planning/codebase/ folder with 7 structured documents about the codebase state.
+Output: .planning/codebase/ folder with 7 structured documents about the research corpus and knowledge landscape.
 </purpose>
 
 <philosophy>
@@ -14,16 +14,16 @@ Output: .planning/codebase/ folder with 7 structured documents about the codebas
 - Faster execution (agents run simultaneously)
 
 **Document quality over length:**
-Include enough detail to be useful as reference. Prioritize practical examples (especially code patterns) over arbitrary brevity.
+Include enough detail to be useful as reference. Prioritize practical examples (especially source references and analytical patterns) over arbitrary brevity.
 
-**Always include file paths:**
-Documents are reference material for Claude when planning/executing. Always include actual file paths formatted with backticks: `src/services/user.ts`.
+**Always include source references:**
+Documents are reference material for Claude when planning/executing. Always include actual file paths formatted with backticks: `vault/notes/methodology-review.md`.
 </philosophy>
 
 <process>
 
 <step name="init_context" priority="first">
-Load codebase mapping context:
+Load corpus mapping context:
 
 ```bash
 INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init map-codebase)
@@ -48,9 +48,9 @@ ls -la .planning/codebase/
 [List files found]
 
 What's next?
-1. Refresh - Delete existing and remap codebase
+1. Refresh - Delete existing and resurvey corpus
 2. Update - Keep existing, only update specific documents
-3. Skip - Use existing codebase map as-is
+3. Skip - Use existing corpus survey as-is
 ```
 
 Wait for user response.
@@ -71,13 +71,13 @@ mkdir -p .planning/codebase
 ```
 
 **Expected output files:**
-- STACK.md (from tech mapper)
-- INTEGRATIONS.md (from tech mapper)
-- ARCHITECTURE.md (from arch mapper)
-- STRUCTURE.md (from arch mapper)
-- CONVENTIONS.md (from quality mapper)
-- TESTING.md (from quality mapper)
-- CONCERNS.md (from concerns mapper)
+- STACK.md (from sources mapper — sources and databases)
+- INTEGRATIONS.md (from sources mapper — external connections and cross-references)
+- ARCHITECTURE.md (from framework mapper — theoretical framework and analytical structure)
+- STRUCTURE.md (from framework mapper — corpus organization and taxonomy)
+- CONVENTIONS.md (from methodology mapper — methodological conventions and standards)
+- TESTING.md (from methodology mapper — verification criteria and evidence thresholds)
+- CONCERNS.md (from gaps mapper — gaps, limitations, and areas of uncertainty)
 
 Continue to spawn_agents.
 </step>
@@ -88,11 +88,11 @@ Before spawning agents, detect whether the current runtime supports the `Task` t
 **Runtimes with Task tool:** Claude Code, Cursor, OpenCode (native subagent support via `Task` or `task`)
 **Runtimes WITHOUT Task tool:** Antigravity, Gemini CLI, Codex, and others
 
-**How to detect:** Check if you have access to a `Task` or `task` tool (either casing counts). If you do NOT have a Task/task tool (or only have tools like `browser_subagent` which is for web browsing, NOT code analysis):
+**How to detect:** Check if you have access to a `Task` or `task` tool (either casing counts). If you do NOT have a Task/task tool (or only have tools like `browser_subagent` which is for web browsing, NOT corpus analysis):
 
-→ **Skip `spawn_agents` and `collect_confirmations`** — go directly to `sequential_mapping` instead.
+> **Skip `spawn_agents` and `collect_confirmations`** — go directly to `sequential_mapping` instead.
 
-**CRITICAL:** Never use `browser_subagent` or `Explore` as a substitute for `Task`. The `browser_subagent` tool is exclusively for web page interaction and will fail for codebase analysis. If `Task` is unavailable, perform the mapping sequentially in-context.
+**CRITICAL:** Never use `browser_subagent` or `Explore` as a substitute for `Task`. The `browser_subagent` tool is exclusively for web page interaction and will fail for corpus analysis. If `Task` is unavailable, perform the mapping sequentially in-context.
 </step>
 
 <step name="spawn_agents" condition="Task tool is available">
@@ -102,80 +102,80 @@ Use Task tool with `subagent_type="grd-codebase-mapper"`, `model="{mapper_model}
 
 **CRITICAL:** Use the dedicated `grd-codebase-mapper` agent, NOT `Explore` or `browser_subagent`. The mapper agent writes documents directly.
 
-**Agent 1: Tech Focus**
+**Agent 1: Sources Focus**
 
 ```
 Task(
   subagent_type="grd-codebase-mapper",
   model="{mapper_model}",
   run_in_background=true,
-  description="Map codebase tech stack",
-  prompt="Focus: tech
+  description="Survey corpus sources and databases",
+  prompt="Focus: sources
 
-Analyze this codebase for technology stack and external integrations.
+Analyze this research project for source materials, databases, reference management tools, and dependencies.
 
 Write these documents to .planning/codebase/:
-- STACK.md - Languages, runtime, frameworks, dependencies, configuration
-- INTEGRATIONS.md - External APIs, databases, auth providers, webhooks
+- STACK.md - Sources, databases, reference tools, acquired materials, formats
+- INTEGRATIONS.md - External connections, cross-references, citation networks, related projects
 
 Explore thoroughly. Write documents directly using templates. Return confirmation only."
 )
 ```
 
-**Agent 2: Architecture Focus**
+**Agent 2: Framework Focus**
 
 ```
 Task(
   subagent_type="grd-codebase-mapper",
   model="{mapper_model}",
   run_in_background=true,
-  description="Map codebase architecture",
-  prompt="Focus: arch
+  description="Survey theoretical framework and analytical structure",
+  prompt="Focus: framework
 
-Analyze this codebase architecture and directory structure.
+Analyze this research project for theoretical framework, analytical structure, and knowledge organization.
 
 Write these documents to .planning/codebase/:
-- ARCHITECTURE.md - Pattern, layers, data flow, abstractions, entry points
-- STRUCTURE.md - Directory layout, key locations, naming conventions
+- ARCHITECTURE.md - Theoretical framework, analytical layers, argument structure, key concepts
+- STRUCTURE.md - Corpus organization, taxonomy, domain categorization, naming conventions
 
 Explore thoroughly. Write documents directly using templates. Return confirmation only."
 )
 ```
 
-**Agent 3: Quality Focus**
+**Agent 3: Methodology Focus**
 
 ```
 Task(
   subagent_type="grd-codebase-mapper",
   model="{mapper_model}",
   run_in_background=true,
-  description="Map codebase conventions",
-  prompt="Focus: quality
+  description="Survey methodological conventions and evidence standards",
+  prompt="Focus: methodology
 
-Analyze this codebase for coding conventions and testing patterns.
+Analyze this research project for methodological conventions, citation standards, and evidence thresholds.
 
 Write these documents to .planning/codebase/:
-- CONVENTIONS.md - Code style, naming, patterns, error handling
-- TESTING.md - Framework, structure, mocking, coverage
+- CONVENTIONS.md - Methodological conventions, citation standards, analytical patterns, evidence handling
+- TESTING.md - Verification criteria, evidence thresholds, source validation standards
 
 Explore thoroughly. Write documents directly using templates. Return confirmation only."
 )
 ```
 
-**Agent 4: Concerns Focus**
+**Agent 4: Gaps Focus**
 
 ```
 Task(
   subagent_type="grd-codebase-mapper",
   model="{mapper_model}",
   run_in_background=true,
-  description="Map codebase concerns",
-  prompt="Focus: concerns
+  description="Survey research gaps and limitations",
+  prompt="Focus: gaps
 
-Analyze this codebase for technical debt, known issues, and areas of concern.
+Analyze this research project for knowledge gaps, limitations, conflicting evidence, and areas of uncertainty.
 
 Write this document to .planning/codebase/:
-- CONCERNS.md - Tech debt, bugs, security, performance, fragile areas
+- CONCERNS.md - Research gaps, limitations, conflicting evidence, areas of uncertainty, unresolved questions
 
 Explore thoroughly. Write document directly using template. Return confirmation only."
 )
@@ -219,30 +219,30 @@ Continue to verify_output.
 </step>
 
 <step name="sequential_mapping" condition="Task/task tool is NOT available (e.g. Antigravity, Gemini CLI, Codex)">
-When the `Task` tool is unavailable, perform codebase mapping sequentially in the current context. This replaces `spawn_agents` and `collect_confirmations`.
+When the `Task` tool is unavailable, perform corpus mapping sequentially in the current context. This replaces `spawn_agents` and `collect_confirmations`.
 
 **IMPORTANT:** Do NOT use `browser_subagent`, `Explore`, or any browser-based tool. Use only file system tools (Read, Bash, Write, Grep, Glob, list_dir, view_file, grep_search, or equivalent tools available in your runtime).
 
 Perform all 4 mapping passes sequentially:
 
-**Pass 1: Tech Focus**
-- Explore package.json/Cargo.toml/go.mod/requirements.txt, config files, dependency trees
-- Write `.planning/codebase/STACK.md` — Languages, runtime, frameworks, dependencies, configuration
-- Write `.planning/codebase/INTEGRATIONS.md` — External APIs, databases, auth providers, webhooks
+**Pass 1: Sources Focus**
+- Explore research notes, source folders, reference files, acquired materials, citation databases
+- Write `.planning/codebase/STACK.md` — Sources, databases, reference tools, acquired materials, formats
+- Write `.planning/codebase/INTEGRATIONS.md` — External connections, cross-references, citation networks, related projects
 
-**Pass 2: Architecture Focus**
-- Explore directory structure, entry points, module boundaries, data flow
-- Write `.planning/codebase/ARCHITECTURE.md` — Pattern, layers, data flow, abstractions, entry points
-- Write `.planning/codebase/STRUCTURE.md` — Directory layout, key locations, naming conventions
+**Pass 2: Framework Focus**
+- Explore theoretical framework, analytical structure, argument flow, key concepts
+- Write `.planning/codebase/ARCHITECTURE.md` — Theoretical framework, analytical layers, argument structure, key concepts
+- Write `.planning/codebase/STRUCTURE.md` — Corpus organization, taxonomy, domain categorization, naming conventions
 
-**Pass 3: Quality Focus**
-- Explore code style, error handling patterns, test files, CI config
-- Write `.planning/codebase/CONVENTIONS.md` — Code style, naming, patterns, error handling
-- Write `.planning/codebase/TESTING.md` — Framework, structure, mocking, coverage
+**Pass 3: Methodology Focus**
+- Explore methodological conventions, citation standards, evidence handling patterns
+- Write `.planning/codebase/CONVENTIONS.md` — Methodological conventions, citation standards, analytical patterns, evidence handling
+- Write `.planning/codebase/TESTING.md` — Verification criteria, evidence thresholds, source validation standards
 
-**Pass 4: Concerns Focus**
-- Explore TODOs, known issues, fragile areas, security patterns
-- Write `.planning/codebase/CONCERNS.md` — Tech debt, bugs, security, performance, fragile areas
+**Pass 4: Gaps Focus**
+- Explore knowledge gaps, limitations, conflicting evidence, unresolved questions
+- Write `.planning/codebase/CONCERNS.md` — Research gaps, limitations, conflicting evidence, areas of uncertainty
 
 Use the same document templates as the `grd-codebase-mapper` agent. Include actual file paths formatted with backticks.
 
@@ -279,7 +279,7 @@ grep -E '(sk-[a-zA-Z0-9]{20,}|sk_live_[a-zA-Z0-9]+|sk_test_[a-zA-Z0-9]+|ghp_[a-z
 **If SECRETS_FOUND=true:**
 
 ```
-⚠️  SECURITY ALERT: Potential secrets detected in codebase documents!
+SECURITY ALERT: Potential secrets detected in corpus documents!
 
 Found patterns that look like API keys or tokens in:
 [show grep output]
@@ -302,10 +302,10 @@ Continue to commit_codebase_map.
 </step>
 
 <step name="commit_codebase_map">
-Commit the codebase map:
+Commit the corpus survey:
 
 ```bash
-node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs: map existing codebase" --files .planning/codebase/*.md
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs: survey research corpus" --files .planning/codebase/*.md
 ```
 
 Continue to offer_next.
@@ -322,32 +322,32 @@ wc -l .planning/codebase/*.md
 **Output format:**
 
 ```
-Codebase mapping complete.
+Corpus survey complete.
 
 Created .planning/codebase/:
-- STACK.md ([N] lines) - Technologies and dependencies
-- ARCHITECTURE.md ([N] lines) - System design and patterns
-- STRUCTURE.md ([N] lines) - Directory layout and organization
-- CONVENTIONS.md ([N] lines) - Code style and patterns
-- TESTING.md ([N] lines) - Test structure and practices
-- INTEGRATIONS.md ([N] lines) - External services and APIs
-- CONCERNS.md ([N] lines) - Technical debt and issues
+- STACK.md ([N] lines) - Sources and databases
+- ARCHITECTURE.md ([N] lines) - Theoretical framework and analytical structure
+- STRUCTURE.md ([N] lines) - Corpus organization and taxonomy
+- CONVENTIONS.md ([N] lines) - Methodological conventions and standards
+- TESTING.md ([N] lines) - Verification criteria and evidence thresholds
+- INTEGRATIONS.md ([N] lines) - External connections and cross-references
+- CONCERNS.md ([N] lines) - Gaps, limitations, and areas of uncertainty
 
 
 ---
 
-## ▶ Next Up
+## Next Up
 
-**Initialize project** — use codebase context for planning
+**Initialize project** — use corpus context for planning
 
 `/grd:new-research`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` first -> fresh context window</sub>
 
 ---
 
 **Also available:**
-- Re-run mapping: `/grd:map-codebase`
+- Re-run survey: `/grd:map-corpus`
 - Review specific file: `cat .planning/codebase/STACK.md`
 - Edit any document before proceeding
 
@@ -363,7 +363,7 @@ End workflow.
 - .planning/codebase/ directory created
 - If Task tool available: 4 parallel grd-codebase-mapper agents spawned with run_in_background=true
 - If Task tool NOT available: 4 sequential mapping passes performed inline (never using browser_subagent)
-- All 7 codebase documents exist
+- All 7 corpus analysis documents exist
 - No empty documents (each should have >20 lines)
 - Clear completion summary with line counts
 - User offered clear next steps in GRD style
