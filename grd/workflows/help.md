@@ -327,19 +327,18 @@ Validate built features through conversational UAT.
 
 Usage: `/grd:verify-inquiry 3`
 
-### Ship Work
+### Export Research
 
-**`/grd:ship [phase]`**
-Create a PR from completed phase work with an auto-generated body.
+**`/grd:export-research [phase|milestone]`**
+Package completed research for delivery -- Obsidian vault, manuscript assembly, or shareable archive.
 
-- Pushes branch to remote
-- Creates PR with summary from SUMMARY.md, VERIFICATION.md, REQUIREMENTS.md
-- Optionally requests code review
-- Updates STATE.md with shipping status
+- Validates research completeness (notes, sources, synthesis)
+- Packages deliverables in chosen export format
+- Tracks export status in STATE.md
 
-Prerequisites: Phase verified, `gh` CLI installed and authenticated.
+Prerequisites: Phase verified, research notes and sources exist.
 
-Usage: `/grd:ship 4` or `/grd:ship 4 --draft`
+Usage: `/grd:export-research 4` or `/grd:export-research`
 
 ---
 
@@ -355,14 +354,14 @@ Usage: `/grd:review --phase 3 --all`
 
 ---
 
-**`/grd:pr-branch [target]`**
-Create a clean branch for pull requests by filtering out .planning/ commits.
+**`/grd:export-clean [target-dir]`**
+Create a clean research package by filtering out .planning/ artifacts.
 
-- Classifies commits: code-only (include), planning-only (exclude), mixed (include sans .planning/)
-- Cherry-picks code commits onto a clean branch
-- Reviewers see only code changes, no GRD artifacts
+- Classifies content: research artifacts (include), planning metadata (exclude), GRD internals (exclude)
+- Copies only notes, sources, synthesis documents, and SOURCE-LOGs
+- Generates MANIFEST.md with contents summary
 
-Usage: `/grd:pr-branch` or `/grd:pr-branch main`
+Usage: `/grd:export-clean` or `/grd:export-clean ./submission/`
 
 ---
 
