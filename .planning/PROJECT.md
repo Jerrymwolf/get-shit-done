@@ -49,8 +49,9 @@ Every research finding is self-contained and auditable — the note plus its act
 
 ### Active
 
-<!-- v1.2 Research Reorientation — defined via /grd:new-milestone -->
-(Being defined — see REQUIREMENTS.md)
+- Rename GSD-R to GRD — zero old branding in active files — v1.3 Phase 26 ✓
+<!-- v1.3 Upstream Sync + Rename + Source Pipeline Wiring -->
+(See REQUIREMENTS.md for remaining v1.3 requirements)
 
 ### Out of Scope
 
