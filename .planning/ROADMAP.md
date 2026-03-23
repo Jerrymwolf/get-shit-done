@@ -99,7 +99,12 @@ Plans:
   2. All 16 agent files exist as `agents/grd-*.md` and no `agents/gsd-r-*.md` files remain
   3. `grep -r "gsd-r\|GSD-R\|get-shit-done-r"` across active files returns zero results (excluding .planning/, node_modules/, package-lock.json)
   4. All tests pass after rename (including updated test file references)
-**Plans**: TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 26-01-PLAN.md -- File and directory renames (git mv commands, agent renames, hook renames)
+- [ ] 26-02-PLAN.md -- Bulk content replacement + install.js internals + config updates + test fixes
+- [ ] 26-03-PLAN.md -- Script cleanup + final grep verification
 
 #### Phase 27: Research-Native Command Vocabulary
 **Goal**: Users invoke research-native commands (scope-inquiry, conduct-inquiry, etc.) instead of PM-style names (discuss-phase, execute-phase, etc.)
@@ -142,7 +147,7 @@ Phases execute in numeric order: 25 -> 26 -> 27 -> 28 / 29 (28 and 29 can run in
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 25. Upstream Sync to v1.28.0 | v1.3 | 6/6 | Complete    | 2026-03-23 |
-| 26. Rename GSD-R to GRD | v1.3 | 0/TBD | Not started | - |
+| 26. Rename GSD-R to GRD | v1.3 | 0/3 | Not started | - |
 | 27. Command Vocabulary | v1.3 | 0/TBD | Not started | - |
 | 28. Source Pipeline Wiring | v1.3 | 0/TBD | Not started | - |
 | 29. Documentation Rewrite | v1.3 | 0/TBD | Not started | - |
