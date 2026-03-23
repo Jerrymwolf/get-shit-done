@@ -25,9 +25,9 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 
 ### Agent Fixes
 
-- [ ] **AGT-01**: Fix "GSD" → "GRD" in grd-executor.md, grd-verifier.md, grd-plan-checker.md, grd-roadmapper.md
-- [ ] **AGT-02**: grd-verifier.md acknowledges research outputs alongside code ("verify findings" not just "verify codebase")
-- [ ] **AGT-03**: grd-executor.md acknowledges research outputs (notes, sources, synthesis documents)
+- [x] **AGT-01**: Fix "GSD" → "GRD" in grd-executor.md, grd-verifier.md, grd-plan-checker.md, grd-roadmapper.md
+- [x] **AGT-02**: grd-verifier.md acknowledges research outputs alongside code ("verify findings" not just "verify codebase")
+- [x] **AGT-03**: grd-executor.md acknowledges research outputs (notes, sources, synthesis documents)
 
 ### Template Updates
 
@@ -69,9 +69,9 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 | WFL-01 | Phase 28 | Pending |
 | WFL-02 | Phase 28 | Pending |
 | WFL-03 | Phase 28 | Pending |
-| AGT-01 | Phase 28 | Pending |
-| AGT-02 | Phase 28 | Pending |
-| AGT-03 | Phase 28 | Pending |
+| AGT-01 | Phase 28 | Complete |
+| AGT-02 | Phase 28 | Complete |
+| AGT-03 | Phase 28 | Complete |
 | TPL-01 | Phase 29 | Pending |
 | TPL-02 | Phase 29 | Pending |
 | TPL-03 | Phase 29 | Pending |

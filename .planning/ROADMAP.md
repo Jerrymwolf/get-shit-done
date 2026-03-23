@@ -94,7 +94,7 @@ Full details: Phase details collapsed above.
   6. new-milestone.md dimension labels read Landscape/Questions/Frameworks/Debates (not Stack/Features/Architecture/Pitfalls)
 **Plans**: 2 plans
 Plans:
-- [ ] 28-01-PLAN.md — Fix GSD references and add research awareness to 4 agent files
+- [x] 28-01-PLAN.md — Fix GSD references and add research awareness to 4 agent files
 - [ ] 28-02-PLAN.md — Rewrite workflow examples with research vocabulary in 3 workflow files
 
 ### Phase 29: Research Template Variants
@@ -175,7 +175,7 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 24. Verification Pipeline Wiring | v1.2 | 1/1 | Complete | 2026-03-22 |
 | 26. GSD-to-GRD Rename | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 27. Research-Native Command Vocabulary | v1.3 | 1/1 | Complete | 2026-03-23 |
-| 28. Agent and Workflow Reorientation | v1.3 | 0/2 | Not started | - |
+| 28. Agent and Workflow Reorientation | v1.3 | 1/2 | In progress | - |
 | 29. Research Template Variants | v1.3 | 0/TBD | Not started | - |
 | 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/TBD | Not started | - |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 0/TBD | Not started | - |
