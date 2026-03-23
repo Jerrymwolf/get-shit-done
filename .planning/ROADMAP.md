@@ -118,7 +118,10 @@ Plans:
   2. `/grd:map-corpus` (or map-literature) surveys existing sources and the knowledge landscape of a research project -- not a codebase
   3. `/grd:add-verification` adds evidence checks and source coverage assertions -- not software test cases
   4. Each reconceptualized command's workflow file, agent prompt, and CLI route are updated end-to-end
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 30-01-PLAN.md — Reconceptualize /grd:debug as /grd:diagnose (CLI route, workflow, agent, template)
+- [ ] 30-02-PLAN.md — Reconceptualize /grd:map-codebase as /grd:map-corpus and /grd:add-tests as /grd:add-verification
 
 ### Phase 31: Command Reconceptualization -- Export and Presentation
 **Goal**: Four output-oriented PM commands become research delivery tools for packaging, exporting, and reviewing scholarly work
@@ -179,10 +182,10 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 27. Research-Native Command Vocabulary | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 28. Agent and Workflow Reorientation | v1.3 | 2/2 | Complete    | 2026-03-23 |
 | 29. Research Template Variants | v1.3 | 1/1 | Complete    | 2026-03-23 |
-| 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/TBD | Not started | - |
+| 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/2 | Not started | - |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 0/TBD | Not started | - |
 | 32. Help Reorganization | v1.3 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-23 after Phase 29 planning*
+*Last updated: 2026-03-23 after Phase 30 planning*
