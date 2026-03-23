@@ -18,14 +18,14 @@ Requirements for the Upstream Sync + Rename + Source Pipeline Wiring milestone. 
 
 ### Rename
 
-- [ ] **REN-01**: `commands/gsd-r/` directory renamed to `commands/grd/`
-- [ ] **REN-02**: All 16 agent files renamed from `gsd-r-*.md` to `grd-*.md`
-- [ ] **REN-03**: All 3 hook files renamed from `gsd-*.js` to `grd-*.js`
+- [x] **REN-01**: `commands/gsd-r/` directory renamed to `commands/grd/`
+- [x] **REN-02**: All 16 agent files renamed from `gsd-r-*.md` to `grd-*.md`
+- [x] **REN-03**: All 3 hook files renamed from `gsd-*.js` to `grd-*.js`
 - [x] **REN-04**: Bulk content replacement: zero instances of `gsd-r`, `GSD-R`, `get-shit-done-r` in active files
 - [x] **REN-05**: install.js internal references updated (markers, variable names, agent mappings)
 - [x] **REN-06**: Config files updated (.gitignore, .claude/settings.local.json, package.json files array)
 - [x] **REN-07**: Test files updated with new filenames and paths
-- [ ] **REN-08**: Old migration scripts deleted (rename-gsd-to-gsd-r.cjs, bulk-rename-planning.cjs)
+- [x] **REN-08**: Old migration scripts deleted (rename-gsd-to-gsd-r.cjs, bulk-rename-planning.cjs)
 - [x] **REN-09**: All tests pass after rename
 
 ### Command Vocabulary
