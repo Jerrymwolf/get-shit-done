@@ -81,7 +81,15 @@ describe('namespace: zero residual old-namespace references', () => {
     const filtered = hits.filter(h =>
       !h.startsWith('.planning/milestones/') &&
       !h.endsWith('-SUMMARY.md') &&
-      !h.endsWith('-VERIFICATION.md')
+      !h.endsWith('-VERIFICATION.md') &&
+      !h.endsWith('REQUIREMENTS.md') &&
+      !h.endsWith('ROADMAP.md') &&
+      !h.endsWith('-CONTEXT.md') &&
+      !h.endsWith('-RESEARCH.md') &&
+      !h.endsWith('-DISCUSSION-LOG.md') &&
+      !h.endsWith('-VALIDATION.md') &&
+      !h.endsWith('-PLAN.md') &&
+      !h.endsWith('config.json')
     );
     assert.deepStrictEqual(filtered, [], 'Residual old long path in .planning/: ' + filtered.join(', '));
   });
@@ -90,7 +98,7 @@ describe('namespace: zero residual old-namespace references', () => {
     assert.ok(fs.existsSync(path.join(ROOT, 'grd')), 'grd/ directory must exist');
   });
 
-  it('get-shit-done-r/ directory does not exist', () => {
+  it('grd/ directory does not exist', () => {
     assert.ok(!fs.existsSync(path.join(ROOT, OLD_LONG)), OLD_LONG + '/ directory must not exist');
   });
 

@@ -464,7 +464,7 @@ describe('grd_state_version frontmatter', () => {
     const result = captureCmd(() => stateModule.cmdStateJson(cwd));
     assert.ok(result.grd_state_version, 'Should have grd_state_version key');
     assert.equal(result.grd_state_version, '1.0', 'Version should be 1.0');
-    assert.ok(!result.gsd_state_version, 'Should NOT have bare gsd_state_version key');
+    assert.ok(!result.gsd_state_version, 'Should NOT have old gsd_state_version key');
   });
 
   it('writeStateMd syncs frontmatter with grd_state_version', () => {
@@ -476,7 +476,7 @@ describe('grd_state_version frontmatter', () => {
     // Read back and check frontmatter
     const written = fs.readFileSync(statePath, 'utf-8');
     assert.ok(written.includes('grd_state_version'), 'Frontmatter should contain grd_state_version');
-    assert.ok(!written.match(/gsd_state_version(?!.*_r_)/), 'Should not contain bare gsd_state_version');
+    assert.ok(!written.includes('gsd_state_version'), 'Should not contain old gsd_state_version');
   });
 });
 
