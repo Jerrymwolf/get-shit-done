@@ -20,11 +20,18 @@ const {
 } = require('../grd/bin/lib/state.cjs');
 
 // Suppress process.exit and capture output for state cmd* functions
+// output() uses fs.writeSync(1, data) for reliable stdout writes, so we intercept that too
 function captureCmd(fn) {
   let captured = '';
   const origWrite = process.stdout.write;
+  const origWriteSync = fs.writeSync;
   const origExit = process.exit;
   process.stdout.write = (chunk) => { captured += chunk; return true; };
+  fs.writeSync = (fd, data, ...rest) => {
+    if (fd === 1) { captured += data; return data.length; }
+    if (fd === 2) { return data.length; }
+    return origWriteSync.call(fs, fd, data, ...rest);
+  };
   process.exit = () => { throw new Error('__EXIT__'); };
   try {
     fn();
@@ -32,6 +39,7 @@ function captureCmd(fn) {
     if (e.message !== '__EXIT__') throw e;
   } finally {
     process.stdout.write = origWrite;
+    fs.writeSync = origWriteSync;
     process.exit = origExit;
   }
   try { return JSON.parse(captured); } catch { return captured; }

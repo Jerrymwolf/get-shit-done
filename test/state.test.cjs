@@ -107,13 +107,19 @@ afterEach(() => {
 });
 
 // Suppress process.exit and capture output for testing cmd* functions
-// The cmd* functions call output() which writes to stdout and may call process.exit
-// We override process.stdout.write and process.exit to capture results
+// The cmd* functions call output() which uses fs.writeSync(1, data) for reliable stdout writes.
+// We intercept both fs.writeSync and process.stdout.write to capture results.
 function captureCmd(fn) {
   let captured = '';
   const origWrite = process.stdout.write;
+  const origWriteSync = fs.writeSync;
   const origExit = process.exit;
   process.stdout.write = (chunk) => { captured += chunk; return true; };
+  fs.writeSync = (fd, data, ...rest) => {
+    if (fd === 1) { captured += data; return data.length; }
+    if (fd === 2) { return data.length; } // suppress stderr too
+    return origWriteSync.call(fs, fd, data, ...rest);
+  };
   process.exit = () => { throw new Error('__EXIT__'); };
   try {
     fn();
@@ -121,6 +127,7 @@ function captureCmd(fn) {
     if (e.message !== '__EXIT__') throw e;
   } finally {
     process.stdout.write = origWrite;
+    fs.writeSync = origWriteSync;
     process.exit = origExit;
   }
   try { return JSON.parse(captured); } catch { return captured; }
