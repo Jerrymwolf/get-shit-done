@@ -59,30 +59,30 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CMD-01 | TBD | Pending |
-| CMD-02 | TBD | Pending |
-| CMD-03 | TBD | Pending |
-| CMD-04 | TBD | Pending |
-| CMD-05 | TBD | Pending |
-| CMD-06 | TBD | Pending |
-| CMD-07 | TBD | Pending |
-| WFL-01 | TBD | Pending |
-| WFL-02 | TBD | Pending |
-| WFL-03 | TBD | Pending |
-| AGT-01 | TBD | Pending |
-| AGT-02 | TBD | Pending |
-| AGT-03 | TBD | Pending |
-| TPL-01 | TBD | Pending |
-| TPL-02 | TBD | Pending |
-| TPL-03 | TBD | Pending |
-| HLP-01 | TBD | Pending |
-| HLP-02 | TBD | Pending |
+| CMD-01 | Phase 31 | Pending |
+| CMD-02 | Phase 30 | Pending |
+| CMD-03 | Phase 31 | Pending |
+| CMD-04 | Phase 30 | Pending |
+| CMD-05 | Phase 30 | Pending |
+| CMD-06 | Phase 31 | Pending |
+| CMD-07 | Phase 31 | Pending |
+| WFL-01 | Phase 28 | Pending |
+| WFL-02 | Phase 28 | Pending |
+| WFL-03 | Phase 28 | Pending |
+| AGT-01 | Phase 28 | Pending |
+| AGT-02 | Phase 28 | Pending |
+| AGT-03 | Phase 28 | Pending |
+| TPL-01 | Phase 29 | Pending |
+| TPL-02 | Phase 29 | Pending |
+| TPL-03 | Phase 29 | Pending |
+| HLP-01 | Phase 32 | Pending |
+| HLP-02 | Phase 32 | Pending |
 
 **Coverage:**
 - Primary requirements: 18 total
-- Mapped to phases: 0
-- Unmapped: 18 ⚠️
+- Mapped to phases: 18
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after initial definition*
+*Last updated: 2026-03-23 after roadmap creation (traceability populated)*
