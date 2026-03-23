@@ -136,79 +136,7 @@ Phase ${PHASE_NUM}: Context exists — skipping discuss.
 
 Proceed to 3b.
 
-**If has_context is false:** Check if discuss is disabled via settings:
-
-```bash
-SKIP_DISCUSS=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow.skip_discuss 2>/dev/null || echo "false")
-```
-
-**If SKIP_DISCUSS is `true`:** Skip discuss entirely — the ROADMAP phase description is the spec. Display:
-
-```
-Phase ${PHASE_NUM}: Discuss skipped (workflow.skip_discuss=true) — using ROADMAP phase goal as spec.
-```
-
-Write a minimal CONTEXT.md so downstream plan-phase has valid input. Get phase details:
-
-```bash
-DETAIL=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" roadmap get-phase ${PHASE_NUM})
-```
-
-Extract `goal` and `requirements` from JSON. Write `${phase_dir}/${padded_phase}-CONTEXT.md` with:
-
-```markdown
-# Phase {PHASE_NUM}: {Phase Name} - Context
-
-**Gathered:** {date}
-**Status:** Ready for planning
-**Mode:** Auto-generated (discuss skipped via workflow.skip_discuss)
-
-<domain>
-## Phase Boundary
-
-{goal from ROADMAP phase description}
-
-</domain>
-
-<decisions>
-## Implementation Decisions
-
-### Claude's Discretion
-All implementation choices are at Claude's discretion — discuss phase was skipped per user setting. Use ROADMAP phase goal, success criteria, and codebase conventions to guide decisions.
-
-</decisions>
-
-<code_context>
-## Existing Code Insights
-
-Codebase context will be gathered during plan-phase research.
-
-</code_context>
-
-<specifics>
-## Specific Ideas
-
-No specific requirements — discuss phase skipped. Refer to ROADMAP phase description and success criteria.
-
-</specifics>
-
-<deferred>
-## Deferred Ideas
-
-None — discuss phase skipped.
-
-</deferred>
-```
-
-Commit the minimal context:
-
-```bash
-node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs(${PADDED_PHASE}): auto-generated context (discuss skipped)" --files "${phase_dir}/${padded_phase}-CONTEXT.md"
-```
-
-Proceed to 3b.
-
-**If SKIP_DISCUSS is `false` (or unset):** Execute the smart_discuss step for this phase.
+**If has_context is false:** Execute the smart_discuss step for this phase.
 
 After smart_discuss completes, verify context was written:
 
@@ -221,7 +149,7 @@ Check `has_context`. If false → go to handle_blocker: "Smart discuss for phase
 **3b. Plan**
 
 ```
-Skill(skill="grd:plan-phase", args="${PHASE_NUM}")
+Skill(skill="grd:plan-inquiry", args="${PHASE_NUM}")
 ```
 
 Verify plan produced output — re-run `init phase-op` and check `has_plans`. If false → go to handle_blocker: "Plan phase ${PHASE_NUM} did not produce any plans."
@@ -229,12 +157,12 @@ Verify plan produced output — re-run `init phase-op` and check `has_plans`. If
 **3c. Execute**
 
 ```
-Skill(skill="grd:execute-phase", args="${PHASE_NUM} --no-transition")
+Skill(skill="grd:conduct-inquiry", args="${PHASE_NUM} --no-transition")
 ```
 
 **3d. Post-Execution Routing**
 
-After execute-phase returns, read the verification result:
+After conduct-inquiry returns, read the verification result:
 
 ```bash
 VERIFY_STATUS=$(grep "^status:" "${PHASE_DIR}"/*-VERIFICATION.md 2>/dev/null | head -1 | cut -d: -f2 | tr -d ' ')
@@ -294,14 +222,14 @@ Ask user via AskUserQuestion:
 On **"Run gap closure"**: Execute gap closure cycle (limit: 1 attempt):
 
 ```
-Skill(skill="grd:plan-phase", args="${PHASE_NUM} --gaps")
+Skill(skill="grd:plan-inquiry", args="${PHASE_NUM} --gaps")
 ```
 
 Verify gap plans were created — re-run `init phase-op ${PHASE_NUM}` and check `has_plans`. If no new gap plans → go to handle_blocker: "Gap closure planning for phase ${PHASE_NUM} did not produce plans."
 
 Re-execute:
 ```
-Skill(skill="grd:execute-phase", args="${PHASE_NUM} --no-transition")
+Skill(skill="grd:conduct-inquiry", args="${PHASE_NUM} --no-transition")
 ```
 
 Re-read verification status:
@@ -330,9 +258,9 @@ On **"Stop autonomous mode"**: Go to handle_blocker with "User stopped — gaps 
 
 ## Smart Discuss
 
-Run smart discuss for the current phase. Proposes grey area answers in batch tables — the user accepts or overrides per area. Produces identical CONTEXT.md output to regular discuss-phase.
+Run smart discuss for the current phase. Proposes grey area answers in batch tables — the user accepts or overrides per area. Produces identical CONTEXT.md output to regular scope-inquiry.
 
-> **Note:** Smart discuss is an autonomous-optimized variant of the `grd:discuss-phase` skill. It produces identical CONTEXT.md output but uses batch table proposals instead of sequential questioning. The original `discuss-phase` skill remains unchanged (per CTRL-03). Future milestones may extract this to a separate skill file.
+> **Note:** Smart discuss is an autonomous-optimized variant of the `gsd:scope-inquiry` skill. It produces identical CONTEXT.md output but uses batch table proposals instead of sequential questioning. The original `scope-inquiry` skill remains unchanged (per CTRL-03). Future milestones may extract this to a separate skill file.
 
 **Inputs:** `PHASE_NUM` from execute_phase. Run init to get phase paths:
 
@@ -528,7 +456,7 @@ After all areas are resolved (or infrastructure skip), write the CONTEXT.md file
 
 **File path:** `${phase_dir}/${padded_phase}-CONTEXT.md`
 
-Use **exactly** this structure (identical to discuss-phase output):
+Use **exactly** this structure (identical to scope-inquiry output):
 
 ```markdown
 # Phase {PHASE_NUM}: {Phase Name} - Context
@@ -659,7 +587,7 @@ Display lifecycle transition banner:
 **5a. Audit**
 
 ```
-Skill(skill="grd:audit-milestone")
+Skill(skill="grd:audit-study")
 ```
 
 After audit completes, detect the result:
@@ -695,7 +623,7 @@ Ask user via AskUserQuestion:
 
 On **"Continue anyway"**: Display `Audit ⏭ Gaps accepted — proceeding to complete milestone` and proceed to 5b.
 
-On **"Stop"**: Go to handle_blocker with "User stopped — audit gaps remain. Run /grd:audit-milestone to review, then /grd:complete-milestone when ready."
+On **"Stop"**: Go to handle_blocker with "User stopped — audit gaps remain. Run /grd:audit-study to review, then /grd:complete-study when ready."
 
 **If `tech_debt`:**
 
@@ -710,15 +638,15 @@ Show the summary, then ask user via AskUserQuestion:
 
 On **"Continue with tech debt"**: Display `Audit ⏭ Tech debt acknowledged — proceeding to complete milestone` and proceed to 5b.
 
-On **"Stop"**: Go to handle_blocker with "User stopped — tech debt to address. Run /grd:audit-milestone to review details."
+On **"Stop"**: Go to handle_blocker with "User stopped — tech debt to address. Run /grd:audit-study to review details."
 
 **5b. Complete Milestone**
 
 ```
-Skill(skill="grd:complete-milestone", args="${milestone_version}")
+Skill(skill="grd:complete-study", args="${milestone_version}")
 ```
 
-After complete-milestone returns, verify it produced output:
+After complete-study returns, verify it produced output:
 
 ```bash
 ls .planning/milestones/v${milestone_version}-ROADMAP.md 2>/dev/null
@@ -797,19 +725,19 @@ When any phase operation fails or a blocker is detected, present 3 options via A
 - [ ] Human-needed verification → user prompted to validate or skip
 - [ ] Gaps-found → user offered gap closure, continue, or stop
 - [ ] Gap closure limited to 1 retry (prevents infinite loops)
-- [ ] Plan-phase and execute-phase failures route to handle_blocker
+- [ ] Plan-phase and conduct-inquiry failures route to handle_blocker
 - [ ] ROADMAP.md re-read after each phase (catches inserted phases)
 - [ ] STATE.md checked for blockers before each phase
 - [ ] Blockers handled via user choice (retry / skip / stop)
 - [ ] Final completion or stop summary displayed
 - [ ] After all phases complete, lifecycle step is invoked (not manual suggestion)
 - [ ] Lifecycle transition banner displayed before audit
-- [ ] Audit invoked via Skill(skill="grd:audit-milestone")
+- [ ] Audit invoked via Skill(skill="grd:audit-study")
 - [ ] Audit result routing: passed → auto-continue, gaps_found → user decides, tech_debt → user decides
 - [ ] Audit technical failure (no file/no status) routes to handle_blocker
 - [ ] Complete-milestone invoked via Skill() with ${milestone_version} arg
 - [ ] Cleanup invoked via Skill() — internal confirmation is acceptable (CTRL-01)
 - [ ] Final completion banner displayed after lifecycle
 - [ ] Progress bar uses phase number / total milestone phases (not position among incomplete)
-- [ ] Smart discuss documents relationship to discuss-phase with CTRL-03 note
+- [ ] Smart discuss documents relationship to scope-inquiry with CTRL-03 note
 </success_criteria>

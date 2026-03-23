@@ -432,7 +432,7 @@ Parse `--no-transition` flag from $ARGUMENTS.
 
 **If `--no-transition` flag present:**
 
-Execute-phase was spawned by plan-phase's auto-advance. Do NOT run transition.md.
+Execute-phase was spawned by plan-inquiry's auto-advance. Do NOT run transition.md.
 After verification passes and roadmap is updated, return completion status to parent:
 
 ```

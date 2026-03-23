@@ -550,7 +550,7 @@ After executor returns:
 
 If summary not found, error: "Executor failed to create ${quick_id}-SUMMARY.md"
 
-Note: For quick tasks producing multiple plans (rare), spawn executors in parallel waves per execute-phase patterns.
+Note: For quick tasks producing multiple plans (rare), spawn executors in parallel waves per conduct-inquiry patterns.
 
 ---
 

@@ -1,6 +1,6 @@
 <purpose>
 
-Start a new milestone cycle for an existing project. Loads project context, gathers milestone goals (from MILESTONE-CONTEXT.md or conversation), updates PROJECT.md and STATE.md, optionally runs parallel research, defines scoped requirements with REQ-IDs, spawns the roadmapper to create phased execution plan, and commits all artifacts. Brownfield equivalent of new-project.
+Start a new milestone cycle for an existing project. Loads project context, gathers milestone goals (from MILESTONE-CONTEXT.md or conversation), updates PROJECT.md and STATE.md, optionally runs parallel research, defines scoped requirements with REQ-IDs, spawns the roadmapper to create phased execution plan, and commits all artifacts. Brownfield equivalent of new-research.
 
 </purpose>
 
@@ -13,12 +13,6 @@ Read all files referenced by the invoking prompt's execution_context before star
 <process>
 
 ## 1. Load Context
-
-Parse `$ARGUMENTS` before doing anything else:
-- `--reset-phase-numbers` flag → opt into restarting roadmap phase numbering at `1`
-- remaining text → use as milestone name if present
-
-If the flag is absent, keep the current behavior of continuing phase numbering from the previous milestone.
 
 - Read PROJECT.md (existing project, validated requirements, decisions)
 - Read MILESTONES.md (what shipped previously)
@@ -43,38 +37,6 @@ If the flag is absent, keep the current behavior of continuing phase numbering f
 - Suggest next version (v1.0 → v1.1, or v2.0 for major)
 - Confirm with user
 
-## 3.5. Verify Milestone Understanding
-
-Before writing any files, present a summary of what was gathered and ask for confirmation.
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GRD ► MILESTONE SUMMARY
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-**Milestone v[X.Y]: [Name]**
-
-**Goal:** [One sentence]
-
-**Target features:**
-- [Feature 1]
-- [Feature 2]
-- [Feature 3]
-
-**Key context:** [Any important constraints, decisions, or notes from questioning]
-```
-
-AskUserQuestion:
-- header: "Confirm?"
-- question: "Does this capture what you want to build in this milestone?"
-- options:
-  - "Looks good" — Proceed to write PROJECT.md
-  - "Adjust" — Let me correct or add details
-
-**If "Adjust":** Ask what needs changing (plain text, NOT AskUserQuestion). Incorporate changes, re-present the summary. Loop until "Looks good" is selected.
-
-**If "Looks good":** Proceed to Step 4.
-
 ## 4. Update PROJECT.md
 
 Add/update:
@@ -91,27 +53,6 @@ Add/update:
 ```
 
 Update Active requirements section and "Last updated" footer.
-
-Ensure the `## Evolution` section exists in PROJECT.md. If missing (projects created before this feature), add it before the footer:
-
-```markdown
-## Evolution
-
-This document evolves at phase transitions and milestone boundaries.
-
-**After each phase transition** (via `/grd:transition`):
-1. Requirements invalidated? → Move to Out of Scope with reason
-2. Requirements validated? → Move to Validated with phase reference
-3. New requirements emerged? → Add to Active
-4. Decisions to log? → Add to Key Decisions
-5. "What This Is" still accurate? → Update if drifted
-
-**After each milestone** (via `/grd:complete-milestone`):
-1. Full review of all sections
-2. Core Value check — still the right priority?
-3. Audit Out of Scope — reasons still valid?
-4. Update Context with current state
-```
 
 ## 5. Update STATE.md
 
@@ -141,27 +82,7 @@ INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init new-milesto
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 
-Extract from init JSON: `researcher_model`, `synthesizer_model`, `roadmapper_model`, `commit_docs`, `research_enabled`, `current_milestone`, `project_exists`, `roadmap_exists`, `latest_completed_milestone`, `phase_dir_count`, `phase_archive_path`.
-
-## 7.5 Reset-phase safety (only when `--reset-phase-numbers`)
-
-If `--reset-phase-numbers` is active:
-
-1. Set starting phase number to `1` for the upcoming roadmap.
-2. If `phase_dir_count > 0`, archive the old phase directories before roadmapping so new `01-*` / `02-*` directories cannot collide with stale milestone directories.
-
-If `phase_dir_count > 0` and `phase_archive_path` is available:
-
-```bash
-mkdir -p "${phase_archive_path}"
-find .planning/phases -mindepth 1 -maxdepth 1 -type d -exec mv {} "${phase_archive_path}/" \;
-```
-
-Then verify `.planning/phases/` no longer contains old milestone directories before continuing.
-
-If `phase_dir_count > 0` but `phase_archive_path` is missing:
-- Stop and explain that reset numbering is unsafe without a completed milestone archive target.
-- Tell the user to complete/archive the previous milestone first, then rerun `/grd:new-milestone --reset-phase-numbers ${GSD_WS}`.
+Extract from init JSON: `researcher_model`, `synthesizer_model`, `roadmapper_model`, `commit_docs`, `research_enabled`, `current_milestone`, `project_exists`, `roadmap_exists`.
 
 ## 8. Research Decision
 
@@ -179,7 +100,7 @@ AskUserQuestion: "Research the domain ecosystem for new features before defining
 - "Skip research (current default)" — Go straight to requirements
 - "Research first" — Discover patterns, features, architecture for NEW capabilities
 
-**IMPORTANT:** Do NOT persist this choice to config.json. The `workflow.research` setting is a persistent user preference that controls plan-phase behavior across the project. Changing it here would silently alter future `/grd:plan-phase` behavior. To change the default, use `/grd:settings`.
+**IMPORTANT:** Do NOT persist this choice to config.json. The `workflow.research` setting is a persistent user preference that controls plan-inquiry behavior across the project. Changing it here would silently alter future `/grd:plan-inquiry` behavior. To change the default, use `/grd:settings`.
 
 **If user chose "Research first":**
 
@@ -196,7 +117,7 @@ AskUserQuestion: "Research the domain ecosystem for new features before defining
 mkdir -p .planning/research
 ```
 
-Spawn 4 parallel grd-project-researcher agents. Each uses this template with dimension-specific fields:
+Spawn 4 parallel gsd-project-researcher agents. Each uses this template with dimension-specific fields:
 
 **Common structure for all 4 researchers:**
 ```
@@ -228,13 +149,13 @@ Use template: /Users/jeremiahwolf/.claude/grd/templates/research-project/{FILE}
 
 **Dimension-specific fields:**
 
-| Field | Stack | Features | Architecture | Pitfalls |
-|-------|-------|----------|-------------|----------|
-| EXISTING_CONTEXT | Existing validated capabilities (DO NOT re-research): [from PROJECT.md] | Existing features (already built): [from PROJECT.md] | Existing architecture: [from PROJECT.md or codebase map] | Focus on common mistakes when ADDING these features to existing system |
-| QUESTION | What stack additions/changes are needed for [new features]? | How do [target features] typically work? Expected behavior? | How do [target features] integrate with existing architecture? | Common mistakes when adding [target features] to [domain]? |
-| CONSUMER | Specific libraries with versions for NEW capabilities, integration points, what NOT to add | Table stakes vs differentiators vs anti-features, complexity noted, dependencies on existing | Integration points, new components, data flow changes, suggested build order | Warning signs, prevention strategy, which phase should address it |
-| GATES | Versions current (verify with Context7), rationale explains WHY, integration considered | Categories clear, complexity noted, dependencies identified | Integration points identified, new vs modified explicit, build order considers deps | Pitfalls specific to adding these features, integration pitfalls covered, prevention actionable |
-| FILE | STACK.md | FEATURES.md | ARCHITECTURE.md | PITFALLS.md |
+| Field | Landscape | Questions | Frameworks | Debates |
+|-------|-----------|-----------|------------|---------|
+| EXISTING_CONTEXT | Existing validated knowledge (DO NOT re-research): [from PROJECT.md] | Existing research questions (already investigated): [from PROJECT.md] | Existing theoretical frameworks: [from PROJECT.md or prior notes] | Focus on active debates relevant to NEW lines of inquiry |
+| QUESTION | What is the current state of the field for [new research questions]? | What are the central and sub-questions for [target inquiry]? | What theoretical frameworks apply to [target inquiry]? | What methodological and theoretical debates surround [target inquiry]? |
+| CONSUMER | Key authors, seminal works, institutional centers for NEW inquiry areas, what NOT to duplicate | Central questions (open) vs sub-questions (tractable) vs settled, complexity noted, dependencies on existing | Competing models, relationship to existing frameworks, evidence base | Active positions, methodological disputes, which phase should engage |
+| GATES | Sources current, rationale explains WHY, integration with existing knowledge considered | Questions clear, tractability noted, dependencies identified | Frameworks identified, competing models explicit, evidence base considered | Debates specific to new inquiry, methodological disputes covered, positions actionable |
+| FILE | LANDSCAPE.md | QUESTIONS.md | FRAMEWORKS.md | DEBATES.md |
 
 After all 4 complete, spawn synthesizer:
 
@@ -243,10 +164,10 @@ Task(prompt="
 Synthesize research outputs into SUMMARY.md.
 
 <files_to_read>
-- .planning/research/STACK.md
-- .planning/research/FEATURES.md
-- .planning/research/ARCHITECTURE.md
-- .planning/research/PITFALLS.md
+- .planning/research/LANDSCAPE.md
+- .planning/research/QUESTIONS.md
+- .planning/research/FRAMEWORKS.md
+- .planning/research/DEBATES.md
 </files_to_read>
 
 Write to: .planning/research/SUMMARY.md
@@ -261,9 +182,9 @@ Display key findings from SUMMARY.md:
  GRD ► RESEARCH COMPLETE ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-**Stack additions:** [from SUMMARY.md]
-**Feature table stakes:** [from SUMMARY.md]
-**Watch Out For:** [from SUMMARY.md]
+**Landscape:** [from SUMMARY.md]
+**Central questions:** [from SUMMARY.md]
+**Key debates:** [from SUMMARY.md]
 ```
 
 **If "Skip research":** Continue to Step 9.
@@ -278,7 +199,7 @@ Display key findings from SUMMARY.md:
 
 Read PROJECT.md: core value, current milestone goals, validated requirements (what exists).
 
-**If research exists:** Read FEATURES.md, extract feature categories.
+**If research exists:** Read QUESTIONS.md, extract research question categories.
 
 Present features by category:
 ```
@@ -349,9 +270,7 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs: define mi
 ◆ Spawning roadmapper...
 ```
 
-**Starting phase number:**
-- If `--reset-phase-numbers` is active, start at **Phase 1**
-- Otherwise, continue from the previous milestone's last phase number (v1.0 ended at phase 5 → v1.1 starts at phase 6)
+**Starting phase number:** Read MILESTONES.md for last phase number. Continue from there (v1.0 ended at phase 5 → v1.1 starts at phase 6).
 
 ```
 Task(prompt="
@@ -367,9 +286,7 @@ Task(prompt="
 
 <instructions>
 Create roadmap for milestone v[X.Y]:
-1. Respect the selected numbering mode:
-   - `--reset-phase-numbers` → start at Phase 1
-   - default behavior → continue from the previous milestone's last phase number
+1. Start phase numbering from [N]
 2. Derive phases from THIS MILESTONE's requirements only
 3. Map every requirement to exactly one phase
 4. Derive 2-5 success criteria per phase (observable user behaviors)
@@ -442,11 +359,11 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs: create mi
 
 **Phase [N]: [Phase Name]** — [Goal]
 
-`/grd:discuss-phase [N] ${GSD_WS}` — gather context and clarify approach
+`/grd:scope-inquiry [N]` — gather context and clarify approach
 
 <sub>`/clear` first → fresh context window</sub>
 
-Also: `/grd:plan-phase [N] ${GSD_WS}` — skip discussion, plan directly
+Also: `/grd:plan-inquiry [N]` — skip discussion, plan directly
 ```
 
 </process>
@@ -458,12 +375,12 @@ Also: `/grd:plan-phase [N] ${GSD_WS}` — skip discussion, plan directly
 - [ ] Research completed (if selected) — 4 parallel agents, milestone-aware
 - [ ] Requirements gathered and scoped per category
 - [ ] REQUIREMENTS.md created with REQ-IDs
-- [ ] grd-roadmapper spawned with phase numbering context
+- [ ] grdoadmapper spawned with phase numbering context
 - [ ] Roadmap files written immediately (not draft)
 - [ ] User feedback incorporated (if any)
-- [ ] Phase numbering mode respected (continued or reset)
+- [ ] ROADMAP.md phases continue from previous milestone
 - [ ] All commits made (if planning docs committed)
-- [ ] User knows next step: `/grd:discuss-phase [N] ${GSD_WS}`
+- [ ] User knows next step: `/grd:scope-inquiry [N]`
 
 **Atomic commits:** Each phase commits its artifacts immediately.
 </success_criteria>

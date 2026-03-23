@@ -141,7 +141,7 @@ Exit workflow.
 - In `present_gray_areas`: auto-select ALL gray areas without asking the user
 - In `discuss_areas`: for each discussion question, choose the recommended option (first option, or the one marked "recommended") without using AskUserQuestion
 - Log each auto-selected choice inline so the user can review decisions in the context file
-- After discussion completes, auto-advance to plan-phase (existing behavior)
+- After discussion completes, auto-advance to plan-inquiry (existing behavior)
 </step>
 
 <step name="check_existing">
@@ -179,7 +179,7 @@ Check `has_plans` and `plan_count` from init. **If `has_plans` is true:**
 - options:
   - "Continue and replan after" — Capture context, then run /grd:plan-inquiry {X} to replan
   - "View existing plans" — Show plans before deciding
-  - "Cancel" — Skip discuss-phase
+  - "Cancel" — Skip scope-inquiry
 
 If "Continue and replan after": Continue to analyze_phase.
 If "View existing plans": Display plan files, then offer "Continue" / "Cancel".
@@ -710,7 +710,7 @@ Check for auto-advance trigger:
    AUTO_CFG=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow.auto_advance 2>/dev/null || echo "false")
    ```
 
-**If `--auto` flag present AND `AUTO_CHAIN` is not true:** Persist chain flag to config (handles direct `--auto` usage without new-project):
+**If `--auto` flag present AND `AUTO_CHAIN` is not true:** Persist chain flag to config (handles direct `--auto` usage without new-research):
 ```bash
 node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-set workflow._auto_chain_active true
 ```
@@ -723,17 +723,17 @@ Display banner:
  GSD ► AUTO-ADVANCING TO PLAN
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Context captured. Launching plan-phase...
+Context captured. Launching plan-inquiry...
 ```
 
-Launch plan-phase using the Skill tool to avoid nested Task sessions (which cause runtime freezes due to deep agent nesting — see #686):
+Launch plan-inquiry using the Skill tool to avoid nested Task sessions (which cause runtime freezes due to deep agent nesting — see #686):
 ```
 Skill(skill="grd:plan-inquiry", args="${PHASE} --auto")
 ```
 
 This keeps the auto-advance chain flat — discuss, plan, and execute all run at the same nesting level rather than spawning increasingly deep Task agents.
 
-**Handle plan-phase return:**
+**Handle plan-inquiry return:**
 - **PHASE COMPLETE** → Full chain succeeded. Display:
   ```
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
