@@ -4,9 +4,10 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
-const { safeReadFile, loadConfig, isGitIgnored, execGit, normalizePhaseName, comparePhaseNum, getArchivedPhaseDirs, generateSlugInternal, getMilestoneInfo, getMilestonePhaseFilter, resolveModelInternal, stripShippedMilestones, toPosixPath, output, error, findPhaseInternal } = require('./core.cjs');
+const { safeReadFile, loadConfig, isGitIgnored, execGit, normalizePhaseName, comparePhaseNum, getArchivedPhaseDirs, generateSlugInternal, getMilestoneInfo, getMilestonePhaseFilter, resolveModelInternal, stripShippedMilestones, extractCurrentMilestone, planningDir, planningPaths, toPosixPath, output, error, findPhaseInternal, extractOneLinerFromBody, getRoadmapPhaseInternal } = require('./core.cjs');
 const { extractFrontmatter } = require('./frontmatter.cjs');
 const { MODEL_PROFILES } = require('./model-profiles.cjs');
+const { sanitizeForPrompt } = require('./security.cjs');
 
 function cmdGenerateSlug(text, raw) {
   if (!text) {
@@ -43,7 +44,7 @@ function cmdCurrentTimestamp(format, raw) {
 }
 
 function cmdListTodos(cwd, area, raw) {
-  const pendingDir = path.join(cwd, '.planning', 'todos', 'pending');
+  const pendingDir = path.join(planningDir(cwd), 'todos', 'pending');
 
   let count = 0;
   const todos = [];
@@ -69,11 +70,11 @@ function cmdListTodos(cwd, area, raw) {
           created: createdMatch ? createdMatch[1].trim() : 'unknown',
           title: titleMatch ? titleMatch[1].trim() : 'Untitled',
           area: todoArea,
-          path: toPosixPath(path.join('.planning', 'todos', 'pending', file)),
+          path: toPosixPath(path.relative(cwd, path.join(pendingDir, file))),
         });
-      } catch {}
+      } catch { /* intentionally empty */ }
     }
-  } catch {}
+  } catch { /* intentionally empty */ }
 
   const result = { count, todos };
   output(result, raw, count.toString());
@@ -82,6 +83,11 @@ function cmdListTodos(cwd, area, raw) {
 function cmdVerifyPathExists(cwd, targetPath, raw) {
   if (!targetPath) {
     error('path required for verification');
+  }
+
+  // Reject null bytes
+  if (targetPath.includes('\0')) {
+    error('path contains null bytes');
   }
 
   const fullPath = path.isAbsolute(targetPath) ? targetPath : path.join(cwd, targetPath);
@@ -98,7 +104,7 @@ function cmdVerifyPathExists(cwd, targetPath, raw) {
 }
 
 function cmdHistoryDigest(cwd, raw) {
-  const phasesDir = path.join(cwd, '.planning', 'phases');
+  const phasesDir = planningPaths(cwd).phases;
   const digest = { phases: {}, decisions: [], tech_stack: new Set() };
 
   // Collect all phase directories: archived + current
@@ -214,7 +220,7 @@ function cmdResolveModel(cwd, agentType, raw) {
   output(result, raw, model);
 }
 
-function cmdCommit(cwd, message, files, raw, amend) {
+function cmdCommit(cwd, message, files, raw, amend, noVerify) {
   if (!message && !amend) {
     error('commit message required');
   }
@@ -241,8 +247,12 @@ function cmdCommit(cwd, message, files, raw, amend) {
     execGit(cwd, ['add', file]);
   }
 
+  // Sanitize commit message
+  const safeMessage = sanitizeForPrompt(message || '');
+
   // Commit
-  const commitArgs = amend ? ['commit', '--amend', '--no-edit'] : ['commit', '-m', message];
+  const commitArgs = amend ? ['commit', '--amend', '--no-edit'] : ['commit', '-m', safeMessage];
+  if (noVerify) commitArgs.push('--no-verify');
   const commitResult = execGit(cwd, commitArgs);
   if (commitResult.exitCode !== 0) {
     if (commitResult.stdout.includes('nothing to commit') || commitResult.stderr.includes('nothing to commit')) {
@@ -381,8 +391,8 @@ async function cmdWebsearch(query, options, raw) {
 }
 
 function cmdProgressRender(cwd, format, raw) {
-  const phasesDir = path.join(cwd, '.planning', 'phases');
-  const roadmapPath = path.join(cwd, '.planning', 'ROADMAP.md');
+  const phasesDir = planningPaths(cwd).phases;
+  const roadmapPath = planningPaths(cwd).roadmap;
   const milestone = getMilestoneInfo(cwd);
 
   const phases = [];
@@ -412,7 +422,7 @@ function cmdProgressRender(cwd, format, raw) {
 
       phases.push({ number: phaseNum, name: phaseName, plans, summaries, status });
     }
-  } catch {}
+  } catch { /* intentionally empty */ }
 
   const percent = totalPlans > 0 ? Math.min(100, Math.round((totalSummaries / totalPlans) * 100)) : 0;
 
@@ -453,8 +463,8 @@ function cmdTodoComplete(cwd, filename, raw) {
     error('filename required for todo complete');
   }
 
-  const pendingDir = path.join(cwd, '.planning', 'todos', 'pending');
-  const completedDir = path.join(cwd, '.planning', 'todos', 'completed');
+  const pendingDir = path.join(planningDir(cwd), 'todos', 'pending');
+  const completedDir = path.join(planningDir(cwd), 'todos', 'completed');
   const sourcePath = path.join(pendingDir, filename);
 
   if (!fs.existsSync(sourcePath)) {
@@ -512,7 +522,7 @@ function cmdScaffold(cwd, type, options, raw) {
       }
       const slug = generateSlugInternal(name);
       const dirName = `${padded}-${slug}`;
-      const phasesParent = path.join(cwd, '.planning', 'phases');
+      const phasesParent = path.join(planningDir(cwd), 'phases');
       fs.mkdirSync(phasesParent, { recursive: true });
       const dirPath = path.join(phasesParent, dirName);
       fs.mkdirSync(dirPath, { recursive: true });
@@ -534,10 +544,10 @@ function cmdScaffold(cwd, type, options, raw) {
 }
 
 function cmdStats(cwd, format, raw) {
-  const phasesDir = path.join(cwd, '.planning', 'phases');
-  const roadmapPath = path.join(cwd, '.planning', 'ROADMAP.md');
-  const reqPath = path.join(cwd, '.planning', 'REQUIREMENTS.md');
-  const statePath = path.join(cwd, '.planning', 'STATE.md');
+  const phasesDir = planningPaths(cwd).phases;
+  const roadmapPath = planningPaths(cwd).roadmap;
+  const reqPath = path.join(planningDir(cwd), 'REQUIREMENTS.md');
+  const statePath = planningPaths(cwd).state;
   const milestone = getMilestoneInfo(cwd);
   const isDirInMilestone = getMilestonePhaseFilter(cwd);
 
@@ -692,6 +702,193 @@ function cmdStats(cwd, format, raw) {
   }
 }
 
+function cmdCommitToSubrepo(cwd, message, files, raw) {
+  if (!message) {
+    error('commit message required');
+  }
+
+  const config = loadConfig(cwd);
+  const subRepos = config.sub_repos;
+
+  if (!subRepos || subRepos.length === 0) {
+    error('no sub_repos configured in .planning/config.json');
+  }
+
+  if (!files || files.length === 0) {
+    error('--files required for commit-to-subrepo');
+  }
+
+  // Group files by sub-repo prefix
+  const grouped = {};
+  const unmatched = [];
+  for (const file of files) {
+    const match = subRepos.find(repo => file.startsWith(repo + '/'));
+    if (match) {
+      if (!grouped[match]) grouped[match] = [];
+      grouped[match].push(file);
+    } else {
+      unmatched.push(file);
+    }
+  }
+
+  if (unmatched.length > 0) {
+    process.stderr.write(`Warning: ${unmatched.length} file(s) did not match any sub-repo prefix: ${unmatched.join(', ')}\n`);
+  }
+
+  const repos = {};
+  for (const [repo, repoFiles] of Object.entries(grouped)) {
+    const repoCwd = path.join(cwd, repo);
+
+    // Stage files (strip sub-repo prefix for paths relative to that repo)
+    for (const file of repoFiles) {
+      const relativePath = file.slice(repo.length + 1);
+      execGit(repoCwd, ['add', relativePath]);
+    }
+
+    // Commit
+    const commitResult = execGit(repoCwd, ['commit', '-m', sanitizeForPrompt(message)]);
+    if (commitResult.exitCode !== 0) {
+      if (commitResult.stdout.includes('nothing to commit') || commitResult.stderr.includes('nothing to commit')) {
+        repos[repo] = { committed: false, hash: null, files: repoFiles, reason: 'nothing_to_commit' };
+        continue;
+      }
+      repos[repo] = { committed: false, hash: null, files: repoFiles, reason: 'error', error: commitResult.stderr };
+      continue;
+    }
+
+    // Get hash
+    const hashResult = execGit(repoCwd, ['rev-parse', '--short', 'HEAD']);
+    const hash = hashResult.exitCode === 0 ? hashResult.stdout : null;
+    repos[repo] = { committed: true, hash, files: repoFiles };
+  }
+
+  const result = {
+    committed: Object.values(repos).some(r => r.committed),
+    repos,
+    unmatched: unmatched.length > 0 ? unmatched : undefined,
+  };
+  output(result, raw, Object.entries(repos).map(([r, v]) => `${r}:${v.hash || 'skip'}`).join(' '));
+}
+
+function cmdTodoMatchPhase(cwd, phase, raw) {
+  if (!phase) { error('phase required for todo match-phase'); }
+
+  const pendingDir = path.join(planningDir(cwd), 'todos', 'pending');
+  const todos = [];
+
+  // Load pending todos
+  try {
+    const files = fs.readdirSync(pendingDir).filter(f => f.endsWith('.md'));
+    for (const file of files) {
+      try {
+        const content = fs.readFileSync(path.join(pendingDir, file), 'utf-8');
+        const titleMatch = content.match(/^title:\s*(.+)$/m);
+        const areaMatch = content.match(/^area:\s*(.+)$/m);
+        const filesMatch = content.match(/^files:\s*(.+)$/m);
+        const body = content.replace(/^(title|area|files|created|priority):.*$/gm, '').trim();
+
+        todos.push({
+          file,
+          title: titleMatch ? titleMatch[1].trim() : 'Untitled',
+          area: areaMatch ? areaMatch[1].trim() : 'general',
+          files: filesMatch ? filesMatch[1].trim().split(/[,\s]+/).filter(Boolean) : [],
+          body: body.slice(0, 200),
+        });
+      } catch { /* intentionally empty */ }
+    }
+  } catch { /* intentionally empty */ }
+
+  if (todos.length === 0) {
+    output({ phase, matches: [], todo_count: 0 }, raw);
+    return;
+  }
+
+  // Load phase goal/name from ROADMAP
+  const phaseRoadmapInfo = getRoadmapPhaseInternal(cwd, phase);
+  const phaseName = phaseRoadmapInfo ? (phaseRoadmapInfo.phase_name || '') : '';
+  const phaseGoal = phaseRoadmapInfo ? (phaseRoadmapInfo.goal || '') : '';
+  const phaseSection = phaseRoadmapInfo ? (phaseRoadmapInfo.section || '') : '';
+
+  // Build keyword set from phase name + goal + section text
+  const phaseText = `${phaseName} ${phaseGoal} ${phaseSection}`.toLowerCase();
+  const stopWords = new Set(['the', 'and', 'for', 'with', 'from', 'that', 'this', 'will', 'are', 'was', 'has', 'have', 'been', 'not', 'but', 'all', 'can', 'into', 'each', 'when', 'any', 'use', 'new']);
+  const phaseKeywords = new Set(
+    phaseText.split(/[\s\-_/.,;:()\[\]{}|]+/)
+      .map(w => w.replace(/[^a-z0-9]/g, ''))
+      .filter(w => w.length > 2 && !stopWords.has(w))
+  );
+
+  // Find phase directory to get expected file paths
+  const phaseInfoDisk = findPhaseInternal(cwd, phase);
+  const phasePlans = [];
+  if (phaseInfoDisk && phaseInfoDisk.found) {
+    try {
+      const phaseDir = path.join(cwd, phaseInfoDisk.directory);
+      const planFiles = fs.readdirSync(phaseDir).filter(f => f.endsWith('-PLAN.md'));
+      for (const pf of planFiles) {
+        try {
+          const planContent = fs.readFileSync(path.join(phaseDir, pf), 'utf-8');
+          const fmFiles = planContent.match(/files_modified:\s*\[([^\]]*)\]/);
+          if (fmFiles) {
+            phasePlans.push(...fmFiles[1].split(',').map(s => s.trim().replace(/['"]/g, '')).filter(Boolean));
+          }
+        } catch { /* intentionally empty */ }
+      }
+    } catch { /* intentionally empty */ }
+  }
+
+  // Score each todo for relevance
+  const matches = [];
+  for (const todo of todos) {
+    let score = 0;
+    const reasons = [];
+
+    // Keyword match: todo title/body terms in phase text
+    const todoWords = `${todo.title} ${todo.body}`.toLowerCase()
+      .split(/[\s\-_/.,;:()\[\]{}|]+/)
+      .map(w => w.replace(/[^a-z0-9]/g, ''))
+      .filter(w => w.length > 2 && !stopWords.has(w));
+
+    const matchedKeywords = todoWords.filter(w => phaseKeywords.has(w));
+    if (matchedKeywords.length > 0) {
+      score += Math.min(matchedKeywords.length * 0.2, 0.6);
+      reasons.push(`keywords: ${[...new Set(matchedKeywords)].slice(0, 5).join(', ')}`);
+    }
+
+    // Area match: todo area appears in phase text
+    if (todo.area !== 'general' && phaseText.includes(todo.area.toLowerCase())) {
+      score += 0.3;
+      reasons.push(`area: ${todo.area}`);
+    }
+
+    // File match: todo files overlap with phase plan files
+    if (todo.files.length > 0 && phasePlans.length > 0) {
+      const fileOverlap = todo.files.filter(f =>
+        phasePlans.some(pf => pf.includes(f) || f.includes(pf))
+      );
+      if (fileOverlap.length > 0) {
+        score += 0.4;
+        reasons.push(`files: ${fileOverlap.slice(0, 3).join(', ')}`);
+      }
+    }
+
+    if (score > 0) {
+      matches.push({
+        file: todo.file,
+        title: todo.title,
+        area: todo.area,
+        score: Math.round(score * 100) / 100,
+        reasons,
+      });
+    }
+  }
+
+  // Sort by score descending
+  matches.sort((a, b) => b.score - a.score);
+
+  output({ phase, matches, todo_count: todos.length }, raw);
+}
+
 module.exports = {
   cmdGenerateSlug,
   cmdCurrentTimestamp,
@@ -700,10 +897,12 @@ module.exports = {
   cmdHistoryDigest,
   cmdResolveModel,
   cmdCommit,
+  cmdCommitToSubrepo,
   cmdSummaryExtract,
   cmdWebsearch,
   cmdProgressRender,
   cmdTodoComplete,
+  cmdTodoMatchPhase,
   cmdScaffold,
   cmdStats,
 };

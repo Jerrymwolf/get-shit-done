@@ -4,12 +4,12 @@
 
 const fs = require('fs');
 const path = require('path');
-const { escapeRegex, normalizePhaseName, comparePhaseNum, findPhaseInternal, getArchivedPhaseDirs, generateSlugInternal, getMilestonePhaseFilter, stripShippedMilestones, replaceInCurrentMilestone, toPosixPath, output, error } = require('./core.cjs');
+const { escapeRegex, loadConfig, normalizePhaseName, comparePhaseNum, findPhaseInternal, getArchivedPhaseDirs, generateSlugInternal, getMilestonePhaseFilter, stripShippedMilestones, extractCurrentMilestone, replaceInCurrentMilestone, toPosixPath, planningDir, output, error, readSubdirectories } = require('./core.cjs');
 const { extractFrontmatter } = require('./frontmatter.cjs');
-const { writeStateMd } = require('./state.cjs');
+const { writeStateMd, stateExtractField, stateReplaceField, stateReplaceFieldWithFallback } = require('./state.cjs');
 
 function cmdPhasesList(cwd, options, raw) {
-  const phasesDir = path.join(cwd, '.planning', 'phases');
+  const phasesDir = path.join(planningDir(cwd), 'phases');
   const { type, phase, includeArchived } = options;
 
   // If no phases directory, return empty
@@ -85,7 +85,7 @@ function cmdPhasesList(cwd, options, raw) {
 }
 
 function cmdPhaseNextDecimal(cwd, basePhase, raw) {
-  const phasesDir = path.join(cwd, '.planning', 'phases');
+  const phasesDir = path.join(planningDir(cwd), 'phases');
   const normalized = normalizePhaseName(basePhase);
 
   // Check if phases directory exists
@@ -154,7 +154,7 @@ function cmdFindPhase(cwd, phase, raw) {
     error('phase identifier required');
   }
 
-  const phasesDir = path.join(cwd, '.planning', 'phases');
+  const phasesDir = path.join(planningDir(cwd), 'phases');
   const normalized = normalizePhaseName(phase);
 
   const notFound = { found: false, directory: null, phase_number: null, phase_name: null, plans: [], summaries: [] };
@@ -180,7 +180,7 @@ function cmdFindPhase(cwd, phase, raw) {
 
     const result = {
       found: true,
-      directory: toPosixPath(path.join('.planning', 'phases', match)),
+      directory: toPosixPath(path.join(path.relative(cwd, planningDir(cwd)), 'phases', match)),
       phase_number: phaseNumber,
       phase_name: phaseName,
       plans,
@@ -203,7 +203,7 @@ function cmdPhasePlanIndex(cwd, phase, raw) {
     error('phase required for phase-plan-index');
   }
 
-  const phasesDir = path.join(cwd, '.planning', 'phases');
+  const phasesDir = path.join(planningDir(cwd), 'phases');
   const normalized = normalizePhaseName(phase);
 
   // Find phase directory
@@ -313,13 +313,13 @@ function cmdPhaseAdd(cwd, description, raw) {
     error('description required for phase add');
   }
 
-  const roadmapPath = path.join(cwd, '.planning', 'ROADMAP.md');
+  const roadmapPath = path.join(planningDir(cwd), 'ROADMAP.md');
   if (!fs.existsSync(roadmapPath)) {
     error('ROADMAP.md not found');
   }
 
   const rawContent = fs.readFileSync(roadmapPath, 'utf-8');
-  const content = stripShippedMilestones(rawContent);
+  const content = extractCurrentMilestone(rawContent, cwd);
   const slug = generateSlugInternal(description);
 
   // Find highest integer phase number (in current milestone only)
@@ -334,7 +334,7 @@ function cmdPhaseAdd(cwd, description, raw) {
   const newPhaseNum = maxPhase + 1;
   const paddedNum = String(newPhaseNum).padStart(2, '0');
   const dirName = `${paddedNum}-${slug}`;
-  const dirPath = path.join(cwd, '.planning', 'phases', dirName);
+  const dirPath = path.join(planningDir(cwd), 'phases', dirName);
 
   // Create directory with .gitkeep so git tracks empty folders
   fs.mkdirSync(dirPath, { recursive: true });
@@ -370,13 +370,13 @@ function cmdPhaseInsert(cwd, afterPhase, description, raw) {
     error('after-phase and description required for phase insert');
   }
 
-  const roadmapPath = path.join(cwd, '.planning', 'ROADMAP.md');
+  const roadmapPath = path.join(planningDir(cwd), 'ROADMAP.md');
   if (!fs.existsSync(roadmapPath)) {
     error('ROADMAP.md not found');
   }
 
   const rawContent = fs.readFileSync(roadmapPath, 'utf-8');
-  const content = stripShippedMilestones(rawContent);
+  const content = extractCurrentMilestone(rawContent, cwd);
   const slug = generateSlugInternal(description);
 
   // Normalize input then strip leading zeros for flexible matching
@@ -389,7 +389,7 @@ function cmdPhaseInsert(cwd, afterPhase, description, raw) {
   }
 
   // Calculate next decimal using existing logic
-  const phasesDir = path.join(cwd, '.planning', 'phases');
+  const phasesDir = path.join(planningDir(cwd), 'phases');
   const normalizedBase = normalizePhaseName(afterPhase);
   let existingDecimals = [];
 
@@ -401,12 +401,12 @@ function cmdPhaseInsert(cwd, afterPhase, description, raw) {
       const dm = dir.match(decimalPattern);
       if (dm) existingDecimals.push(parseInt(dm[1], 10));
     }
-  } catch {}
+  } catch { /* intentionally empty */ }
 
   const nextDecimal = existingDecimals.length === 0 ? 1 : Math.max(...existingDecimals) + 1;
   const decimalPhase = `${normalizedBase}.${nextDecimal}`;
   const dirName = `${decimalPhase}-${slug}`;
-  const dirPath = path.join(cwd, '.planning', 'phases', dirName);
+  const dirPath = path.join(planningDir(cwd), 'phases', dirName);
 
   // Create directory with .gitkeep so git tracks empty folders
   fs.mkdirSync(dirPath, { recursive: true });
@@ -452,8 +452,8 @@ function cmdPhaseRemove(cwd, targetPhase, options, raw) {
     error('phase number required for phase remove');
   }
 
-  const roadmapPath = path.join(cwd, '.planning', 'ROADMAP.md');
-  const phasesDir = path.join(cwd, '.planning', 'phases');
+  const roadmapPath = path.join(planningDir(cwd), 'ROADMAP.md');
+  const phasesDir = path.join(planningDir(cwd), 'phases');
   const force = options.force || false;
 
   if (!fs.existsSync(roadmapPath)) {
@@ -668,7 +668,7 @@ function cmdPhaseRemove(cwd, targetPhase, options, raw) {
   fs.writeFileSync(roadmapPath, roadmapContent, 'utf-8');
 
   // Update STATE.md phase count
-  const statePath = path.join(cwd, '.planning', 'STATE.md');
+  const statePath = path.join(planningDir(cwd), 'STATE.md');
   if (fs.existsSync(statePath)) {
     let stateContent = fs.readFileSync(statePath, 'utf-8');
     // Update "Total Phases" field
@@ -705,9 +705,9 @@ function cmdPhaseComplete(cwd, phaseNum, raw) {
     error('phase number required for phase complete');
   }
 
-  const roadmapPath = path.join(cwd, '.planning', 'ROADMAP.md');
-  const statePath = path.join(cwd, '.planning', 'STATE.md');
-  const phasesDir = path.join(cwd, '.planning', 'phases');
+  const roadmapPath = path.join(planningDir(cwd), 'ROADMAP.md');
+  const statePath = path.join(planningDir(cwd), 'STATE.md');
+  const phasesDir = path.join(planningDir(cwd), 'phases');
   const normalized = normalizePhaseName(phaseNum);
   const today = new Date().toISOString().split('T')[0];
 
@@ -756,7 +756,7 @@ function cmdPhaseComplete(cwd, phaseNum, raw) {
     fs.writeFileSync(roadmapPath, roadmapContent, 'utf-8');
 
     // Update REQUIREMENTS.md traceability for this phase's requirements
-    const reqPath = path.join(cwd, '.planning', 'REQUIREMENTS.md');
+    const reqPath = path.join(planningDir(cwd), 'REQUIREMENTS.md');
     if (fs.existsSync(reqPath)) {
       // Extract the current phase section from roadmap (scoped to avoid cross-phase matching)
       const phaseEsc = escapeRegex(phaseNum);
