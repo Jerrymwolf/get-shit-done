@@ -9,6 +9,7 @@ GRD transforms GSD's code-commit workflow into a research-note workflow.
 - ✅ **v1.0 GRD MVP** -- Phases 1-8 (shipped 2026-03-12)
 - ✅ **v1.1 Upstream Sync** -- Phases 9-14 (shipped 2026-03-16)
 - ✅ **v1.2 Research Reorientation** -- Phases 15-24 (shipped 2026-03-22)
+- 🚧 **v1.3 Upstream Sync + Rename + Source Pipeline Wiring** -- Phases 25-29 (in progress)
 
 ## Phases
 
@@ -42,227 +43,100 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 
 </details>
 
-### v1.2 Research Reorientation — SHIPPED 2026-03-22
+<details>
+<summary>v1.2 Research Reorientation (Phases 15-24) -- SHIPPED 2026-03-22</summary>
 
-**Milestone Goal:** Transform GRD into GRD -- a research tool that uses PM discipline, not a PM tool that produces research notes.
+- [x] Phase 15: Upstream Sync to v1.25.1 -- completed 2026-03-17
+- [x] Phase 16: Config Schema and Defaults -- completed 2026-03-18
+- [x] Phase 17: Namespace Migration -- completed 2026-03-18
+- [x] Phase 18: Research Prospectus and Researcher Rechartering -- completed 2026-03-19
+- [x] Phase 19: Review-Type Enforcement -- completed 2026-03-19
+- [x] Phase 20: Three-Tier Verification -- completed 2026-03-20
+- [x] Phase 21: Adaptive Communication -- completed 2026-03-20
+- [x] Phase 22: Synthesis Stage -- completed 2026-03-21
+- [x] Phase 23: Gap Closure A -- completed 2026-03-22
+- [x] Phase 24: Gap Closure B -- completed 2026-03-22
 
-- [x] **Phase 15: Upstream Sync to v1.25.1** - Sync all modules, agents, workflows, and templates with GSD v1.25.1 baseline (completed 2026-03-17)
-- [x] **Phase 16: Config Schema and Defaults** - Add researcher_tier, review_type, epistemological_stance to config with configWithDefaults() deep-merge (completed 2026-03-18)
-- [x] **Phase 17: Namespace Migration** - Rename grd to grd across all files, commands, agents, and directory structure (completed 2026-03-18)
-- [x] **Phase 18: Research Formulation and Notes** - Reframe new-research scoping, recharter parallel researchers, update note template with Evidence Quality and temporal positioning (completed 2026-03-20)
-- [x] **Phase 19: Plan-Checker Enforcement** - Add review-type-conditional rules with graduated enforcement (completed 2026-03-20)
-- [x] **Phase 20: Three-Tier Verification** - Add Tier 0 sufficiency check gating existing Tier 1 and Tier 2 (completed 2026-03-20)
-- [x] **Phase 21: Adaptive Communication** - Apply researcher tier adaptation across all agent prompts, templates, verification, and error messages (completed 2026-03-21)
-- [x] **Phase 22: Synthesis Stage** - Build /grd:synthesize with thematic synthesis, theoretical integration, gap analysis, and argument construction (completed 2026-03-22)
-- [x] **Phase 23: Workflow Init Alignment** - Fix 8 workflow files calling old init subcommand names; restore E2E flow (gap closure) (completed 2026-03-22)
-- [x] **Phase 24: Verification Pipeline Wiring** - Expose verify-sufficiency.cjs via CLI and fix temporal_positioning config bug (gap closure) (completed 2026-03-22)
+Full details: `.planning/ROADMAP.md` (v1.2 archive)
+
+</details>
+
+### v1.3 Upstream Sync + Rename + Source Pipeline Wiring (In Progress)
+
+**Milestone Goal:** Sync GRD to upstream GSD v1.28.0, eliminate all GSD-R branding, adopt research-native command vocabulary, and wire the source acquisition pipeline.
+
+- [ ] **Phase 25: Upstream Sync to v1.28.0** - Sync all CJS modules, workflows, agent prompts, and templates with GSD v1.28.0 baseline
+- [ ] **Phase 26: Rename GSD-R to GRD** - Eliminate all GSD-R branding via file renames, directory moves, and bulk content replacement
+- [ ] **Phase 27: Research-Native Command Vocabulary** - Rename 6 core commands to research-native equivalents and update all cross-references
+- [ ] **Phase 28: Source Pipeline Wiring** - Connect acquire.cjs, vault.cjs, and source-researcher agent into the conduct-inquiry execution path
+- [ ] **Phase 29: Documentation Rewrite** - Rewrite README.md and docs/DESIGN.md with final-state naming and command references
 
 ## Phase Details
 
-### Phase 15: Upstream Sync to v1.25.1
-**Goal**: Codebase runs on GSD v1.25.1 baseline with all research-specific modifications preserved
-**Depends on**: Nothing (first phase of v1.2)
-**Requirements**: SYNC-01, SYNC-02, SYNC-03, SYNC-04, SYNC-05, TEST-01
+### Phase 25: Upstream Sync to v1.28.0
+**Goal**: GRD operates on the latest upstream GSD v1.28.0 codebase with all research extensions preserved
+**Depends on**: Nothing (first phase of v1.3)
+**Requirements**: SYNC-01, SYNC-02, SYNC-03, SYNC-04, SYNC-05, SYNC-06
 **Success Criteria** (what must be TRUE):
-  1. All 17 CJS modules reflect v1.25.1 upstream changes (spawnSync in execGit, stripShippedMilestones, getMilestonePhaseFilter, VALID_CONFIG_KEYS) while preserving research-specific exports
-  2. All agent prompts and workflow files incorporate v1.25.1 changes without losing research adaptations
-  3. VERSION file reads 1.25.1
-  4. All 164+ existing tests pass on the new baseline
-**Plans**: 5 plans
+  1. All CJS library modules reflect v1.28.0 upstream changes while preserving research extensions (note status, source gaps, vault write, acquire, verify-research)
+  2. All workflow and agent prompt files incorporate v1.28.0 improvements while retaining research-specific adaptations (three-tier verification, synthesis, adaptive communication)
+  3. VERSION file reads 1.28.0
+  4. All 514+ existing tests pass after sync with zero regressions
+**Plans**: TBD
 
-Plans:
-- [ ] 15-01-PLAN.md -- Sync core.cjs and config.cjs with v1.25.1 (foundation modules + CLI entry point)
-- [ ] 15-02-PLAN.md -- Sync remaining 7 CJS modules with v1.25.1 (milestone scoping, regex improvements)
-- [ ] 15-03-PLAN.md -- Sync 34 workflows: new files, namespace-only, and minor-functional
-- [ ] 15-04-PLAN.md -- Merge 5 large-divergence workflows (discuss-phase, plan-phase, new-project, quick, help)
-- [ ] 15-05-PLAN.md -- Sync templates and references, update VERSION to 1.25.1
-
-### Phase 16: Config Schema and Defaults
-**Goal**: All v1.2 config fields exist, propagate through init.cjs, and existing projects get correct defaults without manual config edits
-**Depends on**: Phase 15
-**Requirements**: CFG-01, CFG-02, CFG-03, CFG-04, CFG-05, CFG-06, CFG-07, TRAP-05, TEST-04
+### Phase 26: Rename GSD-R to GRD
+**Goal**: Zero instances of GSD-R branding remain in active files -- the project is consistently named GRD everywhere
+**Depends on**: Phase 25
+**Requirements**: REN-01, REN-02, REN-03, REN-04, REN-05, REN-06, REN-07, REN-08, REN-09
 **Success Criteria** (what must be TRUE):
-  1. Running `/grd:new-research` prompts for researcher_tier, review_type, and epistemological_stance and stores selections in config.json
-  2. Selecting a review_type auto-configures critical_appraisal, temporal_positioning, synthesis, and plan_check rigor per the Smart Defaults table
-  3. `config.workflow.critical_appraisal` and `config.workflow.temporal_positioning` toggles exist with smart defaults per review type
-  4. Review type can be downgraded mid-study via `/grd:settings` — rigor requirements relax, no work lost
-  5. Opening an existing v1.1 project with no new config fields produces correct defaults via configWithDefaults() — no crash, no missing-key errors
-  6. Tests validate config schema, defaults cascade, and smart defaults for all five review types
-**Plans**: 2 plans
+  1. `commands/grd/` directory exists and `commands/gsd-r/` does not exist
+  2. All 16 agent files exist as `agents/grd-*.md` and no `agents/gsd-r-*.md` files remain
+  3. `grep -r "gsd-r\|GSD-R\|get-shit-done-r"` across active files returns zero results (excluding .planning/, node_modules/, package-lock.json)
+  4. All tests pass after rename (including updated test file references)
+**Plans**: TBD
 
-Plans:
-- [ ] 16-01-PLAN.md -- Config schema infrastructure: SMART_DEFAULTS table, configWithDefaults(), applySmartDefaults(), canDowngrade(), VALID_CONFIG_KEYS extension, and TDD tests
-- [ ] 16-02-PLAN.md -- System integration: loadConfig() extension, init.cjs propagation, templates/config.json update, settings.md review type downgrade
-
-### Phase 17: Namespace Migration
-**Goal**: Every user-facing and internal reference uses the grd namespace with research-native command vocabulary
-**Depends on**: Phase 15
-**Requirements**: NS-01, NS-02, NS-03, NS-04, NS-05, NS-06, TEST-02
+### Phase 27: Research-Native Command Vocabulary
+**Goal**: Users invoke research-native commands (scope-inquiry, conduct-inquiry, etc.) instead of PM-style names (discuss-phase, execute-phase, etc.)
+**Depends on**: Phase 26
+**Requirements**: CMD-01, CMD-02, CMD-03, CMD-04, CMD-05, CMD-06
 **Success Criteria** (what must be TRUE):
-  1. All `/grd:` command references are `/grd:` with research-native names (conduct-inquiry, scope-inquiry, plan-inquiry, verify-inquiry, new-research, complete-study, etc.)
-  2. `grd-tools.cjs` is renamed to `grd-tools.cjs` and `grd/` is renamed to `grd/` with all path references updated
-  3. All 19 agent names in model-profiles.cjs use `grd-*` prefix
-  4. Automated scan finds zero residual `grd` references in any user-facing output
-  5. All tests pass with updated namespace references
-**Plans**: 2 plans
+  1. The 6 renamed command files exist in `commands/grd/` (new-research.md, scope-inquiry.md, plan-inquiry.md, conduct-inquiry.md, verify-inquiry.md, complete-study.md)
+  2. Old command filenames (new-project.md, discuss-phase.md, plan-phase.md, execute-phase.md, verify-work.md, complete-milestone.md) no longer exist in `commands/grd/`
+  3. `grep` for old `/grd:` prefixed command names across commands/, agents/, grd/workflows/, README.md, and docs/DESIGN.md returns zero results
+  4. All tests pass after vocabulary update
+**Plans**: TBD
 
-Plans:
-- [ ] 17-01-PLAN.md -- Directory rename (grd/ to grd/), CLI tool rename, bulk grd to grd replacement, agent name updates, namespace regression test
-- [ ] 17-02-PLAN.md -- Workflow file renames to research-native names (10 files), CLI routing updates, init subcommand updates, Skill() cross-reference updates
-
-### Phase 18: Research Formulation and Notes
-**Goal**: The research workflow speaks scholarly vocabulary from project creation through note writing
-**Depends on**: Phase 16, Phase 17
-**Requirements**: FORM-01, FORM-02, FORM-03, FORM-04, FORM-05, FORM-06, NOTE-01, NOTE-02, NOTE-03, TRAP-01
+### Phase 28: Source Pipeline Wiring
+**Goal**: Running conduct-inquiry on a phase with `<src>` blocks produces `-sources/` directories with acquired files that pass Tier 2 verification
+**Depends on**: Phase 27
+**Requirements**: SRC-01, SRC-02, SRC-03, SRC-04, SRC-05
 **Success Criteria** (what must be TRUE):
-  1. `/grd:new-research` scoping produces a PROJECT.md that serves as a research prospectus with problem statement, significance, epistemological stance, review type, researcher tier, research questions, and constraints
-  2. The 4 parallel researchers are renamed and rechartered (Methodological Landscape, Prior Findings & Key Themes, Theoretical Framework Survey, Limitations Critiques & Debates) and produce research-native output
-  3. BOOTSTRAP.md reframed as "state-of-the-field assessment" with scholarly vocabulary
-  4. REQUIREMENTS.md uses "research objectives / specific aims" vocabulary — REQ-IDs are research objectives with acceptance criteria
-  5. ROADMAP.md reframed as "research design / study plan" with phases as lines of inquiry
-  6. Research note template includes Evidence Quality section scaled by review type and influenced by epistemological stance
-  7. Research note frontmatter includes `era`, `review_type`, `inquiry`, and `status` fields with era skippable via config
-  8. `--prd <file>` and `--batch N` flags implemented for scope-inquiry
-**Plans**: 4 plans
+  1. conduct-inquiry workflow spawns the source-researcher agent after each plan's executor completes, and the agent calls acquireSource() for each `<src>` block URL
+  2. atomicWrite() bundles note + sources + SOURCE-LOG.md + git commit during note creation (no raw file writes for research notes)
+  3. validateReferences() in verify-inquiry correctly identifies missing sources, orphaned files, and unavailable-source exemptions for both local and global install paths
+  4. Running conduct-inquiry on a test phase with `<src>` blocks produces `-sources/` directories containing actual acquired files
+**Plans**: TBD
 
-Plans:
-- [x] 18-01-PLAN.md -- PROJECT.md prospectus template + new-research scoping questions (FORM-01, FORM-03)
-- [ ] 18-02-PLAN.md -- Researcher recharter: 4 new scholarly templates, prompt updates, synthesizer references (FORM-02)
-- [ ] 18-03-PLAN.md -- Template vocabulary reframing: BOOTSTRAP.md, REQUIREMENTS.md, ROADMAP.md (FORM-04, FORM-05, FORM-06)
-- [x] 18-04-PLAN.md -- Research note Evidence Quality + frontmatter, --prd flag, Phase 18 tests (NOTE-01, NOTE-02, NOTE-03, TRAP-01) (completed 2026-03-20)
-
-### Phase 19: Plan-Checker Enforcement
-**Goal**: The plan-checker enforces review-type-appropriate rigor at the search protocol stage
-**Depends on**: Phase 16, Phase 18
-**Requirements**: PLAN-01, PLAN-02, TRAP-02, TEST-03
+### Phase 29: Documentation Rewrite
+**Goal**: All user-facing documentation reflects the final-state naming, commands, and architecture
+**Depends on**: Phase 27
+**Requirements**: DOC-01, DOC-02, DOC-03, DOC-04
 **Success Criteria** (what must be TRUE):
-  1. Plan-checker validates 7 checks (source budget, no duplication, primary sources, systematic search strategy, multi-disciplinary perspectives, inclusion/exclusion criteria, diverse methodologies) with each check applying only to the review types that require it
-  2. Early investigation phases (1-2) receive advisory warnings; later phases receive blocking errors (graduated enforcement)
-  3. Review type mismatch interactive gate offers "Downgrade review type" / "Add rigor" / "Override" when rigor falls below review type requirements
-  4. Tests cover each review type's expected rule set and graduated enforcement behavior
-**Plans**: 2 plans
-
-Plans:
-- [ ] 19-01-PLAN.md -- RIGOR_LEVELS table, 3 new CJS checks, graduated enforcement, core.cjs/init.cjs rigor propagation, tests (PLAN-01, PLAN-02, TEST-03)
-- [ ] 19-02-PLAN.md -- TRAP-02 gate in plan-inquiry.md, planner prompt XML schemas, checker prompt rigor context and qualitative diversity (TRAP-02, PLAN-01)
-
-### Phase 20: Three-Tier Verification
-**Goal**: Verification catches insufficient evidence before checking goal-backward quality and source completeness
-**Depends on**: Phase 16, Phase 18
-**Requirements**: VER-01, VER-02, VER-03, TRAP-03
-**Success Criteria** (what must be TRUE):
-  1. `verifyTier0()` checks sufficiency (scaled by review type), saturation assessment, and epistemological consistency
-  2. Three-tier pipeline runs in order: Tier 0 (sufficiency) then Tier 1 (goal-backward) then Tier 2 (source audit)
-  3. `--skip-tier0` flag bypasses sufficiency check while preserving existing Tier 1 and Tier 2 behavior
-  4. Saturation interactive gate offers "Evidence is sufficient" / "Continue investigating" / "Add inquiry"
-  5. Existing `verifyNote()` behavior is unchanged; `verifyPhase()` wraps the three-tier pipeline
-**Plans**: 2 plans
-
-Plans:
-- [ ] 20-01-PLAN.md -- SUFFICIENCY_CRITERIA table, structural check functions (discoverNotes, checkObjectiveCoverage, checkEraCoverage, checkMethodologicalDiversity, checkEpistemologicalConsistency, verifySufficiency), TDD tests (VER-01, VER-02)
-- [ ] 20-02-PLAN.md -- Three-tier pipeline orchestration in verify-inquiry.md, saturation gate (TRAP-03), init.cjs skip_tier0 propagation (VER-03, TRAP-03)
-
-### Phase 21: Adaptive Communication
-**Goal**: GRD adapts its communication to the researcher's experience level without changing the underlying rigor
-**Depends on**: Phase 16, Phase 17, Phase 18
-**Requirements**: TIER-01, TIER-02, TIER-03, TIER-04, TEST-06
-**Success Criteria** (what must be TRUE):
-  1. Agent prompts include researcher tier context and adapt vocabulary, explanation depth, and information density (Guided=plain language with definitions, Standard=academic with context, Expert=precise and terse)
-  2. Templates adapt by tier (Guided=inline guidance comments, Standard=brief descriptions, Expert=headers only)
-  3. Verification feedback and error messages adapt by tier (Guided=explains failure and suggests next steps, Standard=states failure with standard, Expert=terse)
-  4. Agent-to-agent communication (PLAN.md, STATE.md, verification reports) is structurally identical across all tiers -- tier adaptation applies only to user-facing output
-  5. Tests validate tier selection and adaptive output across all three tiers
-**Plans**: 3 plans
-
-Plans:
-- [x] 21-01-PLAN.md -- stripTierContent() CJS utility with TDD tests for XML and comment modes (TEST-06)
-- [x] 21-02-PLAN.md -- Tier-conditional comment blocks in all 7 research-facing templates with completeness tests (TIER-02)
-- [x] 21-03-PLAN.md -- Tier-conditional XML blocks in 6 key workflows, researcher_tier context blocks for 3 agents, workflow content tests (TIER-01, TIER-03, TIER-04, TEST-06)
-
-### Phase 22: Synthesis Stage
-**Goal**: Researchers can transform verified notes into structured scholarship through thematic synthesis, theoretical integration, gap analysis, and argument construction
-**Depends on**: Phase 18, Phase 20, Phase 21
-**Requirements**: SYN-01, SYN-02, SYN-03, SYN-04, SYN-05, SYN-06, SYN-07, SYN-08, TRAP-04, COMP-01, TEST-05
-**Success Criteria** (what must be TRUE):
-  1. `/grd:synthesize` workflow exists, validates readiness (all investigation phases verified), and generates a synthesis PLAN.md using existing execute-phase machinery
-  2. Four synthesis activities produce their outputs: thematic synthesis (THEMES.md), theoretical integration (FRAMEWORK.md), gap analysis (GAPS.md), argument construction (Executive Summary)
-  3. Synthesis respects dependency ordering: themes before framework/gaps (which run in parallel), all before argument construction
-  4. Synthesis output follows `{Study}-Research/` directory structure with `00-` prefixed synthesis files
-  5. Synthesis scope interactive gate offers "Full synthesis" / "Themes + argument only" / "Skip synthesis"
-  6. `/grd:complete-study` includes deliverable assembly — compiles synthesis into target format from PROJECT.md
-  7. Synthesis is skippable via `config.workflow.synthesis: false` and individual activities via `--skip-themes`, `--skip-framework`, `--skip-gaps` flags
-  8. Tests validate synthesis workflow execution and dependency ordering
-**Plans**: 2 plans
-
-Plans:
-- [x] 22-01-PLAN.md -- Agent infrastructure: 4 agent prompts, 4 output templates, model-profiles update, deliverable_format additions, test updates (SYN-02, SYN-03, SYN-04, SYN-05, SYN-08)
-- [x] 22-02-PLAN.md -- Synthesize workflow, complete-study integration, synthesis tests (SYN-01, SYN-06, SYN-07, TRAP-04, COMP-01, TEST-05)
-
-### Phase 23: Workflow Init Alignment
-**Goal:** All workflow init calls match the research-native subcommand names in grd-tools.cjs, restoring the full E2E research flow
-**Depends on**: Phase 17
-**Requirements**: NS-02, FORM-01, SYN-01, COMP-01
-**Gap Closure:** Closes init subcommand name mismatch from v1.2 audit (8 workflow files)
-**Success Criteria** (what must be TRUE):
-  1. All 8 workflow files call correct init subcommand names (plan-inquiry, conduct-inquiry, verify-inquiry, new-research)
-  2. The full E2E flow (new-research → scope-inquiry → plan-inquiry → conduct-inquiry → verify-inquiry → synthesize → complete-study) initializes without errors
-  3. All existing tests continue to pass
-**Plans**: 1 plan
-
-Plans:
-- [x] 23-01-PLAN.md -- Fix init subcommand names in 8 workflow files (NS-02, FORM-01, SYN-01, COMP-01)
-
-### Phase 24: Verification Pipeline Wiring
-**Goal:** Tier 0 sufficiency checks are reachable from the verification workflow and temporal_positioning config is correctly propagated
-**Depends on**: Phase 20
-**Requirements**: VER-01, VER-02, CFG-07
-**Gap Closure:** Closes verify-sufficiency orphan and temporal_positioning bug from v1.2 audit
-**Success Criteria** (what must be TRUE):
-  1. `grd-tools.cjs` exposes a CLI command that invokes `verifySufficiency()` from verify-sufficiency.cjs
-  2. `verify-inquiry.md` can call Tier 0 sufficiency checks through the CLI
-  3. `init.cjs cmdInitVerifyWork` reads `config.temporal_positioning` (not `config.workflow?.temporal_positioning`)
-  4. When `temporal_positioning` is set to `false` or `optional`, era coverage checks in Tier 0 respect the setting
-  5. All existing tests continue to pass; new test covers temporal_positioning propagation
-**Plans**: 1 plan
-
-Plans:
-- [x] 24-01-PLAN.md -- Wire verify-sufficiency to CLI, fix temporal_positioning bug, add tests (VER-01, VER-02, CFG-07)
+  1. README.md uses GRD naming throughout, includes translation table (GSD concepts to GRD equivalents), and all command examples use new invocations (/grd:new-research, /grd:scope-inquiry, etc.)
+  2. docs/DESIGN.md reflects all naming changes with zero stale branding
+  3. No instances of old command names or GSD-R branding in any user-facing documentation file
+**Plans**: TBD
+**UI hint**: yes
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 15 -> 16 -> 17 -> 18 -> 19 -> 20 -> 21 -> 22 -> 23/24
-Note: Phases 16 and 17 can execute in parallel (both depend only on Phase 15).
-Note: Phases 19 and 20 can execute in parallel (both depend on 16+18).
-Note: Phases 23 and 24 can execute in parallel (gap closure phases with no interdependency).
+Phases execute in numeric order: 25 -> 26 -> 27 -> 28 / 29 (28 and 29 can run in parallel after 27)
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 1. Fork and Foundation | v1.0 | 3/3 | Complete | 2026-03-11 |
-| 2. Vault Write and State | v1.0 | 2/2 | Complete | 2026-03-11 |
-| 3. Source Acquisition | v1.0 | 2/2 | Complete | 2026-03-11 |
-| 4. Research Agents and Planner | v1.0 | 2/2 | Complete | 2026-03-11 |
-| 5. Verification and Workflows | v1.0 | 2/2 | Complete | 2026-03-11 |
-| 6. Output Formats and E2E Validation | v1.0 | 1/1 | Complete | 2026-03-12 |
-| 7. CLI Wiring and Agent Integration | v1.0 | 2/2 | Complete | 2026-03-12 |
-| 8. Traceability Reconciliation | v1.0 | 1/1 | Complete | 2026-03-12 |
-| 9. Foundation Module Creation | v1.1 | 1/1 | Complete | 2026-03-15 |
-| 10. Core Library Sync | v1.1 | 1/1 | Complete | 2026-03-15 |
-| 11. State, Commands, and Remaining Modules | v1.1 | 2/2 | Complete | 2026-03-16 |
-| 12. Templates and Execution Rigor | v1.1 | 2/2 | Complete | 2026-03-16 |
-| 13. Workflow Sync | v1.1 | 3/3 | Complete | 2026-03-16 |
-| 14. Path Standardization and Final Verification | v1.1 | 2/2 | Complete | 2026-03-16 |
-| 15. Upstream Sync to v1.25.1 | 5/5 | Complete    | 2026-03-17 | - |
-| 16. Config Schema and Defaults | 2/2 | Complete    | 2026-03-18 | - |
-| 17. Namespace Migration | 2/2 | Complete    | 2026-03-18 | - |
-| 18. Research Formulation and Notes | 4/4 | Complete    | 2026-03-20 | - |
-| 19. Plan-Checker Enforcement | 2/2 | Complete    | 2026-03-20 | - |
-| 20. Three-Tier Verification | 2/2 | Complete    | 2026-03-20 | - |
-| 21. Adaptive Communication | v1.2 | 3/3 | Complete    | 2026-03-21 |
-| 22. Synthesis Stage | v1.2 | 2/2 | Complete    | 2026-03-22 |
-| 23. Workflow Init Alignment | v1.2 | 1/1 | Complete | 2026-03-22 |
-| 24. Verification Pipeline Wiring | v1.2 | 1/1 | Complete | 2026-03-22 |
-
----
-*Roadmap created: 2026-03-11*
-*Last updated: 2026-03-22 after Phase 23-24 planning*
+| 25. Upstream Sync to v1.28.0 | v1.3 | 0/TBD | Not started | - |
+| 26. Rename GSD-R to GRD | v1.3 | 0/TBD | Not started | - |
+| 27. Command Vocabulary | v1.3 | 0/TBD | Not started | - |
+| 28. Source Pipeline Wiring | v1.3 | 0/TBD | Not started | - |
+| 29. Documentation Rewrite | v1.3 | 0/TBD | Not started | - |
