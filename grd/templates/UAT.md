@@ -8,7 +8,7 @@ Template for `.planning/phases/XX-name/{phase_num}-UAT.md` — persistent UAT se
 
 ```markdown
 ---
-status: testing | complete | diagnosed
+status: testing | partial | complete | diagnosed
 phase: XX-name
 source: [list of SUMMARY.md files tested]
 started: [ISO timestamp]
@@ -45,6 +45,12 @@ expected: [observable behavior]
 result: skipped
 reason: [why skipped]
 
+### 5. [Test Name]
+expected: [observable behavior]
+result: blocked
+blocked_by: server | physical-device | release-build | third-party | prior-phase
+reason: [why blocked]
+
 ...
 
 ## Summary
@@ -54,6 +60,7 @@ passed: [N]
 issues: [N]
 pending: [N]
 skipped: [N]
+blocked: [N]
 
 ## Gaps
 
@@ -74,7 +81,7 @@ skipped: [N]
 <section_rules>
 
 **Frontmatter:**
-- `status`: OVERWRITE - "testing" or "complete"
+- `status`: OVERWRITE - "testing", "partial", or "complete"
 - `phase`: IMMUTABLE - set on creation
 - `source`: IMMUTABLE - SUMMARY files being tested
 - `started`: IMMUTABLE - set on creation
@@ -87,9 +94,10 @@ skipped: [N]
 
 **Tests:**
 - Each test: OVERWRITE result field when user responds
-- `result` values: [pending], pass, issue, skipped
+- `result` values: [pending], pass, issue, skipped, blocked
 - If issue: add `reported` (verbatim) and `severity` (inferred)
 - If skipped: add `reason` if provided
+- If blocked: add `blocked_by` (tag) and `reason` (if provided)
 
 **Summary:**
 - OVERWRITE counts after each response
@@ -111,7 +119,7 @@ skipped: [N]
 3. Each agent investigates one gap, returns root cause
 4. UAT.md Gaps section updated with diagnosis:
    - Each gap gets `root_cause`, `artifacts`, `missing`, `debug_session` filled
-5. status → "diagnosed"
+5. status -> "diagnosed"
 6. Ready for /grd:plan-inquiry --gaps with root causes
 
 **After diagnosis:**
@@ -151,15 +159,25 @@ skipped: [N]
 - Move Current Test to next pending test
 
 **On completion:**
-- status → "complete"
-- Current Test → "[testing complete]"
+- status -> "complete"
+- Current Test -> "[testing complete]"
 - Commit file
 - Present summary with next steps
 
+**Partial completion:**
+- status -> "partial" (if pending, blocked, or unresolved skipped tests remain)
+- Current Test -> "[testing paused -- {N} items outstanding]"
+- Commit file
+- Present summary with outstanding items highlighted
+
+**Resuming partial session:**
+- `/grd:verify-inquiry {phase}` picks up from first pending/blocked test
+- When all items resolved, status advances to "complete"
+
 **Resume after /clear:**
-1. Read frontmatter → know phase and status
-2. Read Current Test → know where we are
-3. Find first [pending] result → continue from there
+1. Read frontmatter -> know phase and status
+2. Read Current Test -> know where we are
+3. Find first [pending] result -> continue from there
 4. Summary shows progress so far
 
 </lifecycle>

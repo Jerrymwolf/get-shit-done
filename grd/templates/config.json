@@ -12,13 +12,16 @@
     "verifier": true,
     "auto_advance": false,
     "nyquist_validation": true,
+    "discuss_mode": "discuss",
+    "research_before_questions": false,
     "critical_appraisal": "optional",
     "temporal_positioning": "optional",
     "synthesis": "optional"
   },
   "planning": {
     "commit_docs": true,
-    "search_gitignored": false
+    "search_gitignored": false,
+    "sub_repos": []
   },
   "parallelization": {
     "enabled": true,
@@ -44,5 +47,13 @@
   },
   "hooks": {
     "context_warnings": true
+  },
+  "firecrawl": {
+    "enabled": false,
+    "api_key": ""
+  },
+  "exa_search": {
+    "enabled": false,
+    "api_key": ""
   }
 }

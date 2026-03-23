@@ -86,7 +86,7 @@ Output: [What artifacts will be created]
 </task>
 
 <!-- For checkpoint task examples and patterns, see @/Users/jeremiahwolf/.claude/grd/references/checkpoints.md -->
-<!-- Key rule: Claude starts dev server BEFORE human-verify checkpoints. User only visits URLs. -->
+<!-- Key rule: Claude starts dev server BEFORE human-verify checkpoints. User only visits URLs, clicks UI, evaluates visuals. -->
 
 <task type="checkpoint:decision" gate="blocking">
   <decision>[What needs deciding]</decision>
