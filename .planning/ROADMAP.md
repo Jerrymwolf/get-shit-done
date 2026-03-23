@@ -146,7 +146,9 @@ Plans:
   1. `/grd:help` organizes commands into Research Workflow / Utility / Configuration sections (not PM-centric categories)
   2. Every command entry shows its research-native purpose (e.g., "Plan the next line of inquiry" not "Plan the next development phase")
   3. A researcher unfamiliar with GSD would understand what each command does from its help description alone
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 32-01-PLAN.md — Rewrite help workflow with research-native organization, descriptions, and all current commands
 
 ## Progress
 
@@ -186,8 +188,8 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 29. Research Template Variants | v1.3 | 1/1 | Complete    | 2026-03-23 |
 | 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/2 | Complete    | 2026-03-23 |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 2/2 | Complete    | 2026-03-23 |
-| 32. Help Reorganization | v1.3 | 0/TBD | Not started | - |
+| 32. Help Reorganization | v1.3 | 0/1 | Not started | - |
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-23 after Phase 31 planning*
+*Last updated: 2026-03-23 after Phase 32 planning*
