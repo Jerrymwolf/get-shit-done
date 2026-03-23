@@ -92,7 +92,10 @@ Full details: Phase details collapsed above.
   4. scope-inquiry.md examples use methodology choices, scope boundaries, and theoretical emphasis -- not UI features or sprint planning
   5. verify-inquiry.md describes validation of research findings, evidence quality, and source coverage -- not feature testing
   6. new-milestone.md dimension labels read Landscape/Questions/Frameworks/Debates (not Stack/Features/Architecture/Pitfalls)
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 28-01-PLAN.md — Fix GSD references and add research awareness to 4 agent files
+- [ ] 28-02-PLAN.md — Rewrite workflow examples with research vocabulary in 3 workflow files
 
 ### Phase 29: Research Template Variants
 **Goal**: Plan task templates and summary templates include research-specific structure so generated plans produce scholarly output
@@ -172,7 +175,7 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 24. Verification Pipeline Wiring | v1.2 | 1/1 | Complete | 2026-03-22 |
 | 26. GSD-to-GRD Rename | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 27. Research-Native Command Vocabulary | v1.3 | 1/1 | Complete | 2026-03-23 |
-| 28. Agent and Workflow Reorientation | v1.3 | 0/TBD | Not started | - |
+| 28. Agent and Workflow Reorientation | v1.3 | 0/2 | Not started | - |
 | 29. Research Template Variants | v1.3 | 0/TBD | Not started | - |
 | 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/TBD | Not started | - |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 0/TBD | Not started | - |
@@ -180,4 +183,4 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-23 after v1.3 roadmap creation*
+*Last updated: 2026-03-23 after Phase 28 planning*
