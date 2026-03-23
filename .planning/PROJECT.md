@@ -51,6 +51,7 @@ Every research finding is self-contained and auditable — the note plus its act
 
 - Rename GSD-R to GRD — zero old branding in active files — v1.3 Phase 26 ✓
 - Research-native command vocabulary — scope-inquiry, conduct-inquiry, etc. — v1.3 Phase 27 ✓
+- Agent and workflow reorientation — research language in prompts and examples — v1.3 Phase 28 ✓
 <!-- v1.3 Upstream Sync + Rename + Source Pipeline Wiring -->
 (See REQUIREMENTS.md for remaining v1.3 requirements: Source Pipeline Wiring, Documentation Rewrite)
 
@@ -122,4 +123,4 @@ Every research finding is self-contained and auditable — the note plus its act
 - Rewrite template frontmatter for research outputs (sources_acquired, findings, evidence_quality)
 
 ---
-*Last updated: 2026-03-23 after v1.2 shipped — starting v1.3 Research-Native Purification*
+*Last updated: 2026-03-23 after Phase 28 complete — agent prompts and workflows speak research language*
