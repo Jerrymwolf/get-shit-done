@@ -4,7 +4,7 @@ milestone: v1.2
 milestone_name: Research Reorientation — SHIPPED 2026-03-22
 status: Milestone complete
 stopped_at: Completed 27-01-PLAN.md
-last_updated: "2026-03-23T16:03:42.443Z"
+last_updated: "2026-03-23T17:44:56.358Z"
 progress:
   total_phases: 21
   completed_phases: 21
@@ -122,8 +122,14 @@ None.
 
 - Phase 21: Tier-conditional block syntax not yet established -- design decision needed before implementation
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260323-j3g | Fix remaining GSD carryover in GRD codebase | 2026-03-23 | 83fe611 | [260323-j3g-fix-remaining-gsd-carryover-in-grd-codeb](./quick/260323-j3g-fix-remaining-gsd-carryover-in-grd-codeb/) |
+
 ## Session Continuity
 
-Last session: 2026-03-23T15:52:53Z
-Stopped at: Completed 27-01-PLAN.md
+Last session: 2026-03-23T17:44:56Z
+Stopped at: Completed quick task 260323-j3g
 Resume file: None
