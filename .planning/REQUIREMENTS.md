@@ -10,10 +10,10 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 ### Command Reconceptualization
 
 - [ ] **CMD-01**: `/grd:ship` reconceptualized as research export — ship notes + sources to Obsidian vault, export manuscript, package deliverables
-- [ ] **CMD-02**: `/grd:add-tests` reconceptualized as add verification criteria — evidence checks, source coverage assertions
+- [x] **CMD-02**: `/grd:add-tests` reconceptualized as add verification criteria — evidence checks, source coverage assertions
 - [ ] **CMD-03**: `/grd:pr-branch` reconceptualized as export clean research — package notes without .planning/ artifacts
-- [ ] **CMD-04**: `/grd:debug` reconceptualized as diagnose — investigate methodology gaps, source conflicts, analytical dead ends
-- [ ] **CMD-05**: `/grd:map-codebase` reconceptualized as map corpus / map literature — survey existing sources and knowledge landscape
+- [x] **CMD-04**: `/grd:debug` reconceptualized as diagnose — investigate methodology gaps, source conflicts, analytical dead ends
+- [x] **CMD-05**: `/grd:map-codebase` reconceptualized as map corpus / map literature — survey existing sources and knowledge landscape
 - [ ] **CMD-06**: `/grd:ui-phase` reconceptualized as presentation design — plan how findings will be presented
 - [ ] **CMD-07**: `/grd:ui-review` reconceptualized as output review — audit quality of research deliverables
 
@@ -60,10 +60,10 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | CMD-01 | Phase 31 | Pending |
-| CMD-02 | Phase 30 | Pending |
+| CMD-02 | Phase 30 | Complete |
 | CMD-03 | Phase 31 | Pending |
-| CMD-04 | Phase 30 | Pending |
-| CMD-05 | Phase 30 | Pending |
+| CMD-04 | Phase 30 | Complete |
+| CMD-05 | Phase 30 | Complete |
 | CMD-06 | Phase 31 | Pending |
 | CMD-07 | Phase 31 | Pending |
 | WFL-01 | Phase 28 | Complete |

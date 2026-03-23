@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Research-Native Purification
 status: Ready to plan
-stopped_at: v1.3 roadmap created -- phases 28-32 defined, ready to plan Phase 28
-last_updated: "2026-03-23T22:55:54.317Z"
+stopped_at: Completed 30-01-PLAN.md
+last_updated: "2026-03-23T23:22:00.042Z"
 progress:
   total_phases: 5
-  completed_phases: 2
-  total_plans: 3
-  completed_plans: 3
+  completed_phases: 3
+  total_plans: 5
+  completed_plans: 5
 ---
 
 # Project State
@@ -19,11 +19,11 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** Phase 29 — Research Template Variants
+**Current focus:** Phase 30 — Command Reconceptualization -- Diagnostics and Corpus
 
 ## Current Position
 
-Phase: 30
+Phase: 31
 Plan: Not started
 
 ## Performance Metrics
@@ -59,6 +59,8 @@ Plan: Not started
 | Phase 22 P01 | 5min | 2 tasks | 13 files |
 | Phase 22 P02 | 4min | 2 tasks | 3 files |
 | Phase 27 P01 | 2min | 2 tasks | 17 files |
+| Phase 30 P02 | 4min | 2 tasks | 5 files |
+| Phase 30 P01 | 10min | 3 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -71,6 +73,10 @@ Recent decisions affecting current work:
 - [v1.3 Roadmap]: AGT + WFL bundled into Phase 28 (all fix existing files to speak research language)
 - [v1.3 Roadmap]: TPL before CMD-export phases (templates inform command reconceptualizations)
 - [v1.3 Roadmap]: HLP last (documents everything built in prior phases)
+- [Phase 30]: TDD/E2E classification replaced with Evidence Check/Coverage Assertion for research verification
+- [Phase 30]: Diagnosis agent keeps hypothesis-testing framework applied to scholarly investigation
+- [Phase 30]: 7 corpus documents replace 7 codebase documents (SOURCES/DOMAINS/METHODOLOGY/COVERAGE/GAPS/CONNECTIONS/QUALITY)
+- [Phase 30]: Verification uses Evidence/Coverage/Methodology categories replacing TDD/E2E/Skip
 
 ### Pending Todos
 
@@ -88,6 +94,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-23
-Stopped at: v1.3 roadmap created -- phases 28-32 defined, ready to plan Phase 28
+Last session: 2026-03-23T23:17:58.215Z
+Stopped at: Completed 30-01-PLAN.md
 Resume file: None

@@ -75,7 +75,7 @@ Full details: Phase details collapsed above.
 
 - [x] **Phase 28: Agent and Workflow Reorientation** - Fix remaining GSD references in agents and rewrite workflow examples with research vocabulary (completed 2026-03-23)
 - [x] **Phase 29: Research Template Variants** - Create research-specific task templates and summary templates with scholarly frontmatter (completed 2026-03-23)
-- [ ] **Phase 30: Command Reconceptualization -- Diagnostics and Corpus** - Reconceptualize debug, map-codebase, and add-tests as research equivalents
+- [x] **Phase 30: Command Reconceptualization -- Diagnostics and Corpus** - Reconceptualize debug, map-codebase, and add-tests as research equivalents (completed 2026-03-23)
 - [ ] **Phase 31: Command Reconceptualization -- Export and Presentation** - Reconceptualize ship, pr-branch, ui-phase, and ui-review as research equivalents
 - [ ] **Phase 32: Help Reorganization** - Restructure /grd:help around the research workflow with proper categorization and descriptions
 
@@ -182,7 +182,7 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 27. Research-Native Command Vocabulary | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 28. Agent and Workflow Reorientation | v1.3 | 2/2 | Complete    | 2026-03-23 |
 | 29. Research Template Variants | v1.3 | 1/1 | Complete    | 2026-03-23 |
-| 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/2 | Not started | - |
+| 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/2 | Complete    | 2026-03-23 |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 0/TBD | Not started | - |
 | 32. Help Reorganization | v1.3 | 0/TBD | Not started | - |
 
