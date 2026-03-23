@@ -167,10 +167,10 @@ Use AskUserQuestion:
 - question: "No CONTEXT.md found for Phase {X}. Plans will use research and requirements only — your design preferences won't be included. Continue or capture context first?"
 - options:
   - "Continue without context" — Plan using research + requirements only
-  - "Run discuss-phase first" — Capture design decisions before planning
+  - "Run scope-inquiry first" — Capture design decisions before planning
 
 If "Continue without context": Proceed to step 5.
-If "Run discuss-phase first": Display `/grd:scope-inquiry {X}` and exit workflow.
+If "Run scope-inquiry first": Display `/grd:scope-inquiry {X}` and exit workflow.
 
 ## 5. Handle Research
 
@@ -772,17 +772,17 @@ Display banner:
  GSD ► AUTO-ADVANCING TO EXECUTE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Plans ready. Launching execute-phase...
+Plans ready. Launching conduct-inquiry...
 ```
 
-Launch execute-phase using the Skill tool to avoid nested Task sessions (which cause runtime freezes due to deep agent nesting):
+Launch conduct-inquiry using the Skill tool to avoid nested Task sessions (which cause runtime freezes due to deep agent nesting):
 ```
 Skill(skill="grd:conduct-inquiry", args="${PHASE} --auto --no-transition")
 ```
 
-The `--no-transition` flag tells execute-phase to return status after verification instead of chaining further. This keeps the auto-advance chain flat — each phase runs at the same nesting level rather than spawning deeper Task agents.
+The `--no-transition` flag tells conduct-inquiry to return status after verification instead of chaining further. This keeps the auto-advance chain flat — each phase runs at the same nesting level rather than spawning deeper Task agents.
 
-**Handle execute-phase return:**
+**Handle conduct-inquiry return:**
 - **PHASE COMPLETE** → Display final summary:
   ```
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

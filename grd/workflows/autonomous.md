@@ -162,7 +162,7 @@ Skill(skill="grd:conduct-inquiry", args="${PHASE_NUM} --no-transition")
 
 **3d. Post-Execution Routing**
 
-After execute-phase returns, read the verification result:
+After conduct-inquiry returns, read the verification result:
 
 ```bash
 VERIFY_STATUS=$(grep "^status:" "${PHASE_DIR}"/*-VERIFICATION.md 2>/dev/null | head -1 | cut -d: -f2 | tr -d ' ')
@@ -258,9 +258,9 @@ On **"Stop autonomous mode"**: Go to handle_blocker with "User stopped — gaps 
 
 ## Smart Discuss
 
-Run smart discuss for the current phase. Proposes grey area answers in batch tables — the user accepts or overrides per area. Produces identical CONTEXT.md output to regular discuss-phase.
+Run smart discuss for the current phase. Proposes grey area answers in batch tables — the user accepts or overrides per area. Produces identical CONTEXT.md output to regular scope-inquiry.
 
-> **Note:** Smart discuss is an autonomous-optimized variant of the `gsd:discuss-phase` skill. It produces identical CONTEXT.md output but uses batch table proposals instead of sequential questioning. The original `discuss-phase` skill remains unchanged (per CTRL-03). Future milestones may extract this to a separate skill file.
+> **Note:** Smart discuss is an autonomous-optimized variant of the `gsd:scope-inquiry` skill. It produces identical CONTEXT.md output but uses batch table proposals instead of sequential questioning. The original `scope-inquiry` skill remains unchanged (per CTRL-03). Future milestones may extract this to a separate skill file.
 
 **Inputs:** `PHASE_NUM` from execute_phase. Run init to get phase paths:
 
@@ -456,7 +456,7 @@ After all areas are resolved (or infrastructure skip), write the CONTEXT.md file
 
 **File path:** `${phase_dir}/${padded_phase}-CONTEXT.md`
 
-Use **exactly** this structure (identical to discuss-phase output):
+Use **exactly** this structure (identical to scope-inquiry output):
 
 ```markdown
 # Phase {PHASE_NUM}: {Phase Name} - Context
@@ -646,7 +646,7 @@ On **"Stop"**: Go to handle_blocker with "User stopped — tech debt to address.
 Skill(skill="grd:complete-study", args="${milestone_version}")
 ```
 
-After complete-milestone returns, verify it produced output:
+After complete-study returns, verify it produced output:
 
 ```bash
 ls .planning/milestones/v${milestone_version}-ROADMAP.md 2>/dev/null
@@ -725,7 +725,7 @@ When any phase operation fails or a blocker is detected, present 3 options via A
 - [ ] Human-needed verification → user prompted to validate or skip
 - [ ] Gaps-found → user offered gap closure, continue, or stop
 - [ ] Gap closure limited to 1 retry (prevents infinite loops)
-- [ ] Plan-phase and execute-phase failures route to handle_blocker
+- [ ] Plan-phase and conduct-inquiry failures route to handle_blocker
 - [ ] ROADMAP.md re-read after each phase (catches inserted phases)
 - [ ] STATE.md checked for blockers before each phase
 - [ ] Blockers handled via user choice (retry / skip / stop)
@@ -739,5 +739,5 @@ When any phase operation fails or a blocker is detected, present 3 options via A
 - [ ] Cleanup invoked via Skill() — internal confirmation is acceptable (CTRL-01)
 - [ ] Final completion banner displayed after lifecycle
 - [ ] Progress bar uses phase number / total milestone phases (not position among incomplete)
-- [ ] Smart discuss documents relationship to discuss-phase with CTRL-03 note
+- [ ] Smart discuss documents relationship to scope-inquiry with CTRL-03 note
 </success_criteria>

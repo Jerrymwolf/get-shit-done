@@ -200,7 +200,7 @@ What would you like to do?
 ls .planning/phases/XX-name/*-CONTEXT.md 2>/dev/null
 ```
 
-If missing, suggest discuss-phase before plan. If exists, offer plan directly.
+If missing, suggest scope-inquiry before plan. If exists, offer plan directly.
 
 Wait for user selection.
 </step>

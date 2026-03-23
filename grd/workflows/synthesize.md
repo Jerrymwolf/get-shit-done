@@ -1,5 +1,5 @@
 <purpose>
-Transform verified research notes into structured scholarship through thematic synthesis, theoretical integration, gap analysis, and argument construction. Generates a synthesis plan and delegates to execute-phase machinery.
+Transform verified research notes into structured scholarship through thematic synthesis, theoretical integration, gap analysis, and argument construction. Generates a synthesis plan and delegates to conduct-inquiry machinery.
 
 This workflow orchestrates Stage 6 of the research lifecycle. It validates readiness, presents the TRAP-04 synthesis scope gate, generates a 4-wave synthesis plan respecting the dependency chain (themes < framework < gaps < argument per D-07), and delegates execution to subagents using the same wave-based parallel execution pattern as conduct-inquiry.md.
 </purpose>
@@ -326,7 +326,7 @@ Synthesis plan: {N} activities, {M} waves. Dependency chain: themes -> framework
 </step>
 
 <step name="execute_synthesis">
-Delegate the generated plan to execute-phase machinery.
+Delegate the generated plan to conduct-inquiry machinery.
 
 **For each wave in sequence:**
 

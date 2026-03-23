@@ -26,10 +26,10 @@ cat .planning/config.json
 ```
 
 Parse current values (default to `true` if not present):
-- `workflow.research` — spawn researcher during plan-phase
-- `workflow.plan_check` — spawn plan checker during plan-phase
-- `workflow.verifier` — spawn verifier during execute-phase
-- `workflow.nyquist_validation` — validation architecture research during plan-phase (default: true if absent)
+- `workflow.research` — spawn researcher during plan-inquiry
+- `workflow.plan_check` — spawn plan checker during plan-inquiry
+- `workflow.verifier` — spawn verifier during conduct-inquiry
+- `workflow.nyquist_validation` — validation architecture research during plan-inquiry (default: true if absent)
 - `workflow.ui_phase` — generate UI-SPEC.md design contracts for frontend phases (default: true if absent)
 - `workflow.ui_safety_gate` — prompt to run /grd:ui-phase before planning frontend phases (default: true if absent)
 - `workflow.critical_appraisal` — critical appraisal requirement level (default per review_type smart defaults)
@@ -109,12 +109,12 @@ AskUserQuestion([
     header: "Nyquist",
     multiSelect: false,
     options: [
-      { label: "Yes (Recommended)", description: "Research automated test coverage during plan-phase. Adds validation requirements to plans. Blocks approval if tasks lack automated verify." },
+      { label: "Yes (Recommended)", description: "Research automated test coverage during plan-inquiry. Adds validation requirements to plans. Blocks approval if tasks lack automated verify." },
       { label: "No", description: "Skip validation research. Good for rapid prototyping or no-test phases." }
     ]
   },
   // Note: Nyquist validation depends on research output. If research is disabled,
-  // plan-phase automatically skips Nyquist steps (no RESEARCH.md to extract from).
+  // plan-inquiry automatically skips Nyquist steps (no RESEARCH.md to extract from).
   {
     question: "Enable UI Phase? (generates UI-SPEC.md design contracts for frontend phases)",
     header: "UI Phase",
@@ -129,8 +129,8 @@ AskUserQuestion([
     header: "UI Gate",
     multiSelect: false,
     options: [
-      { label: "Yes (Recommended)", description: "plan-phase asks to run /grd:ui-phase first when frontend indicators detected." },
-      { label: "No", description: "No prompt — plan-phase proceeds without UI-SPEC check." }
+      { label: "Yes (Recommended)", description: "plan-inquiry asks to run /grd:ui-phase first when frontend indicators detected." },
+      { label: "No", description: "No prompt — plan-inquiry proceeds without UI-SPEC check." }
     ]
   },
   {
