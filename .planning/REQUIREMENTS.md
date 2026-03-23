@@ -21,12 +21,12 @@ Requirements for the Upstream Sync + Rename + Source Pipeline Wiring milestone. 
 - [ ] **REN-01**: `commands/gsd-r/` directory renamed to `commands/grd/`
 - [ ] **REN-02**: All 16 agent files renamed from `gsd-r-*.md` to `grd-*.md`
 - [ ] **REN-03**: All 3 hook files renamed from `gsd-*.js` to `grd-*.js`
-- [ ] **REN-04**: Bulk content replacement: zero instances of `gsd-r`, `GSD-R`, `get-shit-done-r` in active files
-- [ ] **REN-05**: install.js internal references updated (markers, variable names, agent mappings)
-- [ ] **REN-06**: Config files updated (.gitignore, .claude/settings.local.json, package.json files array)
-- [ ] **REN-07**: Test files updated with new filenames and paths
+- [x] **REN-04**: Bulk content replacement: zero instances of `gsd-r`, `GSD-R`, `get-shit-done-r` in active files
+- [x] **REN-05**: install.js internal references updated (markers, variable names, agent mappings)
+- [x] **REN-06**: Config files updated (.gitignore, .claude/settings.local.json, package.json files array)
+- [x] **REN-07**: Test files updated with new filenames and paths
 - [ ] **REN-08**: Old migration scripts deleted (rename-gsd-to-gsd-r.cjs, bulk-rename-planning.cjs)
-- [ ] **REN-09**: All tests pass after rename
+- [x] **REN-09**: All tests pass after rename
 
 ### Command Vocabulary
 
@@ -96,12 +96,12 @@ Requirements for the Upstream Sync + Rename + Source Pipeline Wiring milestone. 
 | REN-01 | Phase 26 | Pending |
 | REN-02 | Phase 26 | Pending |
 | REN-03 | Phase 26 | Pending |
-| REN-04 | Phase 26 | Pending |
-| REN-05 | Phase 26 | Pending |
-| REN-06 | Phase 26 | Pending |
-| REN-07 | Phase 26 | Pending |
+| REN-04 | Phase 26 | Complete |
+| REN-05 | Phase 26 | Complete |
+| REN-06 | Phase 26 | Complete |
+| REN-07 | Phase 26 | Complete |
 | REN-08 | Phase 26 | Pending |
-| REN-09 | Phase 26 | Pending |
+| REN-09 | Phase 26 | Complete |
 | CMD-01 | Phase 27 | Pending |
 | CMD-02 | Phase 27 | Pending |
 | CMD-03 | Phase 27 | Pending |

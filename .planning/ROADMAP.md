@@ -102,8 +102,8 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 26-01-PLAN.md -- File and directory renames (git mv commands, agent renames, hook renames)
-- [ ] 26-02-PLAN.md -- Bulk content replacement + install.js internals + config updates + test fixes
+- [x] 26-01-PLAN.md -- File and directory renames (git mv commands, agent renames, hook renames)
+- [x] 26-02-PLAN.md -- Bulk content replacement + install.js internals + config updates + test fixes
 - [ ] 26-03-PLAN.md -- Script cleanup + final grep verification
 
 #### Phase 27: Research-Native Command Vocabulary
@@ -147,7 +147,7 @@ Phases execute in numeric order: 25 -> 26 -> 27 -> 28 / 29 (28 and 29 can run in
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 25. Upstream Sync to v1.28.0 | v1.3 | 6/6 | Complete    | 2026-03-23 |
-| 26. Rename GSD-R to GRD | v1.3 | 0/3 | Not started | - |
+| 26. Rename GSD-R to GRD | v1.3 | 2/3 | In progress | - |
 | 27. Command Vocabulary | v1.3 | 0/TBD | Not started | - |
 | 28. Source Pipeline Wiring | v1.3 | 0/TBD | Not started | - |
 | 29. Documentation Rewrite | v1.3 | 0/TBD | Not started | - |
