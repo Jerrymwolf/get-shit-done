@@ -1,7 +1,7 @@
 <purpose>
-Validate built features through conversational testing with persistent state. Creates UAT.md that tracks test progress, survives /clear, and feeds gaps into /grd:plan-inquiry --gaps.
+Validate research findings through conversational verification with persistent state. Creates UAT.md that tracks test progress, survives /clear, and feeds gaps into /grd:plan-inquiry --gaps.
 
-User tests, Claude records. One test at a time. Plain text responses.
+Researcher verifies, Claude records. One finding at a time. Plain text responses.
 
 Flags:
 - --skip-tier0: Skip Tier 0 sufficiency check, run only Tier 1 (goal-backward) and Tier 2 (source audit)
@@ -196,8 +196,8 @@ Display inline:
 
 | # | Phase | Status | Current Test | Progress |
 |---|-------|--------|--------------|----------|
-| 1 | 04-comments | testing | 3. Reply to Comment | 2/6 |
-| 2 | 05-auth | testing | 1. Login Form | 0/4 |
+| 1 | 04-sdt-motivation | testing | 3. Evidence Chain | 2/6 |
+| 2 | 05-cultural-critique | testing | 1. Source Coverage | 0/4 |
 
 Reply with a number to resume, or provide a phase number to start new.
 ```
@@ -244,16 +244,16 @@ Parse for:
 1. **Accomplishments** - Features/functionality added
 2. **User-facing changes** - UI, workflows, interactions
 
-Focus on USER-OBSERVABLE outcomes, not implementation details.
+Focus on USER-OBSERVABLE outcomes, not implementation details. For research phases, observable outcomes include: findings answer the research question, sources are filed and logged, evidence chains are traceable, and synthesis documents have proper citations.
 
 For each deliverable, create a test:
 - name: Brief test name
 - expected: What the user should see/experience (specific, observable)
 
 Examples:
-- Accomplishment: "Added comment threading with infinite nesting"
-  → Test: "Reply to a Comment"
-  → Expected: "Clicking Reply opens inline composer below comment. Submitting shows reply nested under parent with visual indentation."
+- Accomplishment: "Investigated SDT's account of intrinsic motivation with 6 sources"
+  → Test: "Evidence Coverage"
+  → Expected: "Research note answers the stated question with citations to at least 3 sources. All cited sources exist in the -sources/ directory with entries in SOURCE-LOG.md."
 
 Skip internal/non-observable items (refactors, type changes, etc.).
 
@@ -269,6 +269,17 @@ Then **prepend** this test to the test list:
 - expected: "Kill any running server/service. Clear ephemeral state (temp DBs, caches, lock files). Start the application from scratch. Server boots without errors, any seed/migration completes, and a primary query (health check, homepage load, or basic API call) returns live data."
 
 This catches bugs that only manifest on fresh start — race conditions in startup sequences, silent seed failures, missing environment setup — which pass against warm state but break in production.
+
+**Research note smoke test injection:**
+
+After extracting tests from SUMMARYs, scan the SUMMARY files for modified/created file paths. If ANY path matches these patterns:
+
+`*-Research/*`, `*-sources/*`, `SOURCE-LOG.md`, `*.md` files with `domain:` frontmatter
+
+Then **prepend** this test to the test list:
+
+- name: "Research Note Completeness Smoke Test"
+- expected: "Each research note has: (1) a clear research question in frontmatter or title, (2) substantive findings (not just headers/placeholders), (3) citations to sources that exist in the corresponding -sources/ directory, (4) a SOURCE-LOG.md with entries matching the actual source files."
 </step>
 
 <step name="create_uat_file">

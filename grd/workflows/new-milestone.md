@@ -110,7 +110,7 @@ AskUserQuestion: "Research the domain ecosystem for new features before defining
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ◆ Spawning 4 researchers in parallel...
-  → Stack, Features, Architecture, Pitfalls
+  → Landscape, Questions, Frameworks, Debates
 ```
 
 ```bash
