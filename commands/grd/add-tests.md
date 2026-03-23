@@ -1,6 +1,6 @@
 ---
-name: gsd:add-tests
-description: Generate tests for a completed phase based on UAT criteria and implementation
+name: grd:add-verification
+description: Add evidence checks, source coverage assertions, and methodology validation for a completed research phase
 argument-hint: "<phase> [additional instructions]"
 allowed-tools:
   - Read
@@ -13,15 +13,15 @@ allowed-tools:
   - AskUserQuestion
 argument-instructions: |
   Parse the argument as a phase number (integer, decimal, or letter-suffix), plus optional free-text instructions.
-  Example: /grd:add-tests 12
-  Example: /grd:add-tests 12 focus on edge cases in the pricing module
+  Example: /grd:add-verification 12
+  Example: /grd:add-verification 12 focus on source coverage for autonomy domain
 ---
 <objective>
-Generate unit and E2E tests for a completed phase, using its SUMMARY.md, CONTEXT.md, and VERIFICATION.md as specifications.
+Add verification criteria for a completed research phase, using its SUMMARY.md, CONTEXT.md, and VERIFICATION.md as specifications.
 
-Analyzes implementation files, classifies them into TDD (unit), E2E (browser), or Skip categories, presents a test plan for user approval, then generates tests following RED-GREEN conventions.
+Analyzes research outputs (notes, sources, synthesis documents), classifies them into Evidence (source fidelity), Coverage (completeness), or Methodology (soundness) categories, presents a verification plan for user approval, then generates verification criteria and checks.
 
-Output: Test files committed with message `test(phase-{N}): add unit and E2E tests from add-tests command`
+Output: Verification criteria committed with message `chore(phase-{N}): add verification criteria from add-verification command`
 </objective>
 
 <execution_context>
@@ -36,6 +36,6 @@ Phase: $ARGUMENTS
 </context>
 
 <process>
-Execute the add-tests workflow from @/Users/jeremiahwolf/.claude/grd/workflows/add-tests.md end-to-end.
-Preserve all workflow gates (classification approval, test plan approval, RED-GREEN verification, gap reporting).
+Execute the add-verification workflow from @/Users/jeremiahwolf/.claude/grd/workflows/add-tests.md end-to-end.
+Preserve all workflow gates (classification approval, verification plan approval, criteria generation, gap reporting).
 </process>
