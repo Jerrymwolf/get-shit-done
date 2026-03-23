@@ -5,7 +5,7 @@ Display the complete GRD command reference. Output ONLY the reference content. D
 <reference>
 # GRD Command Reference
 
-**GRD** (Get Shit Done) creates hierarchical project plans optimized for solo agentic development with Claude Code.
+**GRD** (Get Research Done) creates hierarchical project plans optimized for solo agentic development with Claude Code.
 
 ## Quick Start
 

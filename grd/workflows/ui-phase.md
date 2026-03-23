@@ -1,5 +1,5 @@
 <purpose>
-Generate a UI design contract (UI-SPEC.md) for frontend phases. Orchestrates gsd-ui-researcher and gsd-ui-checker with a revision loop. Inserts between scope-inquiry and plan-inquiry in the lifecycle.
+Generate a UI design contract (UI-SPEC.md) for frontend phases. Orchestrates grd-ui-researcher and grd-ui-checker with a revision loop. Inserts between scope-inquiry and plan-inquiry in the lifecycle.
 
 UI-SPEC.md locks spacing, typography, color, copywriting, and design system decisions before the planner creates tasks. This prevents design debt caused by ad-hoc styling decisions during execution.
 </purpose>
@@ -24,8 +24,8 @@ Parse JSON for: `phase_dir`, `phase_number`, `phase_name`, `phase_slug`, `padded
 Resolve UI agent models:
 
 ```bash
-UI_RESEARCHER_MODEL=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolve-model gsd-ui-researcher --raw)
-UI_CHECKER_MODEL=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolve-model gsd-ui-checker --raw)
+UI_RESEARCHER_MODEL=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolve-model grd-ui-researcher --raw)
+UI_CHECKER_MODEL=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolve-model grd-ui-checker --raw)
 ```
 
 Check config:
@@ -87,7 +87,7 @@ If "View": display file contents, exit.
 If "Skip": proceed to step 7 (checker).
 If "Update": continue to step 5.
 
-## 5. Spawn gsd-ui-researcher
+## 5. Spawn grd-ui-researcher
 
 Display:
 ```
@@ -101,7 +101,7 @@ Display:
 Build prompt:
 
 ```markdown
-Read /Users/jeremiahwolf/.claude/agents/gsd-ui-researcher.md for instructions.
+Read /Users/jeremiahwolf/.claude/agents/grd-ui-researcher.md for instructions.
 
 <objective>
 Create UI design contract for Phase {phase_number}: {phase_name}
@@ -147,7 +147,7 @@ Display confirmation. Continue to step 7.
 **If `## UI-SPEC BLOCKED`:**
 Display blocker details and options. Exit workflow.
 
-## 7. Spawn gsd-ui-checker
+## 7. Spawn grd-ui-checker
 
 Display:
 ```
@@ -161,7 +161,7 @@ Display:
 Build prompt:
 
 ```markdown
-Read /Users/jeremiahwolf/.claude/agents/gsd-ui-checker.md for instructions.
+Read /Users/jeremiahwolf/.claude/agents/grd-ui-checker.md for instructions.
 
 <objective>
 Validate UI design contract for Phase {phase_number}: {phase_name}
@@ -202,7 +202,7 @@ Track `revision_count` (starts at 0).
 
 **If `revision_count` < 2:**
 - Increment `revision_count`
-- Re-spawn gsd-ui-researcher with revision context:
+- Re-spawn grd-ui-researcher with revision context:
 
 ```markdown
 <revision>
@@ -279,9 +279,9 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" state record-session \
 - [ ] Phase validated against roadmap
 - [ ] Prerequisites checked (CONTEXT.md, RESEARCH.md — non-blocking warnings)
 - [ ] Existing UI-SPEC handled (update/view/skip)
-- [ ] gsd-ui-researcher spawned with correct context and file paths
+- [ ] grd-ui-researcher spawned with correct context and file paths
 - [ ] UI-SPEC.md created in correct location
-- [ ] gsd-ui-checker spawned with UI-SPEC.md
+- [ ] grd-ui-checker spawned with UI-SPEC.md
 - [ ] All 6 dimensions evaluated
 - [ ] Revision loop if BLOCKED (max 2 iterations)
 - [ ] Final status displayed with next steps
