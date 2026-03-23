@@ -18,8 +18,8 @@ if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 Parse: `phase_dir`, `phase_number`, `phase_name`, `phase_slug`, `padded_phase`.
 
 ```bash
-AUDITOR_MODEL=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolve-model gsd-nyquist-auditor --raw)
-NYQUIST_CFG=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config get workflow.nyquist_validation --raw)
+AUDITOR_MODEL=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolve-model grd-nyquist-auditor --raw)
+NYQUIST_CFG=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow.nyquist_validation --raw)
 ```
 
 If `NYQUIST_CFG` is `false`: exit with "Nyquist validation is disabled. Enable via /grd:settings."
@@ -35,7 +35,7 @@ SUMMARY_FILES=$(ls "${PHASE_DIR}"/*-SUMMARY.md 2>/dev/null)
 
 - **State A** (`VALIDATION_FILE` non-empty): Audit existing
 - **State B** (`VALIDATION_FILE` empty, `SUMMARY_FILES` non-empty): Reconstruct from artifacts
-- **State C** (`SUMMARY_FILES` empty): Exit — "Phase {N} not executed. Run /grd:conduct-inquiry {N} first."
+- **State C** (`SUMMARY_FILES` empty): Exit — "Phase {N} not executed. Run /grd:execute-phase {N} ${GSD_WS} first."
 
 ## 2. Discovery
 
@@ -82,11 +82,11 @@ Call AskUserQuestion with gap table and options:
 2. "Skip — mark manual-only" → add to Manual-Only, Step 6
 3. "Cancel" → exit
 
-## 5. Spawn gsd-nyquist-auditor
+## 5. Spawn grd-nyquist-auditor
 
 ```
 Task(
-  prompt="Read /Users/jeremiahwolf/.claude/agents/gsd-nyquist-auditor.md for instructions.\n\n" +
+  prompt="Read $HOME/.claude/agents/grd-nyquist-auditor.md for instructions.\n\n" +
     "<files_to_read>{PLAN, SUMMARY, impl files, VALIDATION.md}</files_to_read>" +
     "<gaps>{gap list}</gaps>" +
     "<test_infrastructure>{framework, config, commands}</test_infrastructure>" +
@@ -135,16 +135,16 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs(phase-${PH
 
 **Compliant:**
 ```
-GSD > PHASE {N} IS NYQUIST-COMPLIANT
+GRD > PHASE {N} IS NYQUIST-COMPLIANT
 All requirements have automated verification.
-▶ Next: /grd:audit-study
+▶ Next: /grd:audit-milestone ${GSD_WS}
 ```
 
 **Partial:**
 ```
-GSD > PHASE {N} VALIDATED (PARTIAL)
+GRD > PHASE {N} VALIDATED (PARTIAL)
 {M} automated, {K} manual-only.
-▶ Retry: /grd:validate-phase {N}
+▶ Retry: /grd:validate-phase {N} ${GSD_WS}
 ```
 
 Display `/clear` reminder.

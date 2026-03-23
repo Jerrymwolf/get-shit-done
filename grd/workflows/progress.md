@@ -18,9 +18,12 @@ if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 
 Extract from init JSON: `project_exists`, `roadmap_exists`, `state_exists`, `phases`, `current_phase`, `next_phase`, `milestone_version`, `completed_count`, `phase_count`, `paused_at`, `state_path`, `roadmap_path`, `project_path`, `config_path`.
 
+```bash
+DISCUSS_MODE=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow.discuss_mode 2>/dev/null || echo "discuss")
+```
+
 If `project_exists` is false (no `.planning/` directory):
 
-```
 <tier-guided>
 No planning structure found. This means no research project has been set up yet. The planning structure is where GRD tracks your research phases, notes, and progress.
 
@@ -34,7 +37,6 @@ Run `/grd:new-research` to start a new project.
 <tier-expert>
 No `.planning/` directory. Run `/grd:new-research`.
 </tier-expert>
-```
 
 Exit.
 
@@ -44,11 +46,11 @@ If missing STATE.md: suggest `/grd:new-research`.
 
 This means a milestone was completed and archived. Go to **Route F** (between milestones).
 
-If missing both ROADMAP.md and PROJECT.md: suggest `/grd:new-research`.
+If missing both ROADMAP.md and PROJECT.md: suggest `/grd:new-project`.
 </step>
 
 <step name="load">
-**Use structured extraction from gsd-tools:**
+**Use structured extraction from grd-tools:**
 
 Instead of reading full files, use targeted tools to get only the data needed for the report:
 - `ROADMAP=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" roadmap analyze)`
@@ -95,7 +97,7 @@ Use this instead of manually reading/parsing ROADMAP.md.
   </step>
 
 <step name="report">
-**Generate progress bar from gsd-tools, then present rich status report:**
+**Generate progress bar from grd-tools, then present rich status report:**
 
 ```bash
 # Get formatted progress bar
@@ -109,6 +111,7 @@ Present:
 
 **Progress:** {PROGRESS_BAR}
 **Profile:** [quality/balanced/budget/inherit]
+**Discuss mode:** {DISCUSS_MODE}
 
 ## Recent Work
 - [Phase X, Plan Y]: [what was accomplished - 1 line from summary-extract]
@@ -160,17 +163,47 @@ State: "This phase has {X} plans, {Y} summaries."
 Check for UAT.md files with status "diagnosed" (has gaps needing fixes).
 
 ```bash
-# Check for diagnosed UAT with gaps
-grep -l "status: diagnosed" .planning/phases/[current-phase-dir]/*-UAT.md 2>/dev/null
+# Check for diagnosed UAT with gaps or partial (incomplete) testing
+grep -l "status: diagnosed\|status: partial" .planning/phases/[current-phase-dir]/*-UAT.md 2>/dev/null
 ```
 
 Track:
 - `uat_with_gaps`: UAT.md files with status "diagnosed" (gaps need fixing)
+- `uat_partial`: UAT.md files with status "partial" (incomplete testing)
+
+**Step 1.6: Cross-phase health check**
+
+Scan ALL phases in the current milestone for outstanding verification debt using the CLI (which respects milestone boundaries via `getMilestonePhaseFilter`):
+
+```bash
+DEBT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" audit-uat --raw 2>/dev/null)
+```
+
+Parse JSON for `summary.total_items` and `summary.total_files`.
+
+Track: `outstanding_debt` — `summary.total_items` from the audit.
+
+**If outstanding_debt > 0:** Add a warning section to the progress report output (in the `report` step), placed between "## What's Next" and the route suggestion:
+
+```markdown
+## Verification Debt ({N} files across prior phases)
+
+| Phase | File | Issue |
+|-------|------|-------|
+| {phase} | {filename} | {pending_count} pending, {skipped_count} skipped, {blocked_count} blocked |
+| {phase} | {filename} | human_needed — {count} items |
+
+Review: `/grd:audit-uat ${GSD_WS}` — full cross-phase audit
+Resume testing: `/grd:verify-work {phase} ${GSD_WS}` — retest specific phase
+```
+
+This is a WARNING, not a blocker — routing proceeds normally. The debt is visible so the user can make an informed choice.
 
 **Step 2: Route based on counts**
 
 | Condition | Meaning | Action |
 |-----------|---------|--------|
+| uat_partial > 0 | UAT testing incomplete | Go to **Route E.2** |
 | uat_with_gaps > 0 | UAT gaps need fix plans | Go to **Route E** |
 | summaries < plans | Unexecuted plans exist | Go to **Route A** |
 | summaries = plans AND plans > 0 | Phase complete | Go to Step 3 |
@@ -217,6 +250,13 @@ There are unexecuted plans ready to run. The next step executes them -- each pla
 
 Check if `{phase_num}-CONTEXT.md` exists in phase directory.
 
+Check if current phase has UI indicators:
+
+```bash
+PHASE_SECTION=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" roadmap get-phase "${CURRENT_PHASE}" 2>/dev/null)
+PHASE_HAS_UI=$(echo "$PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true" || echo "false")
+```
+
 **If CONTEXT.md exists:**
 
 ```
@@ -224,63 +264,57 @@ Check if `{phase_num}-CONTEXT.md` exists in phase directory.
 
 ## ▶ Next Up
 
-<tier-guided>
-Context has been gathered for this phase. The next step creates a search protocol -- a plan for what sources to find and how to organize your research.
+**Phase {N}: {Name}** — {Goal from ROADMAP.md}
+<sub>✓ Context gathered, ready to plan</sub>
 
-**Phase {N}: {Name}** -- {Goal from ROADMAP.md}
-<sub>Context gathered, ready to plan</sub>
+`/grd:plan-phase {phase-number} ${GSD_WS}`
 
-`/grd:plan-inquiry {phase-number}`
-
-<sub>`/clear` first -- this gives you a fresh context window for planning</sub>
-</tier-guided>
-<tier-standard>
-**Phase {N}: {Name}** -- {Goal from ROADMAP.md}
-<sub>Context gathered, ready to plan</sub>
-
-`/grd:plan-inquiry {phase-number}`
-
-<sub>`/clear` first -- fresh context window</sub>
-</tier-standard>
-<tier-expert>
-`/grd:plan-inquiry {phase-number}`
-</tier-expert>
+<sub>`/clear` first → fresh context window</sub>
 
 ---
 ```
 
-**If CONTEXT.md does NOT exist:**
+**If CONTEXT.md does NOT exist AND phase has UI (`PHASE_HAS_UI` is `true`):**
 
 ```
 ---
 
 ## ▶ Next Up
 
-<tier-guided>
-This phase hasn't been scoped yet. The next step is to clarify your research approach -- you'll discuss what questions matter, what depth you need, and capture decisions that guide the work.
+**Phase {N}: {Name}** — {Goal from ROADMAP.md}
 
-**Phase {N}: {Name}** -- {Goal from ROADMAP.md}
+`/grd:discuss-phase {phase}` — gather context and clarify approach
 
-`/grd:scope-inquiry {phase}`
-
-<sub>`/clear` first -- this gives you a fresh context window for scoping</sub>
-</tier-guided>
-<tier-standard>
-**Phase {N}: {Name}** -- {Goal from ROADMAP.md}
-
-`/grd:scope-inquiry {phase}` -- gather context and clarify approach
-
-<sub>`/clear` first -- fresh context window</sub>
-</tier-standard>
-<tier-expert>
-`/grd:scope-inquiry {phase}`
-</tier-expert>
+<sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:plan-inquiry {phase}` — skip discussion, plan directly
+- `/grd:ui-phase {phase}` — generate UI design contract (recommended for frontend phases)
+- `/grd:plan-phase {phase}` — skip discussion, plan directly
 - `/grd:list-phase-assumptions {phase}` — see Claude's assumptions
+
+---
+```
+
+**If CONTEXT.md does NOT exist AND phase has no UI:**
+
+```
+---
+
+## ▶ Next Up
+
+**Phase {N}: {Name}** — {Goal from ROADMAP.md}
+
+`/grd:discuss-phase {phase} ${GSD_WS}` — gather context and clarify approach
+
+<sub>`/clear` first → fresh context window</sub>
+
+---
+
+**Also available:**
+- `/grd:plan-phase {phase} ${GSD_WS}` — skip discussion, plan directly
+- `/grd:list-phase-assumptions {phase} ${GSD_WS}` — see Claude's assumptions
 
 ---
 ```
@@ -298,15 +332,41 @@ UAT.md exists with gaps (diagnosed issues). User needs to plan fixes.
 
 **{phase_num}-UAT.md** has {N} gaps requiring fixes.
 
-`/grd:plan-inquiry {phase} --gaps`
+`/grd:plan-phase {phase} --gaps ${GSD_WS}`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:conduct-inquiry {phase}` — execute phase plans
-- `/grd:verify-inquiry {phase}` — run more UAT testing
+- `/grd:execute-phase {phase} ${GSD_WS}` — execute phase plans
+- `/grd:verify-work {phase} ${GSD_WS}` — run more UAT testing
+
+---
+```
+
+---
+
+**Route E.2: UAT testing incomplete (partial)**
+
+UAT.md exists with `status: partial` — testing session ended before all items resolved.
+
+```
+---
+
+## Incomplete UAT Testing
+
+**{phase_num}-UAT.md** has {N} unresolved tests (pending, blocked, or skipped).
+
+`/grd:verify-work {phase} ${GSD_WS}` — resume testing from where you left off
+
+<sub>`/clear` first → fresh context window</sub>
+
+---
+
+**Also available:**
+- `/grd:audit-uat ${GSD_WS}` — full cross-phase UAT audit
+- `/grd:execute-phase {phase} ${GSD_WS}` — execute phase plans
 
 ---
 ```
@@ -336,6 +396,15 @@ State: "Current phase is {X}. Milestone has {N} phases (highest: {Y})."
 
 Read ROADMAP.md to get the next phase's name and goal.
 
+Check if next phase has UI indicators:
+
+```bash
+NEXT_PHASE_SECTION=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" roadmap get-phase "$((Z+1))" 2>/dev/null)
+NEXT_HAS_UI=$(echo "$NEXT_PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true" || echo "false")
+```
+
+**If next phase has UI (`NEXT_HAS_UI` is `true`):**
+
 ```
 ---
 
@@ -343,31 +412,42 @@ Read ROADMAP.md to get the next phase's name and goal.
 
 ## ▶ Next Up
 
-<tier-guided>
-The current phase is complete. The next step scopes the next phase -- you'll discuss your research approach for the next topic before creating search plans.
+**Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
 
-**Phase {Z+1}: {Name}** -- {Goal from ROADMAP.md}
+`/grd:discuss-phase {Z+1}` — gather context and clarify approach
 
-`/grd:scope-inquiry {Z+1}`
-
-<sub>`/clear` first -- this gives you a fresh context window</sub>
-</tier-guided>
-<tier-standard>
-**Phase {Z+1}: {Name}** -- {Goal from ROADMAP.md}
-
-`/grd:scope-inquiry {Z+1}` -- gather context and clarify approach
-
-<sub>`/clear` first -- fresh context window</sub>
-</tier-standard>
-<tier-expert>
-`/grd:scope-inquiry {Z+1}`
-</tier-expert>
+<sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:plan-inquiry {Z+1}` — skip discussion, plan directly
-- `/grd:verify-inquiry {Z}` — user acceptance test before continuing
+- `/grd:ui-phase {Z+1}` — generate UI design contract (recommended for frontend phases)
+- `/grd:plan-phase {Z+1}` — skip discussion, plan directly
+- `/grd:verify-work {Z}` — user acceptance test before continuing
+
+---
+```
+
+**If next phase has no UI:**
+
+```
+---
+
+## ✓ Phase {Z} Complete
+
+## ▶ Next Up
+
+**Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
+
+`/grd:discuss-phase {Z+1} ${GSD_WS}` — gather context and clarify approach
+
+<sub>`/clear` first → fresh context window</sub>
+
+---
+
+**Also available:**
+- `/grd:plan-phase {Z+1} ${GSD_WS}` — skip discussion, plan directly
+- `/grd:verify-work {Z} ${GSD_WS}` — user acceptance test before continuing
 
 ---
 ```
@@ -385,30 +465,16 @@ All {N} phases finished!
 
 ## ▶ Next Up
 
-<tier-guided>
-All phases in this milestone are finished. The next step archives your work and prepares for the next milestone -- this includes summarizing what was accomplished and setting up for the next round of research.
+**Complete Milestone** — archive and prepare for next
 
-**Complete Milestone** -- archive and prepare for next
+`/grd:complete-milestone ${GSD_WS}`
 
-`/grd:complete-study`
-
-<sub>`/clear` first -- this gives you a fresh context window</sub>
-</tier-guided>
-<tier-standard>
-**Complete Milestone** -- archive and prepare for next
-
-`/grd:complete-study`
-
-<sub>`/clear` first -- fresh context window</sub>
-</tier-standard>
-<tier-expert>
-`/grd:complete-study`
-</tier-expert>
+<sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:verify-inquiry` — user acceptance test before completing milestone
+- `/grd:verify-work ${GSD_WS}` — user acceptance test before completing milestone
 
 ---
 ```
@@ -430,25 +496,11 @@ Ready to plan the next milestone.
 
 ## ▶ Next Up
 
-<tier-guided>
-The previous milestone is complete and archived. The next step starts a new milestone cycle -- you'll define new research questions, gather requirements, and build a roadmap for the next round of investigation.
+**Start Next Milestone** — questioning → research → requirements → roadmap
 
-**Start Next Milestone** -- questioning, research, requirements, roadmap
+`/grd:new-milestone ${GSD_WS}`
 
-`/grd:new-milestone`
-
-<sub>`/clear` first -- this gives you a fresh context window</sub>
-</tier-guided>
-<tier-standard>
-**Start Next Milestone** -- questioning, research, requirements, roadmap
-
-`/grd:new-milestone`
-
-<sub>`/clear` first -- fresh context window</sub>
-</tier-standard>
-<tier-expert>
-`/grd:new-milestone`
-</tier-expert>
+<sub>`/clear` first → fresh context window</sub>
 
 ---
 ```
@@ -458,10 +510,10 @@ The previous milestone is complete and archived. The next step starts a new mile
 <step name="edge_cases">
 **Handle edge cases:**
 
-- Phase complete but next phase not planned → offer `/grd:plan-inquiry [next]`
+- Phase complete but next phase not planned → offer `/grd:plan-phase [next] ${GSD_WS}`
 - All work complete → offer milestone completion
 - Blockers present → highlight before offering to continue
-- Handoff file exists → mention it, offer `/grd:resume-work`
+- Handoff file exists → mention it, offer `/grd:resume-work ${GSD_WS}`
   </step>
 
 </process>
@@ -471,7 +523,7 @@ The previous milestone is complete and archived. The next step starts a new mile
 - [ ] Rich context provided (recent work, decisions, issues)
 - [ ] Current position clear with visual progress
 - [ ] What's next clearly explained
-- [ ] Smart routing: /grd:conduct-inquiry if plans exist, /grd:plan-inquiry if not
+- [ ] Smart routing: /grd:execute-phase if plans exist, /grd:plan-phase if not
 - [ ] User confirms before any action
-- [ ] Seamless handoff to appropriate gsd command
+- [ ] Seamless handoff to appropriate grd command
       </success_criteria>

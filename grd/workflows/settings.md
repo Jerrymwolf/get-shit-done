@@ -1,5 +1,5 @@
 <purpose>
-Interactive configuration of GSD workflow agents (research, plan_check, verifier) and model profile selection via multi-question prompt. Updates .planning/config.json with user preferences. Optionally saves settings as global defaults (~/.gsd/defaults.json) for future projects.
+Interactive configuration of GRD workflow agents (research, plan_check, verifier) and model profile selection via multi-question prompt. Updates .planning/config.json with user preferences. Optionally saves settings as global defaults (~/.grd/defaults.json) for future projects.
 </purpose>
 
 <required_reading>
@@ -32,11 +32,7 @@ Parse current values (default to `true` if not present):
 - `workflow.nyquist_validation` — validation architecture research during plan-phase (default: true if absent)
 - `workflow.ui_phase` — generate UI-SPEC.md design contracts for frontend phases (default: true if absent)
 - `workflow.ui_safety_gate` — prompt to run /grd:ui-phase before planning frontend phases (default: true if absent)
-- `workflow.critical_appraisal` — critical appraisal requirement level (default per review_type smart defaults)
-- `workflow.temporal_positioning` — temporal positioning requirement level (default per review_type smart defaults)
-- `workflow.synthesis` — synthesis requirement level (default per review_type smart defaults)
 - `model_profile` — which model each agent uses (default: `balanced`)
-- `review_type` — study review type: systematic/scoping/integrative/critical/narrative (default: `narrative`)
 - `git.branching_strategy` — branching approach (default: `"none"`)
 </step>
 
@@ -53,19 +49,7 @@ AskUserQuestion([
       { label: "Quality", description: "Opus everywhere except verification (highest cost)" },
       { label: "Balanced (Recommended)", description: "Opus for planning, Sonnet for research/execution/verification" },
       { label: "Budget", description: "Sonnet for writing, Haiku for research/verification (lowest cost)" },
-      { label: "Inherit", description: "Use current session model for all agents (best for OpenCode /model)" }
-    ]
-  },
-  {
-    question: "Review type for this study?",
-    header: "Review Type",
-    multiSelect: false,
-    options: [
-      { label: "Systematic", description: "Exhaustive search, formal appraisal (highest rigor)" },
-      { label: "Scoping", description: "Map breadth of evidence, charting approach" },
-      { label: "Integrative", description: "Combine diverse methods, proportional appraisal" },
-      { label: "Critical", description: "Evaluate and challenge, proportional appraisal" },
-      { label: "Narrative", description: "Adequate coverage, optional appraisal (most flexible)" }
+      { label: "Inherit", description: "Use current session model for all agents (best for OpenRouter, local models, or runtime model switching)" }
     ]
   },
   {
@@ -139,8 +123,8 @@ AskUserQuestion([
     multiSelect: false,
     options: [
       { label: "None (Recommended)", description: "Commit directly to current branch" },
-      { label: "Per Phase", description: "Create branch for each phase (gsd/phase-{N}-{name})" },
-      { label: "Per Milestone", description: "Create branch for entire milestone (gsd/{version}-{name})" }
+      { label: "Per Phase", description: "Create branch for each phase (grd/phase-{N}-{name})" },
+      { label: "Per Milestone", description: "Create branch for entire milestone (grd/{version}-{name})" }
     ]
   },
   {
@@ -150,6 +134,24 @@ AskUserQuestion([
     options: [
       { label: "Yes (Recommended)", description: "Warn when context usage exceeds 65%. Helps avoid losing work." },
       { label: "No", description: "Disable warnings. Allows Claude to reach auto-compact naturally. Good for long unattended runs." }
+    ]
+  },
+  {
+    question: "Research best practices before asking questions? (web search during new-project and discuss-phase)",
+    header: "Research Qs",
+    multiSelect: false,
+    options: [
+      { label: "No (Recommended)", description: "Ask questions directly. Faster, uses fewer tokens." },
+      { label: "Yes", description: "Search web for best practices before each question group. More informed questions but uses more tokens." }
+    ]
+  },
+  {
+    question: "Skip discuss-phase in autonomous mode? (use ROADMAP phase goals as spec)",
+    header: "Skip Discuss",
+    multiSelect: false,
+    options: [
+      { label: "No (Recommended)", description: "Run smart discuss before each phase — surfaces gray areas and captures decisions." },
+      { label: "Yes", description: "Skip discuss in /grd:autonomous — chain directly to plan. Best for backend/pipeline work where phase descriptions are the spec." }
     ]
   }
 ])
@@ -171,62 +173,21 @@ Merge new settings into existing config.json:
     "nyquist_validation": true/false,
     "ui_phase": true/false,
     "ui_safety_gate": true/false,
-    "critical_appraisal": <string from smart defaults>,
-    "temporal_positioning": <string from smart defaults>,
-    "synthesis": <string from smart defaults>
+    "text_mode": true/false,
+    "research_before_questions": true/false,
+    "discuss_mode": "discuss" | "assumptions",
+    "skip_discuss": true/false
   },
   "git": {
-    "branching_strategy": "none" | "phase" | "milestone"
+    "branching_strategy": "none" | "phase" | "milestone",
+    "quick_branch_template": <string|null>
   },
   "hooks": {
-    "context_warnings": true/false
+    "context_warnings": true/false,
+    "workflow_guard": true/false
   }
 }
 ```
-
-**Review type change handling:**
-
-If the user selected a different review_type than the current value:
-
-1. Read current review_type from config (default: `narrative` if missing).
-
-2. Determine direction using REVIEW_TYPE_ORDER: `['systematic', 'scoping', 'integrative', 'critical', 'narrative']`.
-   Use `canDowngrade(currentType, selectedType)` -- returns true only if selectedIdx > currentIdx (moving toward less rigor).
-
-3. **If UPGRADE attempt** (selectedIdx < currentIdx):
-   Display error:
-   ```
-   Cannot upgrade review type mid-study. Start a new study with /grd:new-research for higher rigor.
-   ```
-   Do NOT change review_type. Keep current value.
-
-4. **If valid DOWNGRADE** (canDowngrade returns true):
-   Show confirmation with exact toggle changes using SMART_DEFAULTS lookup:
-   ```
-   Downgrading from {current} to {selected} will change:
-     - critical_appraisal: {current_value} -> {new_smart_default}
-     - temporal_positioning: {current_value} -> {new_smart_default}
-     - synthesis: {current_value} -> {new_smart_default}
-     - plan_check: {current_value} -> {new_smart_default}
-   Existing notes are unaffected. Only future enforcement changes.
-   Confirm? [Yes/No]
-   ```
-
-   On confirm: Apply smart defaults for the new type using `applySmartDefaults(config, newType)`:
-   - Set `review_type` to selected value
-   - Reset `workflow.critical_appraisal`, `workflow.temporal_positioning`, `workflow.synthesis`, `workflow.plan_check` to `SMART_DEFAULTS[selectedType]` values
-   - Write all changes to config.json using config-set commands:
-     ```bash
-     node "...grd-tools.cjs" config-set review_type {selectedType}
-     node "...grd-tools.cjs" config-set workflow.critical_appraisal {newValue}
-     node "...grd-tools.cjs" config-set workflow.temporal_positioning {newValue}
-     node "...grd-tools.cjs" config-set workflow.synthesis {newValue}
-     node "...grd-tools.cjs" config-set workflow.plan_check {newValue}
-     ```
-
-   On reject: Keep current review_type, no changes.
-
-5. **If same type selected**: No change needed, skip downgrade logic.
 
 Write updated config to `.planning/config.json`.
 </step>
@@ -241,20 +202,20 @@ AskUserQuestion([
     header: "Defaults",
     multiSelect: false,
     options: [
-      { label: "Yes", description: "New projects start with these settings (saved to ~/.gsd/defaults.json)" },
+      { label: "Yes", description: "New projects start with these settings (saved to ~/.grd/defaults.json)" },
       { label: "No", description: "Only apply to this project" }
     ]
   }
 ])
 ```
 
-If "Yes": write the same config object (minus project-specific fields like `brave_search`) to `~/.gsd/defaults.json`:
+If "Yes": write the same config object (minus project-specific fields like `brave_search`) to `~/.grd/defaults.json`:
 
 ```bash
-mkdir -p ~/.gsd
+mkdir -p ~/.grd
 ```
 
-Write `~/.gsd/defaults.json` with:
+Write `~/.grd/defaults.json` with:
 ```json
 {
   "mode": <current>,
@@ -263,6 +224,7 @@ Write `~/.gsd/defaults.json` with:
   "commit_docs": <current>,
   "parallelization": <current>,
   "branching_strategy": <current>,
+  "quick_branch_template": <current>,
   "workflow": {
     "research": <current>,
     "plan_check": <current>,
@@ -270,7 +232,8 @@ Write `~/.gsd/defaults.json` with:
     "auto_advance": <current>,
     "nyquist_validation": <current>,
     "ui_phase": <current>,
-    "ui_safety_gate": <current>
+    "ui_safety_gate": <current>,
+    "skip_discuss": <current>
   }
 }
 ```
@@ -287,7 +250,6 @@ Display:
 | Setting              | Value |
 |----------------------|-------|
 | Model Profile        | {quality/balanced/budget/inherit} |
-| Review Type          | {systematic/scoping/integrative/critical/narrative} |
 | Plan Researcher      | {On/Off} |
 | Plan Checker         | {On/Off} |
 | Execution Verifier   | {On/Off} |
@@ -296,17 +258,17 @@ Display:
 | UI Phase             | {On/Off} |
 | UI Safety Gate       | {On/Off} |
 | Git Branching        | {None/Per Phase/Per Milestone} |
+| Skip Discuss         | {On/Off} |
 | Context Warnings     | {On/Off} |
 | Saved as Defaults    | {Yes/No} |
 
-These settings apply to future /grd:plan-inquiry and /grd:conduct-inquiry runs.
+These settings apply to future /grd:plan-phase and /grd:execute-phase runs.
 
 Quick commands:
-- /grd:settings — includes review type downgrade
 - /grd:set-profile <profile> — switch model profile
-- /grd:plan-inquiry --research — force research
-- /grd:plan-inquiry --skip-research — skip research
-- /grd:plan-inquiry --skip-verify — skip plan check
+- /grd:plan-phase --research — force research
+- /grd:plan-phase --skip-research — skip research
+- /grd:plan-phase --skip-verify — skip plan check
 ```
 </step>
 
@@ -314,8 +276,8 @@ Quick commands:
 
 <success_criteria>
 - [ ] Current config read
-- [ ] User presented with 10 settings (profile + review type + 7 workflow toggles + git branching)
+- [ ] User presented with 10 settings (profile + 8 workflow toggles + git branching)
 - [ ] Config updated with model_profile, workflow, and git sections
-- [ ] User offered to save as global defaults (~/.gsd/defaults.json)
+- [ ] User offered to save as global defaults (~/.grd/defaults.json)
 - [ ] Changes confirmed to user
 </success_criteria>

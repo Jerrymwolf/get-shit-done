@@ -1,21 +1,21 @@
 <purpose>
-Display the complete GSD command reference. Output ONLY the reference content. Do NOT add project-specific analysis, git status, next-step suggestions, or any commentary beyond the reference.
+Display the complete GRD command reference. Output ONLY the reference content. Do NOT add project-specific analysis, git status, next-step suggestions, or any commentary beyond the reference.
 </purpose>
 
 <reference>
-# GSD Command Reference
+# GRD Command Reference
 
-**GSD** (Get Shit Done) creates hierarchical project plans optimized for solo agentic development with Claude Code.
+**GRD** (Get Shit Done) creates hierarchical project plans optimized for solo agentic development with Claude Code.
 
 ## Quick Start
 
-1. `/grd:new-research` - Initialize project (includes research, requirements, roadmap)
-2. `/grd:plan-inquiry 1` - Create detailed plan for first phase
-3. `/grd:conduct-inquiry 1` - Execute the phase
+1. `/grd:new-project` - Initialize project (includes research, requirements, roadmap)
+2. `/grd:plan-phase 1` - Create detailed plan for first phase
+3. `/grd:execute-phase 1` - Execute the phase
 
 ## Staying Updated
 
-GSD evolves fast. Update periodically:
+GRD evolves fast. Update periodically:
 
 ```bash
 npx grd@latest
@@ -24,12 +24,12 @@ npx grd@latest
 ## Core Workflow
 
 ```
-/grd:new-research → /grd:plan-inquiry → /grd:conduct-inquiry → repeat
+/grd:new-project → /grd:plan-phase → /grd:execute-phase → repeat
 ```
 
 ### Project Initialization
 
-**`/grd:new-research`**
+**`/grd:new-project`**
 Initialize new project through unified flow.
 
 One command takes you from idea to ready-for-planning:
@@ -46,7 +46,7 @@ Creates all `.planning/` artifacts:
 - `ROADMAP.md` — phases mapped to requirements
 - `STATE.md` — project memory
 
-Usage: `/grd:new-research`
+Usage: `/grd:new-project`
 
 **`/grd:map-codebase`**
 Map an existing codebase for brownfield projects.
@@ -54,13 +54,13 @@ Map an existing codebase for brownfield projects.
 - Analyzes codebase with parallel Explore agents
 - Creates `.planning/codebase/` with 7 focused documents
 - Covers stack, architecture, structure, conventions, testing, integrations, concerns
-- Use before `/grd:new-research` on existing codebases
+- Use before `/grd:new-project` on existing codebases
 
 Usage: `/grd:map-codebase`
 
 ### Phase Planning
 
-**`/grd:scope-inquiry <number>`**
+**`/grd:discuss-phase <number>`**
 Help articulate your vision for a phase before planning.
 
 - Captures how you imagine this phase working
@@ -68,9 +68,9 @@ Help articulate your vision for a phase before planning.
 - Use when you have ideas about how something should look/feel
 - Optional `--batch` asks 2-5 related questions at a time instead of one-by-one
 
-Usage: `/grd:scope-inquiry 2`
-Usage: `/grd:scope-inquiry 2 --batch`
-Usage: `/grd:scope-inquiry 2 --batch=3`
+Usage: `/grd:discuss-phase 2`
+Usage: `/grd:discuss-phase 2 --batch`
+Usage: `/grd:discuss-phase 2 --batch=3`
 
 **`/grd:research-phase <number>`**
 Comprehensive ecosystem research for niche/complex domains.
@@ -91,7 +91,7 @@ See what Claude is planning to do before it starts.
 
 Usage: `/grd:list-phase-assumptions 3`
 
-**`/grd:plan-inquiry <number>`**
+**`/grd:plan-phase <number>`**
 Create detailed execution plan for a specific phase.
 
 - Generates `.planning/phases/XX-phase-name/XX-YY-PLAN.md`
@@ -99,29 +99,31 @@ Create detailed execution plan for a specific phase.
 - Includes verification criteria and success measures
 - Multiple plans per phase supported (XX-01, XX-02, etc.)
 
-Usage: `/grd:plan-inquiry 1`
+Usage: `/grd:plan-phase 1`
 Result: Creates `.planning/phases/01-foundation/01-01-PLAN.md`
 
 **PRD Express Path:** Pass `--prd path/to/requirements.md` to skip discuss-phase entirely. Your PRD becomes locked decisions in CONTEXT.md. Useful when you already have clear acceptance criteria.
 
 ### Execution
 
-**`/grd:conduct-inquiry <phase-number>`**
-Execute all plans in a phase.
+**`/grd:execute-phase <phase-number>`**
+Execute all plans in a phase, or run a specific wave.
 
 - Groups plans by wave (from frontmatter), executes waves sequentially
 - Plans within each wave run in parallel via Task tool
+- Optional `--wave N` flag executes only Wave `N` and stops unless the phase is now fully complete
 - Verifies phase goal after all plans complete
 - Updates REQUIREMENTS.md, ROADMAP.md, STATE.md
 
-Usage: `/grd:conduct-inquiry 5`
+Usage: `/grd:execute-phase 5`
+Usage: `/grd:execute-phase 5 --wave 2`
 
 ### Smart Router
 
 **`/grd:do <description>`**
-Route freeform text to the right GSD command automatically.
+Route freeform text to the right GRD command automatically.
 
-- Analyzes natural language input to find the best matching GSD command
+- Analyzes natural language input to find the best matching GRD command
 - Acts as a dispatcher — never does the work itself
 - Resolves ambiguity by asking you to pick between top matches
 - Use when you know what you want but don't know which `/grd:*` command to run
@@ -133,7 +135,7 @@ Usage: `/grd:do I want to start a new milestone`
 ### Quick Mode
 
 **`/grd:quick [--full] [--discuss] [--research]`**
-Execute small, ad-hoc tasks with GSD guarantees but skip optional agents.
+Execute small, ad-hoc tasks with GRD guarantees but skip optional agents.
 
 Quick mode uses the same system with a shorter path:
 - Spawns planner + executor (skips researcher, checker, verifier by default)
@@ -151,28 +153,43 @@ Usage: `/grd:quick`
 Usage: `/grd:quick --research --full`
 Result: Creates `.planning/quick/NNN-slug/PLAN.md`, `.planning/quick/NNN-slug/SUMMARY.md`
 
+---
+
+**`/grd:fast [description]`**
+Execute a trivial task inline — no subagents, no planning files, no overhead.
+
+For tasks too small to justify planning: typo fixes, config changes, forgotten commits, simple additions. Runs in the current context, makes the change, commits, and logs to STATE.md.
+
+- No PLAN.md or SUMMARY.md created
+- No subagent spawned (runs inline)
+- ≤ 3 file edits — redirects to `/grd:quick` if task is non-trivial
+- Atomic commit with conventional message
+
+Usage: `/grd:fast "fix the typo in README"`
+Usage: `/grd:fast "add .env to gitignore"`
+
 ### Roadmap Management
 
-**`/grd:add-inquiry <description>`**
+**`/grd:add-phase <description>`**
 Add new phase to end of current milestone.
 
 - Appends to ROADMAP.md
 - Uses next sequential number
 - Updates phase directory structure
 
-Usage: `/grd:add-inquiry "Add admin dashboard"`
+Usage: `/grd:add-phase "Add admin dashboard"`
 
-**`/grd:insert-inquiry <after> <description>`**
+**`/grd:insert-phase <after> <description>`**
 Insert urgent work as decimal phase between existing phases.
 
 - Creates intermediate phase (e.g., 7.1 between 7 and 8)
 - Useful for discovered work that must happen mid-milestone
 - Maintains phase ordering
 
-Usage: `/grd:insert-inquiry 7 "Fix critical auth bug"`
+Usage: `/grd:insert-phase 7 "Fix critical auth bug"`
 Result: Creates Phase 7.1
 
-**`/grd:remove-inquiry <number>`**
+**`/grd:remove-phase <number>`**
 Remove a future phase and renumber subsequent phases.
 
 - Deletes phase directory and all references
@@ -180,7 +197,7 @@ Remove a future phase and renumber subsequent phases.
 - Only works on future (unstarted) phases
 - Git commit preserves historical record
 
-Usage: `/grd:remove-inquiry 17`
+Usage: `/grd:remove-phase 17`
 Result: Phase 17 deleted, phases 18-20 become 17-19
 
 ### Milestone Management
@@ -192,12 +209,14 @@ Start a new milestone through unified flow.
 - Optional domain research (spawns 4 parallel researcher agents)
 - Requirements definition with scoping
 - Roadmap creation with phase breakdown
+- Optional `--reset-phase-numbers` flag restarts numbering at Phase 1 and archives old phase dirs first for safety
 
-Mirrors `/grd:new-research` flow for brownfield projects (existing PROJECT.md).
+Mirrors `/grd:new-project` flow for brownfield projects (existing PROJECT.md).
 
 Usage: `/grd:new-milestone "v2.0 Features"`
+Usage: `/grd:new-milestone --reset-phase-numbers "v2.0 Features"`
 
-**`/grd:complete-study <version>`**
+**`/grd:complete-milestone <version>`**
 Archive completed milestone and prepare for next version.
 
 - Creates MILESTONES.md entry with stats
@@ -205,7 +224,7 @@ Archive completed milestone and prepare for next version.
 - Creates git tag for the release
 - Prepares workspace for next version
 
-Usage: `/grd:complete-study 1.0.0`
+Usage: `/grd:complete-milestone 1.0.0`
 
 ### Progress Tracking
 
@@ -260,7 +279,7 @@ Usage: `/grd:debug` (resume active session)
 **`/grd:note <text>`**
 Zero-friction idea capture — one command, instant save, no questions.
 
-- Saves timestamped note to `.planning/notes/` (or `~/.grd/notes/` globally)
+- Saves timestamped note to `.planning/notes/` (or `$HOME/.claude/notes/` globally)
 - Three subcommands: append (default), list, promote
 - Promote converts a note into a structured todo
 - Works without a project (falls back to global scope)
@@ -298,7 +317,7 @@ Usage: `/grd:check-todos api`
 
 ### User Acceptance Testing
 
-**`/grd:verify-inquiry [phase]`**
+**`/grd:verify-work [phase]`**
 Validate built features through conversational UAT.
 
 - Extracts testable deliverables from SUMMARY.md files
@@ -306,11 +325,70 @@ Validate built features through conversational UAT.
 - Automatically diagnoses failures and creates fix plans
 - Ready for re-execution if issues found
 
-Usage: `/grd:verify-inquiry 3`
+Usage: `/grd:verify-work 3`
+
+### Ship Work
+
+**`/grd:ship [phase]`**
+Create a PR from completed phase work with an auto-generated body.
+
+- Pushes branch to remote
+- Creates PR with summary from SUMMARY.md, VERIFICATION.md, REQUIREMENTS.md
+- Optionally requests code review
+- Updates STATE.md with shipping status
+
+Prerequisites: Phase verified, `gh` CLI installed and authenticated.
+
+Usage: `/grd:ship 4` or `/grd:ship 4 --draft`
+
+---
+
+**`/grd:review --phase N [--gemini] [--claude] [--codex] [--all]`**
+Cross-AI peer review — invoke external AI CLIs to independently review phase plans.
+
+- Detects available CLIs (gemini, claude, codex)
+- Each CLI reviews plans independently with the same structured prompt
+- Produces REVIEWS.md with per-reviewer feedback and consensus summary
+- Feed reviews back into planning: `/grd:plan-phase N --reviews`
+
+Usage: `/grd:review --phase 3 --all`
+
+---
+
+**`/grd:pr-branch [target]`**
+Create a clean branch for pull requests by filtering out .planning/ commits.
+
+- Classifies commits: code-only (include), planning-only (exclude), mixed (include sans .planning/)
+- Cherry-picks code commits onto a clean branch
+- Reviewers see only code changes, no GRD artifacts
+
+Usage: `/grd:pr-branch` or `/grd:pr-branch main`
+
+---
+
+**`/grd:plant-seed [idea]`**
+Capture a forward-looking idea with trigger conditions for automatic surfacing.
+
+- Seeds preserve WHY, WHEN to surface, and breadcrumbs to related code
+- Auto-surfaces during `/grd:new-milestone` when trigger conditions match
+- Better than deferred items — triggers are checked, not forgotten
+
+Usage: `/grd:plant-seed "add real-time notifications when we build the events system"`
+
+---
+
+**`/grd:audit-uat`**
+Cross-phase audit of all outstanding UAT and verification items.
+- Scans every phase for pending, skipped, blocked, and human_needed items
+- Cross-references against codebase to detect stale documentation
+- Produces prioritized human test plan grouped by testability
+- Use before starting a new milestone to clear verification debt
+
+Usage: `/grd:audit-uat`
 
 ### Milestone Auditing
 
-**`/grd:audit-study [version]`**
+**`/grd:audit-milestone [version]`**
 Audit milestone completion against original intent.
 
 - Reads all phase VERIFICATION.md files
@@ -318,7 +396,7 @@ Audit milestone completion against original intent.
 - Spawns integration checker for cross-phase wiring
 - Creates MILESTONE-AUDIT.md with gaps and tech debt
 
-Usage: `/grd:audit-study`
+Usage: `/grd:audit-milestone`
 
 **`/grd:plan-milestone-gaps`**
 Create phases to close gaps identified by audit.
@@ -326,7 +404,7 @@ Create phases to close gaps identified by audit.
 - Reads MILESTONE-AUDIT.md and groups gaps into phases
 - Prioritizes by requirement priority (must/should/nice)
 - Adds gap closure phases to ROADMAP.md
-- Ready for `/grd:plan-inquiry` on new phases
+- Ready for `/grd:plan-phase` on new phases
 
 Usage: `/grd:plan-milestone-gaps`
 
@@ -342,7 +420,7 @@ Configure workflow toggles and model profile interactively.
 Usage: `/grd:settings`
 
 **`/grd:set-profile <profile>`**
-Quick switch model profile for GSD agents.
+Quick switch model profile for GRD agents.
 
 - `quality` — Opus everywhere except verification
 - `balanced` — Opus for planning, Sonnet for execution (default)
@@ -367,7 +445,7 @@ Usage: `/grd:cleanup`
 Show this command reference.
 
 **`/grd:update`**
-Update GSD to latest version with changelog preview.
+Update GRD to latest version with changelog preview.
 
 - Shows installed vs latest version comparison
 - Displays changelog entries for versions you've missed
@@ -378,10 +456,10 @@ Update GSD to latest version with changelog preview.
 Usage: `/grd:update`
 
 **`/grd:join-discord`**
-Join the GSD Discord community.
+Join the GRD Discord community.
 
 - Get help, share what you're building, stay updated
-- Connect with other GSD users
+- Connect with other GRD users
 
 Usage: `/grd:join-discord`
 
@@ -424,7 +502,7 @@ Usage: `/grd:join-discord`
 
 ## Workflow Modes
 
-Set during `/grd:new-research`:
+Set during `/grd:new-project`:
 
 **Interactive Mode**
 
@@ -472,11 +550,11 @@ Example config:
 **Starting a new project:**
 
 ```
-/grd:new-research        # Unified flow: questioning → research → requirements → roadmap
+/grd:new-project        # Unified flow: questioning → research → requirements → roadmap
 /clear
-/grd:plan-inquiry 1       # Create plans for first phase
+/grd:plan-phase 1       # Create plans for first phase
 /clear
-/grd:conduct-inquiry 1    # Execute all plans in phase
+/grd:execute-phase 1    # Execute all plans in phase
 ```
 
 **Resuming work after a break:**
@@ -488,15 +566,15 @@ Example config:
 **Adding urgent mid-milestone work:**
 
 ```
-/grd:insert-inquiry 5 "Critical security fix"
-/grd:plan-inquiry 5.1
-/grd:conduct-inquiry 5.1
+/grd:insert-phase 5 "Critical security fix"
+/grd:plan-phase 5.1
+/grd:execute-phase 5.1
 ```
 
 **Completing a milestone:**
 
 ```
-/grd:complete-study 1.0.0
+/grd:complete-milestone 1.0.0
 /clear
 /grd:new-milestone  # Start next milestone (questioning → research → requirements → roadmap)
 ```

@@ -1,7 +1,7 @@
 <purpose>
-Research how to implement a phase. Spawns gsd-phase-researcher with phase context.
+Research how to implement a phase. Spawns grd-phase-researcher with phase context.
 
-Standalone research command. For most workflows, use `/grd:plan-inquiry` which integrates research automatically.
+Standalone research command. For most workflows, use `/grd:plan-phase` which integrates research automatically.
 </purpose>
 
 <process>
@@ -11,7 +11,7 @@ Standalone research command. For most workflows, use `/grd:plan-inquiry` which i
 @/Users/jeremiahwolf/.claude/grd/references/model-profile-resolution.md
 
 Resolve model for:
-- `gsd-phase-researcher`
+- `grd-phase-researcher`
 
 ## Step 1: Normalize and Validate Phase
 
@@ -48,7 +48,7 @@ Research implementation approach for Phase {phase}: {name}
 </objective>
 
 <files_to_read>
-- {context_path} (USER DECISIONS from /grd:scope-inquiry)
+- {context_path} (USER DECISIONS from /grd:discuss-phase)
 - {requirements_path} (Project requirements)
 - {state_path} (Project decisions and history)
 </files_to_read>

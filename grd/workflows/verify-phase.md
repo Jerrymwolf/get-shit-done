@@ -47,7 +47,7 @@ Extract **phase goal** from ROADMAP.md (the outcome to verify, not tasks) and **
 <step name="establish_must_haves">
 **Option A: Must-haves in PLAN frontmatter**
 
-Use gsd-tools to extract must_haves from each PLAN:
+Use grd-tools to extract must_haves from each PLAN:
 
 ```bash
 for plan in "$PHASE_DIR"/*-PLAN.md; do
@@ -97,7 +97,7 @@ For each truth: identify supporting artifacts → check artifact status → chec
 </step>
 
 <step name="verify_artifacts">
-Use gsd-tools for artifact verification against must_haves in each PLAN:
+Use grd-tools for artifact verification against must_haves in each PLAN:
 
 ```bash
 for plan in "$PHASE_DIR"/*-PLAN.md; do
@@ -126,10 +126,21 @@ WIRED = imported AND used. ORPHANED = exists but not imported/used.
 | ✓ | ✓ | ✗ | ⚠️ ORPHANED |
 | ✓ | ✗ | - | ✗ STUB |
 | ✗ | - | - | ✗ MISSING |
+
+**Export-level spot check (WARNING severity):**
+
+For artifacts that pass Level 3, spot-check individual exports:
+- Extract key exported symbols (functions, constants, classes — skip types/interfaces)
+- For each, grep for usage outside the defining file
+- Flag exports with zero external call sites as "exported but unused"
+
+This catches dead stores like `setPlan()` that exist in a wired file but are
+never actually called. Report as WARNING — may indicate incomplete cross-plan
+wiring or leftover code from plan revisions.
 </step>
 
 <step name="verify_wiring">
-Use gsd-tools for key link verification against must_haves in each PLAN:
+Use grd-tools for key link verification against must_haves in each PLAN:
 
 ```bash
 for plan in "$PHASE_DIR"/*-PLAN.md; do

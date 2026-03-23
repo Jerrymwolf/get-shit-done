@@ -1,5 +1,5 @@
 <purpose>
-Check for GSD updates via npm, display changelog for versions between installed and latest, obtain user confirmation, and execute clean installation with cache clearing.
+Check for GRD updates via npm, display changelog for versions between installed and latest, obtain user confirmation, and execute clean installation with cache clearing.
 </purpose>
 
 <required_reading>
@@ -9,7 +9,7 @@ Read all files referenced by the invoking prompt's execution_context before star
 <process>
 
 <step name="get_installed_version">
-Detect whether GSD is installed locally or globally by checking both locations and validating install integrity.
+Detect whether GRD is installed locally or globally by checking both locations and validating install integrity.
 
 First, derive `PREFERRED_RUNTIME` from the invoking prompt's `execution_context` path:
 - Path contains `/.codex/` -> `codex`
@@ -20,8 +20,11 @@ First, derive `PREFERRED_RUNTIME` from the invoking prompt's `execution_context`
 Use `PREFERRED_RUNTIME` as the first runtime checked so `/grd:update` targets the runtime that invoked it.
 
 ```bash
-# Runtime candidates: "<runtime>:<config-dir>"
-RUNTIME_DIRS="claude:.claude opencode:.config/opencode opencode:.opencode gemini:.gemini codex:.codex"
+# Runtime candidates: "<runtime>:<config-dir>" stored as an array.
+# Using an array instead of a space-separated string ensures correct
+# iteration in both bash and zsh (zsh does not word-split unquoted
+# variables by default). Fixes #1173.
+RUNTIME_DIRS=( "claude:.claude" "opencode:.config/opencode" "opencode:.opencode" "gemini:.gemini" "codex:.codex" )
 
 # PREFERRED_RUNTIME should be set from execution_context before running this block.
 # If not set, infer from runtime env vars; fallback to claude.
@@ -40,23 +43,23 @@ if [ -z "$PREFERRED_RUNTIME" ]; then
 fi
 
 # Reorder entries so preferred runtime is checked first.
-ORDERED_RUNTIME_DIRS=""
-for entry in $RUNTIME_DIRS; do
+ORDERED_RUNTIME_DIRS=()
+for entry in "${RUNTIME_DIRS[@]}"; do
   runtime="${entry%%:*}"
   if [ "$runtime" = "$PREFERRED_RUNTIME" ]; then
-    ORDERED_RUNTIME_DIRS="$ORDERED_RUNTIME_DIRS $entry"
+    ORDERED_RUNTIME_DIRS+=( "$entry" )
   fi
 done
-for entry in $RUNTIME_DIRS; do
+for entry in "${RUNTIME_DIRS[@]}"; do
   runtime="${entry%%:*}"
   if [ "$runtime" != "$PREFERRED_RUNTIME" ]; then
-    ORDERED_RUNTIME_DIRS="$ORDERED_RUNTIME_DIRS $entry"
+    ORDERED_RUNTIME_DIRS+=( "$entry" )
   fi
 done
 
 # Check local first (takes priority only if valid and distinct from global)
 LOCAL_VERSION_FILE="" LOCAL_MARKER_FILE="" LOCAL_DIR="" LOCAL_RUNTIME=""
-for entry in $ORDERED_RUNTIME_DIRS; do
+for entry in "${ORDERED_RUNTIME_DIRS[@]}"; do
   runtime="${entry%%:*}"
   dir="${entry#*:}"
   if [ -f "./$dir/grd/VERSION" ] || [ -f "./$dir/grd/workflows/update.md" ]; then
@@ -69,7 +72,7 @@ for entry in $ORDERED_RUNTIME_DIRS; do
 done
 
 GLOBAL_VERSION_FILE="" GLOBAL_MARKER_FILE="" GLOBAL_DIR="" GLOBAL_RUNTIME=""
-for entry in $ORDERED_RUNTIME_DIRS; do
+for entry in "${ORDERED_RUNTIME_DIRS[@]}"; do
   runtime="${entry%%:*}"
   dir="${entry#*:}"
   if [ -f "$HOME/$dir/grd/VERSION" ] || [ -f "$HOME/$dir/grd/workflows/update.md" ]; then
@@ -143,14 +146,14 @@ Proceed to install step (treat as version 0.0.0 for comparison).
 Check npm for latest version:
 
 ```bash
-npm view get-shit-done-cc version 2>/dev/null
+npm view grd version 2>/dev/null
 ```
 
 **If npm check fails:**
 ```
 Couldn't check for updates (offline or npm unavailable).
 
-To update manually: `npx get-shit-done-cc --global`
+To update manually: `npx grd --global`
 ```
 
 Exit.
@@ -212,22 +215,22 @@ Exit.
 
 ────────────────────────────────────────────────────────────
 
-⚠️  **Note:** The installer performs a clean install of GSD folders:
-- `commands/gsd/` will be wiped and replaced
+⚠️  **Note:** The installer performs a clean install of GRD folders:
+- `commands/grd/` will be wiped and replaced
 - `grd/` will be wiped and replaced
-- `agents/gsd-*` files will be replaced
+- `agents/grd-*` files will be replaced
 
 (Paths are relative to detected runtime install location:
-global: `/Users/jeremiahwolf/.claude/`, `~/.config/opencode/`, `~/.opencode/`, `~/.gemini/`, or `~/.codex/`
+global: `$HOME/.claude/`, `~/.config/opencode/`, `~/.opencode/`, `~/.gemini/`, or `~/.codex/`
 local: `./.claude/`, `./.config/opencode/`, `./.opencode/`, `./.gemini/`, or `./.codex/`)
 
 Your custom files in other locations are preserved:
-- Custom commands not in `commands/gsd/` ✓
-- Custom agents not prefixed with `gsd-` ✓
+- Custom commands not in `commands/grd/` ✓
+- Custom agents not prefixed with `grd-` ✓
 - Custom hooks ✓
 - Your CLAUDE.md files ✓
 
-If you've modified any GSD files directly, they'll be automatically backed up to `gsd-local-patches/` and can be reapplied with `/grd:reapply-patches` after the update.
+If you've modified any GRD files directly, they'll be automatically backed up to `grd-local-patches/` and can be reapplied with `/grd:reapply-patches` after the update.
 ```
 
 Use AskUserQuestion:
@@ -249,17 +252,17 @@ RUNTIME_FLAG="--$TARGET_RUNTIME"
 
 **If LOCAL install:**
 ```bash
-npx -y get-shit-done-cc@latest "$RUNTIME_FLAG" --local
+npx -y grd@latest "$RUNTIME_FLAG" --local
 ```
 
 **If GLOBAL install:**
 ```bash
-npx -y get-shit-done-cc@latest "$RUNTIME_FLAG" --global
+npx -y grd@latest "$RUNTIME_FLAG" --global
 ```
 
 **If UNKNOWN install:**
 ```bash
-npx -y get-shit-done-cc@latest --claude --global
+npx -y grd@latest --claude --global
 ```
 
 Capture output. If install fails, show error and exit.
@@ -269,12 +272,12 @@ Clear the update cache so statusline indicator disappears:
 ```bash
 # Clear update cache across all runtime directories
 for dir in .claude .config/opencode .opencode .gemini .codex; do
-  rm -f "./$dir/cache/gsd-update-check.json"
-  rm -f "$HOME/$dir/cache/gsd-update-check.json"
+  rm -f "./$dir/cache/grd-update-check.json"
+  rm -f "$HOME/$dir/cache/grd-update-check.json"
 done
 ```
 
-The SessionStart hook (`gsd-check-update.js`) writes to the detected runtime's cache directory, so all paths must be cleared to prevent stale update indicators.
+The SessionStart hook (`grd-check-update.js`) writes to the detected runtime's cache directory, so all paths must be cleared to prevent stale update indicators.
 </step>
 
 <step name="display_result">
@@ -287,7 +290,7 @@ Format completion message (changelog was already shown in confirmation step):
 
 ⚠️  Restart your runtime to pick up the new commands.
 
-[View full changelog](https://github.com/glittercowboy/grd/blob/main/CHANGELOG.md)
+[View full changelog](https://github.com/Jerrymwolf/grd/blob/main/CHANGELOG.md)
 ```
 </step>
 
@@ -295,7 +298,7 @@ Format completion message (changelog was already shown in confirmation step):
 <step name="check_local_patches">
 After update completes, check if the installer detected and backed up any locally modified files:
 
-Check for gsd-local-patches/backup-meta.json in the config directory.
+Check for grd-local-patches/backup-meta.json in the config directory.
 
 **If patches found:**
 

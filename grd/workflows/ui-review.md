@@ -1,5 +1,5 @@
 <purpose>
-Retroactive 6-pillar visual audit of implemented frontend code. Standalone command that works on any project — GRD-managed or not. Produces scored UI-REVIEW.md with actionable findings.
+Retroactive 6-pillar visual audit of implemented frontend code. Standalone command that works on any project — GSD-managed or not. Produces scored UI-REVIEW.md with actionable findings.
 </purpose>
 
 <required_reading>
@@ -18,7 +18,7 @@ if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 Parse: `phase_dir`, `phase_number`, `phase_name`, `phase_slug`, `padded_phase`, `commit_docs`.
 
 ```bash
-UI_AUDITOR_MODEL=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolve-model gsd-ui-auditor --raw)
+UI_AUDITOR_MODEL=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolve-model grd-ui-auditor --raw)
 ```
 
 Display banner:
@@ -36,7 +36,7 @@ UI_SPEC_FILE=$(ls "${PHASE_DIR}"/*-UI-SPEC.md 2>/dev/null | head -1)
 UI_REVIEW_FILE=$(ls "${PHASE_DIR}"/*-UI-REVIEW.md 2>/dev/null | head -1)
 ```
 
-**If `SUMMARY_FILES` empty:** Exit — "Phase {N} not executed. Run /grd:conduct-inquiry {N} first."
+**If `SUMMARY_FILES` empty:** Exit — "Phase {N} not executed. Run /grd:execute-phase {N} first."
 
 **If `UI_REVIEW_FILE` non-empty:** Use AskUserQuestion:
 - header: "Existing UI Review"
@@ -56,7 +56,7 @@ Build file list for auditor:
 - UI-SPEC.md (if exists — audit baseline)
 - CONTEXT.md (if exists — locked decisions)
 
-## 3. Spawn gsd-ui-auditor
+## 3. Spawn grd-ui-auditor
 
 ```
 ◆ Spawning UI auditor...
@@ -65,7 +65,7 @@ Build file list for auditor:
 Build prompt:
 
 ```markdown
-Read /Users/jeremiahwolf/.claude/agents/gsd-ui-auditor.md for instructions.
+Read $HOME/.claude/agents/grd-ui-auditor.md for instructions.
 
 <objective>
 Conduct 6-pillar visual audit of Phase {phase_number}: {phase_name}
@@ -130,8 +130,8 @@ Full review: {path to UI-REVIEW.md}
 
 ## ▶ Next
 
-- `/grd:verify-inquiry {N}` — UAT testing
-- `/grd:plan-inquiry {N+1}` — plan next phase
+- `/grd:verify-work {N}` — UAT testing
+- `/grd:plan-phase {N+1}` — plan next phase
 
 <sub>/clear first → fresh context window</sub>
 
@@ -150,7 +150,7 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs(${padded_p
 - [ ] Phase validated
 - [ ] SUMMARY.md files found (execution completed)
 - [ ] Existing review handled (re-audit/view)
-- [ ] gsd-ui-auditor spawned with correct context
+- [ ] grd-ui-auditor spawned with correct context
 - [ ] UI-REVIEW.md created in phase directory
 - [ ] Score summary displayed to user
 - [ ] Next steps presented
