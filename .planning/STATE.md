@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Research Reorientation — SHIPPED 2026-03-22
 status: Milestone complete
-stopped_at: Completed 27-01-PLAN.md
-last_updated: "2026-03-23T17:44:56.358Z"
+stopped_at: Completed 29-01-PLAN.md
+last_updated: "2026-03-23T22:51:56Z"
 progress:
   total_phases: 21
   completed_phases: 21
@@ -23,8 +23,8 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 
 ## Current Position
 
-Phase: 27 of 24 (complete)
-Plan: Not started
+Phase: 29 (Research Template Variants)
+Plan: 29-01 complete (1/1)
 
 ## Performance Metrics
 
@@ -59,6 +59,7 @@ Plan: Not started
 | Phase 22 P01 | 5min | 2 tasks | 13 files |
 | Phase 22 P02 | 4min | 2 tasks | 3 files |
 | Phase 27 P01 | 2min | 2 tasks | 17 files |
+| Phase 29 P01 | 3min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -113,6 +114,8 @@ Recent decisions affecting current work:
 - [Phase 22]: Fixed .gitignore: changed gaps.md to /gaps.md so grd/templates/gaps.md is trackable
 - [Phase 22]: 4-wave strict ordering per D-07: themes < framework < gaps < argument -- gaps requires FRAMEWORK.md
 - [Phase 27]: Bare PM-style identifiers replaced with research-native names in 17 workflow files; Task 1 was pre-completed from prior phases
+- [Phase 29]: Research task examples use acquisition + synthesis as two primary patterns
+- [Phase 29]: Research frontmatter uses commented alternatives rather than conditional blocks
 
 ### Pending Todos
 
@@ -130,6 +133,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-23T17:44:56Z
-Stopped at: Completed quick task 260323-j3g
+Last session: 2026-03-23T22:51:56Z
+Stopped at: Completed 29-01-PLAN.md
 Resume file: None
