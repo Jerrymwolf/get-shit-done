@@ -9,7 +9,7 @@ Requirements for the Upstream Sync + Rename + Source Pipeline Wiring milestone. 
 
 ### Upstream Sync
 
-- [ ] **SYNC-01**: GRD CJS modules synced with GSD v1.28.0 preserving all research extensions
+- [x] **SYNC-01**: GRD CJS modules synced with GSD v1.28.0 preserving all research extensions
 - [ ] **SYNC-02**: GRD workflows synced with GSD v1.28.0 preserving research adaptations
 - [ ] **SYNC-03**: GRD agent prompts synced with GSD v1.28.0 preserving research-specific agents
 - [ ] **SYNC-04**: GRD templates synced with GSD v1.28.0 preserving research note templates
@@ -87,7 +87,7 @@ Requirements for the Upstream Sync + Rename + Source Pipeline Wiring milestone. 
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SYNC-01 | Phase 25 | Pending |
+| SYNC-01 | Phase 25 | Complete |
 | SYNC-02 | Phase 25 | Pending |
 | SYNC-03 | Phase 25 | Pending |
 | SYNC-04 | Phase 25 | Pending |
