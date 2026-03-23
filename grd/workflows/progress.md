@@ -290,7 +290,7 @@ PHASE_HAS_UI=$(echo "$PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true" ||
 ---
 
 **Also available:**
-- `/grd:ui-phase {phase}` — generate UI design contract (recommended for frontend phases)
+- `/grd:presentation-design {phase}` — design presentation structure (recommended for deliverable phases)
 - `/grd:plan-inquiry {phase}` — skip discussion, plan directly
 - `/grd:list-phase-assumptions {phase}` — see Claude's assumptions
 
@@ -421,7 +421,7 @@ NEXT_HAS_UI=$(echo "$NEXT_PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true
 ---
 
 **Also available:**
-- `/grd:ui-phase {Z+1}` — generate UI design contract (recommended for frontend phases)
+- `/grd:presentation-design {Z+1}` — design presentation structure (recommended for deliverable phases)
 - `/grd:plan-inquiry {Z+1}` — skip discussion, plan directly
 - `/grd:verify-inquiry {Z}` — user acceptance test before continuing
 

@@ -355,54 +355,54 @@ test -f "${PHASE_DIR}/${PADDED_PHASE}-VALIDATION.md" && echo "VALIDATION_CREATED
 
 **If not found:** Warn and continue — plans may fail Dimension 8.
 
-## 5.6. UI Design Contract Gate
+## 5.6. Presentation Design Gate
 
-> Skip if `workflow.ui_phase` is explicitly `false` AND `workflow.ui_safety_gate` is explicitly `false` in `.planning/config.json`. If keys are absent, treat as enabled.
+> Skip if `workflow.presentation_design` is explicitly `false` AND `workflow.presentation_gate` is explicitly `false` in `.planning/config.json`. If keys are absent, treat as enabled.
 
 ```bash
-UI_PHASE_CFG=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow.ui_phase 2>/dev/null || echo "true")
-UI_GATE_CFG=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow.ui_safety_gate 2>/dev/null || echo "true")
+PRES_DESIGN_CFG=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow.presentation_design 2>/dev/null || echo "true")
+PRES_GATE_CFG=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow.presentation_gate 2>/dev/null || echo "true")
 ```
 
 **If both are `false`:** Skip to step 6.
 
-Check if phase has frontend indicators:
+Check if phase has deliverable indicators:
 
 ```bash
 PHASE_SECTION=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" roadmap get-phase "${PHASE}" 2>/dev/null)
-echo "$PHASE_SECTION" | grep -iE "UI|interface|frontend|component|layout|page|screen|view|form|dashboard|widget" > /dev/null 2>&1
-HAS_UI=$?
+echo "$PHASE_SECTION" | grep -iE "deliverable|presentation|report|paper|manuscript|poster|export|findings|synthesis" > /dev/null 2>&1
+HAS_DELIVERABLE=$?
 ```
 
-**If `HAS_UI` is 0 (frontend indicators found):**
+**If `HAS_DELIVERABLE` is 0 (deliverable indicators found):**
 
-Check for existing UI-SPEC:
+Check for existing PRESENTATION-SPEC:
 ```bash
-UI_SPEC_FILE=$(ls "${PHASE_DIR}"/*-UI-SPEC.md 2>/dev/null | head -1)
+PRES_SPEC_FILE=$(ls "${PHASE_DIR}"/*-PRESENTATION-SPEC.md 2>/dev/null | head -1)
 ```
 
-**If UI-SPEC.md found:** Set `UI_SPEC_PATH=$UI_SPEC_FILE`. Display: `Using UI design contract: ${UI_SPEC_PATH}`
+**If PRESENTATION-SPEC.md found:** Set `PRES_SPEC_PATH=$PRES_SPEC_FILE`. Display: `Using presentation design contract: ${PRES_SPEC_PATH}`
 
-**If UI-SPEC.md missing AND `UI_GATE_CFG` is `true`:**
+**If PRESENTATION-SPEC.md missing AND `PRES_GATE_CFG` is `true`:**
 
 If `TEXT_MODE` is true, present as a plain-text numbered list:
 ```
-Phase {N} has frontend indicators but no UI-SPEC.md. Generate a design contract before planning?
+Phase {N} has deliverable indicators but no PRESENTATION-SPEC.md. Design presentation structure before planning?
 
-1. Generate UI-SPEC first — Run /grd:ui-phase {N} then re-run /grd:plan-inquiry {N}
-2. Continue without UI-SPEC
-3. Not a frontend phase
+1. Design presentation first — Run /grd:presentation-design {N} then re-run /grd:plan-inquiry {N}
+2. Continue without presentation spec
+3. Not a deliverable phase
 
 Enter number:
 ```
 
 Otherwise use AskUserQuestion:
-- header: "UI Design Contract"
-- question: "Phase {N} has frontend indicators but no UI-SPEC.md. Generate a design contract before planning?"
+- header: "Presentation Design"
+- question: "Phase {N} has deliverable indicators but no PRESENTATION-SPEC.md. Design presentation structure before planning?"
 - options:
-  - "Generate UI-SPEC first" → Display: "Run `/grd:ui-phase {N} ${GSD_WS}` then re-run `/grd:plan-inquiry {N} ${GSD_WS}`". Exit workflow.
-  - "Continue without UI-SPEC" → Continue to step 6.
-  - "Not a frontend phase" → Continue to step 6.
+  - "Design presentation first" → Display: "Run `/grd:presentation-design {N} ${GSD_WS}` then re-run `/grd:plan-inquiry {N} ${GSD_WS}`". Exit workflow.
+  - "Continue without presentation spec" → Continue to step 6.
+  - "Not a deliverable phase" → Continue to step 6.
 
 **If `HAS_UI` is 1 (no frontend indicators):** Skip silently to step 6.
 

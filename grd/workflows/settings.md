@@ -30,8 +30,8 @@ Parse current values (default to `true` if not present):
 - `workflow.plan_check` — spawn plan checker during plan-inquiry
 - `workflow.verifier` — spawn verifier during conduct-inquiry
 - `workflow.nyquist_validation` — validation architecture research during plan-inquiry (default: true if absent)
-- `workflow.ui_phase` — generate UI-SPEC.md design contracts for frontend phases (default: true if absent)
-- `workflow.ui_safety_gate` — prompt to run /grd:ui-phase before planning frontend phases (default: true if absent)
+- `workflow.presentation_design` — generate PRESENTATION-SPEC.md for deliverable phases (default: true if absent)
+- `workflow.presentation_gate` — prompt to run /grd:presentation-design before planning deliverable phases (default: true if absent)
 - `model_profile` — which model each agent uses (default: `balanced`)
 - `git.branching_strategy` — branching approach (default: `"none"`)
 </step>
@@ -100,21 +100,21 @@ AskUserQuestion([
   // Note: Nyquist validation depends on research output. If research is disabled,
   // plan-inquiry automatically skips Nyquist steps (no RESEARCH.md to extract from).
   {
-    question: "Enable UI Phase? (generates UI-SPEC.md design contracts for frontend phases)",
-    header: "UI Phase",
+    question: "Enable Presentation Design? (generates PRESENTATION-SPEC.md for deliverable phases)",
+    header: "Presentation Design",
     multiSelect: false,
     options: [
-      { label: "Yes (Recommended)", description: "Generate UI design contracts before planning frontend phases. Locks spacing, typography, color, and copywriting." },
-      { label: "No", description: "Skip UI-SPEC generation. Good for backend-only projects or API phases." }
+      { label: "Yes (Recommended)", description: "Generate presentation design contracts before planning deliverable phases. Locks structure, narrative arc, and evidence placement." },
+      { label: "No", description: "Skip PRESENTATION-SPEC generation. Good for exploratory phases without final deliverables." }
     ]
   },
   {
-    question: "Enable UI Safety Gate? (prompts to run /grd:ui-phase before planning frontend phases)",
-    header: "UI Gate",
+    question: "Enable Presentation Gate? (prompts to run /grd:presentation-design before planning deliverable phases)",
+    header: "Presentation Gate",
     multiSelect: false,
     options: [
-      { label: "Yes (Recommended)", description: "plan-inquiry asks to run /grd:ui-phase first when frontend indicators detected." },
-      { label: "No", description: "No prompt — plan-inquiry proceeds without UI-SPEC check." }
+      { label: "Yes (Recommended)", description: "plan-inquiry asks to run /grd:presentation-design first when deliverable indicators detected." },
+      { label: "No", description: "No prompt — plan-inquiry proceeds without PRESENTATION-SPEC check." }
     ]
   },
   {
@@ -171,8 +171,8 @@ Merge new settings into existing config.json:
     "verifier": true/false,
     "auto_advance": true/false,
     "nyquist_validation": true/false,
-    "ui_phase": true/false,
-    "ui_safety_gate": true/false,
+    "presentation_design": true/false,
+    "presentation_gate": true/false,
     "text_mode": true/false,
     "research_before_questions": true/false,
     "discuss_mode": "discuss" | "assumptions",
@@ -231,8 +231,8 @@ Write `~/.grd/defaults.json` with:
     "verifier": <current>,
     "auto_advance": <current>,
     "nyquist_validation": <current>,
-    "ui_phase": <current>,
-    "ui_safety_gate": <current>,
+    "presentation_design": <current>,
+    "presentation_gate": <current>,
     "skip_discuss": <current>
   }
 }
