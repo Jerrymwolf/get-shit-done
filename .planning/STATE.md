@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Research-Native Purification
-status: Ready to plan
-stopped_at: Completed 31-01-PLAN.md -- export and presentation commands reconceptualized
-last_updated: "2026-03-23T23:44:56.660Z"
+status: Milestone complete
+stopped_at: Completed 32-01-PLAN.md -- help reorganization complete, v1.3 milestone finished
+last_updated: "2026-03-23T23:55:00Z"
 progress:
   total_phases: 5
-  completed_phases: 4
-  total_plans: 7
-  completed_plans: 7
+  completed_phases: 5
+  total_plans: 8
+  completed_plans: 8
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** Phase 31 — Command Reconceptualization -- Export and Presentation
+**Current focus:** Phase 32 — Help Reorganization (complete)
 
 ## Current Position
 
 Phase: 32
-Plan: Not started
+Plan: Complete (1/1)
 
 ## Performance Metrics
 
@@ -62,6 +62,7 @@ Plan: Not started
 | Phase 30 P02 | 4min | 2 tasks | 5 files |
 | Phase 30 P01 | 10min | 3 tasks | 8 files |
 | Phase 31 P01 | 9min | 2 tasks | 25 files |
+| Phase 32 P01 | 3min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,7 @@ Recent decisions affecting current work:
 - [Phase 30]: 7 corpus documents replace 7 codebase documents (SOURCES/DOMAINS/METHODOLOGY/COVERAGE/GAPS/CONNECTIONS/QUALITY)
 - [Phase 30]: Verification uses Evidence/Coverage/Methodology categories replacing TDD/E2E/Skip
 - [Phase 31]: Six scholarly dimensions replace UI pillars for output review: argument coherence, evidence quality, citation coverage, methodology transparency, presentation clarity, completeness
+- [Phase 32]: Help reorganized into Research Workflow / Utility / Configuration with research-native descriptions for all commands
 
 ### Pending Todos
 
@@ -96,6 +98,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-23T23:40:48.635Z
-Stopped at: Completed 31-01-PLAN.md -- export and presentation commands reconceptualized
+Last session: 2026-03-23T23:55:00Z
+Stopped at: Completed 32-01-PLAN.md -- help reorganization complete, v1.3 milestone finished
 Resume file: None

@@ -37,8 +37,8 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 
 ### Help & Organization
 
-- [ ] **HLP-01**: `/grd:help` reorganized with Research Workflow / Utility / Configuration sections (not PM-centric categories)
-- [ ] **HLP-02**: Each command in help shows its research-native purpose, not inherited PM description
+- [x] **HLP-01**: `/grd:help` reorganized with Research Workflow / Utility / Configuration sections (not PM-centric categories)
+- [x] **HLP-02**: Each command in help shows its research-native purpose, not inherited PM description
 
 ## Future Requirements
 
@@ -75,8 +75,8 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 | TPL-01 | Phase 29 | Pending |
 | TPL-02 | Phase 29 | Pending |
 | TPL-03 | Phase 29 | Pending |
-| HLP-01 | Phase 32 | Pending |
-| HLP-02 | Phase 32 | Pending |
+| HLP-01 | Phase 32 | Complete |
+| HLP-02 | Phase 32 | Complete |
 
 **Coverage:**
 - Primary requirements: 18 total

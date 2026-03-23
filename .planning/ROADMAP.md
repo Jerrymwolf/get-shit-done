@@ -148,7 +148,7 @@ Plans:
   3. A researcher unfamiliar with GSD would understand what each command does from its help description alone
 **Plans**: 1 plan
 Plans:
-- [ ] 32-01-PLAN.md — Rewrite help workflow with research-native organization, descriptions, and all current commands
+- [x] 32-01-PLAN.md — Rewrite help workflow with research-native organization, descriptions, and all current commands
 
 ## Progress
 
@@ -186,9 +186,9 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 27. Research-Native Command Vocabulary | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 28. Agent and Workflow Reorientation | v1.3 | 2/2 | Complete    | 2026-03-23 |
 | 29. Research Template Variants | v1.3 | 1/1 | Complete    | 2026-03-23 |
-| 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/2 | Complete    | 2026-03-23 |
+| 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 2/2 | Complete    | 2026-03-23 |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 2/2 | Complete    | 2026-03-23 |
-| 32. Help Reorganization | v1.3 | 0/1 | Not started | - |
+| 32. Help Reorganization | v1.3 | 1/1 | Complete | 2026-03-23 |
 
 ---
 *Roadmap created: 2026-03-11*
