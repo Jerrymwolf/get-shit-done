@@ -65,7 +65,7 @@ Full details: `.planning/ROADMAP.md` (v1.2 archive)
 
 **Milestone Goal:** Sync GRD to upstream GSD v1.28.0, eliminate all GSD-R branding, adopt research-native command vocabulary, and wire the source acquisition pipeline.
 
-- [ ] **Phase 25: Upstream Sync to v1.28.0** - Sync all CJS modules, workflows, agent prompts, and templates with GSD v1.28.0 baseline
+- [x] **Phase 25: Upstream Sync to v1.28.0** - Sync all CJS modules, workflows, agent prompts, and templates with GSD v1.28.0 baseline (completed 2026-03-23)
 - [ ] **Phase 26: Rename GSD-R to GRD** - Eliminate all GSD-R branding via file renames, directory moves, and bulk content replacement
 - [ ] **Phase 27: Research-Native Command Vocabulary** - Rename 6 core commands to research-native equivalents and update all cross-references
 - [ ] **Phase 28: Source Pipeline Wiring** - Connect acquire.cjs, vault.cjs, and source-researcher agent into the conduct-inquiry execution path
@@ -80,7 +80,7 @@ Full details: `.planning/ROADMAP.md` (v1.2 archive)
   2. All workflow and agent prompt files incorporate v1.28.0 improvements while retaining research-specific adaptations (three-tier verification, synthesis, adaptive communication)
   3. VERSION file reads 1.28.0
   4. All 514+ existing tests pass after sync with zero regressions
-**Plans:** 5/6 plans executed
+**Plans:** 6/6 plans complete
 
 Plans:
 - [x] 25-01-PLAN.md -- Foundation: core.cjs + security.cjs
@@ -88,7 +88,7 @@ Plans:
 - [x] 25-03-PLAN.md -- LOW-conflict shared modules (frontmatter, template, milestone, roadmap, verify, model-profiles)
 - [x] 25-04-PLAN.md -- New upstream modules + CLI wiring (uat, workstream, profile-output, profile-pipeline, grd-tools.cjs)
 - [x] 25-05-PLAN.md -- Workflow sync (30 shared + 26 new + 12 GRD-only)
-- [ ] 25-06-PLAN.md -- Templates + commands + VERSION + final validation
+- [x] 25-06-PLAN.md -- Templates + commands + VERSION + final validation
 
 #### Phase 26: Rename GSD-R to GRD
 **Goal**: Zero instances of GSD-R branding remain in active files -- the project is consistently named GRD everywhere
@@ -141,7 +141,7 @@ Phases execute in numeric order: 25 -> 26 -> 27 -> 28 / 29 (28 and 29 can run in
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 25. Upstream Sync to v1.28.0 | v1.3 | 5/6 | In Progress|  |
+| 25. Upstream Sync to v1.28.0 | v1.3 | 6/6 | Complete   | 2026-03-23 |
 | 26. Rename GSD-R to GRD | v1.3 | 0/TBD | Not started | - |
 | 27. Command Vocabulary | v1.3 | 0/TBD | Not started | - |
 | 28. Source Pipeline Wiring | v1.3 | 0/TBD | Not started | - |

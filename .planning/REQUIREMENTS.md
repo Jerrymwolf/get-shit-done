@@ -11,10 +11,10 @@ Requirements for the Upstream Sync + Rename + Source Pipeline Wiring milestone. 
 
 - [x] **SYNC-01**: GRD CJS modules synced with GSD v1.28.0 preserving all research extensions
 - [x] **SYNC-02**: GRD workflows synced with GSD v1.28.0 preserving research adaptations
-- [ ] **SYNC-03**: GRD agent prompts synced with GSD v1.28.0 preserving research-specific agents
-- [ ] **SYNC-04**: GRD templates synced with GSD v1.28.0 preserving research note templates
-- [ ] **SYNC-05**: VERSION file updated to 1.28.0
-- [ ] **SYNC-06**: All tests pass after sync (existing 514+ tests green)
+- [x] **SYNC-03**: GRD agent prompts synced with GSD v1.28.0 preserving research-specific agents
+- [x] **SYNC-04**: GRD templates synced with GSD v1.28.0 preserving research note templates
+- [x] **SYNC-05**: VERSION file updated to 1.28.0
+- [x] **SYNC-06**: All tests pass after sync (existing 514+ tests green)
 
 ### Rename
 
@@ -89,10 +89,10 @@ Requirements for the Upstream Sync + Rename + Source Pipeline Wiring milestone. 
 |-------------|-------|--------|
 | SYNC-01 | Phase 25 | Complete |
 | SYNC-02 | Phase 25 | Complete |
-| SYNC-03 | Phase 25 | Pending |
-| SYNC-04 | Phase 25 | Pending |
-| SYNC-05 | Phase 25 | Pending |
-| SYNC-06 | Phase 25 | Pending |
+| SYNC-03 | Phase 25 | Complete |
+| SYNC-04 | Phase 25 | Complete |
+| SYNC-05 | Phase 25 | Complete |
+| SYNC-06 | Phase 25 | Complete |
 | REN-01 | Phase 26 | Pending |
 | REN-02 | Phase 26 | Pending |
 | REN-03 | Phase 26 | Pending |

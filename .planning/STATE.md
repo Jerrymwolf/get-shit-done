@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Upstream Sync + Rename + Source Pipeline Wiring
-status: Ready to execute
-stopped_at: Completed 25-05-PLAN.md
-last_updated: "2026-03-23T04:09:23.826Z"
+status: Phase complete — ready for verification
+stopped_at: Completed 25-06-PLAN.md
+last_updated: "2026-03-23T04:16:49.075Z"
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -53,6 +53,7 @@ Plan: 6 of 6
 | Phase 25 P03 | 6min | 2 tasks | 5 files |
 | Phase 25 P04 | 7min | 2 tasks | 5 files |
 | Phase 25 P05 | 8min | 2 tasks | 61 files |
+| Phase 25 P06 | 5min | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,7 @@ Recent decisions affecting current work:
 - [Phase 25]: model-profiles.cjs required no changes -- upstream tier assignments identical, grd-* namespace already correct
 - [Phase 25]: Adopted upstream parseNamedArgs/parseMultiwordArg helpers for cleaner arg parsing in grd-tools.cjs
 - [Phase 25]: Adopted upstream workflows with automated namespace conversion script for consistent GRD path/command/agent transformation
+- [Phase 25]: GRD research templates preserved during upstream sync; UAT.md, context.md, config.json template synced with upstream additions
 
 ### Pending Todos
 
@@ -82,6 +84,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-23T04:09:23.824Z
-Stopped at: Completed 25-05-PLAN.md
+Last session: 2026-03-23T04:16:49.073Z
+Stopped at: Completed 25-06-PLAN.md
 Resume file: None
