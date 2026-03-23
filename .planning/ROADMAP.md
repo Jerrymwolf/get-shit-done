@@ -178,7 +178,7 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 26. GSD-to-GRD Rename | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 27. Research-Native Command Vocabulary | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 28. Agent and Workflow Reorientation | v1.3 | 2/2 | Complete    | 2026-03-23 |
-| 29. Research Template Variants | v1.3 | 1/1 | Complete | 2026-03-23 |
+| 29. Research Template Variants | v1.3 | 1/1 | Complete    | 2026-03-23 |
 | 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/TBD | Not started | - |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 0/TBD | Not started | - |
 | 32. Help Reorganization | v1.3 | 0/TBD | Not started | - |
