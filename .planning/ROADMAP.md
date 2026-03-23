@@ -71,9 +71,7 @@ Full details: `.planning/ROADMAP.md` (v1.2 archive)
 - [ ] **Phase 28: Source Pipeline Wiring** - Connect acquire.cjs, vault.cjs, and source-researcher agent into the conduct-inquiry execution path
 - [ ] **Phase 29: Documentation Rewrite** - Rewrite README.md and docs/DESIGN.md with final-state naming and command references
 
-## Phase Details
-
-### Phase 25: Upstream Sync to v1.28.0
+#### Phase 25: Upstream Sync to v1.28.0
 **Goal**: GRD operates on the latest upstream GSD v1.28.0 codebase with all research extensions preserved
 **Depends on**: Nothing (first phase of v1.3)
 **Requirements**: SYNC-01, SYNC-02, SYNC-03, SYNC-04, SYNC-05, SYNC-06
@@ -84,7 +82,7 @@ Full details: `.planning/ROADMAP.md` (v1.2 archive)
   4. All 514+ existing tests pass after sync with zero regressions
 **Plans**: TBD
 
-### Phase 26: Rename GSD-R to GRD
+#### Phase 26: Rename GSD-R to GRD
 **Goal**: Zero instances of GSD-R branding remain in active files -- the project is consistently named GRD everywhere
 **Depends on**: Phase 25
 **Requirements**: REN-01, REN-02, REN-03, REN-04, REN-05, REN-06, REN-07, REN-08, REN-09
@@ -95,7 +93,7 @@ Full details: `.planning/ROADMAP.md` (v1.2 archive)
   4. All tests pass after rename (including updated test file references)
 **Plans**: TBD
 
-### Phase 27: Research-Native Command Vocabulary
+#### Phase 27: Research-Native Command Vocabulary
 **Goal**: Users invoke research-native commands (scope-inquiry, conduct-inquiry, etc.) instead of PM-style names (discuss-phase, execute-phase, etc.)
 **Depends on**: Phase 26
 **Requirements**: CMD-01, CMD-02, CMD-03, CMD-04, CMD-05, CMD-06
@@ -106,7 +104,7 @@ Full details: `.planning/ROADMAP.md` (v1.2 archive)
   4. All tests pass after vocabulary update
 **Plans**: TBD
 
-### Phase 28: Source Pipeline Wiring
+#### Phase 28: Source Pipeline Wiring
 **Goal**: Running conduct-inquiry on a phase with `<src>` blocks produces `-sources/` directories with acquired files that pass Tier 2 verification
 **Depends on**: Phase 27
 **Requirements**: SRC-01, SRC-02, SRC-03, SRC-04, SRC-05
@@ -117,7 +115,7 @@ Full details: `.planning/ROADMAP.md` (v1.2 archive)
   4. Running conduct-inquiry on a test phase with `<src>` blocks produces `-sources/` directories containing actual acquired files
 **Plans**: TBD
 
-### Phase 29: Documentation Rewrite
+#### Phase 29: Documentation Rewrite
 **Goal**: All user-facing documentation reflects the final-state naming, commands, and architecture
 **Depends on**: Phase 27
 **Requirements**: DOC-01, DOC-02, DOC-03, DOC-04
@@ -128,7 +126,7 @@ Full details: `.planning/ROADMAP.md` (v1.2 archive)
 **Plans**: TBD
 **UI hint**: yes
 
-## Progress
+#### Progress
 
 **Execution Order:**
 Phases execute in numeric order: 25 -> 26 -> 27 -> 28 / 29 (28 and 29 can run in parallel after 27)
