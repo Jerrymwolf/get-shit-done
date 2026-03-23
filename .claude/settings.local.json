@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(grd:progress)",
+      "Skill(grd:progress:*)",
+      "Skill(grd:complete-milestone)",
+      "Skill(grd:complete-milestone:*)",
+      "Bash(pip3 install psycopg2-binary)",
+      "Bash(python3:*)",
+      "Bash(npm list:*)",
+      "Bash(npm install:*)",
+      "Bash(node scripts/generate-pm-report.js)",
+      "Bash(node /Users/jeremiahwolf/Desktop/Projects/APPs/GSDR/scripts/generate-pm-report.js)",
+      "Bash(wc -l /Users/jeremiahwolf/Desktop/Projects/APPs/GSDR/grd/bin/lib/*.cjs)",
+      "WebSearch",
+      "Bash(grep -r \"optional\\\\|toggle\\\\|enable\\\\|disable\\\\|config\\\\|setting\" /Users/jeremiahwolf/Desktop/Projects/APPs/GSDR/grd/workflows/*.md)"
+    ]
+  }
+}

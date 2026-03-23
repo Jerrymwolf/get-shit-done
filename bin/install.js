@@ -21,17 +21,17 @@ const GRD_COPILOT_INSTRUCTIONS_MARKER = '<!-- GRD Configuration \u2014 managed b
 const GRD_COPILOT_INSTRUCTIONS_CLOSE_MARKER = '<!-- /GRD Configuration -->';
 
 const CODEX_AGENT_SANDBOX = {
-  'gsd-executor': 'workspace-write',
-  'gsd-planner': 'workspace-write',
-  'gsd-phase-researcher': 'workspace-write',
-  'gsd-project-researcher': 'workspace-write',
-  'gsd-research-synthesizer': 'workspace-write',
-  'gsd-verifier': 'workspace-write',
-  'gsd-codebase-mapper': 'workspace-write',
-  'gsd-roadmapper': 'workspace-write',
-  'gsd-debugger': 'workspace-write',
-  'gsd-plan-checker': 'read-only',
-  'gsd-integration-checker': 'read-only',
+  'grd-executor': 'workspace-write',
+  'grd-planner': 'workspace-write',
+  'grd-phase-researcher': 'workspace-write',
+  'grd-project-researcher': 'workspace-write',
+  'grd-research-synthesizer': 'workspace-write',
+  'grd-verifier': 'workspace-write',
+  'grd-codebase-mapper': 'workspace-write',
+  'grd-roadmapper': 'workspace-write',
+  'grd-debugger': 'workspace-write',
+  'grd-plan-checker': 'read-only',
+  'grd-integration-checker': 'read-only',
 };
 
 // Copilot tool name mapping — Claude Code tools to GitHub Copilot tools
