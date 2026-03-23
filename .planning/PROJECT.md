@@ -63,12 +63,12 @@ Every research finding is self-contained and auditable — the note plus its act
 ## Context
 
 - **Shipped:** v1.0 on 2026-03-12 (8 phases, 15 plans, 24 requirements); v1.1 on 2026-03-16 (6 phases, 11 plans, 27 requirements)
-- **Upstream base:** GSD v1.24.0
+- **Upstream base:** GSD v1.28.0
 - **Tech stack:** Node.js CommonJS, zero external dependencies, node:test runner
 - **Lines of code:** ~32K across CJS modules, agent prompts, templates, references
 - **Tests:** 300+ tests across 12+ test files, all passing
 - **Upstream repo**: https://github.com/gsd-build/get-shit-done (also https://github.com/Jerrymwolf/get-shit-done)
-- **Upstream local:** ~/.claude/get-shit-done/ (v1.24.0 installed)
+- **Upstream local:** ~/.claude/get-shit-done/ (v1.28.0 installed)
 - **Source acquisition tools available**: Firecrawl CLI, web_fetch, wget/curl, gh CLI
 - **Research note convention**: Every `Foo.md` has a sibling `Foo-sources/` folder containing acquired source files + SOURCE-LOG.md
 
@@ -119,4 +119,4 @@ Every research finding is self-contained and auditable — the note plus its act
 - README + docs/DESIGN.md rewrite with final-state naming
 
 ---
-*Last updated: 2026-03-22 after milestone v1.3 started*
+*Last updated: 2026-03-23 after Phase 25 (Upstream Sync to v1.28.0) complete — 23 CJS modules, 68 workflows, 16 templates synced with GSD v1.28.0*
