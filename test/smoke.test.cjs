@@ -96,7 +96,7 @@ describe('Smoke Layer 1: Structural Integrity', () => {
     'plan-inquiry.md', 'plan-milestone-gaps.md', 'progress.md', 'quick.md',
     'remove-inquiry.md', 'research-phase.md', 'resume-project.md',
     'scope-inquiry.md', 'set-profile.md', 'settings.md', 'stats.md',
-    'synthesize.md', 'transition.md', 'ui-phase.md', 'ui-review.md',
+    'synthesize.md', 'transition.md', 'presentation-design.md', 'output-review.md', 'export-research.md', 'export-clean.md',
     'update.md', 'validate-phase.md', 'verify-inquiry.md', 'verify-phase.md',
   ];
 
@@ -148,7 +148,7 @@ describe('Smoke Layer 1: Structural Integrity', () => {
       'research.md', 'retrospective.md', 'roadmap.md', 'source-log.md',
       'state.md', 'summary.md', 'summary-complex.md', 'summary-minimal.md',
       'summary-standard.md', 'terminal-deliverable.md', 'themes.md',
-      'UAT.md', 'UI-SPEC.md', 'user-setup.md', 'VALIDATION.md',
+      'UAT.md', 'PRESENTATION-SPEC.md', 'user-setup.md', 'VALIDATION.md',
       'verification-report.md',
     ];
     const tplDir = path.join(ROOT, 'grd', 'templates');

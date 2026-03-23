@@ -372,7 +372,7 @@ All tests passed. Ready to continue.
 
 - `/grd:plan-inquiry {next}` — Plan next phase
 - `/grd:conduct-inquiry {next}` — Execute next phase
-- `/grd:ui-review {phase}` — visual quality audit (if frontend files were modified)
+- `/grd:output-review {phase}` — scholarly quality audit of research deliverables
 ```
 </step>
 

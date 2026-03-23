@@ -879,7 +879,7 @@ Created: .planning/phases/${PADDED_PHASE}-${SLUG}/${PADDED_PHASE}-CONTEXT.md
 
 **Also available:**
 - `/grd:plan-inquiry ${PHASE} --skip-research ${GSD_WS}` — plan without research
-- `/grd:ui-phase ${PHASE} ${GSD_WS}` — generate UI design contract before planning (if phase has frontend work)
+- `/grd:presentation-design ${PHASE} ${GSD_WS}` — design presentation structure before planning (if phase has deliverables)
 - Review/edit CONTEXT.md before continuing
 
 ---

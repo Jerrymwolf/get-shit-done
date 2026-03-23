@@ -18,9 +18,8 @@ const MODEL_PROFILES = {
   'grd-plan-checker':         { quality: 'sonnet', balanced: 'sonnet', budget: 'haiku' },
   'grd-integration-checker':  { quality: 'sonnet', balanced: 'sonnet', budget: 'haiku' },
   'grd-nyquist-auditor':      { quality: 'sonnet', balanced: 'sonnet', budget: 'haiku' },
-  'grd-ui-researcher':        { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },
-  'grd-ui-checker':           { quality: 'sonnet', balanced: 'sonnet', budget: 'haiku' },
-  'grd-ui-auditor':           { quality: 'sonnet', balanced: 'sonnet', budget: 'haiku' },
+  'grd-presentation-designer': { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },
+  'grd-output-reviewer':       { quality: 'sonnet', balanced: 'sonnet', budget: 'haiku' },
   // --- GRD-only research agents (match phase-researcher tier) ---
   'grd-source-researcher':       { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },
   'grd-methods-researcher':      { quality: 'opus',   balanced: 'sonnet', budget: 'haiku' },

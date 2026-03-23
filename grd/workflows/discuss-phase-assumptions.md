@@ -579,7 +579,7 @@ Created: .planning/phases/${PADDED_PHASE}-${SLUG}/${PADDED_PHASE}-CONTEXT.md
 
 **Also available:**
 - `/grd:plan-inquiry ${PHASE} --skip-research` — plan without research
-- `/grd:ui-phase ${PHASE}` — generate UI design contract (if frontend work)
+- `/grd:presentation-design ${PHASE}` — design presentation structure (if phase has deliverables)
 - Review/edit CONTEXT.md before continuing
 
 ---

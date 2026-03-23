@@ -1154,7 +1154,7 @@ PHASE1_HAS_UI=$(echo "$PHASE1_SECTION" | grep -qi "UI hint.*yes" && echo "true" 
 ---
 
 **Also available:**
-- /grd:ui-phase 1 — generate UI design contract (recommended for frontend phases)
+- /grd:presentation-design 1 — design presentation structure (recommended for deliverable phases)
 - /grd:plan-inquiry 1 — skip discussion, plan directly
 
 ───────────────────────────────────────────────────────────────

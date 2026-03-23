@@ -40,9 +40,8 @@ Always use the exact name from this list — do not fall back to 'general-purpos
 - grd-codebase-mapper — Maps project structure and dependencies
 - grd-integration-checker — Checks cross-phase integration
 - grd-nyquist-auditor — Validates verification coverage
-- grd-ui-researcher — Researches UI/UX approaches
-- grd-ui-checker — Reviews UI implementation quality
-- grd-ui-auditor — Audits UI against design requirements
+- grd-presentation-designer — Designs research presentation structure
+- grd-output-reviewer — Reviews quality of research deliverables
 </available_agent_types>
 
 <process>
