@@ -66,7 +66,7 @@ Full details: `.planning/ROADMAP.md` (v1.2 archive)
 **Milestone Goal:** Sync GRD to upstream GSD v1.28.0, eliminate all GSD-R branding, adopt research-native command vocabulary, and wire the source acquisition pipeline.
 
 - [x] **Phase 25: Upstream Sync to v1.28.0** - Sync all CJS modules, workflows, agent prompts, and templates with GSD v1.28.0 baseline (completed 2026-03-23)
-- [ ] **Phase 26: Rename GSD-R to GRD** - Eliminate all GSD-R branding via file renames, directory moves, and bulk content replacement
+- [x] **Phase 26: Rename GSD-R to GRD** - Eliminate all GSD-R branding via file renames, directory moves, and bulk content replacement (completed 2026-03-23)
 - [ ] **Phase 27: Research-Native Command Vocabulary** - Rename 6 core commands to research-native equivalents and update all cross-references
 - [ ] **Phase 28: Source Pipeline Wiring** - Connect acquire.cjs, vault.cjs, and source-researcher agent into the conduct-inquiry execution path
 - [ ] **Phase 29: Documentation Rewrite** - Rewrite README.md and docs/DESIGN.md with final-state naming and command references
@@ -99,7 +99,7 @@ Plans:
   2. All 16 agent files exist as `agents/grd-*.md` and no `agents/gsd-r-*.md` files remain
   3. `grep -r "gsd-r\|GSD-R\|get-shit-done-r"` across active files returns zero results (excluding .planning/, node_modules/, package-lock.json)
   4. All tests pass after rename (including updated test file references)
-**Plans:** 3 plans
+**Plans:** 3/3 plans complete
 
 Plans:
 - [x] 26-01-PLAN.md -- File and directory renames (git mv commands, agent renames, hook renames)
@@ -147,7 +147,7 @@ Phases execute in numeric order: 25 -> 26 -> 27 -> 28 / 29 (28 and 29 can run in
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 25. Upstream Sync to v1.28.0 | v1.3 | 6/6 | Complete    | 2026-03-23 |
-| 26. Rename GSD-R to GRD | v1.3 | 2/3 | In progress | - |
+| 26. Rename GSD-R to GRD | v1.3 | 2/3 | Complete    | 2026-03-23 |
 | 27. Command Vocabulary | v1.3 | 0/TBD | Not started | - |
 | 28. Source Pipeline Wiring | v1.3 | 0/TBD | Not started | - |
 | 29. Documentation Rewrite | v1.3 | 0/TBD | Not started | - |
