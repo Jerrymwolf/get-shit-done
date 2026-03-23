@@ -133,8 +133,10 @@ Plans:
   3. `/grd:presentation-design` (or equivalent) plans how research findings will be presented (poster, paper, slide deck, report)
   4. `/grd:output-review` audits quality of research deliverables -- completeness, citation coverage, argument coherence
   5. Each reconceptualized command's workflow file, agent prompt, and CLI route are updated end-to-end
-**Plans**: TBD
-**UI hint**: yes
+**Plans**: 2 plans
+Plans:
+- [ ] 31-01-PLAN.md — Reconceptualize /grd:ship and /grd:pr-branch as research export tools
+- [ ] 31-02-PLAN.md — Reconceptualize /grd:ui-phase as presentation design and /grd:ui-review as output review
 
 ### Phase 32: Help Reorganization
 **Goal**: `/grd:help` presents the tool as a research workflow system, not a PM tool -- every command described in scholarly terms
@@ -183,9 +185,9 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 28. Agent and Workflow Reorientation | v1.3 | 2/2 | Complete    | 2026-03-23 |
 | 29. Research Template Variants | v1.3 | 1/1 | Complete    | 2026-03-23 |
 | 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/2 | Complete    | 2026-03-23 |
-| 31. Command Reconceptualization -- Export and Presentation | v1.3 | 0/TBD | Not started | - |
+| 31. Command Reconceptualization -- Export and Presentation | v1.3 | 0/2 | Not started | - |
 | 32. Help Reorganization | v1.3 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-23 after Phase 30 planning*
+*Last updated: 2026-03-23 after Phase 31 planning*
