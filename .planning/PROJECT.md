@@ -55,6 +55,7 @@ Every research finding is self-contained and auditable — the note plus its act
 - Research template variants — research task types and summary frontmatter — v1.3 Phase 29 ✓
 - Command reconceptualization (diagnostics/corpus) — diagnose, map-corpus, add-verification — v1.3 Phase 30 ✓
 - Command reconceptualization (export/presentation) — export-research, export-clean, presentation-design, output-review — v1.3 Phase 31 ✓
+- Help reorganization — Research Workflow / Utility / Configuration sections — v1.3 Phase 32 ✓
 <!-- v1.3 Upstream Sync + Rename + Source Pipeline Wiring -->
 (See REQUIREMENTS.md for remaining v1.3 requirements: Source Pipeline Wiring, Documentation Rewrite)
 
