@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Research-Native Purification
 status: Ready to plan
-stopped_at: Completed 30-01-PLAN.md
-last_updated: "2026-03-23T23:22:00.042Z"
+stopped_at: Completed 31-01-PLAN.md -- export and presentation commands reconceptualized
+last_updated: "2026-03-23T23:44:56.660Z"
 progress:
   total_phases: 5
-  completed_phases: 3
-  total_plans: 5
-  completed_plans: 5
+  completed_phases: 4
+  total_plans: 7
+  completed_plans: 7
 ---
 
 # Project State
@@ -19,11 +19,11 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** Every research finding is self-contained and auditable -- the note plus its actual source files, never just links
-**Current focus:** Phase 30 — Command Reconceptualization -- Diagnostics and Corpus
+**Current focus:** Phase 31 — Command Reconceptualization -- Export and Presentation
 
 ## Current Position
 
-Phase: 31
+Phase: 32
 Plan: Not started
 
 ## Performance Metrics
@@ -61,6 +61,7 @@ Plan: Not started
 | Phase 27 P01 | 2min | 2 tasks | 17 files |
 | Phase 30 P02 | 4min | 2 tasks | 5 files |
 | Phase 30 P01 | 10min | 3 tasks | 8 files |
+| Phase 31 P01 | 9min | 2 tasks | 25 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,7 @@ Recent decisions affecting current work:
 - [Phase 30]: Diagnosis agent keeps hypothesis-testing framework applied to scholarly investigation
 - [Phase 30]: 7 corpus documents replace 7 codebase documents (SOURCES/DOMAINS/METHODOLOGY/COVERAGE/GAPS/CONNECTIONS/QUALITY)
 - [Phase 30]: Verification uses Evidence/Coverage/Methodology categories replacing TDD/E2E/Skip
+- [Phase 31]: Six scholarly dimensions replace UI pillars for output review: argument coherence, evidence quality, citation coverage, methodology transparency, presentation clarity, completeness
 
 ### Pending Todos
 
@@ -94,6 +96,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-23T23:17:58.215Z
-Stopped at: Completed 30-01-PLAN.md
+Last session: 2026-03-23T23:40:48.635Z
+Stopped at: Completed 31-01-PLAN.md -- export and presentation commands reconceptualized
 Resume file: None
