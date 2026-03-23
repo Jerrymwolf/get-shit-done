@@ -77,7 +77,7 @@ Full details: Phase details collapsed above.
 - [x] **Phase 29: Research Template Variants** - Create research-specific task templates and summary templates with scholarly frontmatter (completed 2026-03-23)
 - [x] **Phase 30: Command Reconceptualization -- Diagnostics and Corpus** - Reconceptualize debug, map-codebase, and add-tests as research equivalents (completed 2026-03-23)
 - [x] **Phase 31: Command Reconceptualization -- Export and Presentation** - Reconceptualize ship, pr-branch, ui-phase, and ui-review as research equivalents (completed 2026-03-23)
-- [ ] **Phase 32: Help Reorganization** - Restructure /grd:help around the research workflow with proper categorization and descriptions
+- [x] **Phase 32: Help Reorganization** - Restructure /grd:help around the research workflow with proper categorization and descriptions (completed 2026-03-23)
 
 ## Phase Details
 
@@ -188,7 +188,7 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 29. Research Template Variants | v1.3 | 1/1 | Complete    | 2026-03-23 |
 | 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 2/2 | Complete    | 2026-03-23 |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 2/2 | Complete    | 2026-03-23 |
-| 32. Help Reorganization | v1.3 | 1/1 | Complete | 2026-03-23 |
+| 32. Help Reorganization | v1.3 | 1/1 | Complete    | 2026-03-23 |
 
 ---
 *Roadmap created: 2026-03-11*
