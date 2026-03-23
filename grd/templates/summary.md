@@ -11,7 +11,11 @@ Template for `.planning/phases/XX-name/{phase}-{plan}-SUMMARY.md` - phase comple
 phase: XX-name
 plan: YY
 subsystem: [primary category: auth, payments, ui, api, database, infra, testing, etc.]
+# --- OR for research projects ---
+# subsystem: [research domain: literature-review, source-acquisition, synthesis, methodology, analysis]
 tags: [searchable tech: jwt, stripe, react, postgres, prisma]
+# --- OR for research projects ---
+# tags: [searchable terms: SDT, autonomy, qualitative, thematic-analysis]
 
 # Dependency graph
 requires:
@@ -25,6 +29,12 @@ affects: [list of phase names or keywords that will need this context]
 tech-stack:
   added: [libraries/tools added in this phase]
   patterns: [architectural/code patterns established]
+# --- For research projects, replace tech-stack with ---
+# research-output:
+#   sources_acquired: [count of new sources added to vault]
+#   notes_produced: [count of new notes created]
+#   evidence_quality: [high/medium/low — based on source rigor and coverage]
+#   domains_covered: [list of research domains addressed]
 
 key-files:
   created: [important files created]
@@ -144,6 +154,8 @@ None - no external service configuration required.
 
 **Patterns:** Established conventions future phases should maintain.
 
+**Research projects:** When the project is research-oriented (vault-based notes, source acquisition, synthesis), use the research-project variant fields: `research-output` instead of `tech-stack`, domain-oriented `subsystem` values, and research `tags`. The executor detects project type from PROJECT.md or the plan's task types (`type="research"` signals research project).
+
 **Population:** Frontmatter is populated during summary creation in execute-plan.md. See `<step name="create_summary">` for field-by-field guidance.
 </frontmatter_guidance>
 
@@ -231,6 +243,85 @@ The one-liner should tell someone what actually shipped.
 ---
 *Phase: 01-foundation*
 *Completed: 2025-01-15*
+```
+</example>
+
+<example id="research">
+```markdown
+---
+phase: 03-autonomy-literature
+plan: 01
+subsystem: literature-review
+tags: [SDT, autonomy, self-determination, PsycINFO]
+
+requires:
+  - phase: 02-research-questions
+    provides: refined research questions guiding search strategy
+provides:
+  - 12 acquired sources on autonomy support
+  - 8 annotated notes with thematic coding
+  - synthesis note on measurement approaches
+affects: [methodology-chapter, theoretical-framework]
+
+research-output:
+  sources_acquired: 12
+  notes_produced: 8
+  evidence_quality: high
+  domains_covered: [autonomy-support, SDT, intervention-design, measurement]
+
+key-files:
+  created: [vault/notes/autonomy-interventions.md, vault/notes/synthesis-measurement.md]
+  modified: []
+
+key-decisions:
+  - "Date range 2015-2024 for currency of evidence"
+  - "Excluded non-empirical commentaries"
+
+patterns-established:
+  - "Note structure: citation, key findings, methodology, relevance, quotes"
+  - "Source naming: author-year.pdf in vault/sources/"
+
+requirements-completed: [LIT-01]
+
+duration: 35min
+completed: 2026-01-20
+---
+
+# Phase 3: Autonomy Support Literature Summary
+
+**12 sources acquired from PsycINFO and Web of Science, 8 structured notes with thematic coding, synthesis note on measurement approaches**
+
+## Performance
+
+- **Duration:** 35 min
+- **Started:** 2026-01-20T10:00:00Z
+- **Completed:** 2026-01-20T10:35:00Z
+- **Tasks:** 3
+- **Files modified:** 21
+
+## Accomplishments
+- Acquired 12 empirical sources on autonomy support interventions (2015-2024)
+- Created 8 annotated notes with methodology summaries and key findings
+- Produced synthesis note identifying 3 convergent themes and 2 unresolved debates
+
+## Files Created/Modified
+- `vault/sources/ryan-deci-2017.pdf` - SDT handbook chapter on autonomy
+- `vault/notes/autonomy-interventions.md` - Thematic note on intervention designs
+- `vault/notes/synthesis-measurement.md` - Cross-source synthesis on measurement
+
+## Decisions Made
+- Narrowed date range to 2015-2024 (sufficient for current state of field)
+- Excluded non-empirical commentaries (focus on evidence, not opinion)
+
+## Deviations from Plan
+None - plan executed exactly as written
+
+## Issues Encountered
+None
+
+## Next Phase Readiness
+- Source base sufficient for methodology chapter
+- Gap identified: no sources on digital autonomy support tools (potential future phase)
 ```
 </example>
 
