@@ -80,7 +80,15 @@ Full details: `.planning/ROADMAP.md` (v1.2 archive)
   2. All workflow and agent prompt files incorporate v1.28.0 improvements while retaining research-specific adaptations (three-tier verification, synthesis, adaptive communication)
   3. VERSION file reads 1.28.0
   4. All 514+ existing tests pass after sync with zero regressions
-**Plans**: TBD
+**Plans:** 6 plans
+
+Plans:
+- [ ] 25-01-PLAN.md -- Foundation: core.cjs + security.cjs
+- [ ] 25-02-PLAN.md -- HIGH-conflict shared modules (config, init, state, phase, commands)
+- [ ] 25-03-PLAN.md -- LOW-conflict shared modules (frontmatter, template, milestone, roadmap, verify, model-profiles)
+- [ ] 25-04-PLAN.md -- New upstream modules + CLI wiring (uat, workstream, profile-output, profile-pipeline, grd-tools.cjs)
+- [ ] 25-05-PLAN.md -- Workflow sync (30 shared + 26 new + 12 GRD-only)
+- [ ] 25-06-PLAN.md -- Templates + commands + VERSION + final validation
 
 #### Phase 26: Rename GSD-R to GRD
 **Goal**: Zero instances of GSD-R branding remain in active files -- the project is consistently named GRD everywhere
@@ -133,7 +141,7 @@ Phases execute in numeric order: 25 -> 26 -> 27 -> 28 / 29 (28 and 29 can run in
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 25. Upstream Sync to v1.28.0 | v1.3 | 0/TBD | Not started | - |
+| 25. Upstream Sync to v1.28.0 | v1.3 | 0/6 | Planning complete | - |
 | 26. Rename GSD-R to GRD | v1.3 | 0/TBD | Not started | - |
 | 27. Command Vocabulary | v1.3 | 0/TBD | Not started | - |
 | 28. Source Pipeline Wiring | v1.3 | 0/TBD | Not started | - |
