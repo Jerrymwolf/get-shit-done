@@ -73,7 +73,7 @@ Full details: Phase details collapsed above.
 
 **Milestone Goal:** Reconceptualize every PM/application-development feature into its research equivalent -- nothing removed, everything reframed for scholarly workflows.
 
-- [ ] **Phase 28: Agent and Workflow Reorientation** - Fix remaining GSD references in agents and rewrite workflow examples with research vocabulary
+- [x] **Phase 28: Agent and Workflow Reorientation** - Fix remaining GSD references in agents and rewrite workflow examples with research vocabulary (completed 2026-03-23)
 - [ ] **Phase 29: Research Template Variants** - Create research-specific task templates and summary templates with scholarly frontmatter
 - [ ] **Phase 30: Command Reconceptualization -- Diagnostics and Corpus** - Reconceptualize debug, map-codebase, and add-tests as research equivalents
 - [ ] **Phase 31: Command Reconceptualization -- Export and Presentation** - Reconceptualize ship, pr-branch, ui-phase, and ui-review as research equivalents
@@ -95,7 +95,7 @@ Full details: Phase details collapsed above.
 **Plans**: 2 plans
 Plans:
 - [x] 28-01-PLAN.md — Fix GSD references and add research awareness to 4 agent files
-- [ ] 28-02-PLAN.md — Rewrite workflow examples with research vocabulary in 3 workflow files
+- [x] 28-02-PLAN.md — Rewrite workflow examples with research vocabulary in 3 workflow files
 
 ### Phase 29: Research Template Variants
 **Goal**: Plan task templates and summary templates include research-specific structure so generated plans produce scholarly output
@@ -175,7 +175,7 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 24. Verification Pipeline Wiring | v1.2 | 1/1 | Complete | 2026-03-22 |
 | 26. GSD-to-GRD Rename | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 27. Research-Native Command Vocabulary | v1.3 | 1/1 | Complete | 2026-03-23 |
-| 28. Agent and Workflow Reorientation | v1.3 | 1/2 | In progress | - |
+| 28. Agent and Workflow Reorientation | v1.3 | 2/2 | Complete    | 2026-03-23 |
 | 29. Research Template Variants | v1.3 | 0/TBD | Not started | - |
 | 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/TBD | Not started | - |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 0/TBD | Not started | - |

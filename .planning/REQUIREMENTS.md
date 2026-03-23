@@ -19,9 +19,9 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 
 ### Workflow Reorientation
 
-- [ ] **WFL-01**: scope-inquiry.md examples replaced with research vocabulary (methodology choices, scope boundaries, theoretical emphasis — not UI features)
-- [ ] **WFL-02**: verify-inquiry.md description rewritten from "validate built features" to "validate research findings"
-- [ ] **WFL-03**: new-milestone.md research dimension labels reoriented (Stack→Landscape, Features→Questions, Architecture→Frameworks, Pitfalls→Debates)
+- [x] **WFL-01**: scope-inquiry.md examples replaced with research vocabulary (methodology choices, scope boundaries, theoretical emphasis — not UI features)
+- [x] **WFL-02**: verify-inquiry.md description rewritten from "validate built features" to "validate research findings"
+- [x] **WFL-03**: new-milestone.md research dimension labels reoriented (Stack→Landscape, Features→Questions, Architecture→Frameworks, Pitfalls→Debates)
 
 ### Agent Fixes
 
@@ -66,9 +66,9 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 | CMD-05 | Phase 30 | Pending |
 | CMD-06 | Phase 31 | Pending |
 | CMD-07 | Phase 31 | Pending |
-| WFL-01 | Phase 28 | Pending |
-| WFL-02 | Phase 28 | Pending |
-| WFL-03 | Phase 28 | Pending |
+| WFL-01 | Phase 28 | Complete |
+| WFL-02 | Phase 28 | Complete |
+| WFL-03 | Phase 28 | Complete |
 | AGT-01 | Phase 28 | Complete |
 | AGT-02 | Phase 28 | Complete |
 | AGT-03 | Phase 28 | Complete |
