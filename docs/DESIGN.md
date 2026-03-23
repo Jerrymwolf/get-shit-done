@@ -134,7 +134,7 @@ This is the audit trail. Every source either has a file or has a documented reas
 
 ## What Changes in Each GSD Stage
 
-### `/grd:new-project`
+### `/grd:new-research`
 
 Same questioning → research → requirements → roadmap flow. Three additions:
 
@@ -170,13 +170,13 @@ Same questioning → research → requirements → roadmap flow. Three additions
 | LoRA fine-tuning on Apple Silicon M4 | Core build dependency | Fine-Tuning/LoRA-Strategy.md |
 ```
 
-### `/grd:discuss-phase`
+### `/grd:scope-inquiry`
 
 Identical to GSD. Locks in what the human already believes, what's negotiable, and what's load-bearing before any research runs. Output: `{phase}-CONTEXT.md`.
 
 Critical for research: this is where you say "PostgreSQL is non-negotiable" or "a core architectural decision is already settled" so subagents don't waste context re-evaluating settled decisions.
 
-### `/grd:plan-phase`
+### `/grd:plan-inquiry`
 
 Same three-agent flow: researcher → planner → plan-checker.
 
@@ -227,7 +227,7 @@ The **source researcher** has an additional responsibility: for every source ide
 - Does each task fit in ~50% context? (Rule of thumb: ≤3 sources per task. If a source is a 30-page paper, it gets its own task.)
 - Is the acquisition method specified for every source?
 
-### `/grd:execute-phase`
+### `/grd:conduct-inquiry`
 
 Identical mechanics to GSD. Fresh subagent per task. Each subagent:
 
@@ -247,7 +247,7 @@ Identical mechanics to GSD. Fresh subagent per task. Each subagent:
 
 **Wave parallelism works the same way.** Independent research tasks run in parallel waves. Synthesis tasks that depend on multiple notes wait for their inputs.
 
-### `/grd:verify-work`
+### `/grd:verify-inquiry`
 
 Two-tier verification, run in order:
 

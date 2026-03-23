@@ -104,8 +104,8 @@ If `all_complete` is true:
 ╚══════════════════════════════════════════════════════════════╝
 
 All {phase_count} phases done. Ready for final steps:
-  → /grd:verify-work — run acceptance testing
-  → /grd:complete-milestone — archive and wrap up
+  → /grd:verify-inquiry — run acceptance testing
+  → /grd:complete-study — archive and wrap up
 ```
 
 Ask user via AskUserQuestion:
@@ -113,8 +113,8 @@ Ask user via AskUserQuestion:
 - **options:** "Verify work" / "Complete milestone" / "Exit manager"
 
 Handle responses:
-- "Verify work": `Skill(skill="grd:verify-work")`  then loop to dashboard.
-- "Complete milestone": `Skill(skill="grd:complete-milestone")` then exit.
+- "Verify work": `Skill(skill="grd:verify-inquiry")`  then loop to dashboard.
+- "Complete milestone": `Skill(skill="grd:complete-study")` then exit.
 - "Exit manager": Go to exit step.
 
 **If NOT all_complete**, build compound options from `recommended_actions`:
@@ -191,7 +191,7 @@ When the user selects a compound option:
 2. **Then run the inline discuss:**
 
 ```
-Skill(skill="grd:discuss-phase", args="{PHASE_NUM}")
+Skill(skill="grd:scope-inquiry", args="{PHASE_NUM}")
 ```
 
 After discuss completes, loop back to dashboard step (background agents continue running).
@@ -201,7 +201,7 @@ After discuss completes, loop back to dashboard step (background agents continue
 Discussion is interactive — needs user input. Run inline:
 
 ```
-Skill(skill="grd:discuss-phase", args="{PHASE_NUM}")
+Skill(skill="grd:scope-inquiry", args="{PHASE_NUM}")
 ```
 
 After discuss completes, loop back to dashboard step.

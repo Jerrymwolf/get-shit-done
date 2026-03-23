@@ -26,7 +26,7 @@ Check if `--auto` flag is present in $ARGUMENTS.
 **Document requirement:**
 Auto mode requires an idea document — either:
 
-- File reference: `/grd:new-project --auto @prd.md`
+- File reference: `/grd:new-research --auto @prd.md`
 - Pasted/written text in the prompt
 
 If no document content provided, error:
@@ -35,8 +35,8 @@ If no document content provided, error:
 Error: --auto requires an idea document.
 
 Usage:
-  /grd:new-project --auto @your-idea.md
-  /grd:new-project --auto [paste or write your idea here]
+  /grd:new-research --auto @your-idea.md
+  /grd:new-research --auto [paste or write your idea here]
 
 The document should describe what you want to build.
 ```
@@ -81,7 +81,7 @@ Use AskUserQuestion:
 **If "Map codebase first":**
 
 ```
-Run `/grd:map-codebase` first, then return to `/grd:new-project`
+Run `/grd:map-codebase` first, then return to `/grd:new-research`
 ```
 
 Exit command.
@@ -355,7 +355,7 @@ This document evolves at phase transitions and milestone boundaries.
 4. Decisions to log? → Add to Key Decisions
 5. "What This Is" still accurate? → Update if drifted
 
-**After each milestone** (via `/grd:complete-milestone`):
+**After each milestone** (via `/grd:complete-study`):
 1. Full review of all sections
 2. Core Value check — still the right priority?
 3. Audit Out of Scope — reasons still valid?
@@ -1127,7 +1127,7 @@ Present completion summary:
 ╚══════════════════════════════════════════╝
 ```
 
-Exit skill and invoke SlashCommand("/grd:discuss-phase 1 --auto")
+Exit skill and invoke SlashCommand("/grd:scope-inquiry 1 --auto")
 
 **If interactive mode:**
 
@@ -1147,7 +1147,7 @@ PHASE1_HAS_UI=$(echo "$PHASE1_SECTION" | grep -qi "UI hint.*yes" && echo "true" 
 
 **Phase 1: [Phase Name]** — [Goal from ROADMAP.md]
 
-/grd:discuss-phase 1 — gather context and clarify approach
+/grd:scope-inquiry 1 — gather context and clarify approach
 
 <sub>/clear first → fresh context window</sub>
 
@@ -1155,7 +1155,7 @@ PHASE1_HAS_UI=$(echo "$PHASE1_SECTION" | grep -qi "UI hint.*yes" && echo "true" 
 
 **Also available:**
 - /grd:ui-phase 1 — generate UI design contract (recommended for frontend phases)
-- /grd:plan-phase 1 — skip discussion, plan directly
+- /grd:plan-inquiry 1 — skip discussion, plan directly
 
 ───────────────────────────────────────────────────────────────
 ```
@@ -1169,14 +1169,14 @@ PHASE1_HAS_UI=$(echo "$PHASE1_SECTION" | grep -qi "UI hint.*yes" && echo "true" 
 
 **Phase 1: [Phase Name]** — [Goal from ROADMAP.md]
 
-/grd:discuss-phase 1 — gather context and clarify approach
+/grd:scope-inquiry 1 — gather context and clarify approach
 
 <sub>/clear first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- /grd:plan-phase 1 — skip discussion, plan directly
+- /grd:plan-inquiry 1 — skip discussion, plan directly
 
 ───────────────────────────────────────────────────────────────
 ```
@@ -1219,7 +1219,7 @@ PHASE1_HAS_UI=$(echo "$PHASE1_SECTION" | grep -qi "UI hint.*yes" && echo "true" 
 - [ ] STATE.md initialized
 - [ ] REQUIREMENTS.md traceability updated
 - [ ] CLAUDE.md generated with GRD workflow guidance
-- [ ] User knows next step is `/grd:discuss-phase 1`
+- [ ] User knows next step is `/grd:scope-inquiry 1`
 
 **Atomic commits:** Each phase commits its artifacts immediately. If context is lost, artifacts persist.
 

@@ -1,6 +1,6 @@
 ---
 name: grd-project-researcher
-description: Researches domain landscape before roadmap creation. Produces files in .planning/research/ consumed during roadmap creation. Spawned by /grd:new-project or /grd:new-milestone orchestrators.
+description: Researches domain landscape before roadmap creation. Produces files in .planning/research/ consumed during roadmap creation. Spawned by /grd:new-research or /grd:new-milestone orchestrators.
 tools: Read, Write, Bash, Grep, Glob, WebSearch, WebFetch, mcp__context7__*
 color: cyan
 skills:
@@ -14,7 +14,7 @@ skills:
 ---
 
 <role>
-You are a GSD project researcher spawned by `/grd:new-project` or `/grd:new-milestone` (Phase 6: Research).
+You are a GSD project researcher spawned by `/grd:new-research` or `/grd:new-milestone` (Phase 6: Research).
 
 Answer "What does this research landscape look like?" Write research files in `.planning/research/` that inform roadmap creation.
 

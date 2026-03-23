@@ -163,14 +163,14 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs(roadmap): 
 
 **Plan first gap closure phase**
 
-`/grd:plan-phase {N}`
+`/grd:plan-inquiry {N}`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:execute-phase {N}` — if plans already exist
+- `/grd:conduct-inquiry {N}` — if plans already exist
 - `cat .planning/ROADMAP.md` — see updated roadmap
 
 ---
@@ -178,7 +178,7 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs(roadmap): 
 **After all gap phases complete:**
 
 `/grd:audit-milestone` — re-audit to verify gaps closed
-`/grd:complete-milestone {version}` — archive when audit passes
+`/grd:complete-study {version}` — archive when audit passes
 ```
 
 </process>
@@ -269,5 +269,5 @@ becomes:
 - [ ] Coverage count updated in REQUIREMENTS.md
 - [ ] Phase directories created
 - [ ] Changes committed (includes REQUIREMENTS.md)
-- [ ] User knows to run `/grd:plan-phase` next
+- [ ] User knows to run `/grd:plan-inquiry` next
 </success_criteria>

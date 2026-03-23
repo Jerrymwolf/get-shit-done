@@ -46,7 +46,7 @@ If missing STATE.md: suggest `/grd:new-research`.
 
 This means a milestone was completed and archived. Go to **Route F** (between milestones).
 
-If missing both ROADMAP.md and PROJECT.md: suggest `/grd:new-project`.
+If missing both ROADMAP.md and PROJECT.md: suggest `/grd:new-research`.
 </step>
 
 <step name="load">
@@ -194,7 +194,7 @@ Track: `outstanding_debt` — `summary.total_items` from the audit.
 | {phase} | {filename} | human_needed — {count} items |
 
 Review: `/grd:audit-uat ${GSD_WS}` — full cross-phase audit
-Resume testing: `/grd:verify-work {phase} ${GSD_WS}` — retest specific phase
+Resume testing: `/grd:verify-inquiry {phase} ${GSD_WS}` — retest specific phase
 ```
 
 This is a WARNING, not a blocker — routing proceeds normally. The debt is visible so the user can make an informed choice.
@@ -267,7 +267,7 @@ PHASE_HAS_UI=$(echo "$PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true" ||
 **Phase {N}: {Name}** — {Goal from ROADMAP.md}
 <sub>✓ Context gathered, ready to plan</sub>
 
-`/grd:plan-phase {phase-number} ${GSD_WS}`
+`/grd:plan-inquiry {phase-number} ${GSD_WS}`
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -283,7 +283,7 @@ PHASE_HAS_UI=$(echo "$PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true" ||
 
 **Phase {N}: {Name}** — {Goal from ROADMAP.md}
 
-`/grd:discuss-phase {phase}` — gather context and clarify approach
+`/grd:scope-inquiry {phase}` — gather context and clarify approach
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -291,7 +291,7 @@ PHASE_HAS_UI=$(echo "$PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true" ||
 
 **Also available:**
 - `/grd:ui-phase {phase}` — generate UI design contract (recommended for frontend phases)
-- `/grd:plan-phase {phase}` — skip discussion, plan directly
+- `/grd:plan-inquiry {phase}` — skip discussion, plan directly
 - `/grd:list-phase-assumptions {phase}` — see Claude's assumptions
 
 ---
@@ -306,14 +306,14 @@ PHASE_HAS_UI=$(echo "$PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true" ||
 
 **Phase {N}: {Name}** — {Goal from ROADMAP.md}
 
-`/grd:discuss-phase {phase} ${GSD_WS}` — gather context and clarify approach
+`/grd:scope-inquiry {phase} ${GSD_WS}` — gather context and clarify approach
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:plan-phase {phase} ${GSD_WS}` — skip discussion, plan directly
+- `/grd:plan-inquiry {phase} ${GSD_WS}` — skip discussion, plan directly
 - `/grd:list-phase-assumptions {phase} ${GSD_WS}` — see Claude's assumptions
 
 ---
@@ -332,15 +332,15 @@ UAT.md exists with gaps (diagnosed issues). User needs to plan fixes.
 
 **{phase_num}-UAT.md** has {N} gaps requiring fixes.
 
-`/grd:plan-phase {phase} --gaps ${GSD_WS}`
+`/grd:plan-inquiry {phase} --gaps ${GSD_WS}`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:execute-phase {phase} ${GSD_WS}` — execute phase plans
-- `/grd:verify-work {phase} ${GSD_WS}` — run more UAT testing
+- `/grd:conduct-inquiry {phase} ${GSD_WS}` — execute phase plans
+- `/grd:verify-inquiry {phase} ${GSD_WS}` — run more UAT testing
 
 ---
 ```
@@ -358,7 +358,7 @@ UAT.md exists with `status: partial` — testing session ended before all items 
 
 **{phase_num}-UAT.md** has {N} unresolved tests (pending, blocked, or skipped).
 
-`/grd:verify-work {phase} ${GSD_WS}` — resume testing from where you left off
+`/grd:verify-inquiry {phase} ${GSD_WS}` — resume testing from where you left off
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -366,7 +366,7 @@ UAT.md exists with `status: partial` — testing session ended before all items 
 
 **Also available:**
 - `/grd:audit-uat ${GSD_WS}` — full cross-phase UAT audit
-- `/grd:execute-phase {phase} ${GSD_WS}` — execute phase plans
+- `/grd:conduct-inquiry {phase} ${GSD_WS}` — execute phase plans
 
 ---
 ```
@@ -414,7 +414,7 @@ NEXT_HAS_UI=$(echo "$NEXT_PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true
 
 **Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
 
-`/grd:discuss-phase {Z+1}` — gather context and clarify approach
+`/grd:scope-inquiry {Z+1}` — gather context and clarify approach
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -422,8 +422,8 @@ NEXT_HAS_UI=$(echo "$NEXT_PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true
 
 **Also available:**
 - `/grd:ui-phase {Z+1}` — generate UI design contract (recommended for frontend phases)
-- `/grd:plan-phase {Z+1}` — skip discussion, plan directly
-- `/grd:verify-work {Z}` — user acceptance test before continuing
+- `/grd:plan-inquiry {Z+1}` — skip discussion, plan directly
+- `/grd:verify-inquiry {Z}` — user acceptance test before continuing
 
 ---
 ```
@@ -439,15 +439,15 @@ NEXT_HAS_UI=$(echo "$NEXT_PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true
 
 **Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
 
-`/grd:discuss-phase {Z+1} ${GSD_WS}` — gather context and clarify approach
+`/grd:scope-inquiry {Z+1} ${GSD_WS}` — gather context and clarify approach
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:plan-phase {Z+1} ${GSD_WS}` — skip discussion, plan directly
-- `/grd:verify-work {Z} ${GSD_WS}` — user acceptance test before continuing
+- `/grd:plan-inquiry {Z+1} ${GSD_WS}` — skip discussion, plan directly
+- `/grd:verify-inquiry {Z} ${GSD_WS}` — user acceptance test before continuing
 
 ---
 ```
@@ -467,14 +467,14 @@ All {N} phases finished!
 
 **Complete Milestone** — archive and prepare for next
 
-`/grd:complete-milestone ${GSD_WS}`
+`/grd:complete-study ${GSD_WS}`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:verify-work ${GSD_WS}` — user acceptance test before completing milestone
+- `/grd:verify-inquiry ${GSD_WS}` — user acceptance test before completing milestone
 
 ---
 ```
@@ -510,7 +510,7 @@ Ready to plan the next milestone.
 <step name="edge_cases">
 **Handle edge cases:**
 
-- Phase complete but next phase not planned → offer `/grd:plan-phase [next] ${GSD_WS}`
+- Phase complete but next phase not planned → offer `/grd:plan-inquiry [next] ${GSD_WS}`
 - All work complete → offer milestone completion
 - Blockers present → highlight before offering to continue
 - Handoff file exists → mention it, offer `/grd:resume-work ${GSD_WS}`
@@ -523,7 +523,7 @@ Ready to plan the next milestone.
 - [ ] Rich context provided (recent work, decisions, issues)
 - [ ] Current position clear with visual progress
 - [ ] What's next clearly explained
-- [ ] Smart routing: /grd:execute-phase if plans exist, /grd:plan-phase if not
+- [ ] Smart routing: /grd:conduct-inquiry if plans exist, /grd:plan-inquiry if not
 - [ ] User confirms before any action
 - [ ] Seamless handoff to appropriate grd command
       </success_criteria>

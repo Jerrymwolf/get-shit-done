@@ -44,12 +44,12 @@ GRD also handles code. It inherits GSD's full development capabilities — atomi
 
 ## How It Works
 
-> **Building on an existing codebase?** Run `/grd:map-codebase` first. It spawns parallel agents to analyze your project's structure, patterns, and conventions. Then `/grd:new-project` skips what's already understood and focuses on what you're adding.
+> **Building on an existing codebase?** Run `/grd:map-codebase` first. It spawns parallel agents to analyze your project's structure, patterns, and conventions. Then `/grd:new-research` skips what's already understood and focuses on what you're adding.
 
 ### 1. Initialize Project
 
 ```
-/grd:new-project
+/grd:new-research
 ```
 
 One command, one flow. The system:
@@ -70,7 +70,7 @@ GRD includes a bootstrap step that inventories existing research to prevent re-i
 ### 2. Discuss Phase
 
 ```
-/grd:discuss-phase 1
+/grd:scope-inquiry 1
 ```
 
 **This is where you lock in decisions before research runs.**
@@ -98,7 +98,7 @@ The deeper you go here, the more targeted the research becomes. Skip it and the 
 ### 3. Plan Phase
 
 ```
-/grd:plan-phase 1
+/grd:plan-inquiry 1
 ```
 
 The system:
@@ -125,7 +125,7 @@ Each task includes `<src>` blocks specifying the acquisition method, format, and
 ### 4. Execute Phase
 
 ```
-/grd:execute-phase 1
+/grd:conduct-inquiry 1
 ```
 
 The system:
@@ -176,7 +176,7 @@ For research, independent survey tasks run in the same wave. Synthesis and compa
 ### 5. Verify Work
 
 ```
-/grd:verify-work 1
+/grd:verify-inquiry 1
 ```
 
 **Two-tier verification for research:**
@@ -185,7 +185,7 @@ For research, independent survey tasks run in the same wave. Synthesis and compa
 
 **Tier 2 — Source audit:** For each note in the phase, the system checks frontmatter completeness, reference-to-file correspondence in `-sources/`, SOURCE-LOG.md accounting, and consistency with the bootstrap inventory.
 
-If everything passes, you move on. If gaps remain, run `/grd:execute-phase` again with the fix plans it created.
+If everything passes, you move on. If gaps remain, run `/grd:conduct-inquiry` again with the fix plans it created.
 
 **Creates:** `{phase_num}-UAT.md`, fix plans if issues found
 
@@ -194,12 +194,12 @@ If everything passes, you move on. If gaps remain, run `/grd:execute-phase` agai
 ### 6. Repeat → Complete → Next Milestone
 
 ```
-/grd:discuss-phase 2
-/grd:plan-phase 2
-/grd:execute-phase 2
-/grd:verify-work 2
+/grd:scope-inquiry 2
+/grd:plan-inquiry 2
+/grd:conduct-inquiry 2
+/grd:verify-inquiry 2
 ...
-/grd:complete-milestone
+/grd:complete-study
 /grd:new-milestone
 ```
 
@@ -207,7 +207,7 @@ Loop **discuss → plan → execute → verify** until milestone complete.
 
 Each phase receives your direction, proper source investigation, clean execution with fresh context, and two-tier verification.
 
-When all phases are done, `/grd:complete-milestone` archives the milestone and tags the release.
+When all phases are done, `/grd:complete-study` archives the milestone and tags the release.
 
 Then `/grd:new-milestone` starts the next version — same flow as `new-project` but for your existing research corpus. You describe what you want to investigate next, the system researches the domain, you scope requirements, and it creates a fresh roadmap. Each milestone is a clean cycle: define → research → verify.
 
@@ -361,13 +361,13 @@ Use `--full` to add plan-checking and verification. Use `--discuss` to gather co
 
 | Command | What it does |
 |---------|--------------|
-| `/grd:new-project [--auto]` | Full initialization: questions → research → requirements → roadmap |
-| `/grd:discuss-phase [N] [--auto]` | Capture research decisions before planning |
-| `/grd:plan-phase [N] [--auto]` | Research + plan + verify for a phase |
-| `/grd:execute-phase <N>` | Execute all plans in parallel waves, verify when complete |
-| `/grd:verify-work [N]` | Manual user acceptance testing ¹ |
+| `/grd:new-research [--auto]` | Full initialization: questions → research → requirements → roadmap |
+| `/grd:scope-inquiry [N] [--auto]` | Capture research decisions before planning |
+| `/grd:plan-inquiry [N] [--auto]` | Research + plan + verify for a phase |
+| `/grd:conduct-inquiry <N>` | Execute all plans in parallel waves, verify when complete |
+| `/grd:verify-inquiry [N]` | Manual user acceptance testing ¹ |
 | `/grd:audit-milestone` | Verify milestone achieved its definition of done |
-| `/grd:complete-milestone` | Archive milestone, tag release |
+| `/grd:complete-study` | Archive milestone, tag release |
 | `/grd:new-milestone [name]` | Start next version: questions → research → requirements → roadmap |
 
 ### Navigation
@@ -419,7 +419,7 @@ Use `--full` to add plan-checking and verification. Use `--discuss` to gather co
 
 ## Configuration
 
-GRD stores project settings in `.planning/config.json`. Configure during `/grd:new-project` or update later with `/grd:settings`.
+GRD stores project settings in `.planning/config.json`. Configure during `/grd:new-research` or update later with `/grd:settings`.
 
 ### Core Settings
 
@@ -457,8 +457,8 @@ These spawn additional agents during planning and execution. They improve qualit
 | `workflow.auto_advance` | `false` | Auto-chain discuss → plan → execute without stopping |
 
 Use `/grd:settings` to toggle these, or override per-invocation:
-- `/grd:plan-phase --skip-research`
-- `/grd:plan-phase --skip-verify`
+- `/grd:plan-inquiry --skip-research`
+- `/grd:plan-inquiry --skip-verify`
 
 ### Execution
 

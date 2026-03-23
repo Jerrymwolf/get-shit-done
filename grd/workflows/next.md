@@ -29,7 +29,7 @@ Extract:
 
 If no `.planning/` directory exists:
 ```
-No GRD project detected. Run `/grd:new-project` to get started.
+No GRD project detected. Run `/grd:new-research` to get started.
 ```
 Exit.
 </step>
@@ -39,31 +39,31 @@ Apply routing rules based on state:
 
 **Route 1: No phases exist yet → discuss**
 If ROADMAP has phases but no phase directories exist on disk:
-→ Next action: `/grd:discuss-phase <first-phase>`
+→ Next action: `/grd:scope-inquiry <first-phase>`
 
 **Route 2: Phase exists but has no CONTEXT.md or RESEARCH.md → discuss**
 If the current phase directory exists but has neither CONTEXT.md nor RESEARCH.md:
-→ Next action: `/grd:discuss-phase <current-phase>`
+→ Next action: `/grd:scope-inquiry <current-phase>`
 
 **Route 3: Phase has context but no plans → plan**
 If the current phase has CONTEXT.md (or RESEARCH.md) but no PLAN.md files:
-→ Next action: `/grd:plan-phase <current-phase>`
+→ Next action: `/grd:plan-inquiry <current-phase>`
 
 **Route 4: Phase has plans but incomplete summaries → execute**
 If plans exist but not all have matching summaries:
-→ Next action: `/grd:execute-phase <current-phase>`
+→ Next action: `/grd:conduct-inquiry <current-phase>`
 
 **Route 5: All plans have summaries → verify and complete**
 If all plans in the current phase have summaries:
-→ Next action: `/grd:verify-work` then `/grd:complete-phase`
+→ Next action: `/grd:verify-inquiry` then `/grd:complete-phase`
 
 **Route 6: Phase complete, next phase exists → advance**
 If the current phase is complete and the next phase exists in ROADMAP:
-→ Next action: `/grd:discuss-phase <next-phase>`
+→ Next action: `/grd:scope-inquiry <next-phase>`
 
 **Route 7: All phases complete → complete milestone**
 If all phases are complete:
-→ Next action: `/grd:complete-milestone`
+→ Next action: `/grd:complete-study`
 
 **Route 8: Paused → resume**
 If STATE.md shows paused_at:

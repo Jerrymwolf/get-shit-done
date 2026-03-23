@@ -201,7 +201,7 @@ Workspace created: $TARGET_PATH
 
 Next steps:
   cd $TARGET_PATH
-  /grd:new-project    # Initialize GRD in the workspace
+  /grd:new-research    # Initialize GRD in the workspace
 ```
 
 **If some repos failed:**
@@ -214,7 +214,7 @@ Workspace created with $SUCCESS_COUNT of $TOTAL_COUNT repos: $TARGET_PATH
 
 Next steps:
   cd $TARGET_PATH
-  /grd:new-project    # Initialize GRD in the workspace
+  /grd:new-research    # Initialize GRD in the workspace
 ```
 
 **Offer to initialize GRD (if not `--auto`):**
@@ -223,7 +223,7 @@ Use AskUserQuestion:
 - header: "Initialize GSD"
 - question: "Would you like to initialize a GRD project in the new workspace?"
 - options:
-  - "Yes — run /grd:new-project" → tell user to `cd $TARGET_PATH` first, then run `/grd:new-project`
+  - "Yes — run /grd:new-research" → tell user to `cd $TARGET_PATH` first, then run `/grd:new-research`
   - "No — I'll set it up later" → done
 
 </process>

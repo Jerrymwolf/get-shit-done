@@ -65,7 +65,7 @@ Errors: N | Warnings: N | Info: N
   Fix: Run /grd:health --repair to reset to defaults
 
 - [E002] PROJECT.md not found
-  Fix: Run /grd:new-project to create
+  Fix: Run /grd:new-research to create
 ```
 
 **If warnings exist:**

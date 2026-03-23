@@ -211,7 +211,7 @@ Consensus concerns:
 Full review: {padded_phase}-REVIEWS.md
 
 To incorporate feedback into planning:
-  /grd:plan-phase {N} --reviews
+  /grd:plan-inquiry {N} --reviews
 ```
 
 Clean up temp files.
@@ -224,5 +224,5 @@ Clean up temp files.
 - [ ] REVIEWS.md written with structured feedback
 - [ ] Consensus summary synthesized from multiple reviewers
 - [ ] Temp files cleaned up
-- [ ] User knows how to use feedback (/grd:plan-phase --reviews)
+- [ ] User knows how to use feedback (/grd:plan-inquiry --reviews)
 </success_criteria>

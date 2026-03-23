@@ -457,8 +457,8 @@ Apply the same "incomplete" filtering rules as earlier:
 
 Selected wave finished successfully. This phase still has incomplete plans, so phase-level verification and completion were intentionally skipped.
 
-/grd:execute-phase {phase} ${GSD_WS}                # Continue remaining waves
-/grd:execute-phase {phase} --wave {next} ${GSD_WS}  # Run the next wave explicitly
+/grd:conduct-inquiry {phase} ${GSD_WS}                # Continue remaining waves
+/grd:conduct-inquiry {phase} --wave {next} ${GSD_WS}  # Run the next wave explicitly
 ```
 
 **If no incomplete plans remain after the selected wave finishes:**
@@ -603,7 +603,7 @@ grep "^status:" "$PHASE_DIR"/*-VERIFICATION.md | cut -d: -f2 | tr -d ' '
 |--------|--------|
 | `passed` | → update_roadmap |
 | `human_needed` | Present items for human testing, get approval or feedback |
-| `gaps_found` | Present gap summary, offer `/grd:plan-phase {phase} --gaps ${GSD_WS}` |
+| `gaps_found` | Present gap summary, offer `/grd:plan-inquiry {phase} --gaps ${GSD_WS}` |
 
 **If human_needed:**
 
@@ -663,7 +663,7 @@ Items saved to `{phase_num}-HUMAN-UAT.md` — they will appear in `/grd:progress
 "approved" → continue | Report issues → gap closure
 ```
 
-**If user says "approved":** Proceed to `update_roadmap`. The HUMAN-UAT.md file persists with `status: partial` and will surface in future progress checks until the user runs `/grd:verify-work` on it.
+**If user says "approved":** Proceed to `update_roadmap`. The HUMAN-UAT.md file persists with `status: partial` and will surface in future progress checks until the user runs `/grd:verify-inquiry` on it.
 
 **If user reports issues:** Proceed to gap closure as currently implemented.
 
@@ -680,15 +680,15 @@ Items saved to `{phase_num}-HUMAN-UAT.md` — they will appear in `/grd:progress
 ---
 ## ▶ Next Up
 
-`/grd:plan-phase {X} --gaps ${GSD_WS}`
+`/grd:plan-inquiry {X} --gaps ${GSD_WS}`
 
 <sub>`/clear` first → fresh context window</sub>
 
 Also: `cat {phase_dir}/{phase_num}-VERIFICATION.md` — full report
-Also: `/grd:verify-work {X} ${GSD_WS}` — manual testing first
+Also: `/grd:verify-inquiry {X} ${GSD_WS}` — manual testing first
 ```
 
-Gap closure cycle: `/grd:plan-phase {X} --gaps ${GSD_WS}` reads VERIFICATION.md → creates gap plans with `gap_closure: true` → user runs `/grd:execute-phase {X} --gaps-only ${GSD_WS}` → verifier re-runs.
+Gap closure cycle: `/grd:plan-inquiry {X} --gaps ${GSD_WS}` reads VERIFICATION.md → creates gap plans with `gap_closure: true` → user runs `/grd:conduct-inquiry {X} --gaps-only ${GSD_WS}` → verifier re-runs.
 </step>
 
 <step name="update_roadmap">
@@ -746,7 +746,7 @@ node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs(phase-{X})
 
 <step name="offer_next">
 
-**Exception:** If `gaps_found`, the `verify_phase_goal` step already presents the gap-closure path (`/grd:plan-phase {X} --gaps`). No additional routing needed — skip auto-advance.
+**Exception:** If `gaps_found`, the `verify_phase_goal` step already presents the gap-closure path (`/grd:plan-inquiry {X} --gaps`). No additional routing needed — skip auto-advance.
 
 **No-transition check (spawned by auto-advance chain):**
 
@@ -803,9 +803,9 @@ Read and follow `/Users/jeremiahwolf/.claude/grd/workflows/transition.md`, passi
 ## ✓ Phase {X}: {Name} Complete
 
 /grd:progress ${GSD_WS} — see updated roadmap
-/grd:discuss-phase {next} ${GSD_WS} — discuss next phase before planning
-/grd:plan-phase {next} ${GSD_WS} — plan next phase
-/grd:execute-phase {next} ${GSD_WS} — execute next phase
+/grd:scope-inquiry {next} ${GSD_WS} — discuss next phase before planning
+/grd:plan-inquiry {next} ${GSD_WS} — plan next phase
+/grd:conduct-inquiry {next} ${GSD_WS} — execute next phase
 ```
 
 Only suggest the commands listed above. Do not invent or hallucinate command names.
@@ -832,7 +832,7 @@ For 1M+ context models, consider:
 </failure_handling>
 
 <resumption>
-Re-run `/grd:execute-phase {phase}` → discover_plans finds completed SUMMARYs → skips them → resumes from first incomplete plan → continues wave execution.
+Re-run `/grd:conduct-inquiry {phase}` → discover_plans finds completed SUMMARYs → skips them → resumes from first incomplete plan → continues wave execution.
 
 STATE.md tracks: last completed plan, current wave, pending checkpoints.
 </resumption>

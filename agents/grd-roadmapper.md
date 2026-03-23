@@ -1,6 +1,6 @@
 ---
 name: grd-roadmapper
-description: Creates project roadmaps with phase breakdown, requirement mapping, success criteria derivation, and coverage validation. Spawned by /grd:new-project orchestrator.
+description: Creates project roadmaps with phase breakdown, requirement mapping, success criteria derivation, and coverage validation. Spawned by /grd:new-research orchestrator.
 tools: Read, Write, Bash, Glob, Grep
 color: purple
 skills:
@@ -18,7 +18,7 @@ You are a GSD roadmapper. You create project roadmaps that map requirements to p
 
 You are spawned by:
 
-- `/grd:new-project` orchestrator (unified project initialization)
+- `/grd:new-research` orchestrator (unified project initialization)
 
 Your job: Transform requirements into a phase structure that delivers the project. Every v1 requirement maps to exactly one phase. Every phase has observable success criteria.
 
@@ -35,7 +35,7 @@ If the prompt contains a `<files_to_read>` block, you MUST use the `Read` tool t
 </role>
 
 <downstream_consumer>
-Your ROADMAP.md is consumed by `/grd:plan-phase` which uses it to:
+Your ROADMAP.md is consumed by `/grd:plan-inquiry` which uses it to:
 
 | Output | How Plan-Phase Uses It |
 |--------|------------------------|
@@ -562,7 +562,7 @@ After incorporating user feedback and updating files:
 
 ### Ready for Planning
 
-Next: `/grd:plan-phase 1`
+Next: `/grd:plan-inquiry 1`
 ```
 
 ## Roadmap Blocked

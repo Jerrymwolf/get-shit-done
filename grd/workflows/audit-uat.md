@@ -76,9 +76,9 @@ Present the audit report:
 
 ## Recommended Actions
 
-1. **Close stale items:** `/grd:verify-work {phase}` — mark stale tests as resolved
+1. **Close stale items:** `/grd:verify-inquiry {phase}` — mark stale tests as resolved
 2. **Run active tests:** Human UAT test plan below
-3. **When prerequisites met:** Retest blocked items with `/grd:verify-work {phase}`
+3. **When prerequisites met:** Retest blocked items with `/grd:verify-inquiry {phase}`
 ```
 </step>
 

@@ -571,14 +571,14 @@ Created: .planning/phases/${PADDED_PHASE}-${SLUG}/${PADDED_PHASE}-CONTEXT.md
 
 **Phase ${PHASE}: {phase_name}** — {Goal from ROADMAP.md}
 
-`/grd:plan-phase ${PHASE}`
+`/grd:plan-inquiry ${PHASE}`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:plan-phase ${PHASE} --skip-research` — plan without research
+- `/grd:plan-inquiry ${PHASE} --skip-research` — plan without research
 - `/grd:ui-phase ${PHASE}` — generate UI design contract (if frontend work)
 - Review/edit CONTEXT.md before continuing
 
@@ -618,7 +618,7 @@ Display banner:
 Context captured (assumptions mode). Launching plan-phase...
 ```
 
-Launch: `Skill(skill="grd:plan-phase", args="${PHASE} --auto")`
+Launch: `Skill(skill="grd:plan-inquiry", args="${PHASE} --auto")`
 
 Handle return: PHASE COMPLETE / PLANNING COMPLETE / INCONCLUSIVE / GAPS FOUND
 (identical handling to discuss-phase.md auto_advance step)

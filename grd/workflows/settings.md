@@ -262,13 +262,13 @@ Display:
 | Context Warnings     | {On/Off} |
 | Saved as Defaults    | {Yes/No} |
 
-These settings apply to future /grd:plan-phase and /grd:execute-phase runs.
+These settings apply to future /grd:plan-inquiry and /grd:conduct-inquiry runs.
 
 Quick commands:
 - /grd:set-profile <profile> — switch model profile
-- /grd:plan-phase --research — force research
-- /grd:plan-phase --skip-research — skip research
-- /grd:plan-phase --skip-verify — skip plan check
+- /grd:plan-inquiry --research — force research
+- /grd:plan-inquiry --skip-research — skip research
+- /grd:plan-inquiry --skip-verify — skip plan check
 ```
 </step>
 

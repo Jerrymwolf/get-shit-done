@@ -221,7 +221,7 @@ All requirements covered. Cross-phase integration verified. E2E flows complete.
 
 **Complete milestone** — archive and tag
 
-/grd:complete-milestone {version}
+/grd:complete-study {version}
 
 <sub>/clear first → fresh context window</sub>
 
@@ -274,7 +274,7 @@ Phases needing validation: run `/grd:validate-phase {N}` for each flagged phase.
 
 **Also available:**
 - cat .planning/v{version}-MILESTONE-AUDIT.md — see full report
-- /grd:complete-milestone {version} — proceed anyway (accept tech debt)
+- /grd:complete-study {version} — proceed anyway (accept tech debt)
 
 ───────────────────────────────────────────────────────────────
 
@@ -304,7 +304,7 @@ All requirements met. No critical blockers. Accumulated tech debt needs review.
 
 **A. Complete milestone** — accept debt, track in backlog
 
-/grd:complete-milestone {version}
+/grd:complete-study {version}
 
 **B. Plan cleanup phase** — address debt before completing
 

@@ -36,7 +36,7 @@ if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 Check `roadmap_exists` from init JSON. If false:
 ```
 ERROR: No roadmap found (.planning/ROADMAP.md)
-Run /grd:new-project to initialize.
+Run /grd:new-research to initialize.
 ```
 Exit.
 </step>
@@ -87,7 +87,7 @@ Roadmap updated: .planning/ROADMAP.md
 
 **Phase {N}: {description}**
 
-`/grd:plan-phase {N}`
+`/grd:plan-inquiry {N}`
 
 <sub>`/clear` first → fresh context window</sub>
 

@@ -30,7 +30,7 @@ Parse JSON for: `researcher_model`, `planner_model`, `checker_model`, `research_
 
 **File paths (for <files_to_read> blocks):** `state_path`, `roadmap_path`, `requirements_path`, `context_path`, `research_path`, `verification_path`, `uat_path`, `reviews_path`. These are null if files don't exist.
 
-**If `planning_exists` is false:** Error — run `/grd:new-project` first.
+**If `planning_exists` is false:** Error — run `/grd:new-research` first.
 
 ## 2. Parse and Normalize Arguments
 
@@ -63,7 +63,7 @@ No REVIEWS.md found for Phase {N}. Run reviews first:
 
 /grd:review --phase {N}
 
-Then re-run /grd:plan-phase {N} --reviews
+Then re-run /grd:plan-inquiry {N} --reviews
 ```
 Exit workflow.
 
@@ -223,9 +223,9 @@ If "Run discuss-phase first":
   does not work correctly in nested subcontexts (#1009). Instead, display the command
   and exit so the user runs it as a top-level command:
   ```
-  Run this command first, then re-run /grd:plan-phase {X} ${GSD_WS}:
+  Run this command first, then re-run /grd:plan-inquiry {X} ${GSD_WS}:
 
-  /grd:discuss-phase {X} ${GSD_WS}
+  /grd:scope-inquiry {X} ${GSD_WS}
   ```
   **Exit the plan-phase workflow. Do not continue.**
 
@@ -293,7 +293,7 @@ Answer: "What do I need to know to PLAN this phase well?"
 </objective>
 
 <files_to_read>
-- {context_path} (USER DECISIONS from /grd:discuss-phase)
+- {context_path} (USER DECISIONS from /grd:scope-inquiry)
 - {requirements_path} (Project requirements)
 - {state_path} (Project decisions and history)
 </files_to_read>
@@ -389,7 +389,7 @@ If `TEXT_MODE` is true, present as a plain-text numbered list:
 ```
 Phase {N} has frontend indicators but no UI-SPEC.md. Generate a design contract before planning?
 
-1. Generate UI-SPEC first — Run /grd:ui-phase {N} then re-run /grd:plan-phase {N}
+1. Generate UI-SPEC first — Run /grd:ui-phase {N} then re-run /grd:plan-inquiry {N}
 2. Continue without UI-SPEC
 3. Not a frontend phase
 
@@ -400,7 +400,7 @@ Otherwise use AskUserQuestion:
 - header: "UI Design Contract"
 - question: "Phase {N} has frontend indicators but no UI-SPEC.md. Generate a design contract before planning?"
 - options:
-  - "Generate UI-SPEC first" → Display: "Run `/grd:ui-phase {N} ${GSD_WS}` then re-run `/grd:plan-phase {N} ${GSD_WS}`". Exit workflow.
+  - "Generate UI-SPEC first" → Display: "Run `/grd:ui-phase {N} ${GSD_WS}` then re-run `/grd:plan-inquiry {N} ${GSD_WS}`". Exit workflow.
   - "Continue without UI-SPEC" → Continue to step 6.
   - "Not a frontend phase" → Continue to step 6.
 
@@ -448,7 +448,7 @@ VALIDATION_EXISTS=$(ls "${PHASE_DIR}"/*-VALIDATION.md 2>/dev/null | head -1)
 ```
 
 If missing and Nyquist is still enabled/applicable — ask user:
-1. Re-run: `/grd:plan-phase {PHASE} --research ${GSD_WS}`
+1. Re-run: `/grd:plan-inquiry {PHASE} --research ${GSD_WS}`
 2. Disable Nyquist with the exact command:
    `node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-set workflow.nyquist_validation false`
 3. Continue anyway (plans fail Dimension 8)
@@ -477,7 +477,7 @@ Planner prompt:
 - {state_path} (Project State)
 - {roadmap_path} (Roadmap)
 - {requirements_path} (Requirements)
-- {context_path} (USER DECISIONS from /grd:discuss-phase)
+- {context_path} (USER DECISIONS from /grd:scope-inquiry)
 - {research_path} (Technical Research)
 - {verification_path} (Verification Gaps - if --gaps)
 - {uat_path} (UAT Gaps - if --gaps)
@@ -492,7 +492,7 @@ Planner prompt:
 </planning_context>
 
 <downstream_consumer>
-Output consumed by /grd:execute-phase. Plans need:
+Output consumed by /grd:conduct-inquiry. Plans need:
 - Frontmatter (wave, depends_on, files_modified, autonomous)
 - Tasks in XML format with read_first and acceptance_criteria fields (MANDATORY on every task)
 - Verification criteria
@@ -578,7 +578,7 @@ Checker prompt:
 - {PHASE_DIR}/*-PLAN.md (Plans to verify)
 - {roadmap_path} (Roadmap)
 - {requirements_path} (Requirements)
-- {context_path} (USER DECISIONS from /grd:discuss-phase)
+- {context_path} (USER DECISIONS from /grd:scope-inquiry)
 - {research_path} (Technical Research — includes Validation Architecture)
 </files_to_read>
 
@@ -625,7 +625,7 @@ Revision prompt:
 
 <files_to_read>
 - {PHASE_DIR}/*-PLAN.md (Existing plans)
-- {context_path} (USER DECISIONS from /grd:discuss-phase)
+- {context_path} (USER DECISIONS from /grd:scope-inquiry)
 </files_to_read>
 
 **Checker issues:** {structured_issues_from_checker}
@@ -740,7 +740,7 @@ Plans ready. Launching execute-phase...
 
 Launch execute-phase using the Skill tool to avoid nested Task sessions (which cause runtime freezes due to deep agent nesting):
 ```
-Skill(skill="grd:execute-phase", args="${PHASE} --auto --no-transition ${GSD_WS}")
+Skill(skill="grd:conduct-inquiry", args="${PHASE} --auto --no-transition ${GSD_WS}")
 ```
 
 The `--no-transition` flag tells execute-phase to return status after verification instead of chaining further. This keeps the auto-advance chain flat — each phase runs at the same nesting level rather than spawning deeper Task agents.
@@ -754,14 +754,14 @@ The `--no-transition` flag tells execute-phase to return status after verificati
 
   Auto-advance pipeline finished.
 
-  Next: /grd:discuss-phase ${NEXT_PHASE} --auto ${GSD_WS}
+  Next: /grd:scope-inquiry ${NEXT_PHASE} --auto ${GSD_WS}
   ```
 - **GAPS FOUND / VERIFICATION FAILED** → Display result, stop chain:
   ```
   Auto-advance stopped: Execution needs review.
 
   Review the output above and continue manually:
-  /grd:execute-phase ${PHASE} ${GSD_WS}
+  /grd:conduct-inquiry ${PHASE} ${GSD_WS}
   ```
 
 **If neither `--auto` nor config enabled:**
@@ -792,7 +792,7 @@ Verification: {Passed | Passed with override | Skipped}
 
 **Execute Phase {X}** — run all {N} plans
 
-/grd:execute-phase {X} ${GSD_WS}
+/grd:conduct-inquiry {X} ${GSD_WS}
 
 <sub>/clear first → fresh context window</sub>
 
@@ -800,9 +800,9 @@ Verification: {Passed | Passed with override | Skipped}
 
 **Also available:**
 - cat .planning/phases/{phase-dir}/*-PLAN.md — review plans
-- /grd:plan-phase {X} --research — re-research first
+- /grd:plan-inquiry {X} --research — re-research first
 - /grd:review --phase {X} --all — peer review plans with external AIs
-- /grd:plan-phase {X} --reviews — replan incorporating review feedback
+- /grd:plan-inquiry {X} --reviews — replan incorporating review feedback
 
 ───────────────────────────────────────────────────────────────
 </offer_next>
@@ -823,11 +823,11 @@ stdio deadlocks with MCP servers — see Claude Code issue anthropics/claude-cod
    Remove-Item -Recurse -Force "$env:USERPROFILE\.claude\tasks\*" -ErrorAction SilentlyContinue
    ```
 4. **Reduce MCP server count:** Temporarily disable non-essential MCP servers in settings.json
-5. **Retry:** Restart Claude Code and run `/grd:plan-phase` again
+5. **Retry:** Restart Claude Code and run `/grd:plan-inquiry` again
 
 If freezes persist, try `--skip-research` to reduce the agent chain from 3 to 2 agents:
 ```
-/grd:plan-phase N --skip-research
+/grd:plan-inquiry N --skip-research
 ```
 </windows_troubleshooting>
 

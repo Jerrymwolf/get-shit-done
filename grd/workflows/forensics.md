@@ -207,7 +207,7 @@ Based on the evidence above, the most likely explanation is:
 
 1. {Specific, actionable remediation step}
 2. {Another step if applicable}
-3. {Recovery command if applicable — e.g., `/grd:resume-work`, `/grd:execute-phase N`}
+3. {Recovery command if applicable — e.g., `/grd:resume-work`, `/grd:conduct-inquiry N`}
 
 ---
 

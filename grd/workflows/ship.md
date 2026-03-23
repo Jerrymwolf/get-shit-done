@@ -202,7 +202,7 @@ Requirements: {N} REQ-IDs addressed
 Next steps:
 - Review/approve PR
 - Merge when CI passes
-- /grd:complete-milestone (if last phase in milestone)
+- /grd:complete-study (if last phase in milestone)
 - /grd:progress (to see what's next)
 
 ───────────────────────────────────────────────────────────────
@@ -214,9 +214,9 @@ Next steps:
 <offer_next>
 After shipping:
 
-- /grd:complete-milestone — if all phases in milestone are done
+- /grd:complete-study — if all phases in milestone are done
 - /grd:progress — see overall project state
-- /grd:execute-phase {next} — continue to next phase
+- /grd:conduct-inquiry {next} — continue to next phase
 </offer_next>
 
 <success_criteria>

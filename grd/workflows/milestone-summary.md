@@ -15,7 +15,7 @@ If `$ARGUMENTS` is empty:
 1. Check `.planning/STATE.md` for current milestone version
 2. Check `.planning/milestones/` for the latest archived version
 3. If neither found, check if `.planning/ROADMAP.md` exists (project may be mid-milestone)
-4. If nothing found: error "No milestone found. Run /grd:new-project or /grd:new-milestone first."
+4. If nothing found: error "No milestone found. Run /grd:new-research or /grd:new-milestone first."
 
 Set `VERSION` to the resolved version (e.g., "1.0").
 

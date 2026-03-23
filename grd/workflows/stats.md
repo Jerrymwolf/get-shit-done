@@ -48,7 +48,7 @@ X/Y plans complete (Z%)
 - **Project age:** N days
 ```
 
-If no `.planning/` directory exists, inform the user to run `/grd:new-project` first.
+If no `.planning/` directory exists, inform the user to run `/grd:new-research` first.
 </step>
 
 </process>
