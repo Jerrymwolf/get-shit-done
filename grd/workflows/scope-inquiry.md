@@ -44,14 +44,14 @@ Ask about research priorities and approach. Capture decisions for downstream age
 The phase boundary comes from ROADMAP.md and is FIXED. Discussion clarifies HOW to implement what's scoped, never WHETHER to add new capabilities.
 
 **Allowed (clarifying ambiguity):**
-- "How should posts be displayed?" (layout, density, info shown)
-- "What happens on empty state?" (within the feature)
-- "Pull to refresh or manual?" (behavior choice)
+- "Should we focus on experimental or correlational evidence?" (methodology choice)
+- "How far back should the literature search go?" (scope boundary)
+- "Which theoretical tradition should anchor the analysis?" (theoretical emphasis)
 
 **Not allowed (scope creep):**
-- "Should we also add comments?" (new capability)
-- "What about search/filtering?" (new capability)
-- "Maybe include bookmarking?" (new capability)
+- "Should we also cover motivation theory?" (new research question)
+- "What about adding a bibliometric analysis?" (new capability)
+- "Maybe include a systematic review protocol?" (new capability)
 
 **The heuristic:** Does this clarify how we implement what's already in the phase, or does it add a new capability that could be its own phase?
 
@@ -347,16 +347,16 @@ We'll clarify HOW to implement this.
   (You decided "Ctrl+C only, no single-key shortcuts" in Phase 5 — revisit or keep?)
 ```
 
-**Code context annotations:** When the scout found relevant existing code, annotate the gray area description:
+**Research context annotations:** When the scout found relevant existing research, annotate the gray area description:
 ```
-☐ Layout style — Cards vs list vs timeline?
-  (You already have a Card component with shadow/rounded variants. Reusing it keeps the app consistent.)
+☐ Theoretical scope — Core SDT or include mini-theories?
+  (You already have notes on CET from Phase 3. Extending to other mini-theories builds on existing coverage.)
 ```
 
-**Combining both:** When both prior decisions and code context apply:
+**Combining both:** When both prior decisions and research context apply:
 ```
-☐ Loading behavior — Infinite scroll or pagination?
-  (You chose infinite scroll in Phase 4. useInfiniteQuery hook already set up.)
+☐ Evidence standards — Experimental only or include correlational?
+  (You chose experimental focus in Phase 4. Existing source log already filtered for RCTs.)
 ```
 
 **Do NOT include a "skip" or "you decide" option.** User ran this command to discuss — give them real choices.
@@ -446,12 +446,12 @@ After all areas are auto-resolved, skip the "Explore more gray areas" prompt and
    - header: "[Area]" (max 12 chars — abbreviate if needed)
    - question: Specific decision for this area
    - options: 2-3 concrete choices (AskUserQuestion adds "Other" automatically), with the recommended choice highlighted and brief explanation why
-   - **Annotate options with code context** when relevant:
+   - **Annotate options with research context** when relevant:
      ```
-     "How should posts be displayed?"
-     - Cards (reuses existing Card component — consistent with Messages)
-     - List (simpler, would be a new pattern)
-     - Timeline (needs new Timeline component — none exists yet)
+     "Which theoretical tradition should anchor the analysis?"
+     - SDT (builds on existing notes from Phase 3 — consistent coverage)
+     - Achievement Goal Theory (would require new literature search)
+     - Expectancy-Value (needs new source acquisition — no existing coverage)
      ```
    - Include "You decide" as an option when reasonable — captures Claude discretion
    - **Context7 for library choices:** When a gray area involves library selection (e.g., "magic links" → query next-auth docs) or API approach decisions, use `mcp__context7__*` tools to fetch current documentation and inform the options. Don't use Context7 for every question — only when library-specific knowledge improves the options.
