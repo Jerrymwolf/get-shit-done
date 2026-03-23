@@ -262,7 +262,8 @@ Note: Phases 23 and 24 can execute in parallel (gap closure phases with no inter
 | 22. Synthesis Stage | v1.2 | 2/2 | Complete    | 2026-03-22 |
 | 23. Workflow Init Alignment | v1.2 | 1/1 | Complete | 2026-03-22 |
 | 24. Verification Pipeline Wiring | v1.2 | 1/1 | Complete | 2026-03-22 |
+| 27. Research-Native Command Vocabulary | post-v1.2 | 1/1 | Complete | 2026-03-23 |
 
 ---
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-22 after Phase 23-24 planning*
+*Last updated: 2026-03-23 after Phase 27 complete*

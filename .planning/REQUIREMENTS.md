@@ -189,13 +189,20 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TEST-04 | Phase 16 | Complete |
 | TEST-05 | Phase 22 | Complete |
 | TEST-06 | Phase 21 | Complete |
+| CMD-01 | Phase 27 | Complete |
+| CMD-02 | Phase 27 | Complete |
+| CMD-03 | Phase 27 | Complete |
+| CMD-04 | Phase 27 | Complete |
+| CMD-05 | Phase 27 | Complete |
+| CMD-06 | Phase 27 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 55 total
-- Mapped to phases: 55
+- Post-v1.2 requirements: 6 total
+- Mapped to phases: 61
 - Unmapped: 0
 - Pending (gap closure): 0
 
 ---
 *Requirements defined: 2026-03-17*
-*Last updated: 2026-03-22 after Phases 23-24 gap closure complete*
+*Last updated: 2026-03-23 after Phase 27 complete*
