@@ -74,7 +74,7 @@ Full details: Phase details collapsed above.
 **Milestone Goal:** Reconceptualize every PM/application-development feature into its research equivalent -- nothing removed, everything reframed for scholarly workflows.
 
 - [x] **Phase 28: Agent and Workflow Reorientation** - Fix remaining GSD references in agents and rewrite workflow examples with research vocabulary (completed 2026-03-23)
-- [ ] **Phase 29: Research Template Variants** - Create research-specific task templates and summary templates with scholarly frontmatter
+- [x] **Phase 29: Research Template Variants** - Create research-specific task templates and summary templates with scholarly frontmatter (completed 2026-03-23)
 - [ ] **Phase 30: Command Reconceptualization -- Diagnostics and Corpus** - Reconceptualize debug, map-codebase, and add-tests as research equivalents
 - [ ] **Phase 31: Command Reconceptualization -- Export and Presentation** - Reconceptualize ship, pr-branch, ui-phase, and ui-review as research equivalents
 - [ ] **Phase 32: Help Reorganization** - Restructure /grd:help around the research workflow with proper categorization and descriptions
@@ -107,7 +107,7 @@ Plans:
   3. summary.md template detects project type and renders appropriate frontmatter (code fields for code projects, research fields for research projects)
 **Plans**: 1 plan
 Plans:
-- [ ] 29-01-PLAN.md — Add research task examples to phase-prompt.md and research frontmatter variant to summary.md
+- [x] 29-01-PLAN.md — Add research task examples to phase-prompt.md and research frontmatter variant to summary.md
 
 ### Phase 30: Command Reconceptualization -- Diagnostics and Corpus
 **Goal**: Three PM-only commands become research-native tools that researchers would reach for naturally
@@ -178,7 +178,7 @@ Note: Phases 30 and 31 can execute in parallel (both depend on 28/29 respectivel
 | 26. GSD-to-GRD Rename | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 27. Research-Native Command Vocabulary | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 28. Agent and Workflow Reorientation | v1.3 | 2/2 | Complete    | 2026-03-23 |
-| 29. Research Template Variants | v1.3 | 0/1 | Not started | - |
+| 29. Research Template Variants | v1.3 | 1/1 | Complete | 2026-03-23 |
 | 30. Command Reconceptualization -- Diagnostics and Corpus | v1.3 | 0/TBD | Not started | - |
 | 31. Command Reconceptualization -- Export and Presentation | v1.3 | 0/TBD | Not started | - |
 | 32. Help Reorganization | v1.3 | 0/TBD | Not started | - |
