@@ -2,14 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Upstream Sync + Rename + Source Pipeline Wiring
-status: active
-stopped_at: null
-last_updated: "2026-03-22"
+status: planning
+stopped_at: Phase 25 context gathered
+last_updated: "2026-03-23T02:08:51.740Z"
+last_activity: 2026-03-22 -- v1.3 roadmap created
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -33,6 +35,7 @@ Progress: [░░░░░░░░░░] 0%
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 39 (across v1.0-v1.2)
 - Average duration: ~4 min
 - Total execution time: ~2.6 hours
@@ -46,6 +49,7 @@ Progress: [░░░░░░░░░░] 0%
 | v1.2 | 10 | 13 | 6 days |
 
 **Recent Trend:**
+
 - v1.2 phases 23-24 were gap-closure (fast, focused)
 - Trend: Stable
 
@@ -73,6 +77,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-22
-Stopped at: v1.3 roadmap created, ready to plan Phase 25
-Resume file: None
+Last session: 2026-03-23T02:08:51.738Z
+Stopped at: Phase 25 context gathered
+Resume file: .planning/phases/25-upstream-sync-to-v1-28-0/25-CONTEXT.md
