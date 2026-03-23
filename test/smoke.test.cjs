@@ -111,13 +111,13 @@ describe('Smoke Layer 1: Structural Integrity', () => {
 
   it('all agents/ files exist', () => {
     const EXPECTED_AGENTS = [
-      'gsd-r-architecture-researcher.md', 'gsd-r-codebase-mapper.md',
-      'gsd-r-debugger.md', 'gsd-r-executor.md', 'gsd-r-integration-checker.md',
-      'gsd-r-limitations-researcher.md', 'gsd-r-methods-researcher.md',
-      'gsd-r-nyquist-auditor.md', 'gsd-r-phase-researcher.md',
-      'gsd-r-plan-checker.md', 'gsd-r-planner.md', 'gsd-r-project-researcher.md',
-      'gsd-r-research-synthesizer.md', 'gsd-r-roadmapper.md',
-      'gsd-r-source-researcher.md', 'gsd-r-verifier.md',
+      'grd-architecture-researcher.md', 'grd-codebase-mapper.md',
+      'grd-debugger.md', 'grd-executor.md', 'grd-integration-checker.md',
+      'grd-limitations-researcher.md', 'grd-methods-researcher.md',
+      'grd-nyquist-auditor.md', 'grd-phase-researcher.md',
+      'grd-plan-checker.md', 'grd-planner.md', 'grd-project-researcher.md',
+      'grd-research-synthesizer.md', 'grd-roadmapper.md',
+      'grd-source-researcher.md', 'grd-verifier.md',
     ];
     const missing = EXPECTED_AGENTS.filter(a =>
       !fs.existsSync(path.join(ROOT, 'agents', a))
