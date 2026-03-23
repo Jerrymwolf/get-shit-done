@@ -1,6 +1,6 @@
-# GSD-R Design
+# GRD Design
 
-GSD-R adapts [GSD](https://github.com/glittercowboy/get-shit-done-cc)'s context engineering architecture for academic research workflows. This document describes the design decisions, protocols, and extensions that differentiate GSD-R from its upstream. GSD-R was itself built using GSD.
+GRD adapts [GSD](https://github.com/glittercowboy/get-shit-done-cc)'s context engineering architecture for academic research workflows. This document describes the design decisions, protocols, and extensions that differentiate GRD from its upstream. GRD was itself built using GSD.
 
 For installation and usage, see [README.md](../README.md).
 
@@ -8,7 +8,7 @@ For installation and usage, see [README.md](../README.md).
 
 ## The One Change
 
-**GSD's atomic unit is a git commit. GSD-R's atomic unit is a research note with its source material physically attached.**
+**GSD's atomic unit is a git commit. GRD's atomic unit is a research note with its source material physically attached.**
 
 "Physically attached" means the actual file — the PDF, the scraped markdown, the screenshot — lives in a sibling folder next to the note. Not a URL. Not a link. The genuine article, saved locally, so the research is self-contained and auditable even if every source URL goes dead tomorrow.
 
@@ -18,7 +18,7 @@ Everything else stays: fresh subagent contexts, discuss/plan/execute/verify loop
 
 ## Translation Table
 
-| GSD (Code) | GSD-R (Research) | Notes |
+| GSD (Code) | GRD (Research) | Notes |
 |---|---|---|
 | Git commit | Research note + sources written to vault | One note per task. The vault write IS the commit. |
 | Source code files | Source material (PDF, scraped .md, screenshot) | Physically in `{Note}-sources/` folder — never just a link |
@@ -41,7 +41,7 @@ Everything else stays: fresh subagent contexts, discuss/plan/execute/verify loop
 
 ## Source Attachment Protocol
 
-This is GSD-R's equivalent of GSD's git commit protocol. Every subagent follows it.
+This is GRD's equivalent of GSD's git commit protocol. Every subagent follows it.
 
 ### The Rule
 
@@ -134,7 +134,7 @@ This is the audit trail. Every source either has a file or has a documented reas
 
 ## What Changes in Each GSD Stage
 
-### `/gsd-r:new-project`
+### `/grd:new-project`
 
 Same questioning → research → requirements → roadmap flow. Three additions:
 
@@ -170,19 +170,19 @@ Same questioning → research → requirements → roadmap flow. Three additions
 | LoRA fine-tuning on Apple Silicon M4 | Core build dependency | Fine-Tuning/LoRA-Strategy.md |
 ```
 
-### `/gsd-r:discuss-phase`
+### `/grd:discuss-phase`
 
 Identical to GSD. Locks in what the human already believes, what's negotiable, and what's load-bearing before any research runs. Output: `{phase}-CONTEXT.md`.
 
 Critical for research: this is where you say "PostgreSQL is non-negotiable" or "a core architectural decision is already settled" so subagents don't waste context re-evaluating settled decisions.
 
-### `/gsd-r:plan-phase`
+### `/grd:plan-phase`
 
 Same three-agent flow: researcher → planner → plan-checker.
 
 **Researcher** scouts sources (papers, repos, docs) rather than stack/libraries. Four parallel research subagents become:
 
-| GSD Code Researcher | GSD-R Researcher |
+| GSD Code Researcher | GRD Researcher |
 |---|---|
 | Stack researcher | Source researcher — find papers, repos, docs; verify URLs are live; identify PDFs vs. HTML |
 | Features researcher | Methods researcher — how have others investigated this? What methodologies, what findings? |
@@ -227,7 +227,7 @@ The **source researcher** has an additional responsibility: for every source ide
 - Does each task fit in ~50% context? (Rule of thumb: ≤3 sources per task. If a source is a 30-page paper, it gets its own task.)
 - Is the acquisition method specified for every source?
 
-### `/gsd-r:execute-phase`
+### `/grd:execute-phase`
 
 Identical mechanics to GSD. Fresh subagent per task. Each subagent:
 
@@ -247,7 +247,7 @@ Identical mechanics to GSD. Fresh subagent per task. Each subagent:
 
 **Wave parallelism works the same way.** Independent research tasks run in parallel waves. Synthesis tasks that depend on multiple notes wait for their inputs.
 
-### `/gsd-r:verify-work`
+### `/grd:verify-work`
 
 Two-tier verification, run in order:
 
@@ -263,7 +263,7 @@ Phase verification example:
   and concordance routing."
 - TRUE: "At least 3 frameworks were compared on the same criteria."
 - If any FALSE → identify which note is missing or incomplete →
-  create fix tasks via /gsd-r:quick
+  create fix tasks via /grd:quick
 ```
 
 **Tier 2 — Source audit (secondary, equivalent to linting):**
@@ -284,7 +284,7 @@ For each note in this phase:
 
 ## Vault Write Protocol
 
-GSD's commit protocol is: `git add -A && git commit -m "feat(phase): description"`. GSD-R's equivalent:
+GSD's commit protocol is: `git add -A && git commit -m "feat(phase): description"`. GRD's equivalent:
 
 ### Primary Method: Obsidian MCP
 
@@ -329,7 +329,7 @@ Research notes are revised in place (overwritten). The audit trail lives in thre
 
 ## STATE.md Research Extensions
 
-GSD's STATE.md tracks phases and tasks. GSD-R adds a note-status tracker:
+GSD's STATE.md tracks phases and tasks. GRD adds a note-status tracker:
 
 ```markdown
 ## Note Status
@@ -358,7 +358,7 @@ GSD's STATE.md tracks phases and tasks. GSD-R adds a note-status tracker:
 ├── ROADMAP.md              # Milestones and phases
 ├── STATE.md                # Progress tracker (phase status + note status + source gaps)
 ├── BOOTSTRAP.md            # Existing research inventory (Phase 0 output)
-├── config.json             # GSD-R settings incl. vault_path, source acquisition prefs
+├── config.json             # GRD settings incl. vault_path, source acquisition prefs
 ├── research/               # Phase 0 domain research (from new-project)
 └── phases/
     ├── 00-bootstrap/
@@ -462,4 +462,4 @@ Format: Author/Org (Year). Title. `filename_in_sources_folder.ext`]
 - `/clear` safety — all state is in files, never in context
 - SUMMARY.md contract — every subagent reports back structured findings
 - Aggressive atomicity — if a task is too big, split it
-- Quick mode (`/gsd-r:quick`) for targeted fixes to individual notes
+- Quick mode (`/grd:quick`) for targeted fixes to individual notes

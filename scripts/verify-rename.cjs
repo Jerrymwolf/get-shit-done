@@ -154,12 +154,12 @@ for (const filePath of allFiles) {
       }
     }
 
-    // Check 5: Stale gsd_state_version (should be grd_state_version)
-    if (/gsd_state_version/.test(line) && !/grd_state_version/.test(line)) {
+    // Check 5: Stale grd_state_version (should be grd_state_version)
+    if (/grd_state_version/.test(line) && !/grd_state_version/.test(line)) {
       issues.push({
         file: relPath,
         line: lineNum,
-        type: 'stale gsd_state_version',
+        type: 'stale grd_state_version',
         text: line.trim().substring(0, 120),
       });
     }

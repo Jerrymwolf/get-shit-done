@@ -25,18 +25,18 @@ Initialize a new project through unified flow: questioning → research (optiona
 - `.planning/ROADMAP.md` — phase structure
 - `.planning/STATE.md` — project memory
 
-**After this command:** Run `/gsd-r:plan-phase 1` to start execution.
+**After this command:** Run `/grd:plan-phase 1` to start execution.
 </objective>
 
 <execution_context>
-@/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/new-project.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/references/questioning.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/references/ui-brand.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/templates/project.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/templates/requirements.md
+@/Users/jeremiahwolf/.claude/grd/workflows/new-project.md
+@/Users/jeremiahwolf/.claude/grd/references/questioning.md
+@/Users/jeremiahwolf/.claude/grd/references/ui-brand.md
+@/Users/jeremiahwolf/.claude/grd/templates/project.md
+@/Users/jeremiahwolf/.claude/grd/templates/requirements.md
 </execution_context>
 
 <process>
-Execute the new-project workflow from @/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/new-project.md end-to-end.
+Execute the new-project workflow from @/Users/jeremiahwolf/.claude/grd/workflows/new-project.md end-to-end.
 Preserve all workflow gates (validation, approvals, commits, routing).
 </process>

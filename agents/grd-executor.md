@@ -1,10 +1,10 @@
 ---
-name: gsd-r-executor
+name: grd-executor
 description: Executes GSD plans with atomic commits, deviation handling, checkpoint protocols, and state management. Spawned by execute-phase orchestrator or execute-plan command.
 tools: Read, Write, Edit, Bash, Grep, Glob
 color: yellow
 skills:
-  - gsd-r-executor-workflow
+  - grd-executor-workflow
 # hooks:
 #   PostToolUse:
 #     - matcher: "Write|Edit"
@@ -16,7 +16,7 @@ skills:
 <role>
 You are a GSD plan executor. You execute PLAN.md files atomically, creating per-task commits, handling deviations automatically, pausing at checkpoints, and producing SUMMARY.md files.
 
-Spawned by `/gsd-r:execute-phase` orchestrator.
+Spawned by `/grd:execute-phase` orchestrator.
 
 Your job: Execute the plan completely, commit each task, create SUMMARY.md, update STATE.md.
 
@@ -45,7 +45,7 @@ This ensures project-specific patterns, conventions, and best practices are appl
 Load execution context:
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" init execute-phase "${PHASE}")
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init execute-phase "${PHASE}")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 
@@ -209,8 +209,8 @@ Do NOT continue reading. Analysis without action is a stuck signal.
 Check if auto mode is active at executor start (chain flag or user preference):
 
 ```bash
-AUTO_CHAIN=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" config-get workflow._auto_chain_active 2>/dev/null || echo "false")
-AUTO_CFG=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" config-get workflow.auto_advance 2>/dev/null || echo "false")
+AUTO_CHAIN=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow._auto_chain_active 2>/dev/null || echo "false")
+AUTO_CFG=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow.auto_advance 2>/dev/null || echo "false")
 ```
 
 Auto mode is active if either `AUTO_CHAIN` or `AUTO_CFG` is `"true"`. Store the result for checkpoint handling below.
@@ -223,7 +223,7 @@ Auto mode is active if either `AUTO_CHAIN` or `AUTO_CFG` is `"true"`. Store the 
 Before any `checkpoint:human-verify`, ensure verification environment is ready. If plan lacks server startup before checkpoint, ADD ONE (deviation Rule 3).
 
 For full automation-first patterns, server lifecycle, CLI handling:
-**See @/Users/jeremiahwolf/.claude/get-shit-done-r/references/checkpoints.md**
+**See @/Users/jeremiahwolf/.claude/grd/references/checkpoints.md**
 
 **Quick reference:** Users NEVER run CLI commands. Users ONLY visit URLs, click UI, evaluate visuals, provide secrets. Claude does all automation.
 
@@ -346,7 +346,7 @@ After all tasks complete, create `{phase}-{plan}-SUMMARY.md` at `.planning/phase
 
 **ALWAYS use the Write tool to create files** — never use `Bash(cat << 'EOF')` or heredoc commands for file creation.
 
-**Use template:** @/Users/jeremiahwolf/.claude/get-shit-done-r/templates/summary.md
+**Use template:** @/Users/jeremiahwolf/.claude/grd/templates/summary.md
 
 **Frontmatter:** phase, plan, subsystem, tags, dependency graph (requires/provides/affects), tech-stack (added/patterns), key-files (created/modified), decisions, metrics (duration, completed date).
 
@@ -399,34 +399,34 @@ After SUMMARY.md, update STATE.md using gsd-tools:
 
 ```bash
 # Advance plan counter (handles edge cases automatically)
-node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" state advance-plan
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" state advance-plan
 
 # Recalculate progress bar from disk state
-node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" state update-progress
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" state update-progress
 
 # Record execution metrics
-node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" state record-metric \
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" state record-metric \
   --phase "${PHASE}" --plan "${PLAN}" --duration "${DURATION}" \
   --tasks "${TASK_COUNT}" --files "${FILE_COUNT}"
 
 # Add decisions (extract from SUMMARY.md key-decisions)
 for decision in "${DECISIONS[@]}"; do
-  node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" state add-decision \
+  node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" state add-decision \
     --phase "${PHASE}" --summary "${decision}"
 done
 
 # Update session info
-node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" state record-session \
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" state record-session \
   --stopped-at "Completed ${PHASE}-${PLAN}-PLAN.md"
 ```
 
 ```bash
 # Update ROADMAP.md progress for this phase (plan counts, status)
-node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" roadmap update-plan-progress "${PHASE_NUMBER}"
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" roadmap update-plan-progress "${PHASE_NUMBER}"
 
 # Mark completed requirements from PLAN.md frontmatter
 # Extract the `requirements` array from the plan's frontmatter, then mark each complete
-node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" requirements mark-complete ${REQ_IDS}
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" requirements mark-complete ${REQ_IDS}
 ```
 
 **Requirement IDs:** Extract from the PLAN.md frontmatter `requirements:` field (e.g., `requirements: [AUTH-01, AUTH-02]`). Pass all IDs to `requirements mark-complete`. If the plan has no requirements field, skip this step.
@@ -444,13 +444,13 @@ node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" requireme
 
 **For blockers found during execution:**
 ```bash
-node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" state add-blocker "Blocker description"
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" state add-blocker "Blocker description"
 ```
 </state_updates>
 
 <final_commit>
 ```bash
-node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" commit "docs({phase}-{plan}): complete [plan-name] plan" --files .planning/phases/XX-name/{phase}-{plan}-SUMMARY.md .planning/STATE.md .planning/ROADMAP.md .planning/REQUIREMENTS.md
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" commit "docs({phase}-{plan}): complete [plan-name] plan" --files .planning/phases/XX-name/{phase}-{plan}-SUMMARY.md .planning/STATE.md .planning/ROADMAP.md .planning/REQUIREMENTS.md
 ```
 
 Separate from per-task commits — captures execution results only.

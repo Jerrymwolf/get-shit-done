@@ -41,7 +41,7 @@ Read `backup-meta.json` from the patches directory.
 ```
 No local patches found. Nothing to reapply.
 
-Local patches are automatically saved when you run /gsd-r:update
+Local patches are automatically saved when you run /grd:update
 after modifying any GSD workflow, command, or agent files.
 ```
 Exit.
@@ -89,7 +89,7 @@ For each file in `backup-meta.json`:
 After reapplying, regenerate the file manifest so future updates correctly detect these as user modifications:
 
 ```bash
-# The manifest will be regenerated on next /gsd-r:update
+# The manifest will be regenerated on next /grd:update
 # For now, just note which files were modified
 ```
 

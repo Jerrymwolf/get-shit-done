@@ -14,11 +14,11 @@ const dim = '\x1b[2m';
 const reset = '\x1b[0m';
 
 // Codex config.toml constants
-const GSD_CODEX_MARKER = '# GSD Agent Configuration \u2014 managed by get-shit-done installer';
+const GRD_CODEX_MARKER = '# GRD Agent Configuration \u2014 managed by get-shit-done installer';
 
 // Copilot instructions marker constants
-const GSD_COPILOT_INSTRUCTIONS_MARKER = '<!-- GSD Configuration \u2014 managed by get-shit-done installer -->';
-const GSD_COPILOT_INSTRUCTIONS_CLOSE_MARKER = '<!-- /GSD Configuration -->';
+const GRD_COPILOT_INSTRUCTIONS_MARKER = '<!-- GRD Configuration \u2014 managed by get-shit-done installer -->';
+const GRD_COPILOT_INSTRUCTIONS_CLOSE_MARKER = '<!-- /GRD Configuration -->';
 
 const CODEX_AGENT_SANDBOX = {
   'gsd-executor': 'workspace-write',
@@ -843,7 +843,7 @@ function generateCodexAgentToml(agentName, agentContent) {
  */
 function generateCodexConfigBlock(agents) {
   const lines = [
-    GSD_CODEX_MARKER,
+    GRD_CODEX_MARKER,
     '',
   ];
 
@@ -862,7 +862,7 @@ function generateCodexConfigBlock(agents) {
  * Returns cleaned content, or null if file would be empty.
  */
 function stripGsdFromCodexConfig(content) {
-  const markerIndex = content.indexOf(GSD_CODEX_MARKER);
+  const markerIndex = content.indexOf(GRD_CODEX_MARKER);
 
   if (markerIndex !== -1) {
     // Has GSD marker — remove everything from marker to EOF
@@ -909,7 +909,7 @@ function mergeCodexConfig(configPath, gsdBlock) {
   }
 
   const existing = fs.readFileSync(configPath, 'utf8');
-  const markerIndex = existing.indexOf(GSD_CODEX_MARKER);
+  const markerIndex = existing.indexOf(GRD_CODEX_MARKER);
 
   // Case 2: Has GSD marker — truncate and re-append
   if (markerIndex !== -1) {
@@ -941,9 +941,9 @@ function mergeCodexConfig(configPath, gsdBlock) {
  * @param {string} gsdContent - Template content (without markers)
  */
 function mergeCopilotInstructions(filePath, gsdContent) {
-  const gsdBlock = GSD_COPILOT_INSTRUCTIONS_MARKER + '\n' +
+  const gsdBlock = GRD_COPILOT_INSTRUCTIONS_MARKER + '\n' +
     gsdContent.trim() + '\n' +
-    GSD_COPILOT_INSTRUCTIONS_CLOSE_MARKER;
+    GRD_COPILOT_INSTRUCTIONS_CLOSE_MARKER;
 
   // Case 1: No file — create fresh
   if (!fs.existsSync(filePath)) {
@@ -952,13 +952,13 @@ function mergeCopilotInstructions(filePath, gsdContent) {
   }
 
   const existing = fs.readFileSync(filePath, 'utf8');
-  const openIndex = existing.indexOf(GSD_COPILOT_INSTRUCTIONS_MARKER);
-  const closeIndex = existing.indexOf(GSD_COPILOT_INSTRUCTIONS_CLOSE_MARKER);
+  const openIndex = existing.indexOf(GRD_COPILOT_INSTRUCTIONS_MARKER);
+  const closeIndex = existing.indexOf(GRD_COPILOT_INSTRUCTIONS_CLOSE_MARKER);
 
   // Case 2: Has GSD markers — replace between markers
   if (openIndex !== -1 && closeIndex !== -1) {
     const before = existing.substring(0, openIndex).trimEnd();
-    const after = existing.substring(closeIndex + GSD_COPILOT_INSTRUCTIONS_CLOSE_MARKER.length).trimStart();
+    const after = existing.substring(closeIndex + GRD_COPILOT_INSTRUCTIONS_CLOSE_MARKER.length).trimStart();
     let newContent = '';
     if (before) newContent += before + '\n\n';
     newContent += gsdBlock;
@@ -980,12 +980,12 @@ function mergeCopilotInstructions(filePath, gsdContent) {
  * @returns {string|null} - Cleaned content or null if empty
  */
 function stripGsdFromCopilotInstructions(content) {
-  const openIndex = content.indexOf(GSD_COPILOT_INSTRUCTIONS_MARKER);
-  const closeIndex = content.indexOf(GSD_COPILOT_INSTRUCTIONS_CLOSE_MARKER);
+  const openIndex = content.indexOf(GRD_COPILOT_INSTRUCTIONS_MARKER);
+  const closeIndex = content.indexOf(GRD_COPILOT_INSTRUCTIONS_CLOSE_MARKER);
 
   if (openIndex !== -1 && closeIndex !== -1) {
     const before = content.substring(0, openIndex).trimEnd();
-    const after = content.substring(closeIndex + GSD_COPILOT_INSTRUCTIONS_CLOSE_MARKER.length).trimStart();
+    const after = content.substring(closeIndex + GRD_COPILOT_INSTRUCTIONS_CLOSE_MARKER.length).trimStart();
     const cleaned = (before + (before && after ? '\n\n' : '') + after).trim();
     if (!cleaned) return null;
     return cleaned + '\n';
@@ -1008,13 +1008,13 @@ function installCodexConfig(targetDir, agentsSrc) {
   const agents = [];
 
   // Compute the Codex GSD install path (absolute, so subagents with empty $HOME work — #820)
-  const codexGsdPath = `${path.resolve(targetDir, 'get-shit-done').replace(/\\/g, '/')}/`;
+  const codexGrdPath = `${path.resolve(targetDir, 'get-shit-done').replace(/\\/g, '/')}/`;
 
   for (const file of agentEntries) {
     let content = fs.readFileSync(path.join(agentsSrc, file), 'utf8');
     // Replace full .claude/get-shit-done prefix so path resolves to codex GSD install
-    content = content.replace(/~\/\.claude\/get-shit-done\//g, codexGsdPath);
-    content = content.replace(/\$HOME\/\.claude\/get-shit-done\//g, codexGsdPath);
+    content = content.replace(/~\/\.claude\/get-shit-done\//g, codexGrdPath);
+    content = content.replace(/\$HOME\/\.claude\/get-shit-done\//g, codexGrdPath);
     const { frontmatter } = extractFrontmatterAndBody(content);
     const name = extractFrontmatterField(frontmatter, 'name') || file.replace('.md', '');
     const description = extractFrontmatterField(frontmatter, 'description') || '';
@@ -3020,7 +3020,7 @@ if (process.env.GSD_TEST_MODE) {
     installCodexConfig,
     convertClaudeCommandToCodexSkill,
     convertClaudeToOpencodeFrontmatter,
-    GSD_CODEX_MARKER,
+    GRD_CODEX_MARKER,
     CODEX_AGENT_SANDBOX,
     getDirName,
     getGlobalDir,
@@ -3031,8 +3031,8 @@ if (process.env.GSD_TEST_MODE) {
     convertClaudeCommandToCopilotSkill,
     convertClaudeAgentToCopilotAgent,
     copyCommandsAsCopilotSkills,
-    GSD_COPILOT_INSTRUCTIONS_MARKER,
-    GSD_COPILOT_INSTRUCTIONS_CLOSE_MARKER,
+    GRD_COPILOT_INSTRUCTIONS_MARKER,
+    GRD_COPILOT_INSTRUCTIONS_CLOSE_MARKER,
     mergeCopilotInstructions,
     stripGsdFromCopilotInstructions,
     convertClaudeToAntigravityContent,

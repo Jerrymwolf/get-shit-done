@@ -29,8 +29,8 @@ Extract implementation decisions that downstream agents need — researcher and 
 </objective>
 
 <execution_context>
-@/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/discuss-phase.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/templates/context.md
+@/Users/jeremiahwolf/.claude/grd/workflows/discuss-phase.md
+@/Users/jeremiahwolf/.claude/grd/templates/context.md
 </execution_context>
 
 <context>

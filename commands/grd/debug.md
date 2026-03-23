@@ -12,7 +12,7 @@ allowed-tools:
 <objective>
 Debug issues using scientific method with subagent isolation.
 
-**Orchestrator role:** Gather symptoms, spawn gsd-r-debugger agent, handle checkpoints, spawn continuations.
+**Orchestrator role:** Gather symptoms, spawn grd-debugger agent, handle checkpoints, spawn continuations.
 
 **Why subagent:** Investigation burns context fast (reading files, forming hypotheses, testing). Fresh 200k context per investigation. Main context stays lean for user interaction.
 </objective>
@@ -31,13 +31,13 @@ ls .planning/debug/*.md 2>/dev/null | grep -v resolved | head -5
 ## 0. Initialize Context
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" state load)
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" state load)
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 
 Extract `commit_docs` from init JSON. Resolve debugger model:
 ```bash
-debugger_model=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" resolve-model gsd-r-debugger --raw)
+debugger_model=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" resolve-model grd-debugger --raw)
 ```
 
 ## 1. Check Active Sessions
@@ -61,7 +61,7 @@ Use AskUserQuestion for each:
 
 After all gathered, confirm ready to investigate.
 
-## 3. Spawn gsd-r-debugger Agent
+## 3. Spawn grd-debugger Agent
 
 Fill prompt and spawn:
 
@@ -93,7 +93,7 @@ Create: .planning/debug/{slug}.md
 ```
 Task(
   prompt=filled_prompt,
-  subagent_type="gsd-r-debugger",
+  subagent_type="grd-debugger",
   model="{debugger_model}",
   description="Debug {slug}"
 )
@@ -105,7 +105,7 @@ Task(
 - Display root cause and evidence summary
 - Offer options:
   - "Fix now" - spawn fix subagent
-  - "Plan fix" - suggest /gsd-r:plan-phase --gaps
+  - "Plan fix" - suggest /grd:plan-phase --gaps
   - "Manual fix" - done
 
 **If `## CHECKPOINT REACHED`:**
@@ -151,7 +151,7 @@ goal: find_and_fix
 ```
 Task(
   prompt=continuation_prompt,
-  subagent_type="gsd-r-debugger",
+  subagent_type="grd-debugger",
   model="{debugger_model}",
   description="Continue debug {slug}"
 )
@@ -162,7 +162,7 @@ Task(
 <success_criteria>
 - [ ] Active sessions checked
 - [ ] Symptoms gathered (if new)
-- [ ] gsd-r-debugger spawned with context
+- [ ] grd-debugger spawned with context
 - [ ] Checkpoints handled correctly
 - [ ] Root cause confirmed before fixing
 </success_criteria>

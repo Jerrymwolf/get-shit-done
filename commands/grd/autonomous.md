@@ -25,17 +25,17 @@ Uses ROADMAP.md phase discovery and Skill() flat invocations for each phase comm
 </objective>
 
 <execution_context>
-@/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/autonomous.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/references/ui-brand.md
+@/Users/jeremiahwolf/.claude/grd/workflows/autonomous.md
+@/Users/jeremiahwolf/.claude/grd/references/ui-brand.md
 </execution_context>
 
 <context>
 Optional flag: `--from N` — start from phase N instead of the first incomplete phase.
 
-Project context, phase list, and state are resolved inside the workflow using init commands (`gsd-r-tools.cjs init milestone-op`, `gsd-r-tools.cjs roadmap analyze`). No upfront context loading needed.
+Project context, phase list, and state are resolved inside the workflow using init commands (`grd-tools.cjs init milestone-op`, `grd-tools.cjs roadmap analyze`). No upfront context loading needed.
 </context>
 
 <process>
-Execute the autonomous workflow from @/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/autonomous.md end-to-end.
+Execute the autonomous workflow from @/Users/jeremiahwolf/.claude/grd/workflows/autonomous.md end-to-end.
 Preserve all workflow gates (phase discovery, per-phase execution, blocker handling, progress display).
 </process>

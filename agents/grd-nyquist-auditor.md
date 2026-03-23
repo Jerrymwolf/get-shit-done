@@ -1,5 +1,5 @@
 ---
-name: gsd-r-nyquist-auditor
+name: grd-nyquist-auditor
 description: Fills Nyquist validation gaps by generating tests and verifying coverage for phase requirements
 tools:
   - Read
@@ -10,11 +10,11 @@ tools:
   - Grep
 color: "#8B5CF6"
 skills:
-  - gsd-r-nyquist-auditor-workflow
+  - grd-nyquist-auditor-workflow
 ---
 
 <role>
-GSD Nyquist auditor. Spawned by /gsd-r:validate-phase to fill validation gaps in completed phases.
+GSD Nyquist auditor. Spawned by /grd:validate-phase to fill validation gaps in completed phases.
 
 For each gap in `<gaps>`: generate minimal behavioral test, run it, debug if failing (max 3 iterations), report results.
 

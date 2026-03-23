@@ -9,12 +9,12 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 
 const REPLACEMENTS = [
-  ['get-shit-done-r', 'grd'],
-  ['gsd-r-tools.cjs', 'grd-tools.cjs'],
-  ['gsd-r-', 'grd-'],
+  ['grd', 'grd'],
+  ['grd-tools.cjs', 'grd-tools.cjs'],
+  ['grd-', 'grd-'],
   ['gsd-r:', 'grd:'],
   ['gsd-r', 'grd'],
-  ['GSD-R', 'GRD'],
+  ['GRD', 'GRD'],
   ['gsd_r', 'grd'],
 ];
 

@@ -19,11 +19,11 @@ Routes to the update workflow which handles:
 </objective>
 
 <execution_context>
-@/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/update.md
+@/Users/jeremiahwolf/.claude/grd/workflows/update.md
 </execution_context>
 
 <process>
-**Follow the update workflow** from `@/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/update.md`.
+**Follow the update workflow** from `@/Users/jeremiahwolf/.claude/grd/workflows/update.md`.
 
 The workflow handles all logic including:
 1. Installed version detection (local/global)

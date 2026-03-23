@@ -1,10 +1,10 @@
 ---
-name: gsd-r-verifier
+name: grd-verifier
 description: Verifies phase goal achievement through goal-backward analysis. Checks codebase delivers what phase promised, not just that tasks completed. Creates VERIFICATION.md report.
 tools: Read, Write, Bash, Grep, Glob
 color: green
 skills:
-  - gsd-r-verifier-workflow
+  - grd-verifier-workflow
 # hooks:
 #   PostToolUse:
 #     - matcher: "Write|Edit"
@@ -80,7 +80,7 @@ Set `is_re_verification = false`, proceed with Step 1.
 ```bash
 ls "$PHASE_DIR"/*-PLAN.md 2>/dev/null
 ls "$PHASE_DIR"/*-SUMMARY.md 2>/dev/null
-node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" roadmap get-phase "$PHASE_NUM"
+node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" roadmap get-phase "$PHASE_NUM"
 grep -E "^| $PHASE_NUM" .planning/REQUIREMENTS.md 2>/dev/null
 ```
 
@@ -117,7 +117,7 @@ must_haves:
 If no must_haves in frontmatter, check for Success Criteria:
 
 ```bash
-PHASE_DATA=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" roadmap get-phase "$PHASE_NUM" --raw)
+PHASE_DATA=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" roadmap get-phase "$PHASE_NUM" --raw)
 ```
 
 Parse the `success_criteria` array from the JSON output. If non-empty:
@@ -160,7 +160,7 @@ For each truth:
 Use gsd-tools for artifact verification against must_haves in PLAN frontmatter:
 
 ```bash
-ARTIFACT_RESULT=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" verify artifacts "$PLAN_PATH")
+ARTIFACT_RESULT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" verify artifacts "$PLAN_PATH")
 ```
 
 Parse JSON result: `{ all_passed, passed, total, artifacts: [{path, exists, issues, passed}] }`
@@ -209,7 +209,7 @@ Key links are critical connections. If broken, the goal fails even with all arti
 Use gsd-tools for key link verification against must_haves in PLAN frontmatter:
 
 ```bash
-LINKS_RESULT=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" verify key-links "$PLAN_PATH")
+LINKS_RESULT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" verify key-links "$PLAN_PATH")
 ```
 
 Parse JSON result: `{ all_verified, verified, total, links: [{from, to, via, verified, detail}] }`
@@ -312,7 +312,7 @@ For each research note discovered:
 
 ```bash
 node -e "
-  const { verifyNote } = require('./get-shit-done-r/bin/lib/verify-research.cjs');
+  const { verifyNote } = require('./grd/bin/lib/verify-research.cjs');
   const fs = require('fs');
   const noteContent = fs.readFileSync('path/to/note.md', 'utf8');
   const sourcesDir = 'path/to/note-sources/';
@@ -336,7 +336,7 @@ node -e "
 
 ```bash
 node -e "
-  const { verifyNote, generateFixTasks } = require('./get-shit-done-r/bin/lib/verify-research.cjs');
+  const { verifyNote, generateFixTasks } = require('./grd/bin/lib/verify-research.cjs');
   const fs = require('fs');
   const noteContent = fs.readFileSync('path/to/note.md', 'utf8');
   verifyNote(noteContent, sourcesDir, sourceLogPath, researchQuestion).then(result => {
@@ -370,7 +370,7 @@ gaps:
       - path: "path/to/note.md"
         issue: "{tier1 condition reason or tier2 issue detail}"
     missing:
-      - "{fix task description -- actionable via /gsd-r:quick}"
+      - "{fix task description -- actionable via /grd:quick}"
 ```
 
 ### Research Verification in Report
@@ -396,12 +396,12 @@ Identify files modified in this phase from SUMMARY.md key-files section, or extr
 
 ```bash
 # Option 1: Extract from SUMMARY frontmatter
-SUMMARY_FILES=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" summary-extract "$PHASE_DIR"/*-SUMMARY.md --fields key-files)
+SUMMARY_FILES=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" summary-extract "$PHASE_DIR"/*-SUMMARY.md --fields key-files)
 
 # Option 2: Verify commits exist (if commit hashes documented)
 COMMIT_HASHES=$(grep -oE "[a-f0-9]{7,40}" "$PHASE_DIR"/*-SUMMARY.md | head -10)
 if [ -n "$COMMIT_HASHES" ]; then
-  COMMITS_VALID=$(node "/Users/jeremiahwolf/.claude/get-shit-done-r/bin/gsd-r-tools.cjs" verify commits $COMMIT_HASHES)
+  COMMITS_VALID=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" verify commits $COMMIT_HASHES)
 fi
 
 # Fallback: grep for files
@@ -450,7 +450,7 @@ Categorize: 🛑 Blocker (prevents goal) | ⚠️ Warning (incomplete) | ℹ️ 
 
 ## Step 10: Structure Gap Output (If Gaps Found)
 
-Structure gaps in YAML frontmatter for `/gsd-r:plan-phase --gaps`:
+Structure gaps in YAML frontmatter for `/grd:plan-phase --gaps`:
 
 ```yaml
 gaps:
@@ -560,7 +560,7 @@ human_verification: # Only if status: human_needed
 ---
 
 _Verified: {timestamp}_
-_Verifier: Claude (gsd-r-verifier)_
+_Verifier: Claude (grd-verifier)_
 ```
 
 ## Return to Orchestrator
@@ -585,7 +585,7 @@ All must-haves verified. Phase goal achieved. Ready to proceed.
 1. **{Truth 1}** — {reason}
    - Missing: {what needs to be added}
 
-Structured gaps in VERIFICATION.md frontmatter for `/gsd-r:plan-phase --gaps`.
+Structured gaps in VERIFICATION.md frontmatter for `/grd:plan-phase --gaps`.
 
 {If human_needed:}
 ### Human Verification Required
@@ -606,7 +606,7 @@ Automated checks passed. Awaiting human verification.
 
 **DO NOT skip key link verification.** 80% of stubs hide here — pieces exist but aren't connected.
 
-**Structure gaps in YAML frontmatter** for `/gsd-r:plan-phase --gaps`.
+**Structure gaps in YAML frontmatter** for `/grd:plan-phase --gaps`.
 
 **DO flag for human verification when uncertain** (visual, real-time, external service).
 

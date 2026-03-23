@@ -1,18 +1,18 @@
 <div align="center">
 
-# GSD-R
+# GRD
 
 **Research-grade context engineering for AI-assisted academic workflows.**
 
-[![npm version](https://img.shields.io/npm/v/get-shit-done-r?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/get-shit-done-r)
-[![npm downloads](https://img.shields.io/npm/dm/get-shit-done-r?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/get-shit-done-r)
-[![Tests](https://img.shields.io/github/actions/workflow/status/glittercowboy/get-shit-done-r/test.yml?branch=main&style=for-the-badge&logo=github&label=Tests)](https://github.com/glittercowboy/get-shit-done-r/actions/workflows/test.yml)
+[![npm version](https://img.shields.io/npm/v/grd?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/grd)
+[![npm downloads](https://img.shields.io/npm/dm/grd?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/grd)
+[![Tests](https://img.shields.io/github/actions/workflow/status/glittercowboy/grd/test.yml?branch=main&style=for-the-badge&logo=github&label=Tests)](https://github.com/glittercowboy/grd/actions/workflows/test.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 
 <br>
 
 ```bash
-npx get-shit-done-r@latest
+npx grd@latest
 ```
 
 **Works on Mac, Windows, and Linux.**
@@ -23,9 +23,9 @@ npx get-shit-done-r@latest
 
 ## Attribution
 
-GSD-R is a research-oriented fork of [Get Shit Done](https://github.com/glittercowboy/get-shit-done-cc) by [Lex Christopherson](https://github.com/glittercowboy) ([@gsd_foundation](https://x.com/gsd_foundation)). The original GSD system's architecture — wave parallelism, fresh subagent contexts, plan/execute/verify loop, and state management — is carried over intact. GSD-R adapts the intellectual scaffolding for academic research workflows with source attachment.
+GRD is a research-oriented fork of [Get Shit Done](https://github.com/glittercowboy/get-shit-done-cc) by [Lex Christopherson](https://github.com/glittercowboy) ([@gsd_foundation](https://x.com/gsd_foundation)). The original GSD system's architecture — wave parallelism, fresh subagent contexts, plan/execute/verify loop, and state management — is carried over intact. GRD adapts the intellectual scaffolding for academic research workflows with source attachment.
 
-GSD-R was itself built using GSD.
+GRD was itself built using GSD.
 
 Original project: [github.com/glittercowboy/get-shit-done-cc](https://github.com/glittercowboy/get-shit-done-cc)
 License: MIT — see [LICENSE](LICENSE) (copyright Lex Christopherson)
@@ -34,22 +34,22 @@ License: MIT — see [LICENSE](LICENSE) (copyright Lex Christopherson)
 
 ## What This Is
 
-AI assistants degrade as context accumulates. The longer a session runs, the more prior conversation competes with the task at hand — citations get muddled, sources are paraphrased from memory rather than quoted from text, and the quality of synthesis drops. GSD solved this for code by giving each agent a fresh context window and a structured plan. GSD-R extends the same architecture to research: literature reviews, systematic analysis, and any project where rigorous source handling matters.
+AI assistants degrade as context accumulates. The longer a session runs, the more prior conversation competes with the task at hand — citations get muddled, sources are paraphrased from memory rather than quoted from text, and the quality of synthesis drops. GSD solved this for code by giving each agent a fresh context window and a structured plan. GRD extends the same architecture to research: literature reviews, systematic analysis, and any project where rigorous source handling matters.
 
-GSD-R orchestrates AI agents through a discuss/plan/execute/verify loop, with each agent receiving a fresh context window scoped to a single task. Sources are downloaded and saved locally — not linked — so the research corpus is self-contained and auditable even if every URL goes dead. Verification checks that research questions are actually answered and that every cited source has a corresponding local file.
+GRD orchestrates AI agents through a discuss/plan/execute/verify loop, with each agent receiving a fresh context window scoped to a single task. Sources are downloaded and saved locally — not linked — so the research corpus is self-contained and auditable even if every URL goes dead. Verification checks that research questions are actually answered and that every cited source has a corresponding local file.
 
-GSD-R also handles code. It inherits GSD's full development capabilities — atomic git commits, test verification, parallel execution. If a project involves both research and implementation, GSD-R covers the full lifecycle without switching tools.
+GRD also handles code. It inherits GSD's full development capabilities — atomic git commits, test verification, parallel execution. If a project involves both research and implementation, GRD covers the full lifecycle without switching tools.
 
 ---
 
 ## How It Works
 
-> **Building on an existing codebase?** Run `/gsd-r:map-codebase` first. It spawns parallel agents to analyze your project's structure, patterns, and conventions. Then `/gsd-r:new-project` skips what's already understood and focuses on what you're adding.
+> **Building on an existing codebase?** Run `/grd:map-codebase` first. It spawns parallel agents to analyze your project's structure, patterns, and conventions. Then `/grd:new-project` skips what's already understood and focuses on what you're adding.
 
 ### 1. Initialize Project
 
 ```
-/gsd-r:new-project
+/grd:new-project
 ```
 
 One command, one flow. The system:
@@ -61,7 +61,7 @@ One command, one flow. The system:
 
 You approve the roadmap. Now you're ready to research.
 
-GSD-R includes a bootstrap step that inventories existing research to prevent re-investigating known findings. See [docs/DESIGN.md](docs/DESIGN.md) for full detail.
+GRD includes a bootstrap step that inventories existing research to prevent re-investigating known findings. See [docs/DESIGN.md](docs/DESIGN.md) for full detail.
 
 **Creates:** `PROJECT.md`, `REQUIREMENTS.md`, `ROADMAP.md`, `STATE.md`, `.planning/research/`
 
@@ -70,7 +70,7 @@ GSD-R includes a bootstrap step that inventories existing research to prevent re
 ### 2. Discuss Phase
 
 ```
-/gsd-r:discuss-phase 1
+/grd:discuss-phase 1
 ```
 
 **This is where you lock in decisions before research runs.**
@@ -98,7 +98,7 @@ The deeper you go here, the more targeted the research becomes. Skip it and the 
 ### 3. Plan Phase
 
 ```
-/gsd-r:plan-phase 1
+/grd:plan-phase 1
 ```
 
 The system:
@@ -109,7 +109,7 @@ The system:
 
 Research-specific agents replace the standard code researchers:
 
-| GSD Code Researcher | GSD-R Researcher |
+| GSD Code Researcher | GRD Researcher |
 |---|---|
 | Stack researcher | Source researcher — find papers, repos, docs; verify URLs are live; identify PDFs vs. HTML |
 | Features researcher | Methods researcher — how have others investigated this? What methodologies, what findings? |
@@ -125,7 +125,7 @@ Each task includes `<src>` blocks specifying the acquisition method, format, and
 ### 4. Execute Phase
 
 ```
-/gsd-r:execute-phase 1
+/grd:execute-phase 1
 ```
 
 The system:
@@ -176,7 +176,7 @@ For research, independent survey tasks run in the same wave. Synthesis and compa
 ### 5. Verify Work
 
 ```
-/gsd-r:verify-work 1
+/grd:verify-work 1
 ```
 
 **Two-tier verification for research:**
@@ -185,7 +185,7 @@ For research, independent survey tasks run in the same wave. Synthesis and compa
 
 **Tier 2 — Source audit:** For each note in the phase, the system checks frontmatter completeness, reference-to-file correspondence in `-sources/`, SOURCE-LOG.md accounting, and consistency with the bootstrap inventory.
 
-If everything passes, you move on. If gaps remain, run `/gsd-r:execute-phase` again with the fix plans it created.
+If everything passes, you move on. If gaps remain, run `/grd:execute-phase` again with the fix plans it created.
 
 **Creates:** `{phase_num}-UAT.md`, fix plans if issues found
 
@@ -194,26 +194,26 @@ If everything passes, you move on. If gaps remain, run `/gsd-r:execute-phase` ag
 ### 6. Repeat → Complete → Next Milestone
 
 ```
-/gsd-r:discuss-phase 2
-/gsd-r:plan-phase 2
-/gsd-r:execute-phase 2
-/gsd-r:verify-work 2
+/grd:discuss-phase 2
+/grd:plan-phase 2
+/grd:execute-phase 2
+/grd:verify-work 2
 ...
-/gsd-r:complete-milestone
-/gsd-r:new-milestone
+/grd:complete-milestone
+/grd:new-milestone
 ```
 
 Loop **discuss → plan → execute → verify** until milestone complete.
 
 Each phase receives your direction, proper source investigation, clean execution with fresh context, and two-tier verification.
 
-When all phases are done, `/gsd-r:complete-milestone` archives the milestone and tags the release.
+When all phases are done, `/grd:complete-milestone` archives the milestone and tags the release.
 
-Then `/gsd-r:new-milestone` starts the next version — same flow as `new-project` but for your existing research corpus. You describe what you want to investigate next, the system researches the domain, you scope requirements, and it creates a fresh roadmap. Each milestone is a clean cycle: define → research → verify.
+Then `/grd:new-milestone` starts the next version — same flow as `new-project` but for your existing research corpus. You describe what you want to investigate next, the system researches the domain, you scope requirements, and it creates a fresh roadmap. Each milestone is a clean cycle: define → research → verify.
 
 ### Translation Table
 
-| GSD (Code) | GSD-R (Research) |
+| GSD (Code) | GRD (Research) |
 |---|---|
 | Git commit | Research note + sources written to vault |
 | Source code files | Source material (PDF, scraped .md, screenshot) |
@@ -314,7 +314,7 @@ Format: Author/Org (Year). Title. `filename_in_sources_folder.ext`]
 
 ### Two-Tier Verification
 
-GSD-R will verify research output at two levels.
+GRD will verify research output at two levels.
 
 **Tier 1 (goal-backward)** asks: "What must be true for this research question to be answered?" — then checks each condition against the notes produced.
 
@@ -324,14 +324,14 @@ Tier 1 catches incomplete research. Tier 2 catches incomplete documentation.
 
 ### BOOTSTRAP.md
 
-During project initialization, GSD-R will inventory existing research: what's established, what's partially established and should be extended, and what hasn't been investigated yet. This inventory (BOOTSTRAP.md) is loaded by every subsequent phase to prevent redundant work. See [docs/DESIGN.md](docs/DESIGN.md) for the full format.
+During project initialization, GRD will inventory existing research: what's established, what's partially established and should be extended, and what hasn't been investigated yet. This inventory (BOOTSTRAP.md) is loaded by every subsequent phase to prevent redundant work. See [docs/DESIGN.md](docs/DESIGN.md) for the full format.
 
 ---
 
 ## Quick Mode
 
 ```
-/gsd-r:quick
+/grd:quick
 ```
 
 **For ad-hoc tasks that don't need full planning.**
@@ -345,7 +345,7 @@ Quick mode applies the same source attachment and state tracking with a shorter 
 Use for: targeted fixes to individual notes, small additions, one-off source acquisition.
 
 ```
-/gsd-r:quick
+/grd:quick
 > What do you want to do? "Add the missing LOGOS paper source to Concordance-Patterns"
 ```
 
@@ -361,57 +361,57 @@ Use `--full` to add plan-checking and verification. Use `--discuss` to gather co
 
 | Command | What it does |
 |---------|--------------|
-| `/gsd-r:new-project [--auto]` | Full initialization: questions → research → requirements → roadmap |
-| `/gsd-r:discuss-phase [N] [--auto]` | Capture research decisions before planning |
-| `/gsd-r:plan-phase [N] [--auto]` | Research + plan + verify for a phase |
-| `/gsd-r:execute-phase <N>` | Execute all plans in parallel waves, verify when complete |
-| `/gsd-r:verify-work [N]` | Manual user acceptance testing ¹ |
-| `/gsd-r:audit-milestone` | Verify milestone achieved its definition of done |
-| `/gsd-r:complete-milestone` | Archive milestone, tag release |
-| `/gsd-r:new-milestone [name]` | Start next version: questions → research → requirements → roadmap |
+| `/grd:new-project [--auto]` | Full initialization: questions → research → requirements → roadmap |
+| `/grd:discuss-phase [N] [--auto]` | Capture research decisions before planning |
+| `/grd:plan-phase [N] [--auto]` | Research + plan + verify for a phase |
+| `/grd:execute-phase <N>` | Execute all plans in parallel waves, verify when complete |
+| `/grd:verify-work [N]` | Manual user acceptance testing ¹ |
+| `/grd:audit-milestone` | Verify milestone achieved its definition of done |
+| `/grd:complete-milestone` | Archive milestone, tag release |
+| `/grd:new-milestone [name]` | Start next version: questions → research → requirements → roadmap |
 
 ### Navigation
 
 | Command | What it does |
 |---------|--------------|
-| `/gsd-r:progress` | Where am I? What's next? |
-| `/gsd-r:help` | Show all commands and usage guide |
-| `/gsd-r:update` | Update GSD-R with changelog preview |
+| `/grd:progress` | Where am I? What's next? |
+| `/grd:help` | Show all commands and usage guide |
+| `/grd:update` | Update GRD with changelog preview |
 
 ### Brownfield
 
 | Command | What it does |
 |---------|--------------|
-| `/gsd-r:map-codebase` | Analyze existing codebase before new-project |
+| `/grd:map-codebase` | Analyze existing codebase before new-project |
 
 ### Phase Management
 
 | Command | What it does |
 |---------|--------------|
-| `/gsd-r:add-phase` | Append phase to roadmap |
-| `/gsd-r:insert-phase [N]` | Insert urgent work between phases |
-| `/gsd-r:remove-phase [N]` | Remove future phase, renumber |
-| `/gsd-r:list-phase-assumptions [N]` | See Claude's intended approach before planning |
-| `/gsd-r:plan-milestone-gaps` | Create phases to close gaps from audit |
+| `/grd:add-phase` | Append phase to roadmap |
+| `/grd:insert-phase [N]` | Insert urgent work between phases |
+| `/grd:remove-phase [N]` | Remove future phase, renumber |
+| `/grd:list-phase-assumptions [N]` | See Claude's intended approach before planning |
+| `/grd:plan-milestone-gaps` | Create phases to close gaps from audit |
 
 ### Session
 
 | Command | What it does |
 |---------|--------------|
-| `/gsd-r:pause-work` | Create handoff when stopping mid-phase |
-| `/gsd-r:resume-work` | Restore from last session |
+| `/grd:pause-work` | Create handoff when stopping mid-phase |
+| `/grd:resume-work` | Restore from last session |
 
 ### Utilities
 
 | Command | What it does |
 |---------|--------------|
-| `/gsd-r:settings` | Configure model profile and workflow agents |
-| `/gsd-r:set-profile <profile>` | Switch model profile (quality/balanced/budget) |
-| `/gsd-r:add-todo [desc]` | Capture idea for later |
-| `/gsd-r:check-todos` | List pending todos |
-| `/gsd-r:debug [desc]` | Systematic debugging with persistent state |
-| `/gsd-r:quick [--full] [--discuss]` | Execute ad-hoc task with GSD-R guarantees (`--full` adds plan-checking and verification, `--discuss` gathers context first) |
-| `/gsd-r:health [--repair]` | Validate `.planning/` directory integrity, auto-repair with `--repair` |
+| `/grd:settings` | Configure model profile and workflow agents |
+| `/grd:set-profile <profile>` | Switch model profile (quality/balanced/budget) |
+| `/grd:add-todo [desc]` | Capture idea for later |
+| `/grd:check-todos` | List pending todos |
+| `/grd:debug [desc]` | Systematic debugging with persistent state |
+| `/grd:quick [--full] [--discuss]` | Execute ad-hoc task with GRD guarantees (`--full` adds plan-checking and verification, `--discuss` gathers context first) |
+| `/grd:health [--repair]` | Validate `.planning/` directory integrity, auto-repair with `--repair` |
 
 <sup>¹ Contributed by reddit user OracleGreyBeard</sup>
 
@@ -419,7 +419,7 @@ Use `--full` to add plan-checking and verification. Use `--discuss` to gather co
 
 ## Configuration
 
-GSD-R stores project settings in `.planning/config.json`. Configure during `/gsd-r:new-project` or update later with `/gsd-r:settings`.
+GRD stores project settings in `.planning/config.json`. Configure during `/grd:new-project` or update later with `/grd:settings`.
 
 ### Core Settings
 
@@ -440,10 +440,10 @@ Control which Claude model each agent uses. Balance quality vs token spend.
 
 Switch profiles:
 ```
-/gsd-r:set-profile budget
+/grd:set-profile budget
 ```
 
-Or configure via `/gsd-r:settings`.
+Or configure via `/grd:settings`.
 
 ### Workflow Agents
 
@@ -456,9 +456,9 @@ These spawn additional agents during planning and execution. They improve qualit
 | `workflow.verifier` | `true` | Confirms must-haves were delivered after execution |
 | `workflow.auto_advance` | `false` | Auto-chain discuss → plan → execute without stopping |
 
-Use `/gsd-r:settings` to toggle these, or override per-invocation:
-- `/gsd-r:plan-phase --skip-research`
-- `/gsd-r:plan-phase --skip-verify`
+Use `/grd:settings` to toggle these, or override per-invocation:
+- `/grd:plan-phase --skip-research`
+- `/grd:plan-phase --skip-verify`
 
 ### Execution
 
@@ -469,7 +469,7 @@ Use `/gsd-r:settings` to toggle these, or override per-invocation:
 
 ### Git Branching
 
-Control how GSD-R handles branches during execution.
+Control how GRD handles branches during execution.
 
 | Setting | Options | Default | What it does |
 |---------|---------|---------|--------------|
@@ -482,14 +482,14 @@ Control how GSD-R handles branches during execution.
 - **`phase`** — Creates a branch per phase, merges at phase completion
 - **`milestone`** — Creates one branch for entire milestone, merges at completion
 
-At milestone completion, GSD-R offers squash merge (recommended) or merge with history.
+At milestone completion, GRD offers squash merge (recommended) or merge with history.
 
 ---
 
 ## Getting Started
 
 ```bash
-npx get-shit-done-r@latest
+npx grd@latest
 ```
 
 The installer prompts you to choose:
@@ -497,7 +497,7 @@ The installer prompts you to choose:
 2. **Location** — Global (all projects) or local (current project only)
 
 Verify with:
-- Claude Code / Gemini: `/gsd-r:help`
+- Claude Code / Gemini: `/grd:help`
 - OpenCode: `/gsd-help`
 - Codex: `$gsd-help`
 
@@ -506,10 +506,10 @@ Verify with:
 
 ### Staying Updated
 
-GSD-R is under active development. Update periodically:
+GRD is under active development. Update periodically:
 
 ```bash
-npx get-shit-done-r@latest
+npx grd@latest
 ```
 
 <details>
@@ -517,21 +517,21 @@ npx get-shit-done-r@latest
 
 ```bash
 # Claude Code
-npx get-shit-done-r --claude --global   # Install to ~/.claude/
-npx get-shit-done-r --claude --local    # Install to ./.claude/
+npx grd --claude --global   # Install to ~/.claude/
+npx grd --claude --local    # Install to ./.claude/
 
 # OpenCode (open source, free models)
-npx get-shit-done-r --opencode --global # Install to ~/.config/opencode/
+npx grd --opencode --global # Install to ~/.config/opencode/
 
 # Gemini CLI
-npx get-shit-done-r --gemini --global   # Install to ~/.gemini/
+npx grd --gemini --global   # Install to ~/.gemini/
 
 # Codex (skills-first)
-npx get-shit-done-r --codex --global    # Install to ~/.codex/
-npx get-shit-done-r --codex --local     # Install to ./.codex/
+npx grd --codex --global    # Install to ~/.codex/
+npx grd --codex --local     # Install to ./.codex/
 
 # All runtimes
-npx get-shit-done-r --all --global      # Install to all directories
+npx grd --all --global      # Install to all directories
 ```
 
 Use `--global` (`-g`) or `--local` (`-l`) to skip the location prompt.
@@ -545,8 +545,8 @@ Use `--claude`, `--opencode`, `--gemini`, `--codex`, or `--all` to skip the runt
 Clone the repository and run the installer locally:
 
 ```bash
-git clone https://github.com/glittercowboy/get-shit-done-r.git
-cd get-shit-done-r
+git clone https://github.com/glittercowboy/grd.git
+cd grd
 node bin/install.js --claude --local
 ```
 
@@ -556,14 +556,14 @@ Installs to `./.claude/` for testing modifications before contributing.
 
 ### Recommended: Skip Permissions Mode
 
-GSD-R is designed for frictionless automation. Run Claude Code with:
+GRD is designed for frictionless automation. Run Claude Code with:
 
 ```bash
 claude --dangerously-skip-permissions
 ```
 
 > [!TIP]
-> GSD-R runs many small commands automatically. Approving each one individually interrupts the workflow significantly.
+> GRD runs many small commands automatically. Approving each one individually interrupts the workflow significantly.
 
 <details>
 <summary><strong>Alternative: Granular Permissions</strong></summary>
@@ -604,7 +604,7 @@ If you prefer not to use that flag, add this to your project's `.claude/settings
 
 ### Protecting Sensitive Files
 
-GSD-R's codebase mapping and analysis commands read files to understand your project. **Protect files containing secrets** by adding them to Claude Code's deny list:
+GRD's codebase mapping and analysis commands read files to understand your project. **Protect files containing secrets** by adding them to Claude Code's deny list:
 
 1. Open Claude Code settings (`.claude/settings.json` or global)
 2. Add sensitive file patterns to the deny list:
@@ -627,7 +627,7 @@ GSD-R's codebase mapping and analysis commands read files to understand your pro
 This prevents Claude from reading these files entirely, regardless of what commands you run.
 
 > [!IMPORTANT]
-> GSD-R includes built-in protections against committing secrets, but defense-in-depth is best practice. Deny read access to sensitive files as a first line of defense.
+> GRD includes built-in protections against committing secrets, but defense-in-depth is best practice. Deny read access to sensitive files as a first line of defense.
 
 ---
 
@@ -635,49 +635,49 @@ This prevents Claude from reading these files entirely, regardless of what comma
 
 **Commands not found after install?**
 - Restart your runtime to reload commands/skills
-- Verify files exist in `~/.claude/commands/gsd-r/` (global) or `./.claude/commands/gsd-r/` (local)
+- Verify files exist in `~/.claude/commands/grd/` (global) or `./.claude/commands/grd/` (local)
 - For Codex, verify skills exist in `~/.codex/skills/gsd-*/SKILL.md` (global) or `./.codex/skills/gsd-*/SKILL.md` (local)
 
 **Commands not working as expected?**
-- Run `/gsd-r:help` to verify installation
-- Re-run `npx get-shit-done-r` to reinstall
+- Run `/grd:help` to verify installation
+- Re-run `npx grd` to reinstall
 
 **Updating to the latest version?**
 ```bash
-npx get-shit-done-r@latest
+npx grd@latest
 ```
 
 **Using Docker or containerized environments?**
 
 If file reads fail with tilde paths (`~/.claude/...`), set `CLAUDE_CONFIG_DIR` before installing:
 ```bash
-CLAUDE_CONFIG_DIR=/home/youruser/.claude npx get-shit-done-r --global
+CLAUDE_CONFIG_DIR=/home/youruser/.claude npx grd --global
 ```
 This ensures absolute paths are used instead of `~` which may not expand correctly in containers.
 
 ### Uninstalling
 
-To remove GSD-R completely:
+To remove GRD completely:
 
 ```bash
 # Global installs
-npx get-shit-done-r --claude --global --uninstall
-npx get-shit-done-r --opencode --global --uninstall
-npx get-shit-done-r --codex --global --uninstall
+npx grd --claude --global --uninstall
+npx grd --opencode --global --uninstall
+npx grd --codex --global --uninstall
 
 # Local installs (current project)
-npx get-shit-done-r --claude --local --uninstall
-npx get-shit-done-r --opencode --local --uninstall
-npx get-shit-done-r --codex --local --uninstall
+npx grd --claude --local --uninstall
+npx grd --opencode --local --uninstall
+npx grd --codex --local --uninstall
 ```
 
-This removes all GSD-R commands, agents, hooks, and settings while preserving your other configurations.
+This removes all GRD commands, agents, hooks, and settings while preserving your other configurations.
 
 ---
 
 ## Community Ports
 
-OpenCode, Gemini CLI, and Codex are supported via `npx get-shit-done-r`.
+OpenCode, Gemini CLI, and Codex are supported via `npx grd`.
 
 These community ports pioneered multi-runtime support:
 
@@ -696,6 +696,6 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 <div align="center">
 
-**AI makes research faster. GSD-R makes it rigorous.**
+**AI makes research faster. GRD makes it rigorous.**
 
 </div>

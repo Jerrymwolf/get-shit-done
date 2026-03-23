@@ -1,14 +1,14 @@
 {
-  "name": "get-shit-done-r",
+  "name": "get-research-done",
   "version": "0.1.0",
   "description": "A research-oriented fork of get-shit-done-cc. Meta-prompting system for AI research workflows with source attachment.",
   "bin": {
-    "get-shit-done-r": "bin/install.js"
+    "get-research-done": "bin/install.js"
   },
   "files": [
     "bin",
     "commands",
-    "get-shit-done-r",
+    "grd",
     "agents",
     "hooks/dist",
     "scripts"

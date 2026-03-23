@@ -21,15 +21,15 @@ Brownfield equivalent of new-project. Project exists, PROJECT.md has history. Ga
 - `.planning/ROADMAP.md` — phase structure (continues numbering)
 - `.planning/STATE.md` — reset for new milestone
 
-**After:** `/gsd-r:plan-phase [N]` to start execution.
+**After:** `/grd:plan-phase [N]` to start execution.
 </objective>
 
 <execution_context>
-@/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/new-milestone.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/references/questioning.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/references/ui-brand.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/templates/project.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/templates/requirements.md
+@/Users/jeremiahwolf/.claude/grd/workflows/new-milestone.md
+@/Users/jeremiahwolf/.claude/grd/references/questioning.md
+@/Users/jeremiahwolf/.claude/grd/references/ui-brand.md
+@/Users/jeremiahwolf/.claude/grd/templates/project.md
+@/Users/jeremiahwolf/.claude/grd/templates/requirements.md
 </execution_context>
 
 <context>
@@ -39,6 +39,6 @@ Project and milestone context files are resolved inside the workflow (`init new-
 </context>
 
 <process>
-Execute the new-milestone workflow from @/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/new-milestone.md end-to-end.
+Execute the new-milestone workflow from @/Users/jeremiahwolf/.claude/grd/workflows/new-milestone.md end-to-end.
 Preserve all workflow gates (validation, questioning, research, requirements, roadmap approval, commits).
 </process>

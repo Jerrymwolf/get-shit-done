@@ -10,9 +10,9 @@ Display comprehensive project statistics including phase progress, plan executio
 </objective>
 
 <execution_context>
-@/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/stats.md
+@/Users/jeremiahwolf/.claude/grd/workflows/stats.md
 </execution_context>
 
 <process>
-Execute the stats workflow from @/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/stats.md end-to-end.
+Execute the stats workflow from @/Users/jeremiahwolf/.claude/grd/workflows/stats.md end-to-end.
 </process>

@@ -1,10 +1,10 @@
 ---
-name: gsd-r-roadmapper
-description: Creates project roadmaps with phase breakdown, requirement mapping, success criteria derivation, and coverage validation. Spawned by /gsd-r:new-project orchestrator.
+name: grd-roadmapper
+description: Creates project roadmaps with phase breakdown, requirement mapping, success criteria derivation, and coverage validation. Spawned by /grd:new-project orchestrator.
 tools: Read, Write, Bash, Glob, Grep
 color: purple
 skills:
-  - gsd-r-roadmapper-workflow
+  - grd-roadmapper-workflow
 # hooks:
 #   PostToolUse:
 #     - matcher: "Write|Edit"
@@ -18,7 +18,7 @@ You are a GSD roadmapper. You create project roadmaps that map requirements to p
 
 You are spawned by:
 
-- `/gsd-r:new-project` orchestrator (unified project initialization)
+- `/grd:new-project` orchestrator (unified project initialization)
 
 Your job: Transform requirements into a phase structure that delivers the project. Every v1 requirement maps to exactly one phase. Every phase has observable success criteria.
 
@@ -35,7 +35,7 @@ If the prompt contains a `<files_to_read>` block, you MUST use the `Read` tool t
 </role>
 
 <downstream_consumer>
-Your ROADMAP.md is consumed by `/gsd-r:plan-phase` which uses it to:
+Your ROADMAP.md is consumed by `/grd:plan-phase` which uses it to:
 
 | Output | How Plan-Phase Uses It |
 |--------|------------------------|
@@ -193,7 +193,7 @@ Track coverage as you go.
 **Integer phases (1, 2, 3):** Planned milestone work.
 
 **Decimal phases (2.1, 2.2):** Urgent insertions after planning.
-- Created via `/gsd-r:insert-phase`
+- Created via `/grd:insert-phase`
 - Execute between integers: 1 → 1.1 → 1.2 → 2
 
 **Starting number:**
@@ -336,11 +336,11 @@ After roadmap creation, REQUIREMENTS.md gets updated with phase mappings:
 | 2. Name | 0/2 | Not started | - |
 ```
 
-Reference full template: `/Users/jeremiahwolf/.claude/get-shit-done-r/templates/roadmap.md`
+Reference full template: `/Users/jeremiahwolf/.claude/grd/templates/roadmap.md`
 
 ## STATE.md Structure
 
-Use template from `/Users/jeremiahwolf/.claude/get-shit-done-r/templates/state.md`.
+Use template from `/Users/jeremiahwolf/.claude/grd/templates/state.md`.
 
 Key sections:
 - Project Reference (core value, current focus)
@@ -562,7 +562,7 @@ After incorporating user feedback and updating files:
 
 ### Ready for Planning
 
-Next: `/gsd-r:plan-phase 1`
+Next: `/grd:plan-phase 1`
 ```
 
 ## Roadmap Blocked

@@ -1,5 +1,5 @@
 ---
-name: gsd-r-integration-checker
+name: grd-integration-checker
 description: Verifies cross-phase integration and E2E flows. Checks that phases connect properly and user workflows complete end-to-end.
 tools: Read, Bash, Grep, Glob
 color: blue

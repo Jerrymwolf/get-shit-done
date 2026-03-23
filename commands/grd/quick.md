@@ -16,7 +16,7 @@ allowed-tools:
 Execute small, ad-hoc tasks with GSD guarantees (atomic commits, STATE.md tracking).
 
 Quick mode is the same system with a shorter path:
-- Spawns gsd-r-planner (quick mode) + gsd-r-executor(s)
+- Spawns grd-planner (quick mode) + grd-executor(s)
 - Quick tasks live in `.planning/quick/` separate from planned phases
 - Updates STATE.md "Quick Tasks Completed" table (NOT ROADMAP.md)
 
@@ -32,7 +32,7 @@ Flags are composable: `--discuss --research --full` gives discussion + research 
 </objective>
 
 <execution_context>
-@/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/quick.md
+@/Users/jeremiahwolf/.claude/grd/workflows/quick.md
 </execution_context>
 
 <context>
@@ -42,6 +42,6 @@ Context files are resolved inside the workflow (`init quick`) and delegated via 
 </context>
 
 <process>
-Execute the quick workflow from @/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/quick.md end-to-end.
+Execute the quick workflow from @/Users/jeremiahwolf/.claude/grd/workflows/quick.md end-to-end.
 Preserve all workflow gates (validation, task description, planning, execution, state updates, commits).
 </process>

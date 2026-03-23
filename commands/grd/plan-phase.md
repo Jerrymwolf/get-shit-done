@@ -2,7 +2,7 @@
 name: gsd:plan-phase
 description: Create detailed phase plan (PLAN.md) with verification loop
 argument-hint: "[phase] [--auto] [--research] [--skip-research] [--gaps] [--skip-verify] [--prd <file>]"
-agent: gsd-r-planner
+agent: grd-planner
 allowed-tools:
   - Read
   - Write
@@ -18,12 +18,12 @@ Create executable phase prompts (PLAN.md files) for a roadmap phase with integra
 
 **Default flow:** Research (if needed) → Plan → Verify → Done
 
-**Orchestrator role:** Parse arguments, validate phase, research domain (unless skipped), spawn gsd-r-planner, verify with gsd-r-plan-checker, iterate until pass or max iterations, present results.
+**Orchestrator role:** Parse arguments, validate phase, research domain (unless skipped), spawn grd-planner, verify with grd-plan-checker, iterate until pass or max iterations, present results.
 </objective>
 
 <execution_context>
-@/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/plan-phase.md
-@/Users/jeremiahwolf/.claude/get-shit-done-r/references/ui-brand.md
+@/Users/jeremiahwolf/.claude/grd/workflows/plan-phase.md
+@/Users/jeremiahwolf/.claude/grd/references/ui-brand.md
 </execution_context>
 
 <context>
@@ -40,6 +40,6 @@ Normalize phase input in step 2 before any directory lookups.
 </context>
 
 <process>
-Execute the plan-phase workflow from @/Users/jeremiahwolf/.claude/get-shit-done-r/workflows/plan-phase.md end-to-end.
+Execute the plan-phase workflow from @/Users/jeremiahwolf/.claude/grd/workflows/plan-phase.md end-to-end.
 Preserve all workflow gates (validation, research, planning, verification loop, routing).
 </process>
