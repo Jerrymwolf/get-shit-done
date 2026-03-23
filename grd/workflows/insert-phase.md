@@ -13,7 +13,7 @@ Parse the command arguments:
 - First argument: integer phase number to insert after
 - Remaining arguments: phase description
 
-Example: `/grd:insert-inquiry 72 Fix critical auth bug`
+Example: `/grd:insert-phase 72 Fix critical auth bug`
 -> after = 72
 -> description = "Fix critical auth bug"
 
@@ -21,8 +21,8 @@ If arguments missing:
 
 ```
 ERROR: Both phase number and description required
-Usage: /grd:insert-inquiry <after> <description>
-Example: /grd:insert-inquiry 72 Fix critical auth bug
+Usage: /grd:insert-phase <after> <description>
+Example: /grd:insert-phase 72 Fix critical auth bug
 ```
 
 Exit.
@@ -93,7 +93,7 @@ Project state updated: .planning/STATE.md
 
 **Phase {decimal_phase}: {description}** -- urgent insertion
 
-`/grd:plan-inquiry {decimal_phase}`
+`/grd:plan-phase {decimal_phase}`
 
 <sub>`/clear` first -> fresh context window</sub>
 
@@ -111,11 +111,11 @@ Project state updated: .planning/STATE.md
 
 <anti_patterns>
 
-- Don't use this for planned work at end of milestone (use /grd:add-inquiry)
+- Don't use this for planned work at end of milestone (use /grd:add-phase)
 - Don't insert before Phase 1 (decimal 0.1 makes no sense)
 - Don't renumber existing phases
 - Don't modify the target phase content
-- Don't create plans yet (that's /grd:plan-inquiry)
+- Don't create plans yet (that's /grd:plan-phase)
 - Don't commit changes (user decides when to commit)
 </anti_patterns>
 

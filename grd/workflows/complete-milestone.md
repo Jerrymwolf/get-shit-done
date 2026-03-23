@@ -82,7 +82,7 @@ Requirements: {N}/{M} v1 requirements checked off
 
 MUST present 3 options:
 1. **Proceed anyway** — mark milestone complete with known gaps
-2. **Run audit first** — `/grd:audit-study` to assess gap severity
+2. **Run audit first** — `/grd:audit-milestone` to assess gap severity
 3. **Abort** — return to development
 
 If user selects "Proceed anyway": note incomplete requirements in MILESTONES.md under `### Known Gaps` with REQ-IDs and descriptions.
@@ -122,70 +122,6 @@ Wait for confirmation.
 
 </step>
 
-<step name="validate_synthesis">
-
-Check if synthesis is required for this study and validate synthesis outputs.
-
-**1. Read synthesis config:**
-
-```bash
-# Read config.workflow.synthesis via configWithDefaults()
-# Values: 'required', 'recommended', 'optional', false
-```
-
-**2. If synthesis is `false` or `optional` and no synthesis outputs exist:**
-Skip this step, proceed to gather_stats.
-
-**3. If synthesis is `required` or `recommended` and synthesis outputs exist:**
-Validate all expected synthesis outputs:
-
-- Check `{vault_path}/00-THEMES.md` exists
-- Check `{vault_path}/00-FRAMEWORK.md` exists
-- Check `{vault_path}/00-GAPS.md` exists
-- Check `{vault_path}/00-Executive-Summary.md` exists
-- Verify Executive Summary references all themes from THEMES.md (grep for theme names from `### Theme` headers)
-
-**4. If synthesis is `required` and outputs are MISSING:**
-
-```
-AskUserQuestion(
-  header: "Synthesis Required",
-  question: "This review type requires synthesis but synthesis outputs are missing.",
-  options: [
-    "Run /grd:synthesize" -- "Complete synthesis first, then return to complete-study",
-    "Proceed anyway" -- "Complete study with gaps noted in the completion report",
-    "Abort" -- "Return to development"
-  ]
-)
-```
-
-- **"Run /grd:synthesize":** Exit with instruction to run `/grd:synthesize` first, then return.
-- **"Proceed anyway":** Continue with gaps noted in completion output.
-- **"Abort":** Exit workflow.
-
-**5. Study stats collection (D-16):**
-
-After synthesis validation, collect brief research stats:
-
-- **Note count:** Count `.md` files in vault (excluding `00-*` prefixed files and files in `-sources/` directories)
-- **Source count:** Count files in all `-sources/` directories across the vault
-- **Theme count:** Count `### Theme` headers in `00-THEMES.md` (if exists)
-- **Gap count:** Count `### Gap` headers in `00-GAPS.md` (if exists)
-- **Verification status:** Read from latest VERIFICATION.md
-
-Include these stats in the completion output report:
-
-```
-Study Stats:
-- Research notes: {note_count}
-- Sources acquired: {source_count}
-- Themes identified: {theme_count}
-- Gaps identified: {gap_count}
-- Verification: {status}
-```
-
-</step>
-
 <step name="gather_stats">
 
 Calculate milestone statistics:
@@ -220,7 +156,7 @@ Extract one-liners from SUMMARY.md files using summary-extract:
 ```bash
 # For each phase in milestone, extract one-liner
 for summary in .planning/phases/*-*/*-SUMMARY.md; do
-  node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" summary-extract "$summary" --fields one_liner | jq -r '.one_liner'
+  node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" summary-extract "$summary" --fields one_liner --pick one_liner
 done
 ```
 
@@ -594,7 +530,7 @@ Check branching strategy and offer merge options.
 Use `init milestone-op` for context, or load config directly:
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init conduct-inquiry "1")
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init execute-phase "1")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

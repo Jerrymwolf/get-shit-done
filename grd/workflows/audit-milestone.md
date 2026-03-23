@@ -105,7 +105,7 @@ For each phase's VERIFICATION.md, extract the expanded requirements table:
 For each phase's SUMMARY.md, extract `requirements-completed` from YAML frontmatter:
 ```bash
 for summary in .planning/phases/*-*/*-SUMMARY.md; do
-  node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" summary-extract "$summary" --fields requirements_completed | jq -r '.requirements_completed'
+  node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" summary-extract "$summary" --fields requirements_completed --pick requirements_completed
 done
 ```
 
@@ -133,7 +133,7 @@ For each REQ-ID, determine status using all three sources:
 Skip if `workflow.nyquist_validation` is explicitly `false` (absent = enabled).
 
 ```bash
-NYQUIST_CONFIG=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config get workflow.nyquist_validation --raw 2>/dev/null)
+NYQUIST_CONFIG=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" config-get workflow.nyquist_validation --raw 2>/dev/null)
 ```
 
 If `false`: skip entirely.
@@ -221,7 +221,7 @@ All requirements covered. Cross-phase integration verified. E2E flows complete.
 
 **Complete milestone** — archive and tag
 
-/grd:complete-study {version}
+/grd:complete-milestone {version}
 
 <sub>/clear first → fresh context window</sub>
 
@@ -274,7 +274,7 @@ Phases needing validation: run `/grd:validate-phase {N}` for each flagged phase.
 
 **Also available:**
 - cat .planning/v{version}-MILESTONE-AUDIT.md — see full report
-- /grd:complete-study {version} — proceed anyway (accept tech debt)
+- /grd:complete-milestone {version} — proceed anyway (accept tech debt)
 
 ───────────────────────────────────────────────────────────────
 
@@ -304,7 +304,7 @@ All requirements met. No critical blockers. Accumulated tech debt needs review.
 
 **A. Complete milestone** — accept debt, track in backlog
 
-/grd:complete-study {version}
+/grd:complete-milestone {version}
 
 **B. Plan cleanup phase** — address debt before completing
 

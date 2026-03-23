@@ -11,15 +11,15 @@ Read all files referenced by the invoking prompt's execution_context before star
 <step name="parse_arguments">
 Parse the command arguments:
 - All arguments become the phase description
-- Example: `/grd:add-inquiry Add authentication` → description = "Add authentication"
-- Example: `/grd:add-inquiry Fix critical performance issues` → description = "Fix critical performance issues"
+- Example: `/grd:add-phase Add authentication` → description = "Add authentication"
+- Example: `/grd:add-phase Fix critical performance issues` → description = "Fix critical performance issues"
 
 If no arguments provided:
 
 ```
 ERROR: Phase description required
-Usage: /grd:add-inquiry <description>
-Example: /grd:add-inquiry Add authentication system
+Usage: /grd:add-phase <description>
+Example: /grd:add-phase Add authentication system
 ```
 
 Exit.
@@ -36,7 +36,7 @@ if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 Check `roadmap_exists` from init JSON. If false:
 ```
 ERROR: No roadmap found (.planning/ROADMAP.md)
-Run /grd:new-research to initialize.
+Run /grd:new-project to initialize.
 ```
 Exit.
 </step>
@@ -87,14 +87,14 @@ Roadmap updated: .planning/ROADMAP.md
 
 **Phase {N}: {description}**
 
-`/grd:plan-inquiry {N}`
+`/grd:plan-phase {N}`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/grd:add-inquiry <description>` — add another phase
+- `/grd:add-phase <description>` — add another phase
 - Review roadmap
 
 ---

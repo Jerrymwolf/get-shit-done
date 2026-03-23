@@ -1,10 +1,7 @@
 <purpose>
-Validate built features through conversational testing with persistent state. Creates UAT.md that tracks test progress, survives /clear, and feeds gaps into /grd:plan-inquiry --gaps.
+Validate built features through conversational testing with persistent state. Creates UAT.md that tracks test progress, survives /clear, and feeds gaps into /grd:plan-phase --gaps.
 
 User tests, Claude records. One test at a time. Plain text responses.
-
-Flags:
-- --skip-tier0: Skip Tier 0 sufficiency check, run only Tier 1 (goal-backward) and Tier 2 (source audit)
 </purpose>
 
 <philosophy>
@@ -27,155 +24,11 @@ No Pass/Fail buttons. No severity questions. Just: "Here's what should happen. D
 If $ARGUMENTS contains a phase number, load context:
 
 ```bash
-INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init verify-inquiry "${PHASE_ARG}")
+INIT=$(node "/Users/jeremiahwolf/.claude/grd/bin/grd-tools.cjs" init verify-work "${PHASE_ARG}")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 
-Parse JSON for: `planner_model`, `checker_model`, `commit_docs`, `phase_found`, `phase_dir`, `phase_number`, `phase_name`, `has_verification`, `review_type`, `epistemological_stance`, `researcher_tier`, `temporal_positioning`.
-
-Also parse `$ARGUMENTS` for `--skip-tier0` flag:
-```
-SKIP_TIER0=false
-if [[ "$ARGUMENTS" == *"--skip-tier0"* ]]; then
-  SKIP_TIER0=true
-fi
-```
-</step>
-
-<researcher_tier>
-## Communication Style: ${researcher_tier}
-
-<tier-guided>
-**When reporting verification results:**
-- Explain what each check means before stating pass/fail
-- When something fails, explain WHY it matters (not just that it failed)
-- Suggest specific next steps for each failure
-- Use plain language alongside technical terms
-</tier-guided>
-<tier-standard>
-**When reporting verification results:**
-- State what failed with the relevant standard
-- Include the specific requirement that was not met
-- Brief rationale for why the check exists
-</tier-standard>
-<tier-expert>
-**When reporting verification results:**
-- Terse failure statements only
-- Requirement ID + failure description
-- No elaboration unless ambiguous
-</tier-expert>
-</researcher_tier>
-
-<step name="tier0_sufficiency" priority="after-init">
-**Tier 0: Evidence Sufficiency Assessment**
-
-This step runs structural sufficiency checks before the existing UAT-based verification flow.
-Tier 0 runs before Tier 1 and Tier 2 in the verification pipeline.
-
-**If --skip-tier0 is present (SKIP_TIER0=true):**
-
-Output in the verification report:
-```
-## Tier 0: Sufficiency Assessment
-Skipped (--skip-tier0)
-```
-
-Proceed directly to existing verification (check_active_session).
-
-**If --skip-tier0 is NOT present:**
-
-Run structural sufficiency checks using verify-sufficiency.cjs module:
-
-1. **Discover all research notes in the vault:**
-   ```bash
-   # Use the project's vault directory structure
-   # Notes live in {Study}-Research/ subdirectories organized by inquiry
-   ```
-
-2. **Parse objectives from REQUIREMENTS.md:**
-   ```bash
-   cat .planning/REQUIREMENTS.md
-   ```
-
-3. **Run verifySufficiency(notes, objectives, config)** where config includes:
-   - review_type: from init JSON (default 'narrative')
-   - epistemological_stance: from init JSON (default 'pragmatist')
-   - workflow.temporal_positioning: from init JSON
-
-4. **Qualitative assessment** (agent performs these, not CJS):
-   - **Saturation check:** Read Key Findings from the last 3 notes (sorted by date). If all 3 confirm existing themes without introducing new concepts, note "Evidence appears saturated." If they extend or introduce new themes, note "Evidence still diversifying."
-   - **Epistemological consistency:** If stance is 'pragmatist', output "Pragmatist stance: methodological flexibility expected. (AUTO-PASS)". For other stances, assess whether source selection and evidence quality patterns are consistent with the declared stance. Output as warning only, never blocking.
-
-5. **Format Tier 0 report section:**
-   ```markdown
-   ## Tier 0: Sufficiency Assessment
-
-   ### Coverage Summary
-   | Objective | Notes | Required | Status |
-   |-----------|-------|----------|--------|
-   | OBJ-01   | 4     | 3        | PASS   |
-   | OBJ-02   | 1     | 3        | GAP    |
-
-   ### Era Coverage
-   [distribution table] -- X/4 eras (PASS/GAP)
-
-   ### Methodological Diversity
-   [per-objective diversity status -- systematic only]
-
-   ### Saturation Assessment
-   Last 3 notes introduced N new themes. Evidence appears [saturated/still diversifying].
-
-   ### Epistemological Consistency
-   [Assessment or auto-pass message]
-
-   **Tier 0 Result:** PASS / INSUFFICIENT
-   ```
-
-6. **If Tier 0 Result is PASS:** Proceed to existing verification (check_active_session for UAT). Include Tier 0 report in verifier agent context for Tier 1/2.
-
-7. **If Tier 0 Result is INSUFFICIENT:** Fire the saturation gate (saturation_gate step).
-</step>
-
-<step name="saturation_gate">
-**CHECKPOINT: Sufficiency Assessment**
-
-Fires only when Tier 0 finds gaps. Uses the standard CHECKPOINT box pattern matching TRAP-02.
-
-Display:
-```
-CHECKPOINT: Sufficiency Assessment
-
-<tier-guided>
-Before running the full verification, GRD checks whether you have enough evidence to draw conclusions. This "sufficiency check" looks at whether each research objective has enough notes, whether your sources cover the right time periods, and whether you have methodological diversity.
-
-The check found these gaps:
-[List each gap from verifySufficiency result]
-
-You have three options:
-[1] **Override and proceed** -- you believe the evidence is sufficient despite the gaps. The verification will continue with Tier 1 (goal-backward) and Tier 2 (source audit) checks. Good if you've intentionally scoped your evidence narrowly.
-[2] **Continue investigating** -- go back to gathering more evidence. Good if you agree there are gaps and want to fill them before verifying.
-[3] **Add a new inquiry** -- create a new line of investigation to address the gaps. Good if the gaps point to a research question you haven't explored yet.
-</tier-guided>
-<tier-standard>
-Tier 0 found the following gaps:
-[List each gap from verifySufficiency result]
-
-[1] Evidence is sufficient -- override and proceed to Tier 1/2 verification
-[2] Continue investigating -- return to /grd:conduct-inquiry to gather more evidence
-[3] Add inquiry -- route to /grd:add-inquiry to create a new line of inquiry
-</tier-standard>
-<tier-expert>
-Gaps: [List each gap from verifySufficiency result]
-
-[1] Override -- proceed to Tier 1/2  [2] Continue investigating  [3] Add inquiry
-</tier-expert>
-```
-
-Wait for user response.
-
-- If user selects [1]: Log override in report ("Tier 0: OVERRIDDEN by researcher"). Proceed to check_active_session. Include Tier 0 report (with override note) in verifier agent context for Tier 1/2.
-- If user selects [2]: Display "Verification paused. Run `/grd:conduct-inquiry {phase}` to continue investigating." Stop.
-- If user selects [3]: Display "Verification paused. Run `/grd:add-inquiry` to add a new line of inquiry, then continue investigating." Stop.
+Parse JSON for: `planner_model`, `checker_model`, `commit_docs`, `phase_found`, `phase_dir`, `phase_number`, `phase_name`, `has_verification`.
 </step>
 
 <step name="check_active_session">
@@ -217,7 +70,7 @@ If no, continue to `create_uat_file`.
 ```
 No active UAT sessions.
 
-Provide a phase number to start testing (e.g., /grd:verify-inquiry 4)
+Provide a phase number to start testing (e.g., /grd:verify-work 4)
 ```
 
 **If no active sessions AND $ARGUMENTS provided:**
@@ -378,6 +231,29 @@ result: skipped
 reason: [user's reason if provided]
 ```
 
+**If response indicates blocked:**
+- "blocked", "can't test - server not running", "need physical device", "need release build"
+- Or any response containing: "server", "blocked", "not running", "physical device", "release build"
+
+Infer blocked_by tag from response:
+- Contains: server, not running, gateway, API → `server`
+- Contains: physical, device, hardware, real phone → `physical-device`
+- Contains: release, preview, build, EAS → `release-build`
+- Contains: stripe, twilio, third-party, configure → `third-party`
+- Contains: depends on, prior phase, prerequisite → `prior-phase`
+- Default: `other`
+
+Update Tests section:
+```
+### {N}. {name}
+expected: {expected}
+result: blocked
+blocked_by: {inferred tag}
+reason: "{verbatim user response}"
+```
+
+Note: Blocked tests do NOT go into the Gaps section (they aren't code issues — they're prerequisite gates).
+
 **If response is anything else:**
 - Treat as issue description
 
@@ -440,8 +316,24 @@ Proceed to `present_test`.
 <step name="complete_session">
 **Complete testing and commit:**
 
+**Determine final status:**
+
+Count results:
+- `pending_count`: tests with `result: [pending]`
+- `blocked_count`: tests with `result: blocked`
+- `skipped_no_reason`: tests with `result: skipped` and no `reason` field
+
+```
+if pending_count > 0 OR blocked_count > 0 OR skipped_no_reason > 0:
+  status: partial
+  # Session ended but not all tests resolved
+else:
+  status: complete
+  # All tests have a definitive result (pass, issue, or skipped-with-reason)
+```
+
 Update frontmatter:
-- status: complete
+- status: {computed status}
 - updated: [now]
 
 Clear Current Test section:
@@ -478,8 +370,8 @@ Present summary:
 ```
 All tests passed. Ready to continue.
 
-- `/grd:plan-inquiry {next}` — Plan next phase
-- `/grd:conduct-inquiry {next}` — Execute next phase
+- `/grd:plan-phase {next}` — Plan next phase
+- `/grd:execute-phase {next}` — Execute next phase
 - `/grd:ui-review {phase}` — visual quality audit (if frontend files were modified)
 ```
 </step>
@@ -536,7 +428,7 @@ Task(
 </planning_context>
 
 <downstream_consumer>
-Output consumed by /grd:conduct-inquiry
+Output consumed by /grd:execute-phase
 Plans must be executable prompts.
 </downstream_consumer>
 """,
@@ -645,7 +537,7 @@ Display: `Max iterations reached. {N} issues remain.`
 Offer options:
 1. Force proceed (execute despite issues)
 2. Provide guidance (user gives direction, retry)
-3. Abandon (exit, user runs /grd:plan-inquiry manually)
+3. Abandon (exit, user runs /grd:plan-phase manually)
 
 Wait for user response.
 </step>
@@ -671,21 +563,9 @@ Plans verified and ready for execution.
 
 ## ▶ Next Up
 
-<tier-guided>
-Fix plans are ready. The next step executes them -- each plan addresses a specific gap found during verification. After execution, you can re-verify to confirm the gaps are closed.
+**Execute fixes** — run fix plans
 
-**Execute fixes** -- run the fix plans
-
-`/clear` then `/grd:conduct-inquiry {phase} --gaps-only`
-</tier-guided>
-<tier-standard>
-**Execute fixes** -- run fix plans
-
-`/clear` then `/grd:conduct-inquiry {phase} --gaps-only`
-</tier-standard>
-<tier-expert>
-`/clear` then `/grd:conduct-inquiry {phase} --gaps-only`
-</tier-expert>
+`/clear` then `/grd:execute-phase {phase} --gaps-only`
 
 ───────────────────────────────────────────────────────────────
 ```
@@ -739,5 +619,5 @@ Default to **major** if unclear. User can correct if needed.
 - [ ] If issues: grd-planner creates fix plans (gap_closure mode)
 - [ ] If issues: grd-plan-checker verifies fix plans
 - [ ] If issues: revision loop until plans pass (max 3 iterations)
-- [ ] Ready for `/grd:conduct-inquiry --gaps-only` when complete
+- [ ] Ready for `/grd:execute-phase --gaps-only` when complete
 </success_criteria>
