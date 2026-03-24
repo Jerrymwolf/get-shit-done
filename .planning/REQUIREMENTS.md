@@ -31,9 +31,9 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 
 ### Template Updates
 
-- [ ] **TPL-01**: Create research-task examples in phase-prompt.md (`<task type="research">` with sources, notes, findings structure)
-- [ ] **TPL-02**: Create research-summary template variant with research frontmatter (sources_acquired, notes_produced, evidence_quality, domains_covered)
-- [ ] **TPL-03**: summary.md template supports dual-purpose frontmatter (code OR research fields)
+- [x] **TPL-01**: Create research-task examples in phase-prompt.md (`<task type="research">` with sources, notes, findings structure)
+- [x] **TPL-02**: Create research-summary template variant with research frontmatter (sources_acquired, notes_produced, evidence_quality, domains_covered)
+- [x] **TPL-03**: summary.md template supports dual-purpose frontmatter (code OR research fields)
 
 ### Help & Organization
 
@@ -72,9 +72,9 @@ Requirements for the Research-Native Purification milestone. Reconceptualize eve
 | AGT-01 | Phase 28 | Complete |
 | AGT-02 | Phase 28 | Complete |
 | AGT-03 | Phase 28 | Complete |
-| TPL-01 | Phase 29 | Pending |
-| TPL-02 | Phase 29 | Pending |
-| TPL-03 | Phase 29 | Pending |
+| TPL-01 | Phase 29 | Complete |
+| TPL-02 | Phase 29 | Complete |
+| TPL-03 | Phase 29 | Complete |
 | HLP-01 | Phase 32 | Complete |
 | HLP-02 | Phase 32 | Complete |
 
