@@ -2,9 +2,9 @@
 
 ## What This Is
 
-GRD is a fork of [get-shit-done-cc](https://github.com/gsd-build/get-shit-done) that replaces code commits with research notes as the atomic unit of work. Where GSD's atomic deliverable is a git commit with source code, GRD's is a research note with its source material physically attached (PDFs, scraped markdown, screenshots in a sibling `-sources/` folder). Everything else stays: fresh subagent contexts, discuss/plan/execute/verify loop, STATE.md, wave parallelism, aggressive atomicity, goal-backward verification.
+GRD is a fork of [get-shit-done-cc](https://github.com/gsd-build/get-shit-done) that replaces code commits with research notes as the atomic unit of work. Where GSD's atomic deliverable is a git commit with source code, GRD's is a research note with its source material physically attached (PDFs, scraped markdown, screenshots in a sibling `-sources/` folder). Every command, agent prompt, template, and workflow speaks research language — methodology, sources, evidence, synthesis — not PM vocabulary.
 
-Shipped v1.0 (MVP) and v1.1 (upstream sync to v1.24.0). ~32K LOC across CJS modules, agent prompts, templates, workflows, and references. Installable via npx like the original GSD. 164 tests passing.
+Shipped v1.0 (MVP), v1.1 (upstream sync to v1.24.0), v1.2 (upstream sync to v1.28.0 + research formulation), and v1.3 (research-native purification). ~32K LOC across CJS modules, agent prompts, templates, workflows, and references. Installable via npx like the original GSD. 300+ tests passing.
 
 ## Core Value
 
@@ -46,18 +46,14 @@ Every research finding is self-contained and auditable — the note plus its act
 - ✓ Standardize all paths (absolute paths, zero namespace leaks) — v1.1
 - ✓ Sync 61 workflow and command files with upstream v1.24.0 — v1.1
 - ✓ Add VERSION file tracking upstream base version (1.24.0) — v1.1
+- ✓ Reconceptualize 7 PM-only commands into research equivalents — v1.3
+- ✓ Reorient all agent prompts and workflow examples with research vocabulary — v1.3
+- ✓ Create research-specific plan task template and summary template variants — v1.3
+- ✓ Reorganize /grd:help around the research workflow — v1.3
 
 ### Active
 
-- Rename GSD-R to GRD — zero old branding in active files — v1.3 Phase 26 ✓
-- Research-native command vocabulary — scope-inquiry, conduct-inquiry, etc. — v1.3 Phase 27 ✓
-- Agent and workflow reorientation — research language in prompts and examples — v1.3 Phase 28 ✓
-- Research template variants — research task types and summary frontmatter — v1.3 Phase 29 ✓
-- Command reconceptualization (diagnostics/corpus) — diagnose, map-corpus, add-verification — v1.3 Phase 30 ✓
-- Command reconceptualization (export/presentation) — export-research, export-clean, presentation-design, output-review — v1.3 Phase 31 ✓
-- Help reorganization — Research Workflow / Utility / Configuration sections — v1.3 Phase 32 ✓
-<!-- v1.3 Upstream Sync + Rename + Source Pipeline Wiring -->
-(See REQUIREMENTS.md for remaining v1.3 requirements: Source Pipeline Wiring, Documentation Rewrite)
+(None — define next milestone requirements with `/grd:new-milestone`)
 
 ### Out of Scope
 
@@ -69,7 +65,7 @@ Every research finding is self-contained and auditable — the note plus its act
 
 ## Context
 
-- **Shipped:** v1.0 on 2026-03-12 (8 phases, 15 plans, 24 requirements); v1.1 on 2026-03-16 (6 phases, 11 plans, 27 requirements)
+- **Shipped:** v1.0 on 2026-03-12, v1.1 on 2026-03-16, v1.2 on 2026-03-22, v1.3 on 2026-03-24
 - **Upstream base:** GSD v1.28.0
 - **Tech stack:** Node.js CommonJS, zero external dependencies, node:test runner
 - **Lines of code:** ~32K across CJS modules, agent prompts, templates, references
@@ -102,9 +98,9 @@ Every research finding is self-contained and auditable — the note plus its act
 | Dependency injection for tool calls in tests | No real HTTP in tests; toolRunner pattern for all external tool calls | ✓ Good |
 | GSD upstream wins for v1.1 sync | Minimizes drift; research layer applied on top of latest upstream | ✓ Good |
 | Keep Note Status + Source Gaps in state.cjs | Research completeness visibility worth the added complexity | ✓ Good |
-| CORE-04 (install.js) N/A for v1.1 | Upstream has no install.js; GRD's installer is fork-specific | ✓ Good |
-| TMPL-01/03 N/A for v1.1 | No upstream agents/ or hooks/ directory; GRD versions are fork-specific | ✓ Good |
 | Keep GRD research-project templates over upstream | DEBATES/FRAMEWORKS/LANDSCAPE/QUESTIONS better fit research workflow | ✓ Good |
+| Reconceptualize not remove PM commands | Nothing removed — every PM feature reframed as research equivalent | ✓ Good |
+| Research-native vocabulary throughout | Methodology/sources/evidence/synthesis language in all user-facing text | ✓ Good |
 
 ## Known Tech Debt
 
@@ -113,18 +109,8 @@ Every research finding is self-contained and auditable — the note plus its act
 - stats.md research-specific metrics deferred
 - 2 stale Skill() namespace calls (plan-phase.md:529, discuss-phase.md:682)
 - `replaceInCurrentMilestone` exported but unused
-
-## Current Milestone: v1.3 Research-Native Purification
-
-**Goal:** Reconceptualize every PM/application-development feature into its research equivalent — nothing removed, everything reframed for scholarly workflows.
-
-**Target features:**
-- Reconceptualize 7 PM-only commands into research equivalents (ship→Obsidian export, debug→diagnose, map-codebase→map corpus, add-tests→add verification criteria, pr-branch→export clean research, ui-phase→presentation design, ui-review→output review)
-- Reorient scope-inquiry and verify-inquiry examples with research vocabulary (replace UI/feature language with methodology/scope/evidence language)
-- Fix remaining "GSD" references in 4 agent files (executor, verifier, plan-checker, roadmapper)
-- Create research-specific plan task template and summary template variants
-- Reorganize `/grd:help` around the research workflow with proper categorization
-- Rewrite template frontmatter for research outputs (sources_acquired, findings, evidence_quality)
+- GSD identity lines remain in 4 agents outside Phase 28 scope (planner, research-synthesizer, nyquist-auditor, phase-researcher)
+- Prose "gsd-tools" references in executor/verifier/plan-checker agents (non-functional)
 
 ---
-*Last updated: 2026-03-23 after Phase 28 complete — agent prompts and workflows speak research language*
+*Last updated: 2026-03-24 after v1.3 milestone complete — all commands, agents, templates, workflows, and help speak research language*

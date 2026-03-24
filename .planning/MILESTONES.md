@@ -1,5 +1,20 @@
 # Milestones
 
+## v1.3 Research-Native Purification (Shipped: 2026-03-24)
+
+**Phases completed:** 5 phases, 8 plans, 13 tasks
+
+**Key accomplishments:**
+
+- GRD branding and research-awareness added to 4 agent prompts (executor, verifier, plan-checker, roadmapper)
+- Research task type with acquisition/synthesis examples in phase-prompt.md and dual-purpose scholarly frontmatter in summary.md
+- Three PM-only commands reconceptualized as research-native tools: diagnose (methodology gaps, source conflicts), map-corpus (knowledge landscape survey), add-verification (evidence checks and source coverage assertions)
+- Rewrote map-codebase and add-tests commands as research-native tools: corpus landscape survey and evidence verification criteria
+- Four PM-oriented output commands reconceptualized as research delivery tools: export-research (Obsidian/manuscript/archive packaging), export-clean (artifact-free sharing), presentation-design (paper/poster/slides/report structure), output-review (6-dimension scholarly quality audit)
+- Complete /grd:help rewrite with Research Workflow / Utility / Configuration sections and research-native descriptions for all 30+ commands
+
+---
+
 ## v1.2 Research Reorientation (Shipped: 2026-03-22)
 
 **Phases completed:** 10 phases (15-24), 39 plans total across v1.0-v1.2
@@ -7,6 +22,7 @@
 **Tests:** 514 passing (18 test files + smoke suite)
 
 **Key accomplishments:**
+
 - Synced to GSD v1.25.1 baseline preserving all research extensions
 - Added research config schema: researcher_tier, review_type, epistemological_stance with smart defaults
 - Migrated namespace from gsd-r to grd with research-native command vocabulary
@@ -18,6 +34,7 @@
 - Added 69-test comprehensive smoke test suite covering structural integrity, CLI routes, config, and E2E pipeline
 
 **Tech debt accepted:**
+
 - Duplicate stateExtractField in state.cjs (carried from v1.1)
 - config-set-model-profile stub in grd-tools.cjs (carried from v1.1)
 - stats.md research metrics deferred
@@ -36,6 +53,7 @@
 **Tests:** 164 passing (9 test files)
 
 **Key accomplishments:**
+
 - Created model-profiles.cjs foundation with 19 GRD agents and upstream v1.24.0 version tracking
 - Synced core.cjs with milestone scoping, profile inheritance, and flexible goal regex
 - Merged state.cjs preserving 7 research extensions alongside 16 upstream functions
@@ -44,6 +62,7 @@
 - Standardized all paths and achieved zero namespace leaks across 175 files
 
 **Tech debt accepted:**
+
 - Duplicate stateExtractField in state.cjs (dead code)
 - config-set-model-profile stub in grd-tools.cjs
 - stats.md research metrics deferred
@@ -61,6 +80,7 @@
 **Lines of code:** ~21K (CJS + agent prompts + templates)
 
 **Key accomplishments:**
+
 - Forked GSD into GRD with independent research-note workflow, templates, Git LFS, and filesystem vault
 - Atomic vault writes — note + sources + SOURCE-LOG.md + git commit with rollback on failure
 - Source acquisition engine with firecrawl→web_fetch→wget fallback chain, content validation, and two-hop traceability
@@ -72,4 +92,3 @@
 **Archive:** `.planning/milestones/v1.0-ROADMAP.md`, `.planning/milestones/v1.0-REQUIREMENTS.md`
 
 ---
-
