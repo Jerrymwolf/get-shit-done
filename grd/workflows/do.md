@@ -38,8 +38,8 @@ Evaluate `$ARGUMENTS` against these routing rules. Apply the **first matching** 
 | If the text describes... | Route to | Why |
 |--------------------------|----------|-----|
 | Starting a new project, "set up", "initialize" | `/grd:new-research` | Needs full project initialization |
-| Mapping or analyzing an existing codebase | `/grd:map-codebase` | Codebase discovery |
-| A bug, error, crash, failure, or something broken | `/grd:debug` | Needs systematic investigation |
+| Mapping or surveying existing sources and literature | `/grd:map-corpus` | Corpus discovery |
+| A methodology gap, source conflict, or analytical dead end | `/grd:diagnose` | Needs systematic investigation |
 | Exploring, researching, comparing, or "how does X work" | `/grd:research-phase` | Domain research before planning |
 | Discussing vision, "how should X look", brainstorming | `/grd:scope-inquiry` | Needs context gathering |
 | A complex task: refactoring, migration, multi-file architecture, system redesign | `/grd:add-phase` | Needs a full phase with plan/build cycle |
@@ -50,11 +50,11 @@ Evaluate `$ARGUMENTS` against these routing rules. Apply the **first matching** 
 | Checking progress, status, "where am I" | `/grd:progress` | Status check |
 | Resuming work, "pick up where I left off" | `/grd:resume-work` | Session restoration |
 | A note, idea, or "remember to..." | `/grd:add-todo` | Capture for later |
-| Adding tests, "write tests", "test coverage" | `/grd:add-tests` | Test generation |
+| Adding evidence checks, source verification, coverage assertions | `/grd:add-verification` | Evidence verification |
 | Completing a milestone, shipping, releasing | `/grd:complete-study` | Milestone lifecycle |
 | A specific, actionable, small task (add feature, fix typo, update config) | `/grd:quick` | Self-contained, single executor |
 
-**Requires `.planning/` directory:** All routes except `/grd:new-research`, `/grd:map-codebase`, `/grd:help`, and `/grd:join-discord`. If the project doesn't exist and the route requires it, suggest `/grd:new-research` first.
+**Requires `.planning/` directory:** All routes except `/grd:new-research`, `/grd:map-corpus`, `/grd:help`, and `/grd:join-discord`. If the project doesn't exist and the route requires it, suggest `/grd:new-research` first.
 
 **Ambiguity handling:** If the text could reasonably match multiple routes, ask the user via AskUserQuestion with the top 2-3 options. For example:
 

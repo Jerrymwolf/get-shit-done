@@ -134,7 +134,7 @@ CONTEXT: [✓ if has_context | - if not]
 - [count] pending — /grd:check-todos to review
 
 ## Active Debug Sessions
-- [count] active — /grd:debug to continue
+- [count] active — /grd:diagnose to continue
 (Only show this section if count > 0)
 
 ## What's Next

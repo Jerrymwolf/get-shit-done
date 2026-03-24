@@ -75,13 +75,13 @@ Use AskUserQuestion:
 - header: "Codebase"
 - question: "I detected existing code in this directory. Would you like to map the codebase first?"
 - options:
-  - "Map codebase first" — Run /grd:map-codebase to understand existing architecture (Recommended)
+  - "Map corpus first" — Run /grd:map-corpus to survey existing sources and literature (Recommended)
   - "Skip mapping" — Proceed with project initialization
 
-**If "Map codebase first":**
+**If "Map corpus first":**
 
 ```
-Run `/grd:map-codebase` first, then return to `/grd:new-research`
+Run `/grd:map-corpus` first, then return to `/grd:new-research`
 ```
 
 Exit command.
